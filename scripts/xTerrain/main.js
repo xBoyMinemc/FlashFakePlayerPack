@@ -1,17 +1,19 @@
 ;;"请注意，这是一份内测版，仅供公测版提供完善意见所用，生命周期约为7~14d";;
 ;;"一切权力归云梦所有";;
-;;"https://github.com/xboyMinemc/";;
+;;"https://github.com/xboyMinemc/FUCKFakePlayerPack";;
 import * as GameTest from "mojang-gametest";
 import { 
 	world,
   Location,
+  Entity,
   BlockLocation,
   EntityQueryOptions,
   EntityRaycastOptions,
   BlockRaycastOptions
   } from "mojang-minecraft";
   
-// import { SimulatedPlayer, Test } from "mojang-gametest";;"不懂";;
+import { xBoyBlocklist } from "../lib/xboyLists/xboyBlocks.js";   //获取特殊方块列表
+import { SimulatedPlayer, Test } from "mojang-gametest";;"不懂";;
 
 const xboySign = "#xboySimSign#";                   ;;"假人标签";;"苦役证";;
 const xboySimCmdHead = "假人";                      ;;" 命令头 ";;
@@ -219,113 +221,6 @@ if(!工具人们.length)return;
 
 
 
-const xBoyBlocklist = [
-  "minecraft:bamboo",    //apple~
-  "minecraft:sapling",   //pen~
-  "minecraft:bamboo_sapling",    //PINEAPPLE
-  "minecraft:scaffolding",
-  "minecraft:snow_layer",
-  "minecraft:fire",
-  "minecraft:campfire",
-  "minecraft:campfire",
-  "minecraft:torch",
-  "minecraft:soul_campfire",
-  "minecraft:soul_torch",
-  "minecraft:soul_fire",
-  "minecraft:sea_pickle",
-  "minecraft:seagrass",
-  "minecraft:kelp",
-  "minecraft:candle",
-  "minecraft:black_candle",
-  "minecraft:blue_candle",
-  "minecraft:brown_candle",
-  "minecraft:cyan_candle",
-  "minecraft:gray_candle",
-  "minecraft:green_candle",
-  "minecraft:light_blue_candle",
-  "minecraft:light_gray_candle",
-  "minecraft:lime_candle",
-  "minecraft:magenta_candle",
-  "minecraft:orange_candle",
-  "minecraft:pink_candle",
-  "minecraft:purple_candle",
-  "minecraft:red_candle",
-  "minecraft:white_candle",
-  "minecraft:yellow_candle",
-  "minecraft:frame",
-  "minecraft:glow_frame",
-  "minecraft:flower_pot",
-  "minecraft:conduit",
-  "minecraft:end_rod",
-  "minecraft:trip_wire",
-  "minecraft:rail",
-  "minecraft:golden_rail",
-  "minecraft:detector_rail",
-  "minecraft:activator_rail",
-  "minecraft:redstone_wire",
-  "minecraft:redstone_torch",
-  "minecraft:unlit_redstone_torch",
-  "minecraft:powered_comparator",
-  "minecraft:unpowered_comparator",
-  "minecraft:powered_repeater",
-  "minecraft:unpowered_repeater",
-  "minecraft:nether_wart",
-  "minecraft:web",
-  "minecraft:glow_lichen",
-  "minecraft:azalea",
-  "minecraft:azalea_leaves",
-  "minecraft:azalea_leaves_flowered",
-  "minecraft:flowering_azalea",
-  "minecraft:cave_vines",
-  "minecraft:cave_vines_body_with_berries",
-  "minecraft:cave_vines_head_with_berries",
-  "minecraft:twisting_vines",
-  "minecraft:vine",
-  "minecraft:weeping_vines",
-  "minecraft:waterlily",
-  "minecraft:carpet",
-  "minecraft:moss_carpet",
-  "minecraft:small_dripleaf_block",
-  "minecraft:big_dripleaf",
-  "minecraft:weeping_vines",
-  "minecraft:hanging_roots",
-  "minecraft:deadbush",
-  "minecraft:skull",
-  "minecraft:crimson_fungus",
-  "minecraft:crimson_roots",
-  "minecraft:warped_fungus",
-  "minecraft:warped_roots",
-  "minecraft:brown_mushroom",
-  "minecraft:red_mushroom",
-  "minecraft:spore_blossom",
-  "minecraft:red_flower",
-  "minecraft:yellow_flower",
-  "minecraft:double_plant",
-  "minecraft:wither_rose",
-  "minecraft:cocoa",
-  "minecraft:melon_stem",
-  "minecraft:pumpkin_stem",
-  "minecraft:wheat",
-  "minecraft:potatoes",
-  "minecraft:carrots",
-  "minecraft:beetroot",
-  "minecraft:reeds",
-  "minecraft:flowing_water",
-  "minecraft:water",
-  "minecraft:flowing_lava",
-  "minecraft:lava",
-  "minecraft:leaves",
-  "minecraft:leaves2",
-  "minecraft:mangrove_leaves",
-  "minecraft:lava",
-  "minecraft:flowing_lava",
-  "minecraft:water",
-  "minecraft:flowing_water",
-  "minecraft:air",
-  "minecraft:structure_void"
-];
-
-
 function HightTest128(who){  
   let status = "xboyMinemc-云梦";
   try{
@@ -343,8 +238,7 @@ function HightTest128(who){
 
 world.events.beforeChat.subscribe( M_event => {
 
-  try{ 
-
+  try{
     
     const {message,sender} = M_event;
     const 逼话人 = sender;
@@ -355,11 +249,12 @@ world.events.beforeChat.subscribe( M_event => {
       // let {runCommand} = 逼话人;//愚蠢的尝试行为
       // 逼话人.dimension.spawnEntity("minecraft:player",new BlockLocation(x,y,z));//另一个愚蠢的想法
 
+      // let sim = new Entity()
 
     
     
-      if(消息=="end"){逼话人.teleport(逼话人.location,the_end,0,0)}
-      if(消息=="nether"){逼话人.teleport(逼话人.location,nether,0,0)} 
+      // if(消息=="end"){逼话人.teleport(逼话人.location,the_end,0,0)}
+      // if(消息=="nether"){逼话人.teleport(逼话人.location,nether,0,0)} 
             if(消息.startsWith(xboySimCmdHead)==(true==false)) return;
                消息 = 消息.replace(xboySimCmdHead,"");
             if(消息== "创建"){
@@ -387,7 +282,7 @@ world.events.beforeChat.subscribe( M_event => {
                 let name = "销毁";;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
                 // 逼话人.runCommand(`me loc - ${(__y+1)==y && __y<_y-1} ${x+" "+__y+" "+z} ${逼话人.dimension.getBlock(new BlockLocation(x,__y,z)).id}`);
                                          if(!((__y+1)==y)){
-                                            ;;(__y> _y - 3)  ? 逼话人.runCommand(`tellraw @s {"rawtext":[{"text":"§e§l-所站立位置非安全点，太高辣"}]}`) : 0;;
+                                            ;;(__y> _y - 3)             ? 逼话人.runCommand(`tellraw @s {"rawtext":[{"text":"§e§l-所站立位置非安全点，太高辣"}]}`) : 0;;
                                             ;;(__y<(_y==319 ? -62 : 2)) ? 逼话人.runCommand(`tellraw @s {"rawtext":[{"text":"§e§l-所站立位置非安全点，太低辣"}]}`) : 0;;
                                             ;;(__y> _y - 3) || (__y<(_y==319 ? -62 : 2)) ? 0: 逼话人.runCommand(`tellraw @s {"rawtext":[{"text":"§e§l-所站立位置非安全点，此坐标安全点位于Y：${__y}"}]}`);;
                                             ;;return;;;
@@ -396,12 +291,12 @@ world.events.beforeChat.subscribe( M_event => {
                                            };;
                 
                 逼话人.runCommand( `structure save ${name}_1 ${x-1} ${__y+1} ${z-1} ${x+1} ${__y+1} ${z-2} disk`);  ;;"保存原地形";;
-                逼话人.runCommand( `structure save ${name}_0 ${x-3} ${__y-1} ${z-3} ${x} ${__y} ${z} disk`);
+                逼话人.runCommand( `structure save ${name}_0 ${x-3} ${__y-2} ${z-3} ${x} ${__y} ${z} disk`);
                 
                 cmd_(逼话人.dimension, name, `fill ${x-1} ${__y-3} ${z-1} ${x+1} ${__y+1} ${z+1} air 0 replace structure_block`);
                 // cmd_(逼话人.dimension, name, `setblock ${x} ${__y+1} ${z} air 0`);
                 cmd_(逼话人.dimension, name, `structure load ${name}_1 ${x-1} ${__y+1} ${z-2}`);
-                cmd_(逼话人.dimension, name, `structure load ${name}_0 ${x-3} ${__y-1} ${z-3}`);
+                cmd_(逼话人.dimension, name, `structure load ${name}_0 ${x-3} ${__y-2} ${z-3}`);
                   
                 cmd( 逼话人, name, `execute @s ${x} ${__y+1} ${z-3} gametest run 假人行为:${name}`);;;;;;;;;;;;;;;;;;;;;;;"这里缺个令牌桶，限制创建速度，降低高频率下单一临时变量导致的冲突问题可能性";;;;;;;;;;;;;;;;;;;;;;;
                 
@@ -454,7 +349,7 @@ world.events.beforeChat.subscribe( M_event => {
 
               let name = 'xboy' + 眼前的工具人.name.replaceAll(" ","#") + '';
                   眼前的工具人.runCommand( `structure save ${name}_1 ${x-1} ${y+1} ${z-1} ${x+1} ${y+1} ${z-2} disk`);  ;;"保存原地形";;
-                  眼前的工具人.runCommand( `structure save ${name}_0 ${x-3} ${y-1} ${z-3} ${x} ${y} ${z} disk`);
+                  眼前的工具人.runCommand( `structure save ${name}_0 ${x-3} ${y-2} ${z-3} ${x} ${y} ${z} disk`);
                   
               let 眼前的工具人dimension;
                   if(眼前的工具人.dimension == 主世界)眼前的工具人dimension=主世界;
@@ -463,7 +358,7 @@ world.events.beforeChat.subscribe( M_event => {
 
                   xboyTestsList[眼前的工具人.name].succeed();                                                         ;;"抬走";;
                   cmd(眼前的工具人dimension, name, `structure load ${name}_1 ${x-1} ${y+1} ${z-2}`);
-                  cmd(眼前的工具人dimension, name, `structure load ${name}_0 ${x-3} ${y-1} ${z-3}`);
+                  cmd(眼前的工具人dimension, name, `structure load ${name}_0 ${x-3} ${y-2} ${z-3}`);
                     
 
             };
@@ -510,7 +405,7 @@ world.events.beforeChat.subscribe( M_event => {
       M_event.cancel=ture;
        return;
     } catch (err) {
-      // 主世界.runCommand(`me ]假人ERROR[ -  ${err}`)
+      主世界.runCommand(`me ]假人ERROR[ -  ${err}`)
     }
    
 })
