@@ -4,7 +4,7 @@
         "description": "云梦测试包-开启实验测试框架（Gametest）-游戏内输入“假人帮助”",
         "name": "§2§lxboy",
         "uuid": "aa101e99-abb4-448d-b57f-71e9da43053a",
-        "version": [0, 0, 2],
+        "version": [0, 0, 3],
         "min_engine_version": [ 1, 18, 0 ]
     },
     "modules": [
