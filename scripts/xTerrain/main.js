@@ -13,7 +13,7 @@ import {
   } from "mojang-minecraft";
   
 import { xBoyBlocklist } from "../lib/xboyLists/xboyBlocks.js";   //获取特殊方块列表
-import { SimulatedPlayer, Test } from "mojang-gametest";;"不懂";;
+// import { SimulatedPlayer, Test } from "mojang-gametest";;"不懂";;
 
 const xboySign = "#xboySimSign#";                   ;;"假人标签";;"苦役证";;
 const xboySimCmdHead = "假人";                      ;;" 命令头 ";;
