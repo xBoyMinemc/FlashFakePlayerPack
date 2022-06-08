@@ -1,4 +1,4 @@
-;;"请注意，这是一份内测版，仅供公测版提供完善意见所用，生命周期约为7~14d";;
+;;"请注意，这是一份公测版，仅供正式版版提供完善意见所用，生命周期约为7~14w";;
 ;;"一切权力归云梦所有";;
 ;;"https://github.com/xboyMinemc/FUCKFakePlayerPack";;
 import * as GameTest from "mojang-gametest";
@@ -74,15 +74,20 @@ try {
               工具人.addTag("#xyz#"+x+"#"+(y-2)+"#"+z);;
               xboyTestsList[工具人.name] = test;
               xboyTooleesList[工具人.name] = 工具人
+              工具人.breakBlock(new BlockLocation(+x,y-1,+z))
               工具人们.push(工具人);;;;;
 
     } })
       .maxTicks(tickWaitTimes)
+      // .maxTicks(2)
+      // .maxAttempts(tickWaitTimes)
+      // .requiredSuccessfulAttempts(tickWaitTimes)
+      // .padding(0)
       .structureName("xboyMinemcSIM:void")
   }
 
 } catch (err) {
-  // 主世界.runCommand(`me ${err}`)
+  主世界.runCommand(`me ${err}`)
 }
 
       function 获取眼前的假人实体(逻辑主体,距离){
@@ -189,7 +194,7 @@ if(!工具人们.length)return;
                   let y1 = +源坐标[1];;;;;;;;
                   let z1 = +源坐标[2];;;;;;;;
 
-                  if(((x0-x1)**2+(y0-y1)**2+(z0-z1)**2)>56**2)工具人.teleport(new Location(x1,y1,z1),工具人.dimension,0,0);                                    ;;"回家";;
+                  // if(((x0-x1)**2+(y0-y1)**2+(z0-z1)**2)>56**2)工具人.teleport(new Location(x1,y1,z1),工具人.dimension,0,0);                                    ;;"回家";;
 
       }catch(e){};;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
       try{
@@ -241,27 +246,27 @@ world.events.beforeChat.subscribe( M_event => {
   try{
     
     const {message,sender} = M_event;
-    const 逼话人 = sender;
+    const 发起者 = sender;
     var   消息   = message;
-    let x = +(逼话人.location.x-0.5).toFixed(0);
-    let y = + 逼话人.location.y.toFixed(0);
-    let z = +(逼话人.location.z-0.5).toFixed(0); //for blockLocation
-      // let {runCommand} = 逼话人;//愚蠢的尝试行为
-      // 逼话人.dimension.spawnEntity("minecraft:player",new BlockLocation(x,y,z));//另一个愚蠢的想法
+    let x = +(发起者.location.x-0.5).toFixed(0);
+    let y = + 发起者.location.y.toFixed(0);
+    let z = +(发起者.location.z-0.5).toFixed(0); //for blockLocation
+      // let {runCommand} = 发起者;//愚蠢的尝试行为
+      // 发起者.dimension.spawnEntity("minecraft:player",new BlockLocation(x,y,z));//另一个愚蠢的想法
 
       // let sim = new Entity()
 
     
     
-      // if(消息=="end"){逼话人.teleport(逼话人.location,the_end,0,0)}
-      // if(消息=="nether"){逼话人.teleport(逼话人.location,nether,0,0)} 
+      // if(消息=="end"){发起者.teleport(发起者.location,the_end,0,0)}
+      // if(消息=="nether"){发起者.teleport(发起者.location,nether,0,0)} 
             if(消息.startsWith(xboySimCmdHead)==(true==false)) return;
                消息 = 消息.replace(xboySimCmdHead,"");
             if(消息== "创建"){
               M_event.cancel=ture;
-              if(逼话人.dimension!=主世界){逼话人.runCommand(`tellraw @s {"rawtext":[{"text":"§e§l-此假人模组为主世界限定版"}]}`);return;};
+              if(发起者.dimension!=主世界){发起者.runCommand(`tellraw @s {"rawtext":[{"text":"§e§l-此假人模组为主世界限定版"}]}`);return;};
               let _y,__y;
-              if(HightTest128(逼话人)){_y = 319;__y=-64}else{_y = 127;__y=0};              ;;"可用高度判断";;
+              if(HightTest128(发起者)){_y = 319;__y=-64}else{_y = 127;__y=0};              ;;"可用高度判断";;
               new BlockLocation(x,_y,z).blocksBetween(new BlockLocation(x,__y,z)).forEach(
 
 
@@ -272,33 +277,34 @@ world.events.beforeChat.subscribe( M_event => {
 
 
 
-                {if(Loc.y > __y && !xBoyBlocklist.includes(逼话人.dimension.getBlock(Loc).id))__y=Loc.y})
-
-
+                {if(Loc.y > __y && !xBoyBlocklist.includes(发起者.dimension.getBlock(Loc).id))__y=Loc.y})
 
 
 
 
                 let name = "销毁";;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-                // 逼话人.runCommand(`me loc - ${(__y+1)==y && __y<_y-1} ${x+" "+__y+" "+z} ${逼话人.dimension.getBlock(new BlockLocation(x,__y,z)).id}`);
-                                         if(!((__y+1)==y)){
-                                            ;;(__y> _y - 3)             ? 逼话人.runCommand(`tellraw @s {"rawtext":[{"text":"§e§l-所站立位置非安全点，太高辣"}]}`) : 0;;
-                                            ;;(__y<(_y==319 ? -62 : 2)) ? 逼话人.runCommand(`tellraw @s {"rawtext":[{"text":"§e§l-所站立位置非安全点，太低辣"}]}`) : 0;;
-                                            ;;(__y> _y - 3) || (__y<(_y==319 ? -62 : 2)) ? 0: 逼话人.runCommand(`tellraw @s {"rawtext":[{"text":"§e§l-所站立位置非安全点，此坐标安全点位于Y：${__y}"}]}`);;
+                // 发起者.runCommand(`me loc - ${(__y+1)==y && __y<_y-1} ${x+" "+__y+" "+z} ${发起者.dimension.getBlock(new BlockLocation(x,__y,z)).id}`);
+                
+                // console.error((__y<(_y==319 ? -61 : 2)),(_y==319 ? -61 : 2),__y)
+                                         if(!((__y+1)==y) || __y<-61){
+                                            ;;(__y> _y - 3)             ? 发起者.runCommand(`tellraw @s {"rawtext":[{"text":"§e§l-所站立位置非安全点，太高辣"}]}`) : 0;;
+                                            // console.error((__y<(_y==319 ? -61 : 2)),(_y==319 ? -61 : 2),__y)
+                                            ;;(__y<(_y==319 ? -61 : 2)) ? 发起者.runCommand(`tellraw @s {"rawtext":[{"text":"§e§l-所站立位置非安全点，太低辣"}]}`) : 0;;
+                                            ;;(__y> _y - 3) || (__y<(_y==319 ? -62 : 2)) ? 0: 发起者.runCommand(`tellraw @s {"rawtext":[{"text":"§e§l-所站立位置非安全点，此坐标安全点位于Y：${__y}"}]}`);;
                                             ;;return;;;
                                             ;;
                                             ;;
                                            };;
                 
-                逼话人.runCommand( `structure save ${name}_1 ${x-1} ${__y+1} ${z-1} ${x+1} ${__y+1} ${z-2} disk`);  ;;"保存原地形";;
-                逼话人.runCommand( `structure save ${name}_0 ${x-3} ${__y-2} ${z-3} ${x} ${__y} ${z} disk`);
+                发起者.runCommand( `structure save ${name}_1 ${x-1} ${__y+1} ${z-1} ${x+1} ${__y+1} ${z-2} disk`);  ;;"保存原地形";;
+                发起者.runCommand( `structure save ${name}_0 ${x-3} ${__y-2} ${z-3} ${x} ${__y} ${z} disk`);
                 
-                cmd_(逼话人.dimension, name, `fill ${x-1} ${__y-3} ${z-1} ${x+1} ${__y+1} ${z+1} air 0 replace structure_block`);
-                // cmd_(逼话人.dimension, name, `setblock ${x} ${__y+1} ${z} air 0`);
-                cmd_(逼话人.dimension, name, `structure load ${name}_1 ${x-1} ${__y+1} ${z-2}`);
-                cmd_(逼话人.dimension, name, `structure load ${name}_0 ${x-3} ${__y-2} ${z-3}`);
+                cmd_(发起者.dimension, name, `fill ${x-1} ${__y-3} ${z-1} ${x+1} ${__y+1} ${z+1} air 0 replace structure_block`);
+                // cmd_(发起者.dimension, name, `setblock ${x} ${__y+1} ${z} air 0`);
+                cmd_(发起者.dimension, name, `structure load ${name}_1 ${x-1} ${__y+1} ${z-2}`);
+                cmd_(发起者.dimension, name, `structure load ${name}_0 ${x-3} ${__y-2} ${z-3}`);
                   
-                cmd( 逼话人, name, `execute @s ${x} ${__y+1} ${z-3} gametest run 假人行为:${name}`);;;;;;;;;;;;;;;;;;;;;;;"这里缺个令牌桶，限制创建速度，降低高频率下单一临时变量导致的冲突问题可能性";;;;;;;;;;;;;;;;;;;;;;;
+                cmd( 发起者, name, `execute @s ${x} ${__y+1} ${z-3} gametest run 假人行为:${name}`);;;;;;;;;;;;;;;;;;;;;;;"这里缺个令牌桶，限制创建速度，降低高频率下单一临时变量导致的冲突问题可能性";;;;;;;;;;;;;;;;;;;;;;;
                 
                 
                   
@@ -311,12 +317,12 @@ world.events.beforeChat.subscribe( M_event => {
             };
             if(消息== "列表"){
 
-              for(let i in 工具人们)if(工具人们[i])逼话人.runCommand(`tellraw @s {"rawtext":[{"text":"§e§l-序号：${i} ## 生成名称: ${工具人们[i].name}"}]}`);return;
+              for(let i in 工具人们)if(工具人们[i])发起者.runCommand(`tellraw @s {"rawtext":[{"text":"§e§l-序号：${i} ## 生成名称: ${工具人们[i].name}"}]}`);return;
                 
             };
             if(消息== "攻击"){
 
-              let 眼前的工具人 = 获取眼前的假人实体(逼话人, 16);
+              let 眼前的工具人 = 获取眼前的假人实体(发起者, 16);
                   眼前的工具人. addTag ( 攻击标识符);
                   眼前的工具人.removeTag(挖掘标识符);
                   眼前的工具人.removeTag(自动攻击标识符);
@@ -325,7 +331,7 @@ world.events.beforeChat.subscribe( M_event => {
             if(消息== "自动攻击"){
               
               
-              let 眼前的工具人 = 获取眼前的假人实体(逼话人, 16);
+              let 眼前的工具人 = 获取眼前的假人实体(发起者, 16);
                   眼前的工具人. addTag ( 自动攻击标识符);
                   眼前的工具人.removeTag(挖掘标识符);
                   眼前的工具人.removeTag(攻击标识符);
@@ -334,10 +340,13 @@ world.events.beforeChat.subscribe( M_event => {
             if(消息.startsWith("销毁")){
               
               let 眼前的工具人;
-              if(消息== "销毁")眼前的工具人 = 获取眼前的假人实体(逼话人, 16);
+              if(消息== "销毁")眼前的工具人 = 获取眼前的假人实体(发起者, 16);
               if(消息.startsWith("销毁 "))眼前的工具人 = 工具人们[+消息.replace("销毁 ","")]
               let 源坐标;
-              let 标签们 = 眼前的工具人.getTags();
+              let 标签们;
+              if(眼前的工具人)标签们 = 眼前的工具人.getTags()
+                else  发起者.runCommand(`tellraw @s {"rawtext":[{"text":"§e§l-光标方向，15格内没找到相关实体,请使用“假人销毁+数字序号”的方式完成销毁"}]}`)
+                
               // for(let i in 标签们)眼前的工具人.runCommand(`me ${i} ${标签们[i]}`);;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
               for(let i in 标签们)if(标签们[i].startsWith("#xyz#"))源坐标=标签们[i].replace("#xyz#","").split("#");
 
@@ -365,7 +374,7 @@ world.events.beforeChat.subscribe( M_event => {
             if(消息== "挖掘" && 0){
               
               
-              let 眼前的工具人 = 获取眼前的假人实体(逼话人, 16);
+              let 眼前的工具人 = 获取眼前的假人实体(发起者, 16);
                   眼前的工具人.breakBlock(new BlockLocation(x,y-1,z))
                   眼前的工具人. addTag ( 挖掘标识符);
                   眼前的工具人.removeTag(攻击标识符);
@@ -374,13 +383,13 @@ world.events.beforeChat.subscribe( M_event => {
             };
             if(消息== "扭头"){
 
-              let 眼前的工具人 = 获取眼前的假人实体(逼话人, 16);
-                  眼前的工具人.lookAtEntity(逼话人);
+              let 眼前的工具人 = 获取眼前的假人实体(发起者, 16);
+                  眼前的工具人.lookAtEntity(发起者);
 
             };
             if(消息== "停止"){
 
-              let 眼前的工具人 = 获取眼前的假人实体(逼话人, 16);
+              let 眼前的工具人 = 获取眼前的假人实体(发起者, 16);
 
               眼前的工具人.removeTag(攻击标识符);
               眼前的工具人.removeTag(自动攻击标识符);
@@ -389,23 +398,23 @@ world.events.beforeChat.subscribe( M_event => {
             if(消息== "移动"){
 
 
-            let 假人 = 获取眼前的假人实体(逼话人,15);
+            let 假人 = 获取眼前的假人实体(发起者,15);
              ! (假人)
-             ?  逼话人.runCommand(`tellraw @s {"rawtext":[{"text":"§e§l-光标方向，15格内没找到相关实体"}]}`)
-             :  假人.teleport(逼话人.location,主世界,0,0);;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+             ?  发起者.runCommand(`tellraw @s {"rawtext":[{"text":"§e§l-光标方向，15格内没找到相关实体"}]}`)
+             :  假人.teleport(发起者.location,主世界,0,0);;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
              ;  
              ;  
              ;
             };
             if(消息== "帮助"){
-              ["###部分功能需要光标对准假人","创建","列表","攻击","自动攻击","销毁","销毁 0" ,"销毁 1","销毁 + 列表标号","扭头","停止","移动","#赠品：输入tps开/tps关","#赞助作者烂活？得了吧。。"].forEach((text)=>逼话人.runCommand(`tellraw @s {"rawtext":[{"text":"§e§l-${text}"}]}`))
+              ["###部分功能需要光标对准假人","创建","列表","攻击","自动攻击","销毁","销毁 0" ,"销毁 1","销毁 + 列表标号","扭头","停止","移动","#赠品：输入tps开/tps关","#赞助作者烂活？得了吧。。"].forEach((text)=>发起者.runCommand(`tellraw @s {"rawtext":[{"text":"§e§l-${text}"}]}`))
             
 
             };
       M_event.cancel=ture;
        return;
-    } catch (err) {
-      主世界.runCommand(`me ]假人ERROR[ -  ${err}`)
+    } catch (err) {//${err}
+      主世界.runCommand(`me 【假人ERROR】${unescape("\u000a")}* 你触发了一个错误   ${unescape("\u000a")}* 考虑你没对准，歪了`)
     }
    
 })
