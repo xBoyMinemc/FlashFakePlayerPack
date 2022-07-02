@@ -2,16 +2,16 @@
     "format_version": 2,
     "header": {
         "description": "云梦测试包1.19-开启实验测试框架（Gametest）-游戏内输入“假人帮助”",
-        "name": "§2§lFUCKfakePlayerPack v0.3.1",
+        "name": "§2§lFUCKfakePlayerPack v0.4.1",
         "uuid": "aa101e99-abb4-448d-b57f-71e9da43053c",
-        "version": [ 0, 3 ,1 ],
+        "version": [ 0, 4 ,1 ],
         "min_engine_version": [ 1, 19, 0 ]
     },
     "modules": [
         {
             "description": "Plugin Module",
             "type": "script",
-            "uuid": "10101e99-abb4-448d-b57f-71e9da43053c",
+            "uuid": "10101e99-abb4-448d-b57f-71e9da43053d",
             "version": [  0, 1, 0],
             "language": "javascript",
             "entry": "scripts/main/main.js"
