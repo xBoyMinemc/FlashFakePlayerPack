@@ -1,9 +1,9 @@
 # FUCKfakePlayerPack
-FFPP-假人到处是瑕疵&amp;bug&amp;弃坑版
+FFPP-假人~~到处是瑕疵&amp;bug&amp;弃坑~~云梦版
 
 #
 
-凑活修复影响刷怪，时间，随机刻问题
+~~凑活~~修复影响刷怪，时间，随机刻问题
 
 #
 
