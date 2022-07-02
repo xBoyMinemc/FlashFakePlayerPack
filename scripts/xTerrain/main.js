@@ -76,7 +76,9 @@ try {
               xboyTooleesList[工具人.name] = 工具人
               工具人.breakBlock(new BlockLocation(+x,y-1,+z))
               工具人们.push(工具人);;;;;
-              工具人.runCommand('gamerule domobspawning true');
+              工具人.runCommand('gamerule domobspawning true');    "凑活解决刷怪问题"
+              工具人.runCommand('gamerule dodaylightcycle true');  "凑活解决时间问题"
+              工具人.runCommand('gamerule randomtickspeed 1');     "凑活解决tick问题"
 
     } })
       .maxTicks(tickWaitTimes)
