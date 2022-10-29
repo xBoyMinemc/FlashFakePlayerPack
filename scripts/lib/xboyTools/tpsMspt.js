@@ -1,4 +1,4 @@
-import { world } from "mojang-minecraft";
+import { world } from "@minecraft/server";
 
 const overworld = world.getDimension("overworld");
 const nether = world.getDimension("nether");
@@ -32,7 +32,7 @@ if(bbb != time){
     s5Time++
     time = (""+Date.now()).slice(-4,-3)
     try{
-     overworld.runCommand(`title @a[tag=tps] actionbar §e§lTPS:§3${tps}§0#§4MSPT:§e${mspta}-${msptb}§0#§4${msptArray.join(",")}`);
+     overworld.runCommandAsync(`title @a[tag=tps] actionbar §e§lTPS:§3${tps}§0#§4MSPT:§e${mspta}-${msptb}§0#§4${msptArray.join(",")}`);
     }catch(err){
      //眼不见心不烦
     }//try

@@ -1,4 +1,4 @@
-import { world } from "mojang-minecraft";
+import { world } from "@minecraft/server";
 import tpsMspt                 from '../lib/xboyTools/tpsMspt.js';
 
 import "../xTerrain/main.js";
