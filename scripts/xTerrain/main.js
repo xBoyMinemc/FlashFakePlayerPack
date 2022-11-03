@@ -47,7 +47,7 @@ let cmd_ = function(where,what,cmd_String){
     }
 };
 
-let 工具人们 = [];;;;;;;;;;;;;;;;;;;;;
+let 工具人们 = [undefined];;;;;;;;;;;;;;;;;;;;;
 let tickWaitTimes = 20*60*60*24*365;;
 let xboyTestsList = {};;;;;;;;;;;;;;;
 let xboyTooleesList = {};;;;;;;;;;;;;
@@ -66,12 +66,12 @@ try {
           cmd(thing[0],"销毁",thing[1])
 
 
-          let 工具人 = test.spawnSimulatedPlayer(new BlockLocation(0,2,0), `工具人-`);            ;;"xboy";;
+          const 工具人 = test.spawnSimulatedPlayer(new BlockLocation(0,2,0), `工具人-`);            ;;"xboy";;
               工具人.addTag(xboySign);;
               // 工具人.breakBlock(new BlockLocation(0,1,1))
-          let x = (工具人.location.x-0.5)>>0;
-          let y =  工具人.location.y>>0;
-          let z = (工具人.location.z-0.5)>>0; //for blockLocation
+          const x = (工具人.location.x-0.5)>>0;
+          const y =  工具人.location.y>>0;
+          const z = (工具人.location.z-0.5)>>0; //for blockLocation
               工具人.addTag("#xyz#"+x+"#"+(y-2)+"#"+z);;
               xboyTestsList[工具人.name] = test;
               xboyTooleesList[工具人.name] = 工具人
@@ -184,6 +184,7 @@ if(周期<1)return;
    周期=0;
 if(!工具人们.length)return;
     工具人们.forEach((工具人,index)=>{
+      if(!工具人)return;
       try{
                   工具人.hasTag(攻击标识符)
       }catch(e){工具人们[index]=undefined};;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -211,7 +212,9 @@ if(!工具人们.length)return;
       }catch(e){};;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
       try{
                   if(工具人.hasTag(自动攻击标识符))工具人.lookAtEntity(获取附近的非玩家实体(工具人,4)[0]);
-      }catch(e){工具人.runCommandAsync("me "+e)};;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+      }catch(e){
+        //工具人.runCommandAsync("me "+e)
+      };;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
       try{
                   if(工具人.hasTag(自动攻击标识符) && 获取眼前的实体(工具人,4).name!="")工具人.attackEntity(获取眼前的实体(工具人,4));
       }catch(e){};;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -392,7 +395,7 @@ world.events.beforeChat.subscribe( M_event => {
              ;  
              ;
             };
-            const TagsManager =(xboy)=>(minemc)=>(need)=>(add)=>(remove)=>xboy===need?(add.length?add.forEach(t=>minemc.addTag(t)):0,remove.length?remove.forEach(t=>minemc.remove(t)):0):0;
+            const TagsManager =(xboy)=>(minemc)=>(need)=>(add)=>(remove)=>xboy===need?(add.length?add.forEach(t=>minemc.addTag(t)):0,remove.length?remove.forEach(t=>minemc.removeTag(t)):0):0;
             const xboy = TagsManager(消息)(眼前的工具人)
                   xboy("攻击")([攻击标识符])([自动攻击标识符,挖掘标识符])
                   xboy("自动攻击")([自动攻击标识符])([攻击标识符,挖掘标识符])
@@ -401,31 +404,155 @@ world.events.beforeChat.subscribe( M_event => {
                   xboy("停止")([])([攻击标识符,自动攻击标识符,跳跃标识符,挖掘标识符])
                   xboy("开摆")([])([攻击标识符,自动攻击标识符,跳跃标识符,挖掘标识符])
             
+
+
+
+
+            if(消息== "使用"){
+                  眼前的工具人.useItemInSlot(0)?眼前的工具人.stopUsingItem():0
+            };
             if(消息== "开始使用"){
                   眼前的工具人.useItemInSlot(0)
             };
             if(消息== "停止使用"){
                   眼前的工具人.stopUsingItem()
             };
-            if(消息== "开始交互"){
-                  眼前的工具人.interact()
-            };
+            // if(消息== "开始交互"){
+            //       眼前的工具人.interact()
+            // };
             
 
 
             if(消息== "github"){
-              qrcode.generate("github.com/xBoyMinemc", function (str) {发起者.runCommandAsync("tell @s  https://github.com/xBoyMinemc 能不能扫上随缘\u000a"+str.replaceAll("#","\u000a").replaceAll("0","⬛").replaceAll("1","⬜"))})
+              Math.random()>0.5
+              ?
+              qrcode.generate("github.com/xBoyMinemc", function (str) {发起者.runCommandAsync("tell @s  §rhttps://github.com/xBoyMinemc 能不能扫上随缘\u000a"+str.replaceAll("#","\u000a").replaceAll("0","⬛").replaceAll("1","  "))})
+              :
+              qrcode.generate("https://vdse.bdstatic.com//192d9a98d782d9c74c96f09db9378d93.mp4", function (str) {发起者.runCommandAsync("tell @s  §rhttps://github.com/xBoyMinemc 能不能扫上随缘\u000a"+str.replaceAll("#","\u000a").replaceAll("0","⬛").replaceAll("1","  "))})
             };
             if(消息== "帮助"){
-              ["###部分功能需要光标对准假人","创建","列表","扭头","停止","移动","攻击","自动攻击","交换背包","一般操作示例 '假人创建' '假人销毁' '假人交换背包'  ’假人github‘  ’假人help‘","销毁 + 空格 +列表标号","销毁示例","销毁","销毁 0" ,"销毁 1","#赠品：输入'tps开' 或 'tps关'","github","#赞助作者烂活？得了吧。。"].forEach((text)=>发起者.runCommandAsync(`tellraw @s {"rawtext":[{"text":"§e§l-${text}"}]}`))
+              ["###部分功能需要光标对准假人","创建","列表","扭头","停止","移动","使用 # 开始使用 # 停止使用 => 使用鱼竿，鱼钩销毁后会自动抛竿（自动钓鱼）","攻击","自动攻击","交换背包","一般操作示例 '假人创建' '假人销毁' '假人交换背包'  ’假人github‘  ’假人help‘","销毁 + 空格 +列表标号","销毁示例","销毁","销毁 0" ,"销毁 1","#赠品：输入'tps开' 或 'tps关'","https://github.com/xBoyMinemc","输入'假人help'了解更多","#赞助作者烂活？得了吧。。"].forEach((text)=>发起者.runCommandAsync(`tellraw @s {"rawtext":[{"text":"§e§l-${text}"}]}`))
             };
             if(消息== "help"){
-              ["这里是一些技术解释","如果出现莫名其妙的Refer什么什么错误，可能是1.19.40+的垃圾特性，重启即可，有概率因为/reload或进入游戏而出现","1.19.40版本的假人销毁，并不是真正意义上的销毁，可以定期/reload而真正释放","积累过多假人可能会增加不可预测的bug被触发的概率","文件充满汉语是整活","现在依旧是汉语是因为整活把源文件整丢了"].forEach((text)=>发起者.runCommandAsync(`tellraw @s {"rawtext":[{"text":"§e§l-${text}"}]}`))
+              ["§r这里是一些技术解释","假人销毁，或游戏重启后，信息完全丢失","假人可以捡起掉落物品","如果出现莫名其妙的Refer什么什么错误，可能是1.19.40+的垃圾特性，重启即可，有概率因为/reload或进入游戏而出现","1.19.40版本的假人销毁，并不是真正意义上的销毁，可以定期/reload而真正释放","积累过多假人可能会增加不可预测的bug被触发的概率","文件充满汉语是整活","现在依旧是汉语是因为整活把源文件整丢了","输入‘假人github’了解更多"].forEach((text)=>发起者.runCommandAsync(`tellraw @s {"rawtext":[{"text":"§e§l-${text}"}]}`))
             };
-      M_event.cancel=ture;
-       return;
+      
+       return M_event.cancel=ture;;
     } catch (err) {
       主世界.runCommandAsync(`me 【假人ERROR】${unescape("\u000a")}* 你触发了一个错误   ${unescape("\u000a")}* 考虑你没对准，歪了+${err}`)
     }
    
 })
+
+
+
+//xero=> 花了5分钟给你写好了
+// const EventSignal = function() {
+//   this.listeners = new Set();
+//   this.subscribe = function(listener) {
+//       this.listeners.add(listener);
+//       return listener;
+//   };
+//   this.unsubscribe = function(listener) {
+//       this.listeners.delete(listener);
+//   }
+//   this.trigger = function(ev) {
+//       this.listeners.forEach((listener) => listener(ev));
+//   } 
+// }
+
+class EventSignal {
+  listeners = new Set();
+  subscribe(listener) {
+      this.listeners.add(listener);
+      return listener;
+  }
+  unsubscribe(listener) {
+      this.listeners.delete(listener);
+  }
+  trigger(ev) {
+      this.listeners.forEach((listener) => listener(ev));
+  }
+}
+
+
+
+const queue = {};
+
+
+world.events.entityDeadByHurt = {}
+queue.entityDeadByHurt = []
+world.events.entityDeadByHurt.subscribe = (_)=>queue.entityDeadByHurt.push(_)
+
+
+
+world.events.entityHurt.subscribe(event=>{
+  event.hurtEntity.getComponent("minecraft:health").current<=0
+  ?
+  queue.entityDeadByHurt.forEach(func=>func(event))
+  :
+  0
+})
+
+const test = (event)=>event.hurtEntity.dimension.runCommandAsync("me "+(event.hurtEntity.name??event.hurtEntity.nameTag??event.hurtEntity.typeId)+"被杀死"+"\u000a触发自事件world.events.entityDeadByHurt" )
+
+// world.events.entityDeadByHurt.subscribe(test)
+
+
+//-0.07840000092983246
+//加速度测试
+// world.events.tick.subscribe(()=>{
+//   Array.from(world.getPlayers()).forEach(_=>
+//     !((_.velocity.y+0.07840000092983246)==0)
+//     ?_.runCommandAsync("me "+(_.velocity.y+0.07840000092983246)+"\u000a"+_.id)
+//     :0)
+// })
+// "use strict"
+
+world.events.fishHookDespawned = new EventSignal();
+//然后触发直接
+
+const xby可爱捏yes = true;
+// world.events.fishHookDespawned = {}
+// queue.fishHookDespawned = []
+queue.fishHookDespawned_HookArray = new Map();
+queue.fishHookDespawned_TickArray = [];
+// world.events.fishHookDespawned.subscribe = (_)=>queue.fishHookDespawned.push(_)
+
+
+
+world.events.entityCreate.subscribe(event=>{
+  event.entity.typeId === "minecraft:fishing_hook"
+  ?
+  (
+    // event.entity.runCommandAsync("me $$抛竿"+event.entity.typeId ),
+    queue.fishHookDespawned_HookArray.set(event.entity.id,event.entity.getEntitiesFromViewVector({maxDistance:1})[0])
+  )
+  :
+  0
+})
+
+
+world.events.tick.subscribe(()=>{
+  queue.fishHookDespawned_TickArray.length?queue.fishHookDespawned_TickArray.pop()():0;
+  // Array.from(world.getDimension("overworld").getEntities({type:"minecraft:fishing_hook"})).forEach(_=>_.runCommandAsync("me "+_.typeId))
+  const HookIdArray = Array.from(world.getDimension("overworld").getEntities({type:"minecraft:fishing_hook"})).map(Hook=>Hook.id)
+  queue.fishHookDespawned_HookArray.forEach((Fisher,HookId)=>HookIdArray.includes(HookId)?0:(world.events.fishHookDespawned.trigger({HookId:HookId,Fisher:Fisher}),queue.fishHookDespawned_HookArray.delete(HookId)))
+  
+  //写完感觉效率逆天，但想了想，能够有几个钩子，这又不是海鲜市场，满池子钩子里没有一滴水
+})
+
+// world.events.chat.subscribe(_=>{
+//   if(_.message == "a"){
+//     Array.from(world.getDimension("overworld").getEntities({type:"minecraft:fishing_hook"})).forEach(_=>_.runCommandAsync("me "+_.typeId))
+//   }
+// })
+
+
+world.events.fishHookDespawned.subscribe(event=>{
+  // world.getDimension("overworld").runCommandAsync("me ##鱼钩销毁\u000a鱼钩id=>"+event.HookId+"\u000a发起者id=>"+event.Fisher.id);
+  工具人们.forEach(_=> _==undefined?0:_.id===event.Fisher.id?queue.fishHookDespawned_TickArray.push(()=>(_.useItemInSlot(0)?_.stopUsingItem():0)):0)
+})
+
+
+
