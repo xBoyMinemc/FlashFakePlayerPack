@@ -1,18 +1,18 @@
 {
     "format_version": 2,
     "header": {
-        "description": "云梦测试包1.19.40 \u000a开启实验玩法（测试版 API）-游戏内输入“假人帮助”",
-        "name": "§2§lFUCKfakePlayerPack-1.19.40 v0.6.0",
+        "description": "1.19.40 \u000a开启实验玩法（测试版 API）-游戏内输入“假人帮助”",
+        "name": "§2§lFUCKfakePlayerPack-1.19.40-自动钓鱼更新 v0.7.0",
         "uuid": "aa101e99-abb4-448d-b57f-71e9da43053c",
-        "version": [ 0, 6 ,0 ],
+        "version": [ 0, 7 ,0 ],
         "min_engine_version": [ 1, 19, 40 ]
     },
     "modules": [
         {
             "description": "§2§lFUCKfakePlayerPack",
             "type": "script",
-            "uuid": "10101e99-abb4-448d-b57f-71e9da43054f",
-            "version": [  0, 6, 0],
+            "uuid": "10101e99-abc4-448d-ba7f-71e9da43055a",
+            "version": [  0, 7, 0],
             "entry": "scripts/main/main.js"
         }
     ],

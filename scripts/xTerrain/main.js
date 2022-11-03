@@ -480,16 +480,15 @@ class EventSignal {
 const queue = {};
 
 
-world.events.entityDeadByHurt = {}
-queue.entityDeadByHurt = []
-world.events.entityDeadByHurt.subscribe = (_)=>queue.entityDeadByHurt.push(_)
+world.events.entityDeadByHurt = new EventSignal();
+
 
 
 
 world.events.entityHurt.subscribe(event=>{
   event.hurtEntity.getComponent("minecraft:health").current<=0
   ?
-  queue.entityDeadByHurt.forEach(func=>func(event))
+  world.events.entityDeadByHurt.trigger(event)
   :
   0
 })
@@ -519,13 +518,13 @@ queue.fishHookDespawned_HookArray = new Map();
 queue.fishHookDespawned_TickArray = [];
 // world.events.fishHookDespawned.subscribe = (_)=>queue.fishHookDespawned.push(_)
 
-let pp;
+let playerFishingArray = [];
 
 world.events.itemUse.subscribe(event=>{
   event.item.typeId === "minecraft:fishing_rod"
   ?
   (
-    pp = event.source
+    playerFishingArray.push(event.source)
   // event.source.runCommandAsync("me "+(event.source.rotation.x.toFixed(3))+"#"+(event.source.rotation.y.toFixed(3)) )
   )
   :
@@ -536,37 +535,44 @@ world.events.entityCreate.subscribe(event=>{
   event.entity.typeId === "minecraft:fishing_hook"
   ?
   ( 
-    event.entity.runCommandAsync("me $$抛竿者" +"###"+pp.rotation.y ),
-    event.entity.runCommandAsync("me $$抛竿者" +"#"+pp.rotation.y+"**"+event.entity.rotation.y) ,
-    event.entity.runCommandAsync("me $$抛竿"
-    +event.entity.typeId 
-    +around(event.entity.location.x-pp.location.x-pp.velocity.x,0.3)+"#"
-    +around(event.entity.location.y-pp.location.y-pp.velocity.y-1.32,0.001)+"#"
-    +around(event.entity.location.z-pp.location.z-pp.velocity.z,0.3)+"#"
-    +around(pp.rotation.y+event.entity.rotation.y,1)
-    ),
-    event.entity.runCommandAsync("me $$抛竿"
-    +event.entity.typeId 
-    +(event.entity.location.x-pp.location.x-pp.velocity.x).toFixed(5)+"#"
-    +(event.entity.location.y-pp.location.y-pp.velocity.y-1.32).toFixed(5)+"#"
-    +(event.entity.location.z-pp.location.z-pp.velocity.z).toFixed(5)),
-    queue.fishHookDespawned_HookArray.set(event.entity.id,event.entity.getEntitiesFromViewVector({maxDistance:1})[0])
+    
+    // playerFishingArray.forEach(playerFishingArray=>event.entity.runCommandAsync("me $$抛竿"
+    // +event.entity.typeId 
+    // +around(event.entity.location.x-playerFishingArray.location.x-playerFishingArray.velocity.x,0.3)+"#"
+    // +around(event.entity.location.y-playerFishingArray.location.y-playerFishingArray.velocity.y-1.32,0.001)+"#"
+    // +around(event.entity.location.z-playerFishingArray.location.z-playerFishingArray.velocity.z,0.3)+"#"
+    // +around(playerFishingArray.rotation.y+event.entity.rotation.y,3)
+    // )),
+    
+
+    // playerFishingArray.forEach(playerFishingArray=>event.entity.runCommandAsync("me $$抛竿"
+    // +event.entity.typeId 
+    // +(event.entity.location.x-playerFishingArray.location.x-playerFishingArray.velocity.x)+"#"
+    // +(event.entity.location.y-playerFishingArray.location.y-playerFishingArray.velocity.y-1.32)+"#"
+    // +(event.entity.location.z-playerFishingArray.location.z-playerFishingArray.velocity.z)+"#"
+    // +(playerFishingArray.rotation.y+event.entity.rotation.y)
+    // )),
+
+    
+    // queue.fishHookDespawned_HookArray.set(event.entity.id,event.entity.getEntitiesFromViewVector({maxDistance:1})[0])   //旧的方案
+    queue.fishHookDespawned_HookArray.set(
+      event.entity.id,
+      playerFishingArray.find(playerFishingArray=>
+            around(event.entity.location.x-playerFishingArray.location.x-playerFishingArray.velocity.x,0.3) 
+        &&  around(event.entity.location.y-playerFishingArray.location.y-playerFishingArray.velocity.y-1.32,0.001) 
+        &&  around(event.entity.location.z-playerFishingArray.location.z-playerFishingArray.velocity.z,0.3) 
+    // && around(playerFishingArray.rotation.y+event.entity.rotation.y,3) //误差过大，放弃。设计上应该保留上一刻的玩家rotation数据，但，又不是不能用
+    ))
   )
   :
   0
 })
 
-world.events.chat.subscribe(ev=>{
-  if(ev.message == "a"){
-    ev.sender.runCommandAsync("me "+JSON.stringify(Array.from(world.getDimension("overworld").getEntities({type:"minecraft:fishing_hook"})).length))
-    
-    Array.from(world.getDimension("overworld").getEntities({type:"minecraft:fishing_hook"})).forEach(_=>_.runCommandAsync("me "+_.location.x))
-  }
-})
 
-let oo =  1;
+
 
 world.events.tick.subscribe((t)=>{
+  playerFishingArray = [];
   queue.fishHookDespawned_TickArray.length?queue.fishHookDespawned_TickArray.pop()():0;
   // if(t.currentTick%5 ==! 0)return;
   const fishHookArray = Array.from(world.getDimension("overworld").getEntities({type:"minecraft:fishing_hook"}))
@@ -578,10 +584,10 @@ world.events.tick.subscribe((t)=>{
 })
 
 
-// world.events.fishHookDespawned.subscribe(event=>{
-//   world.getDimension("overworld").runCommandAsync("me ##鱼钩销毁\u000a鱼钩id=>"+event.HookId+"\u000a发起者id=>"+event.Fisher.id);
-//   工具人们.forEach(_=> _==undefined?0:_.id===event.Fisher.id?queue.fishHookDespawned_TickArray.push(()=>(_.useItemInSlot(0)?_.stopUsingItem():0)):0)
-// })
+world.events.fishHookDespawned.subscribe(event=>{
+  // world.getDimension("overworld").runCommandAsync("me ##鱼钩销毁\u000a鱼钩id=>"+event.HookId+"\u000a发起者id=>"+event.Fisher.id);
+  工具人们.forEach(_=> _==undefined?0:_.id===event.Fisher.id?queue.fishHookDespawned_TickArray.push(()=>(_.useItemInSlot(0)?_.stopUsingItem():0)):0)
+})
 
 
 
