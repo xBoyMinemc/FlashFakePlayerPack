@@ -519,40 +519,69 @@ queue.fishHookDespawned_HookArray = new Map();
 queue.fishHookDespawned_TickArray = [];
 // world.events.fishHookDespawned.subscribe = (_)=>queue.fishHookDespawned.push(_)
 
+let pp;
 
-
+world.events.itemUse.subscribe(event=>{
+  event.item.typeId === "minecraft:fishing_rod"
+  ?
+  (
+    pp = event.source
+  // event.source.runCommandAsync("me "+(event.source.rotation.x.toFixed(3))+"#"+(event.source.rotation.y.toFixed(3)) )
+  )
+  :
+  0
+})
+const around =(v,r)=> v>-r && v<r;
 world.events.entityCreate.subscribe(event=>{
   event.entity.typeId === "minecraft:fishing_hook"
   ?
-  (
-    // event.entity.runCommandAsync("me $$抛竿"+event.entity.typeId ),
+  ( 
+    event.entity.runCommandAsync("me $$抛竿者" +"###"+pp.rotation.y ),
+    event.entity.runCommandAsync("me $$抛竿者" +"#"+pp.rotation.y+"**"+event.entity.rotation.y) ,
+    event.entity.runCommandAsync("me $$抛竿"
+    +event.entity.typeId 
+    +around(event.entity.location.x-pp.location.x-pp.velocity.x,0.3)+"#"
+    +around(event.entity.location.y-pp.location.y-pp.velocity.y-1.32,0.001)+"#"
+    +around(event.entity.location.z-pp.location.z-pp.velocity.z,0.3)+"#"
+    +around(pp.rotation.y+event.entity.rotation.y,1)
+    ),
+    event.entity.runCommandAsync("me $$抛竿"
+    +event.entity.typeId 
+    +(event.entity.location.x-pp.location.x-pp.velocity.x).toFixed(5)+"#"
+    +(event.entity.location.y-pp.location.y-pp.velocity.y-1.32).toFixed(5)+"#"
+    +(event.entity.location.z-pp.location.z-pp.velocity.z).toFixed(5)),
     queue.fishHookDespawned_HookArray.set(event.entity.id,event.entity.getEntitiesFromViewVector({maxDistance:1})[0])
   )
   :
   0
 })
 
+world.events.chat.subscribe(ev=>{
+  if(ev.message == "a"){
+    ev.sender.runCommandAsync("me "+JSON.stringify(Array.from(world.getDimension("overworld").getEntities({type:"minecraft:fishing_hook"})).length))
+    
+    Array.from(world.getDimension("overworld").getEntities({type:"minecraft:fishing_hook"})).forEach(_=>_.runCommandAsync("me "+_.location.x))
+  }
+})
 
-world.events.tick.subscribe(()=>{
+let oo =  1;
+
+world.events.tick.subscribe((t)=>{
   queue.fishHookDespawned_TickArray.length?queue.fishHookDespawned_TickArray.pop()():0;
-  // Array.from(world.getDimension("overworld").getEntities({type:"minecraft:fishing_hook"})).forEach(_=>_.runCommandAsync("me "+_.typeId))
-  const HookIdArray = Array.from(world.getDimension("overworld").getEntities({type:"minecraft:fishing_hook"})).map(Hook=>Hook.id)
+  // if(t.currentTick%5 ==! 0)return;
+  const fishHookArray = Array.from(world.getDimension("overworld").getEntities({type:"minecraft:fishing_hook"}))
+  // if(fishHookArray.length===0){world.getDimension("overworld").runCommandAsync("me 清空");queue.fishHookDespawned_HookArray.forEach((Fisher,HookId)=>(world.events.fishHookDespawned.trigger({HookId:HookId,Fisher:Fisher}),queue.fishHookDespawned_HookArray.delete(HookId)));return};
+  const HookIdArray = fishHookArray.map(Hook=>Hook.id)
   queue.fishHookDespawned_HookArray.forEach((Fisher,HookId)=>HookIdArray.includes(HookId)?0:(world.events.fishHookDespawned.trigger({HookId:HookId,Fisher:Fisher}),queue.fishHookDespawned_HookArray.delete(HookId)))
   
   //写完感觉效率逆天，但想了想，能够有几个钩子，这又不是海鲜市场，满池子钩子里没有一滴水
 })
 
-// world.events.chat.subscribe(_=>{
-//   if(_.message == "a"){
-//     Array.from(world.getDimension("overworld").getEntities({type:"minecraft:fishing_hook"})).forEach(_=>_.runCommandAsync("me "+_.typeId))
-//   }
+
+// world.events.fishHookDespawned.subscribe(event=>{
+//   world.getDimension("overworld").runCommandAsync("me ##鱼钩销毁\u000a鱼钩id=>"+event.HookId+"\u000a发起者id=>"+event.Fisher.id);
+//   工具人们.forEach(_=> _==undefined?0:_.id===event.Fisher.id?queue.fishHookDespawned_TickArray.push(()=>(_.useItemInSlot(0)?_.stopUsingItem():0)):0)
 // })
-
-
-world.events.fishHookDespawned.subscribe(event=>{
-  // world.getDimension("overworld").runCommandAsync("me ##鱼钩销毁\u000a鱼钩id=>"+event.HookId+"\u000a发起者id=>"+event.Fisher.id);
-  工具人们.forEach(_=> _==undefined?0:_.id===event.Fisher.id?queue.fishHookDespawned_TickArray.push(()=>(_.useItemInSlot(0)?_.stopUsingItem():0)):0)
-})
 
 
 
