@@ -1,6 +1,6 @@
 ;;"请注意，这是一份正式版，预估生命周期约为1~2m";;
 ;;"一切权力归云梦所有";;
-;;"https://github.com/xboyMinemc/FightFakePlayerPack";;
+;;"https://github.com/xboyMinemc/FUCKFakePlayerPack";;
 import * as GameTest from "@minecraft/server-gametest";
 import { 
 	world,
