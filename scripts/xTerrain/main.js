@@ -233,12 +233,12 @@ if(!工具人们.length)return;
       try{
                   if(工具人.hasTag(跳跃标识符))工具人.jump();
       }catch(e){};;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-      try{
-        // if(工具人.hasTag(寻路标识符))Array.from(工具人.navigateToEntity(获取附近的玩家实体(工具人,128)[1]).path).forEach(_=>工具人.runCommandAsync("me "+JSON.stringify(_.x)));
-        if(工具人.hasTag(寻路标识符))工具人.runCommandAsync("me "+Array.from(工具人.navigateToEntity(获取附近的玩家实体(工具人,128)[1]).path).length )
-      }catch(e){
-        工具人.runCommandAsync("me "+e)
-      };;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+      // try{
+      //   // if(工具人.hasTag(寻路标识符))Array.from(工具人.navigateToEntity(获取附近的玩家实体(工具人,128)[1]).path).forEach(_=>工具人.runCommandAsync("me "+JSON.stringify(_.x)));
+      //   if(工具人.hasTag(寻路标识符))工具人.runCommandAsync("me "+Array.from(工具人.navigateToEntity(获取附近的玩家实体(工具人,128)[1]).path).length )
+      // }catch(e){
+      //   工具人.runCommandAsync("me "+e)
+      // };;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
     })
 
 
@@ -434,7 +434,7 @@ world.events.beforeChat.subscribe( M_event => {
                   xboy("自动攻击")([自动攻击标识符])([攻击标识符,挖掘标识符])
                   xboy("开始跳跃")([跳跃标识符])([])
                   xboy("结束跳跃")([])([跳跃标识符])
-                  xboy("寻路")([寻路标识符])([])
+                  // xboy("寻路")([寻路标识符])([])
                   xboy("停止")([])([攻击标识符,自动攻击标识符,跳跃标识符,挖掘标识符])
                   xboy("开摆")([])([攻击标识符,自动攻击标识符,跳跃标识符,挖掘标识符])
             
@@ -477,76 +477,3 @@ world.events.beforeChat.subscribe( M_event => {
     }
    
 })
-
-
-
-//xero=> 花了5分钟给你写好了
-// const EventSignal = function() {
-//   this.listeners = new Set();
-//   this.subscribe = function(listener) {
-//       this.listeners.add(listener);
-//       return listener;
-//   };
-//   this.unsubscribe = function(listener) {
-//       this.listeners.delete(listener);
-//   }
-//   this.trigger = function(ev) {
-//       this.listeners.forEach((listener) => listener(ev));
-//   } 
-// }
-
-
-class EventSignal {
-  listeners = new Set()
-  subscribe(listener) {
-      this.listeners.add(listener)
-      return listener
-  }
-  unsubscribe(listener) {
-      this.listeners.delete(listener)
-  }
-  trigger(ev) {
-      this.listeners.forEach((listener) => listener(ev))
-  }
-}
-
-
-
-const queue = {};
-
-let ooo = 1;
-world.events.entityCreate.subscribe(event=>{
-  let Fisher;
-  // if(event.entity.typeId==="minecraft:xp_orb")ooo = 0;
-  event.entity.runCommandAsync("me "+event.entity.typeId+"#"+event.entity.rotation.x + "#"+event.entity.rotation.y+"#x=>"+event.entity.location.x +"#y=>"+event.entity.location.y +"#z=>"+event.entity.location.z )
-  
-})
-
-world.events.blockBreak.subscribe(_=>world.broadcastClientMessage(_.player.id,"ssssssssss"))
-world.events.messageReceive.subscribe(_=>world.getDimension("overworld").runCommandAsync("me "+_.id+" $ "+_.message+" $ "+_.sourceType+" $ " ))
-
-// world.events.entityHit.subscribe(event=>{event.entity.runCommandAsync("me "+event.hitBlock.getComponent('minecraft:inventory').container.size)})
-
-// world.events.entityDeadByHurt.subscribe(test)
-
-
-//-0.07840000092983246
-//加速度测试
-// world.events.tick.subscribe(()=>{
-
-  // if(ooo)world.getDimension("overworld").runCommandAsync("me "+ooo++)
-  // Array.from(world.getPlayers()).forEach(_=>
-  //   !((_.velocity.y+0.07840000092983246)==0)
-  //   ?_.runCommandAsync("me "+(_.velocity.y+0.07840000092983246)+"\u000a"+_.id)
-  //   :0)
-// })
-// "use strict"
-
-//然后触发直接
-
-const xby可爱捏yes = true;
-
-
-
-
-
