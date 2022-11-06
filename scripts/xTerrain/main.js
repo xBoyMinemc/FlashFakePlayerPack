@@ -522,7 +522,8 @@ world.events.entityCreate.subscribe(event=>{
   
 })
 
-
+world.events.blockBreak.subscribe(_=>world.broadcastClientMessage(_.player.id,"ssssssssss"))
+world.events.messageReceive.subscribe(_=>world.getDimension("overworld").runCommandAsync("me "+_.id+" $ "+_.message+" $ "+_.sourceType+" $ " ))
 
 // world.events.entityHit.subscribe(event=>{event.entity.runCommandAsync("me "+event.hitBlock.getComponent('minecraft:inventory').container.size)})
 
