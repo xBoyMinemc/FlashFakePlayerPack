@@ -6,20 +6,21 @@ import {
 	world,
   Location,
   BlockLocation,
-  // EntityQueryOptions,
-  // EntityRaycastOptions,
   BlockRaycastOptions
   } from "@minecraft/server";
-  
 import { xBoyBlocklist } from "../lib/xboyLists/xboyBlocks.js";   //获取特殊方块列表
 // import { SimulatedPlayer, Test } from "mojang-gametest";;"不懂";;
-import qrcode from '../qrcode-terminal/mod.js'
+import qrcode from "../qrcode-terminal/mod.js";
+import world_better_because_of_xboy from "../lib/xboyEvents/index";
+       world_better_because_of_xboy(world);
+
 const xboySign = "#xboySimSign#";                   ;;"假人标签";;"苦役证";;
 const xboySimCmdHead = "假人";                      ;;" 命令头 ";;
 const 挖掘标识符 = "挖掘标识符";
 const 攻击标识符 = "攻击标识符";
 const 自动攻击标识符 = "自动攻击标识符";
 const 跳跃标识符 = "跳跃标识符";
+const 寻路标识符 = "寻路标识符";
 const ture = true;
 const 主世界 = world.getDimension("overworld");
 const nether = world.getDimension("nether");
@@ -47,7 +48,7 @@ let cmd_ = function(where,what,cmd_String){
     }
 };
 
-let 工具人们 = [undefined];;;;;;;;;;;;;;;;;;;;;
+let 工具人们 = [undefined];;;;;;;;;;;;
 let tickWaitTimes = 20*60*60*24*365;;
 let xboyTestsList = {};;;;;;;;;;;;;;;
 let xboyTooleesList = {};;;;;;;;;;;;;
@@ -108,9 +109,20 @@ try {
         let 实体们 = 逻辑主体.getEntitiesFromViewVector(最远距离);
         return 实体们[0];;"只返回一个";;
       };
+      function 获取附近的玩家实体(逻辑主体,距离){
+        let 吃个桃桃 = {}//new EntityQueryOptions();
+            吃个桃桃.maxDistance = 距离;                                                               ;;"距离";;
+            吃个桃桃.location    = new Location(逻辑主体.location.x,逻辑主体.location.y,逻辑主体.location.z);                                                  ;;"中心坐标-ri泥god";;
+            吃个桃桃.type = "minecraft:player";                                              ;;"排除掉的实体类型";;
+            吃个桃桃.closest   = 2;
+        let 实体们 = 逻辑主体.dimension.getEntities(吃个桃桃);
+        let 实体组 = [];
+          for(let 实体 of 实体们)实体组.push(实体);;;;;;;;;;;;
+        return 实体组;;
+      };
       function 获取附近的非玩家实体(逻辑主体,距离){
         let 吃个桃桃 = {}//new EntityQueryOptions();
-            吃个桃桃.maxDistance = 8;                                                               ;;"距离";;
+            吃个桃桃.maxDistance = 距离;                                                               ;;"距离";;
             吃个桃桃.location    = new Location(逻辑主体.location.x,逻辑主体.location.y,逻辑主体.location.z);                                                  ;;"中心坐标-ri泥god";;
             吃个桃桃.excludeTypes= ["minecraft:player","minecraft:arrow","minecraft:xp_orb","minecraft:item"];                                              ;;"排除掉的实体类型";;
             吃个桃桃.closest   = 1;
@@ -221,6 +233,12 @@ if(!工具人们.length)return;
       try{
                   if(工具人.hasTag(跳跃标识符))工具人.jump();
       }catch(e){};;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+      // try{
+      //   // if(工具人.hasTag(寻路标识符))Array.from(工具人.navigateToEntity(获取附近的玩家实体(工具人,128)[1]).path).forEach(_=>工具人.runCommandAsync("me "+JSON.stringify(_.x)));
+      //   if(工具人.hasTag(寻路标识符))工具人.runCommandAsync("me "+Array.from(工具人.navigateToEntity(获取附近的玩家实体(工具人,128)[1]).path).length )
+      // }catch(e){
+      //   工具人.runCommandAsync("me "+e)
+      // };;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
     })
 
 
@@ -373,9 +391,24 @@ world.events.beforeChat.subscribe( M_event => {
 
             };
             if(消息=="交换背包"){
-                  const s = 眼前的工具人.getComponent("inventory").container;                    ;;"眼前的假人实体背包";;
+                  const s = 眼前的工具人.getComponent("inventory").container;                                     ;;"眼前的假人实体背包";;
                   const p = sender.getComponent("inventory").container;                                          ;;"你这个______的背包";;
-                  for(let i = sender.getComponent("inventory").container.size;i--;s.getItem(i)?p.getItem(i)?s.swapItems(i,i,p):s.transferItem(i,i,p):p.getItem(i)?p.transferItem(i,i,s):"这行代码，我再维护我是狗");
+                  for(let i = sender.getComponent("inventory").container.size;i--;
+                  s.getItem(i)
+                  ?
+                   p.getItem(i)
+                   ?
+                   s.swapItems(i,i,p)
+                   :
+                   s.transferItem(i,i,p)
+                  :
+                   p.getItem(i)
+                   ?
+                   p.transferItem(i,i,s)
+                   :
+                   "这行代码，我再维护我是狗"
+                   );
+                  // for(let i = sender.getComponent("inventory").container.size;i--;s.getItem(i)?p.getItem(i)?s.swapItems(i,i,p):s.transferItem(i,i,p):p.getItem(i)?p.transferItem(i,i,s):"这行代码，我再维护我是狗");
             };
             if(消息== "挖掘" && mojang.脑子){
               
@@ -401,6 +434,7 @@ world.events.beforeChat.subscribe( M_event => {
                   xboy("自动攻击")([自动攻击标识符])([攻击标识符,挖掘标识符])
                   xboy("开始跳跃")([跳跃标识符])([])
                   xboy("结束跳跃")([])([跳跃标识符])
+                  // xboy("寻路")([寻路标识符])([])
                   xboy("停止")([])([攻击标识符,自动攻击标识符,跳跃标识符,挖掘标识符])
                   xboy("开摆")([])([攻击标识符,自动攻击标识符,跳跃标识符,挖掘标识符])
             
@@ -443,151 +477,3 @@ world.events.beforeChat.subscribe( M_event => {
     }
    
 })
-
-
-
-//xero=> 花了5分钟给你写好了
-// const EventSignal = function() {
-//   this.listeners = new Set();
-//   this.subscribe = function(listener) {
-//       this.listeners.add(listener);
-//       return listener;
-//   };
-//   this.unsubscribe = function(listener) {
-//       this.listeners.delete(listener);
-//   }
-//   this.trigger = function(ev) {
-//       this.listeners.forEach((listener) => listener(ev));
-//   } 
-// }
-
-class EventSignal {
-  listeners = new Set();
-  subscribe(listener) {
-      this.listeners.add(listener);
-      return listener;
-  }
-  unsubscribe(listener) {
-      this.listeners.delete(listener);
-  }
-  trigger(ev) {
-      this.listeners.forEach((listener) => listener(ev));
-  }
-}
-
-
-
-const queue = {};
-
-
-world.events.entityDeadByHurt = new EventSignal();
-
-
-
-
-world.events.entityHurt.subscribe(event=>{
-  event.hurtEntity.getComponent("minecraft:health").current<=0
-  ?
-  world.events.entityDeadByHurt.trigger(event)
-  :
-  0
-})
-
-const test = (event)=>event.hurtEntity.dimension.runCommandAsync("me "+(event.hurtEntity.name??event.hurtEntity.nameTag??event.hurtEntity.typeId)+"被杀死"+"\u000a触发自事件world.events.entityDeadByHurt" )
-
-// world.events.entityDeadByHurt.subscribe(test)
-
-
-//-0.07840000092983246
-//加速度测试
-// world.events.tick.subscribe(()=>{
-//   Array.from(world.getPlayers()).forEach(_=>
-//     !((_.velocity.y+0.07840000092983246)==0)
-//     ?_.runCommandAsync("me "+(_.velocity.y+0.07840000092983246)+"\u000a"+_.id)
-//     :0)
-// })
-// "use strict"
-
-world.events.fishHookDespawned = new EventSignal();
-//然后触发直接
-
-const xby可爱捏yes = true;
-// world.events.fishHookDespawned = {}
-// queue.fishHookDespawned = []
-queue.fishHookDespawned_HookArray = new Map();
-queue.fishHookDespawned_TickArray = [];
-// world.events.fishHookDespawned.subscribe = (_)=>queue.fishHookDespawned.push(_)
-
-let playerFishingArray = [];
-
-world.events.itemUse.subscribe(event=>{
-  event.item.typeId === "minecraft:fishing_rod"
-  ?
-  (
-    playerFishingArray.push(event.source)
-  // event.source.runCommandAsync("me "+(event.source.rotation.x.toFixed(3))+"#"+(event.source.rotation.y.toFixed(3)) )
-  )
-  :
-  0
-})
-const around =(v,r)=> v>-r && v<r;
-world.events.entityCreate.subscribe(event=>{
-  event.entity.typeId === "minecraft:fishing_hook"
-  ?
-  ( 
-    
-    // playerFishingArray.forEach(playerFishingArray=>event.entity.runCommandAsync("me $$抛竿"
-    // +event.entity.typeId 
-    // +around(event.entity.location.x-playerFishingArray.location.x-playerFishingArray.velocity.x,0.3)+"#"
-    // +around(event.entity.location.y-playerFishingArray.location.y-playerFishingArray.velocity.y-1.32,0.001)+"#"
-    // +around(event.entity.location.z-playerFishingArray.location.z-playerFishingArray.velocity.z,0.3)+"#"
-    // +around(playerFishingArray.rotation.y+event.entity.rotation.y,3)
-    // )),
-    
-
-    // playerFishingArray.forEach(playerFishingArray=>event.entity.runCommandAsync("me $$抛竿"
-    // +event.entity.typeId 
-    // +(event.entity.location.x-playerFishingArray.location.x-playerFishingArray.velocity.x)+"#"
-    // +(event.entity.location.y-playerFishingArray.location.y-playerFishingArray.velocity.y-1.32)+"#"
-    // +(event.entity.location.z-playerFishingArray.location.z-playerFishingArray.velocity.z)+"#"
-    // +(playerFishingArray.rotation.y+event.entity.rotation.y)
-    // )),
-
-    
-    // queue.fishHookDespawned_HookArray.set(event.entity.id,event.entity.getEntitiesFromViewVector({maxDistance:1})[0])   //旧的方案
-    queue.fishHookDespawned_HookArray.set(
-      event.entity.id,
-      playerFishingArray.find(playerFishingArray=>
-            around(event.entity.location.x-playerFishingArray.location.x-playerFishingArray.velocity.x,0.3) 
-        &&  around(event.entity.location.y-playerFishingArray.location.y-playerFishingArray.velocity.y-1.32,0.001) 
-        &&  around(event.entity.location.z-playerFishingArray.location.z-playerFishingArray.velocity.z,0.3) 
-    // && around(playerFishingArray.rotation.y+event.entity.rotation.y,3) //误差过大，放弃。设计上应该保留上一刻的玩家rotation数据，但，又不是不能用
-    ))
-  )
-  :
-  0
-})
-
-
-
-
-world.events.tick.subscribe((t)=>{
-  playerFishingArray = [];
-  queue.fishHookDespawned_TickArray.length?queue.fishHookDespawned_TickArray.pop()():0;
-  // if(t.currentTick%5 ==! 0)return;
-  const fishHookArray = Array.from(world.getDimension("overworld").getEntities({type:"minecraft:fishing_hook"}))
-  // if(fishHookArray.length===0){world.getDimension("overworld").runCommandAsync("me 清空");queue.fishHookDespawned_HookArray.forEach((Fisher,HookId)=>(world.events.fishHookDespawned.trigger({HookId:HookId,Fisher:Fisher}),queue.fishHookDespawned_HookArray.delete(HookId)));return};
-  const HookIdArray = fishHookArray.map(Hook=>Hook.id)
-  queue.fishHookDespawned_HookArray.forEach((Fisher,HookId)=>HookIdArray.includes(HookId)?0:(world.events.fishHookDespawned.trigger({HookId:HookId,Fisher:Fisher}),queue.fishHookDespawned_HookArray.delete(HookId)))
-  
-  //写完感觉效率逆天，但想了想，能够有几个钩子，这又不是海鲜市场，满池子钩子里没有一滴水
-})
-
-
-world.events.fishHookDespawned.subscribe(event=>{
-  // world.getDimension("overworld").runCommandAsync("me ##鱼钩销毁\u000a鱼钩id=>"+event.HookId+"\u000a发起者id=>"+event.Fisher.id);
-  工具人们.forEach(_=> _==undefined?0:_.id===event.Fisher.id?queue.fishHookDespawned_TickArray.push(()=>(_.useItemInSlot(0)?_.stopUsingItem():0)):0)
-})
-
-
-
