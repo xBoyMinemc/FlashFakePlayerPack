@@ -26,7 +26,7 @@ const 主世界 = world.getDimension("overworld");
 const nether = world.getDimension("nether");
 const the_end = world.getDimension("the end");
 const mojang = {};
-
+const nodebug = false;
 let xboyMinemcSIMlist = {};
 let cmd = function(who,what,cmd_String){
 
@@ -34,7 +34,8 @@ let cmd = function(who,what,cmd_String){
   if(!xboyMinemcSIMlist[what])xboyMinemcSIMlist[what] = [];
       xboyMinemcSIMlist[what].push([who,cmd_String])
     } catch (err) {
-      // 主世界.runCommandAsync(`me ${err}`)
+      if(!nodebug)
+      主世界.runCommandAsync(`me ${err}`)
     }
 };
 let xboyMinemcSIMlist_ = {};
@@ -44,11 +45,12 @@ let cmd_ = function(where,what,cmd_String){
   if(!xboyMinemcSIMlist_[what])xboyMinemcSIMlist_[what] = [];
       xboyMinemcSIMlist_[what].push([where,cmd_String])
     } catch (err) {
-      // 主世界.runCommandAsync(`me ${err}`)
+      if(!nodebug)
+      主世界.runCommandAsync(`me ${err}`)
     }
 };
 
-let 工具人们 = [undefined];;;;;;;;;;;;
+let 工具人们 = [null];;;;;;;;;;;;;//屎山代码啊不是说一定要设计烂，而是你不能动任何一处小细节，存在即有因，就像这个数组里的null一样
 let tickWaitTimes = 20*60*60*24*365;;
 let xboyTestsList = {};;;;;;;;;;;;;;;
 let xboyTooleesList = {};;;;;;;;;;;;;
@@ -98,7 +100,7 @@ try {
       function 获取眼前的假人实体(逻辑主体,距离){
         let 最远距离 = {}//new EntityRaycastOptions();
             最远距离.maxDistance = 距离;                                                              ;;"距离";;
-        let 实体们 = 逻辑主体.getEntitiesFromViewVector(最远距离);
+        let 实体们 = 逻辑主体.getEntitiesFromViewVector(最远距离);// ViewDirection
         let 假人;
         for(let i in 实体们)if(实体们[i].hasTag(xboySign))假人=实体们[i];                              ;;"云梦科技，拯救每一位低血压";;
         return 假人;;"只返回一个";;
@@ -186,8 +188,9 @@ world.events.tick.subscribe(() => {//我()了，这也是一种不（）
       let who = thing[0];
       let cmd_String = thing[1];
   try {
-           who.runCommandAsync(cmd_String).then((res)=>{}).catch((reson)=>{});
-  }catch(err){主世界.runCommandAsync("me 我管这叫加大款双层老年防夜漏纸尿裤"+err)}
+           who.runCommandAsync(cmd_String).then((res)=>0).catch(()=>0);
+  }catch(err){
+      if(!nodebug)主世界.runCommandAsync("me 我管这叫加大款双层老年防夜漏纸尿裤"+err)}
     }
   })
   try {
@@ -226,7 +229,7 @@ if(!工具人们.length)return;
                   if(工具人.hasTag(自动攻击标识符))工具人.lookAtEntity(获取附近的非玩家实体(工具人,4)[0]);
       }catch(e){
         //工具人.runCommandAsync("me "+e)
-      };;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+      };;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
       try{
                   if(工具人.hasTag(自动攻击标识符) && 获取眼前的实体(工具人,4).name!="")工具人.attackEntity(获取眼前的实体(工具人,4));
       }catch(e){};;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -243,7 +246,8 @@ if(!工具人们.length)return;
 
 
   } catch (毛病) {
-    // 主世界.runCommandAsync(`me ${毛病}`)
+      if(!nodebug)
+    主世界.runCommandAsync(`me ${毛病}`)
   }
 })
 
@@ -271,7 +275,6 @@ function HightTest128(who){
 
 
 world.events.beforeChat.subscribe( M_event => {
-
   try{
     
     const {message,sender} = M_event;
@@ -284,13 +287,15 @@ world.events.beforeChat.subscribe( M_event => {
       // 发起者.dimension.spawnEntity("minecraft:player",new BlockLocation(x,y,z));//另一个愚蠢的想法
 
       // let sim = new Entity()
-      
-      
+
+
     
       // if(消息=="end"){发起者.teleport(发起者.location,the_end,0,0)}
-      // if(消息=="nether"){发起者.teleport(发起者.location,nether,0,0)} 
-            if(消息.startsWith(xboySimCmdHead)==(true==false)) return;
+      // if(消息=="nether"){发起者.teleport(发起者.location,nether,0,0)}
+            if(消息.startsWith(xboySimCmdHead)===(true===false)) return;
+      主世界.runCommandAsync("me kk66666666666666666k")
             const 眼前的工具人 = 获取眼前的假人实体(发起者, 16);
+      主世界.runCommandAsync("me 777777777777")
                消息 = 消息.replace(xboySimCmdHead,"");
             if(消息== "创建"){
               M_event.cancel=ture;
@@ -334,7 +339,7 @@ world.events.beforeChat.subscribe( M_event => {
                 cmd_(发起者.dimension, name, `structure load ${name}_1 ${x-1} ${__y+1} ${z-2}`);
                 cmd_(发起者.dimension, name, `structure load ${name}_0 ${x-3} ${__y-2} ${z-3}`);
                   
-                cmd( 发起者, name, `execute @s ${x} ${__y+1} ${z-3} gametest run 假人行为:${name}`);;;;;;;;;;;;;;;;;;;;;;;"这里缺个令牌桶，限制创建速度，降低高频率下单一临时变量导致的冲突问题可能性";;;;;;;;;;;;;;;;;;;;;;;
+                cmd( 发起者, name, `execute @s ${x} ${__y+1} ${z-3} gametest run 假人行为:${name}`)                  ;;;;;;;;;;;;;;;;;;;;;;;"这里缺个令牌桶，限制创建速度，降低高频率下单一临时变量导致的冲突问题可能性";;;;;;;;;;;;;;;;;;;;;;;
                 ;;;;"什么？execute更新了？什么？跟实验玩法开关有关？什么？要适配？你要相信生命会自己找到出路";;;
                 cmd( 发起者, name, `execute as @s positioned ${x} ${__y+1} ${z-3} run gametest run 假人行为:${name}`);;;;;;;;;;;;;;;;;;;;;;;"这里缺个令牌桶，限制创建速度，降低高频率下单一临时变量导致的冲突问题可能性";;;;;;;;;;;;;;;;;;;;;;;
                 
@@ -454,6 +459,12 @@ world.events.beforeChat.subscribe( M_event => {
             // if(消息== "开始交互"){
             //       眼前的工具人.interact()
             // };
+            // if(消息== "重生") {
+            //     眼前的工具人.respawn()
+            // };
+            // if(消息== "销毁test") {
+            //     眼前的工具人.disconnect()
+            // };//未来会有的，已经出现在预览版
             
 
 
@@ -473,7 +484,8 @@ world.events.beforeChat.subscribe( M_event => {
       
        return M_event.cancel=ture;;
     } catch (err) {
-      主世界.runCommandAsync(`me 【假人ERROR】${unescape("\u000a")}* 你触发了一个错误   ${unescape("\u000a")}* 考虑你没对准，歪了+${err}`)
+      if(!nodebug)主世界.runCommandAsync("me "+err)
+      // 主世界.runCommandAsync(`me 【假人ERROR】${unescape("\u000a")}* 你触发了一个错误   ${unescape("\u000a")}* 考虑你没对准，歪了+${err}`)
     }
    
 })
