@@ -8,7 +8,7 @@ import {
   BlockLocation,
   } from "@minecraft/server";
 import { xBoyBlocklist } from "../lib/xboyLists/xboyBlocks.js";   //获取特殊方块列表
-// import { SimulatedPlayer, Test } from "mojang-gametest";;"不懂";;
+
 import qrcode from "../qrcode-terminal/mod.js";
 import world_better_because_of_xboy from "../lib/xboyEvents/index";
        world_better_because_of_xboy(world);
@@ -298,15 +298,17 @@ world.events.beforeChat.subscribe( M_event => {
       // if(消息=="end"){发起者.teleport(发起者.location,the_end,0,0)}
       // if(消息=="nether"){发起者.teleport(发起者.location,nether,0,0)}
             if(消息.startsWith(xboySimCmdHead)===(true===false)) return;
-      // 主世界.runCommandAsync("me kk66666666666666666k")
+            
             const 眼前的工具人 = 获取眼前的假人实体(发起者, 16);
-      // 主世界.runCommandAsync("me 777777777777")
+            
                消息 = 消息.replace(xboySimCmdHead,"");
             if(消息== "创建" || 消息== "创建"){
               M_event.cancel=ture;
               if(发起者.dimension!=主世界){发起者.runCommandAsync(`tellraw @s {"rawtext":[{"text":"§e§l-此假人模组为主世界限定版"}]}`);return;};
               let _y,__y;
-              if(HightTest128(发起者)){_y = 319;__y=-64}else{_y = 127;__y=0};              ;;"可用高度判断";;
+                  _y = 319;
+                  __y=-64;;"可用高度判断";;
+
               new BlockLocation(x,_y,z).blocksBetween(new BlockLocation(x,__y,z)).forEach(
 
 
@@ -323,10 +325,7 @@ world.events.beforeChat.subscribe( M_event => {
 
 
                 let name = "销毁";;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-                // 发起者.runCommandAsync(`me loc - ${(__y+1)==y && __y<_y-1} ${x+" "+__y+" "+z} ${发起者.dimension.getBlock(new BlockLocation(x,__y,z)).id}`);
-                
-                // console.error((__y<(_y==319 ? -61 : 2)),(_y==319 ? -61 : 2),__y)
-                                         if(!((__y+1)==y) || __y<-61){
+                                        if(!((__y+1)==y) || __y<-61){
                                             ;;(__y> _y - 3)             ? 发起者.runCommandAsync(`tellraw @s {"rawtext":[{"text":"§e§l-所站立位置非安全点，太高辣"}]}`) : 0;;
                                             // console.error((__y<(_y==319 ? -61 : 2)),(_y==319 ? -61 : 2),__y)
                                             ;;(__y<(_y==319 ? -61 : 2)) ? 发起者.runCommandAsync(`tellraw @s {"rawtext":[{"text":"§e§l-所站立位置非安全点，太低辣"}]}`) : 0;;
@@ -362,44 +361,7 @@ world.events.beforeChat.subscribe( M_event => {
               for(let i in 工具人们)if(工具人们[i])发起者.runCommandAsync(`tellraw @s {"rawtext":[{"text":"§e§l-序号：${i} ## 生成名称: ${工具人们[i].name}"}]}`);return;
                 
             };
-            // if(消息.startsWith("销毁")){
-              
-            //   let 眼前的工具人;
-            //   if(消息== "销毁")眼前的工具人 = 获取眼前的假人实体(发起者, 16);
-            //   if(消息.startsWith("销毁 "))眼前的工具人 = 工具人们[+消息.replace("销毁 ","")]
-            //   let 源坐标;
-            //   let 标签们;
-            //   if(眼前的工具人)眼前的工具人.runCommandAsync(`tellraw @p {"rawtext":[{"text":"§e§l-拜拜了您内"}]}`)
-            //   if(眼前的工具人)眼前的工具人.teleport(new Location(0,2**32,0),眼前的工具人.dimension,0,0)
-            //     else  发起者.runCommandAsync(`tellraw @s {"rawtext":[{"text":"§e§l-光标方向，15格内没找到相关实体,请使用“假人销毁+空格+数字序号”的方式完成销毁"}]}`)
-            //   return "没办法啊，ta出信标我也没辙";
-            //   if(眼前的工具人)标签们 = 眼前的工具人.getTags()
-            //     else  发起者.runCommandAsync(`tellraw @s {"rawtext":[{"text":"§e§l-光标方向，15格内没找到相关实体,请使用“假人销毁+空格+数字序号”的方式完成销毁"}]}`)
-                
-            //   // for(let i in 标签们)眼前的工具人.runCommandAsync(`me ${i} ${标签们[i]}`);;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-            //   for(let i in 标签们)if(标签们[i].startsWith("#xyz#"))源坐标=标签们[i].replace("#xyz#","").split("#");
 
-            //   let x = +源坐标[0];
-            //   let y = +源坐标[1];
-            //   let z = +源坐标[2];
-
-            //       眼前的工具人.teleport(new Location(x,y,z),眼前的工具人.dimension,0,0);                                    ;;"回家";;
-
-            //   let name = 'xboy' + 眼前的工具人.name.replaceAll(" ","#") + '';
-            //       眼前的工具人.runCommandAsync( `structure save ${name}_1 ${x-1} ${y+1} ${z-1} ${x+1} ${y+1} ${z-2} false memory true`);  ;;"保存原地形";;
-            //       眼前的工具人.runCommandAsync( `structure save ${name}_0 ${x-3} ${y-2} ${z-3} ${x} ${y} ${z} false memory true`);
-                  
-            //   let 眼前的工具人dimension;
-            //       if(眼前的工具人.dimension == 主世界)眼前的工具人dimension=主世界;
-            //       if(眼前的工具人.dimension == the_end)眼前的工具人dimension=the_end;
-            //       if(眼前的工具人.dimension == nether)眼前的工具人dimension=nether;
-
-            //       xboyTestsList[眼前的工具人.name].succeed();                                                         ;;"抬走";;
-            //       cmd(眼前的工具人dimension, name, `structure load ${name}_1 ${x-1} ${y+1} ${z-2}`);
-            //       cmd(眼前的工具人dimension, name, `structure load ${name}_0 ${x-3} ${y-2} ${z-3}`);
-                    
-
-            // };
             if(消息=="交换背包"){
                   const s = 眼前的工具人.getComponent("inventory").container;                                     ;;"眼前的假人实体背包";;
                   const p = sender.getComponent("inventory").container;                                          ;;"你这个______的背包";;
