@@ -31,7 +31,7 @@
 //      },
       "minecraft:collision_box": {
         "width": 0.6,
-        "height": 1.75 //大概。。。这么高？
+        "height": 1.70 //大概。。。这么高？
       },
       "minecraft:nameable": {
         "always_show": true,

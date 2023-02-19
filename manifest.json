@@ -2,33 +2,33 @@
     "format_version": 2,
     "header": {
         "description": "【云梦正式包】1.19.50 \u000a开启实验性游戏内容（测试版 API）-游戏内输入“假人帮助”  请注意1.19.50-v0.8.0 无技术性更新，将在下一个正式版本中添加假人重生，并重新维护”销毁“，当前版本充满了可能有的bug，还请凑活",
-        "name": "§2§lFUCKfakePlayerPack-1.19.50- v0.8.0",
+        "name": "§e§lFUCKfakePlayerPack-1.19.50- v0.8.1",
         "uuid": "aa101e99-abb4-448d-b57f-71e9da43063d",
-        "version": [ 0, 8 ,0 ],
+        "version": [ 0, 8 ,1 ],
         "min_engine_version": [ 1, 19, 50 ]
     },
     "modules": [
         {
-            "description": "§2§lFUCKfakePlayerPack",
+            "description": "§e§lFUCKfakePlayerPack",
             "type": "script",
-            "uuid": "10101e99-abc4-448d-ba7f-71e9da43065d",
-            "version": [  0, 8, 0],
+            "uuid": "10101e99-abc4-448d-ba7f-71e9da43065e",
+            "version": [  0, 8, 1],
             "entry": "scripts/main/main.js"
         }
     ],
     "dependencies": [
         {
-            "uuid": "b26a4d4c-afdf-4690-88f8-931846312678",
-            "version": "1.1.0-beta"
+            "module_name": "@minecraft/server",
+            "version": "1.0.0"
+            //1.1.0-beta
         },
         {
-            "uuid": "6f4b6893-1bb6-42fd-b458-7fa3d0c89616",
+            "module_name": "@minecraft/server-gametest",
+            "version": "1.0.0-beta"
+        },
+        {
+            "module_name": "@minecraft/server-ui",
             "version": "1.0.0-beta"
         }
-        // ,
-        // {
-        //    "uuid": "2bd50a27-ab5f-4f40-a596-3641627c635e",
-        //    "version": "1.0.0-beta"
-        // }
     ]
 }
