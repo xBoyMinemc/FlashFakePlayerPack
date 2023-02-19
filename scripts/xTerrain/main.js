@@ -1,12 +1,11 @@
 ;;"请注意，这是一份正式版，预估生命周期约为1~2m";;
 ;;"一切权力归云梦所有";;
-;;"https://github.com/xboyMinemc/FUCKFakePlayerPack";;
+;;"https://github.com/xBoyMinemc/FUCKFakePlayerPack";;
 import * as GameTest from "@minecraft/server-gametest";
 import { 
 	world,
   Location,
   BlockLocation,
-  BlockRaycastOptions
   } from "@minecraft/server";
 import { xBoyBlocklist } from "../lib/xboyLists/xboyBlocks.js";   //获取特殊方块列表
 // import { SimulatedPlayer, Test } from "mojang-gametest";;"不懂";;
@@ -26,7 +25,7 @@ const 主世界 = world.getDimension("overworld");
 const nether = world.getDimension("nether");
 const the_end = world.getDimension("the end");
 const mojang = {};
-const nodebug = false;
+const nodebug = 1-false;
 let xboyMinemcSIMlist = {};
 let cmd = function(who,what,cmd_String){
 
@@ -100,7 +99,7 @@ try {
       function 获取眼前的假人实体(逻辑主体,距离){
         let 最远距离 = {}//new EntityRaycastOptions();
             最远距离.maxDistance = 距离;                                                              ;;"距离";;
-        let 实体们 = 逻辑主体.getEntitiesFromViewVector(最远距离);// ViewDirection
+        let 实体们 = 逻辑主体.getEntitiesFromViewDirection(最远距离);// ViewDirection
         let 假人;
         for(let i in 实体们)if(实体们[i].hasTag(xboySign))假人=实体们[i];                              ;;"云梦科技，拯救每一位低血压";;
         return 假人;;"只返回一个";;
@@ -108,7 +107,7 @@ try {
       function 获取眼前的实体(逻辑主体,距离){
         let 最远距离 = {}//new EntityRaycastOptions();
             最远距离.maxDistance = 距离;                                                              ;;"距离";;
-        let 实体们 = 逻辑主体.getEntitiesFromViewVector(最远距离);
+        let 实体们 = 逻辑主体.getEntitiesFromViewDirection(最远距离);
         return 实体们[0];;"只返回一个";;
       };
       function 获取附近的玩家实体(逻辑主体,距离){
@@ -134,7 +133,7 @@ try {
         return 实体组;;
       };
       function 获取眼前的方块(逻辑主体,距离){
-        let 最远距离 = new BlockRaycastOptions();
+        let 最远距离 = {};
             最远距离.maxDistance = 距离;                                                              ;;"距离";;
         return 逻辑主体.getBlockFromViewVector(最远距离);
       };
@@ -199,10 +198,16 @@ if(周期<1)return;
    周期=0;
 if(!工具人们.length)return;
     工具人们.forEach((工具人,index)=>{
+      //判假人是否存在
       if(!工具人)return;
       try{
+      //判假人是否存活
+        if(工具人.getComponent("health").current<=0)return;
                   工具人.hasTag(攻击标识符)
-      }catch(e){工具人们[index]=undefined};;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                  ;;"为什么说屎山代码呢，因为一些莫名其妙的代码增加，它们实现的功能你是完全不知道的，可能修改后会导致另外一个你根本无法察觉的功能报错";;
+                  ;;"可能是可控的，也可能是致命的";;
+                  ;;"就像这里增加的两个return一样，表面作用都是跳过遍历中的这一次";;
+      }catch(e){return 工具人们[index]=null};;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
       if(!工具人)return;
       try{
                   let 源坐标;;;;;;;;;;;;;;;;;;;
@@ -220,7 +225,7 @@ if(!工具人们.length)return;
       }catch(e){};;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
       try{
                   if(工具人.hasTag(挖掘标识符))工具人.breakBlock(获取假人实体眼前的方块的相对坐标(工具人));
-      }catch(e){  主世界.runCommandAsync(`me ${e}`)
+      }catch(e){  主世界.runCommandAsync(`me 挖掘标识符 ${e}`)
       };;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
       try{
                   if(工具人.hasTag(攻击标识符))工具人.attackEntity(获取眼前的实体(工具人,4));
@@ -293,11 +298,11 @@ world.events.beforeChat.subscribe( M_event => {
       // if(消息=="end"){发起者.teleport(发起者.location,the_end,0,0)}
       // if(消息=="nether"){发起者.teleport(发起者.location,nether,0,0)}
             if(消息.startsWith(xboySimCmdHead)===(true===false)) return;
-      主世界.runCommandAsync("me kk66666666666666666k")
+      // 主世界.runCommandAsync("me kk66666666666666666k")
             const 眼前的工具人 = 获取眼前的假人实体(发起者, 16);
-      主世界.runCommandAsync("me 777777777777")
+      // 主世界.runCommandAsync("me 777777777777")
                消息 = 消息.replace(xboySimCmdHead,"");
-            if(消息== "创建"){
+            if(消息== "创建" || 消息== "创建"){
               M_event.cancel=ture;
               if(发起者.dimension!=主世界){发起者.runCommandAsync(`tellraw @s {"rawtext":[{"text":"§e§l-此假人模组为主世界限定版"}]}`);return;};
               let _y,__y;
@@ -357,44 +362,44 @@ world.events.beforeChat.subscribe( M_event => {
               for(let i in 工具人们)if(工具人们[i])发起者.runCommandAsync(`tellraw @s {"rawtext":[{"text":"§e§l-序号：${i} ## 生成名称: ${工具人们[i].name}"}]}`);return;
                 
             };
-            if(消息.startsWith("销毁")){
+            // if(消息.startsWith("销毁")){
               
-              let 眼前的工具人;
-              if(消息== "销毁")眼前的工具人 = 获取眼前的假人实体(发起者, 16);
-              if(消息.startsWith("销毁 "))眼前的工具人 = 工具人们[+消息.replace("销毁 ","")]
-              let 源坐标;
-              let 标签们;
-              if(眼前的工具人)眼前的工具人.runCommandAsync(`tellraw @p {"rawtext":[{"text":"§e§l-拜拜了您内"}]}`)
-              if(眼前的工具人)眼前的工具人.teleport(new Location(0,2**32,0),眼前的工具人.dimension,0,0)
-                else  发起者.runCommandAsync(`tellraw @s {"rawtext":[{"text":"§e§l-光标方向，15格内没找到相关实体,请使用“假人销毁+空格+数字序号”的方式完成销毁"}]}`)
-              return "没办法啊，ta出信标我也没辙";
-              if(眼前的工具人)标签们 = 眼前的工具人.getTags()
-                else  发起者.runCommandAsync(`tellraw @s {"rawtext":[{"text":"§e§l-光标方向，15格内没找到相关实体,请使用“假人销毁+空格+数字序号”的方式完成销毁"}]}`)
+            //   let 眼前的工具人;
+            //   if(消息== "销毁")眼前的工具人 = 获取眼前的假人实体(发起者, 16);
+            //   if(消息.startsWith("销毁 "))眼前的工具人 = 工具人们[+消息.replace("销毁 ","")]
+            //   let 源坐标;
+            //   let 标签们;
+            //   if(眼前的工具人)眼前的工具人.runCommandAsync(`tellraw @p {"rawtext":[{"text":"§e§l-拜拜了您内"}]}`)
+            //   if(眼前的工具人)眼前的工具人.teleport(new Location(0,2**32,0),眼前的工具人.dimension,0,0)
+            //     else  发起者.runCommandAsync(`tellraw @s {"rawtext":[{"text":"§e§l-光标方向，15格内没找到相关实体,请使用“假人销毁+空格+数字序号”的方式完成销毁"}]}`)
+            //   return "没办法啊，ta出信标我也没辙";
+            //   if(眼前的工具人)标签们 = 眼前的工具人.getTags()
+            //     else  发起者.runCommandAsync(`tellraw @s {"rawtext":[{"text":"§e§l-光标方向，15格内没找到相关实体,请使用“假人销毁+空格+数字序号”的方式完成销毁"}]}`)
                 
-              // for(let i in 标签们)眼前的工具人.runCommandAsync(`me ${i} ${标签们[i]}`);;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-              for(let i in 标签们)if(标签们[i].startsWith("#xyz#"))源坐标=标签们[i].replace("#xyz#","").split("#");
+            //   // for(let i in 标签们)眼前的工具人.runCommandAsync(`me ${i} ${标签们[i]}`);;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+            //   for(let i in 标签们)if(标签们[i].startsWith("#xyz#"))源坐标=标签们[i].replace("#xyz#","").split("#");
 
-              let x = +源坐标[0];
-              let y = +源坐标[1];
-              let z = +源坐标[2];
+            //   let x = +源坐标[0];
+            //   let y = +源坐标[1];
+            //   let z = +源坐标[2];
 
-                  眼前的工具人.teleport(new Location(x,y,z),眼前的工具人.dimension,0,0);                                    ;;"回家";;
+            //       眼前的工具人.teleport(new Location(x,y,z),眼前的工具人.dimension,0,0);                                    ;;"回家";;
 
-              let name = 'xboy' + 眼前的工具人.name.replaceAll(" ","#") + '';
-                  眼前的工具人.runCommandAsync( `structure save ${name}_1 ${x-1} ${y+1} ${z-1} ${x+1} ${y+1} ${z-2} false memory true`);  ;;"保存原地形";;
-                  眼前的工具人.runCommandAsync( `structure save ${name}_0 ${x-3} ${y-2} ${z-3} ${x} ${y} ${z} false memory true`);
+            //   let name = 'xboy' + 眼前的工具人.name.replaceAll(" ","#") + '';
+            //       眼前的工具人.runCommandAsync( `structure save ${name}_1 ${x-1} ${y+1} ${z-1} ${x+1} ${y+1} ${z-2} false memory true`);  ;;"保存原地形";;
+            //       眼前的工具人.runCommandAsync( `structure save ${name}_0 ${x-3} ${y-2} ${z-3} ${x} ${y} ${z} false memory true`);
                   
-              let 眼前的工具人dimension;
-                  if(眼前的工具人.dimension == 主世界)眼前的工具人dimension=主世界;
-                  if(眼前的工具人.dimension == the_end)眼前的工具人dimension=the_end;
-                  if(眼前的工具人.dimension == nether)眼前的工具人dimension=nether;
+            //   let 眼前的工具人dimension;
+            //       if(眼前的工具人.dimension == 主世界)眼前的工具人dimension=主世界;
+            //       if(眼前的工具人.dimension == the_end)眼前的工具人dimension=the_end;
+            //       if(眼前的工具人.dimension == nether)眼前的工具人dimension=nether;
 
-                  xboyTestsList[眼前的工具人.name].succeed();                                                         ;;"抬走";;
-                  cmd(眼前的工具人dimension, name, `structure load ${name}_1 ${x-1} ${y+1} ${z-2}`);
-                  cmd(眼前的工具人dimension, name, `structure load ${name}_0 ${x-3} ${y-2} ${z-3}`);
+            //       xboyTestsList[眼前的工具人.name].succeed();                                                         ;;"抬走";;
+            //       cmd(眼前的工具人dimension, name, `structure load ${name}_1 ${x-1} ${y+1} ${z-2}`);
+            //       cmd(眼前的工具人dimension, name, `structure load ${name}_0 ${x-3} ${y-2} ${z-3}`);
                     
 
-            };
+            // };
             if(消息=="交换背包"){
                   const s = 眼前的工具人.getComponent("inventory").container;                                     ;;"眼前的假人实体背包";;
                   const p = sender.getComponent("inventory").container;                                          ;;"你这个______的背包";;
@@ -456,15 +461,31 @@ world.events.beforeChat.subscribe( M_event => {
             if(消息== "停止使用"){
                   眼前的工具人.stopUsingItem()
             };
-            // if(消息== "开始交互"){
-            //       眼前的工具人.interact()
-            // };
-            // if(消息== "重生") {
-            //     眼前的工具人.respawn()
-            // };
-            // if(消息== "销毁test") {
-            //     眼前的工具人.disconnect()
-            // };//未来会有的，已经出现在预览版
+            if(消息== "开始交互"){
+                  眼前的工具人.interact()
+            };
+            
+            ;;"希望你对中文编程没意见，有也给我保留";;
+
+            if(消息== "重生") {
+              //;;"对准~";;
+                if(!眼前的工具人)sender.runCommandAsync(`tellraw @p {"rawtext":[{"text":"§e§l-你不要怀疑，10000%是你没对准，如果假人真躺了的话"}]}`)
+                眼前的工具人.respawn()
+            };
+            if(消息.startsWith("重生 ")) {
+              ;;"云梦知道有人对不准，所以给你做了指向性的功能，输入假人序号即可";;
+              let temp = 消息.replace("重生 ","");
+
+              if( temp = Number(temp)){
+                工具人们[temp].respawn()
+              }
+              ;;"能用就行";;
+            };
+
+            if(消息== "销毁") {
+                if(眼前的工具人)眼前的工具人.runCommandAsync(`tellraw @p {"rawtext":[{"text":"§e§l-拜拜了您内"}]}`)
+                眼前的工具人.disconnect()
+            };;"抓住未来!!";;
             
 
 
@@ -476,7 +497,7 @@ world.events.beforeChat.subscribe( M_event => {
               qrcode.generate("https://vdse.bdstatic.com//192d9a98d782d9c74c96f09db9378d93.mp4", function (str) {发起者.runCommandAsync("tell @s  §rhttps://github.com/xBoyMinemc 能不能扫上随缘\u000a"+str.replaceAll("#","\u000a").replaceAll("0","⬛").replaceAll("1","  "))})
             };
             if(消息== "帮助"){
-              ["###部分功能需要光标对准假人","创建","列表","扭头","停止","移动","使用 # 开始使用 # 停止使用 => 使用鱼竿，鱼钩销毁后会自动抛竿（自动钓鱼）","攻击","自动攻击","交换背包","一般操作示例 '假人创建' '假人销毁' '假人交换背包'  ’假人github‘  ’假人help‘","销毁 + 空格 +列表标号","销毁示例","销毁","销毁 0" ,"销毁 1","#赠品：输入'tps开' 或 'tps关'","https://github.com/xBoyMinemc","输入'假人help'了解更多","#赞助作者烂活？得了吧。。"].forEach((text)=>发起者.runCommandAsync(`tellraw @s {"rawtext":[{"text":"§e§l-${text}"}]}`))
+              ["###部分功能需要光标对准假人","创建","销毁","列表","扭头","停止","移动","使用 # 开始使用 # 停止使用 => 使用鱼竿，鱼钩销毁后会自动抛竿（自动钓鱼）","攻击","自动攻击","交换背包","一般操作示例 '假人创建' '假人销毁' '假人交换背包'  ’假人github‘  ’假人help‘","销毁 + 空格 +列表标号","销毁示例","销毁","销毁 0" ,"销毁 1","#赠品：输入'tps开' 或 'tps关'","https://github.com/xBoyMinemc","输入'假人help'了解更多","#赞助作者烂活？得了吧。。"].forEach((text)=>发起者.runCommandAsync(`tellraw @s {"rawtext":[{"text":"§e§l-${text}"}]}`))
             };
             if(消息== "help"){
               ["§r这里是一些技术解释","假人销毁，或游戏重启后，信息完全丢失","假人可以捡起掉落物品","如果出现莫名其妙的Refer什么什么错误，可能是1.19.40+的垃圾特性，重启即可，有概率因为/reload或进入游戏而出现","1.19.40版本的假人销毁，并不是真正意义上的销毁，可以定期/reload而真正释放","积累过多假人可能会增加不可预测的bug被触发的概率","文件充满汉语是整活","现在依旧是汉语是因为整活把源文件整丢了","输入‘假人github’了解更多"].forEach((text)=>发起者.runCommandAsync(`tellraw @s {"rawtext":[{"text":"§e§l-${text}"}]}`))
@@ -485,7 +506,7 @@ world.events.beforeChat.subscribe( M_event => {
        return M_event.cancel=ture;;
     } catch (err) {
       if(!nodebug)主世界.runCommandAsync("me "+err)
-      // 主世界.runCommandAsync(`me 【假人ERROR】${unescape("\u000a")}* 你触发了一个错误   ${unescape("\u000a")}* 考虑你没对准，歪了+${err}`)
+      主世界.runCommandAsync(`me 【假人ERROR】${unescape("\u000a")}* 你触发了一个错误   ${unescape("\u000a")}* 考虑你没对准，歪了+${err}`)
     }
    
 })

@@ -26,7 +26,7 @@ world.events.itemUse.subscribe(event=>{
 })
 
 const around =(v:number,r:number):boolean=> v>-r && v<r;
-world.events.entityCreate.subscribe(event=>{
+world.events.entitySpawn.subscribe(event=>{
   let Fisher : Entity
   event.entity.typeId === "minecraft:fishing_hook"
   ?

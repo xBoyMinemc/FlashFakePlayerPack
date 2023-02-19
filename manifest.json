@@ -1,26 +1,25 @@
 {
     "format_version": 2,
     "header": {
-        "description": "【云梦正式包】1.19.50 \u000a开启实验性游戏内容（测试版 API）-游戏内输入“假人帮助”  请注意1.19.50-v0.8.0 无技术性更新，将在下一个正式版本中添加假人重生，并重新维护”销毁“，当前版本充满了可能有的bug，还请凑活",
-        "name": "§e§lFUCKfakePlayerPack-1.19.50- v0.8.1",
+        "description": "【云梦正式包】1.19.60 \u000a开启实验性游戏内容（测试版 API）-游戏内输入“假人帮助”  请注意1.19.50-v0.8.0 无技术性更新，将在下一个正式版本中添加假人重生，并重新维护”销毁“，当前版本充满了可能有的bug，还请凑活",
+        "name": "§e§lFUCKfakePlayerPack-1.19.60- v0.8.6",
         "uuid": "aa101e99-abb4-448d-b57f-71e9da43063d",
-        "version": [ 0, 8 ,1 ],
-        "min_engine_version": [ 1, 19, 50 ]
+        "version": [ 0, 8 ,6 ],
+        "min_engine_version": [ 1, 19, 60 ]
     },
     "modules": [
         {
             "description": "§e§lFUCKfakePlayerPack",
             "type": "script",
-            "uuid": "10101e99-abc4-448d-ba7f-71e9da43065e",
-            "version": [  0, 8, 1],
+            "uuid": "10101e99-abc0-5488-ba76-71e9da430086",
+            "version": [ 0, 8, 6],
             "entry": "scripts/main/main.js"
         }
     ],
     "dependencies": [
         {
             "module_name": "@minecraft/server",
-            "version": "1.0.0"
-            //1.1.0-beta
+            "version": "1.1.0-beta"
         },
         {
             "module_name": "@minecraft/server-gametest",
