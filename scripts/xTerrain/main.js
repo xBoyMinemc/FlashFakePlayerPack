@@ -262,23 +262,7 @@ if(!工具人们.length)return;
 //挖掘
 //放置
 
-
-
-function HightTest128(who){  
-  let status = "光荣退役";
-  // try{
-  //   status = who.runCommandAsync(`fill ${who.location.x} 128 ${who.location.z} ${who.location.x} 128 ${who.location.z} air 0 replace air 0`).statusMessage;
-  // }catch(err){
-  //   if("fillCount" in JSON.parse(err))status=false;
-  // }
-         if(status!=="xboyMinemc-云梦")status=false;
-                              return  !status;
-        //true  = y-> 320-1
-        //false = y-> 128-1
-}
-
-
-
+ 
 world.events.beforeChat.subscribe( M_event => {
   try{
     
@@ -394,7 +378,7 @@ world.events.beforeChat.subscribe( M_event => {
             };
             if(消息== "移动"){
              ! (眼前的工具人)
-             ?  发起者.runCommandAsync(`tellraw @s {"rawtext":[{"text":"§e§l-光标方向，15格内没找到相关实体"}]}`)
+             ?  发起者.tell( "§e§l-光标方向，15格内没找到相关实体" )
              :  眼前的工具人.teleport(发起者.location,眼前的工具人.dimension,0,0);;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
              ;  
              ;  
@@ -431,7 +415,7 @@ world.events.beforeChat.subscribe( M_event => {
 
             if(消息== "重生") {
               //;;"对准~";;
-                if(!眼前的工具人)sender.runCommandAsync(`tellraw @p {"rawtext":[{"text":"§e§l-你不要怀疑，10000%是你没对准，如果假人真躺了的话"}]}`)
+                if(!眼前的工具人)sender.tell( "§e§l-你不要怀疑，10000%是你没对准，如果假人真躺了的话" )
                 眼前的工具人.respawn()
             };
             if(消息.startsWith("重生 ")) {
@@ -445,10 +429,20 @@ world.events.beforeChat.subscribe( M_event => {
             };
 
             if(消息== "销毁") {
-                if(眼前的工具人)眼前的工具人.runCommandAsync(`tellraw @p {"rawtext":[{"text":"§e§l-拜拜了您内"}]}`)
+              sender.tell("§e§l-拜拜了您内")
                 眼前的工具人.disconnect()
             };;"抓住未来!!";;
-            
+            if(消息.startsWith("销毁 ")) {
+              
+              let temp = 消息.replace("销毁 ","");
+
+              if( temp = Number(temp)){
+                sender.tell("§e§l-拜拜了您内")
+                工具人们[temp].disconnect()
+              }
+              ;;"能用就行";;
+            };
+
 
 
             if(消息== "github"){
