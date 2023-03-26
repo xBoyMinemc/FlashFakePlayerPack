@@ -1,7 +1,7 @@
 ;;"请注意，这是一份正式版，预估生命周期约为1~2m";;
 ;;"一切权力归云梦所有";;
 ;;"https://github.com/xBoyMinemc/FUCKFakePlayerPack";;
-// import * as GameTest from "@minecraft/server-gametest";
+
 import { 
   system,
 	// world,
@@ -12,8 +12,8 @@ import { xBoyBlocklist } from "../lib/xboyLists/xboyBlocks.js";   //获取特殊
 
 import qrcode from "../lib/qrcode-terminal/mod.js";
 
-// import world_better_because_of_xboy from "../lib/xboyEvents/index";
-//        world_better_because_of_xboy(world);
+
+
 
 const xboySign = "#xboySimSign#";                   ;;"假人标签";;"苦役证";;
 const xboySimCmdHead = "假人";                      ;;" 命令头 ";;
@@ -21,13 +21,14 @@ const 挖掘标识符 = "挖掘标识符";
 const 攻击标识符 = "攻击标识符";
 const 自动攻击标识符 = "自动攻击标识符";
 const 跳跃标识符 = "跳跃标识符";
+const 自动重生标识符 = "自动重生标识符";
 const 寻路标识符 = "寻路标识符";
 const ture = true;
 const 主世界 = world.getDimension("overworld");
 const nether = world.getDimension("nether");
 const the_end = world.getDimension("the end");
 const mojang = {};
-const nodebug = false;
+const nodebug = 1-false;
 let xboyMinemcSIMlist = {};
 let cmd = function(who,what,cmd_String){
 
@@ -77,6 +78,8 @@ try {
           const y =  工具人.location.y>>0;
           const z = (工具人.location.z-0.5)>>0; //for blockLocation
               工具人.addTag("#xyz#"+x+"#"+(y-2)+"#"+z);;
+              工具人.addTag(自动重生标识符);
+              // 工具人.addTag(自动攻击标识符);
               xboyTestsList[工具人.name] = test;
               xboyTooleesList[工具人.name] = 工具人
               工具人.breakBlock(new BlockLocation(+x,y-1,z))
@@ -97,6 +100,9 @@ try {
 } catch (err) {
   主世界.runCommandAsync(`me Core-Dump ${err}`)
 }
+
+
+
 
       function 获取眼前的假人实体(逻辑主体,距离){
         let 最远距离 = {}//new EntityRaycastOptions();
@@ -206,7 +212,14 @@ if(!工具人们.length)return;
       if(!工具人)return;
       try{
       //判假人是否存活
-        if(工具人.getComponent("health").current<=0)return;
+        if(工具人.getComponent("health").current<=0){
+          if(工具人.hasTag(自动重生标识符))工具人.respawn();
+          return;
+        };
+
+
+
+        
                   工具人.hasTag(攻击标识符)
                   ;;"为什么说屎山代码呢，因为一些莫名其妙的代码增加，它们实现的功能你是完全不知道的，可能修改后会导致另外一个你根本无法察觉的功能报错";;
                   ;;"可能是可控的，也可能是致命的";;
@@ -237,7 +250,6 @@ if(!工具人们.length)return;
       try{
                   if(工具人.hasTag(自动攻击标识符))工具人.lookAtEntity(获取附近的非玩家实体(工具人,4)[0]);
       }catch(e){
-        //工具人.runCommandAsync("me "+e)
       };;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
       try{
                   if(工具人.hasTag(自动攻击标识符) && 获取眼前的实体(工具人,4).name!="")工具人.attackEntity(获取眼前的实体(工具人,4));
@@ -262,13 +274,13 @@ if(!工具人们.length)return;
 
 
 world.events.fishingHookDespawned.subscribe(event=>{
-  console.error("fishingHookDespawned")
-  world.getDimension("overworld").runCommandAsync("me ##鱼钩销毁\u000a鱼钩id=>"+event.HookId+"\u000a发起者id=>"+event.Fisher.id);
+  if(!nodebug)console.error("fishingHookDespawned")
+  if(!nodebug)world.getDimension("overworld").runCommandAsync("me ##鱼钩销毁\u000a鱼钩id=>"+event.HookId+"\u000a发起者id=>"+event.Fisher.id);
   工具人们.forEach(_=> _==undefined?0:_.id===event.Fisher.id?event.fishingHookDespawned_TickArray.push(()=>(_.useItemInSlot(0)?_.stopUsingItem():0)):0)
 })
 world.events.fishingHookSpawned.subscribe(event=>{
-  console.error("fishingHookSpawned")
-  world.getDimension("overworld").runCommandAsync("me ##鱼钩生成\u000a鱼钩id=>"+event.HookId+"\u000a发起者id=>"+event.Fisher.id);
+  if(!nodebug)console.error("fishingHookSpawned")
+  if(!nodebug)world.getDimension("overworld").runCommandAsync("me ##鱼钩生成\u000a鱼钩id=>"+event.HookId+"\u000a发起者id=>"+event.Fisher.id);
 })
 
 
@@ -278,7 +290,7 @@ world.events.fishingHookSpawned.subscribe(event=>{
 
  
 world.events.beforeChat.subscribe( event => {
-  // try{
+  try{
     
     const {message,sender} = event;
     const 发起者 = sender;
@@ -302,7 +314,7 @@ world.events.beforeChat.subscribe( event => {
                消息 = 消息.replace(xboySimCmdHead,"");
             if(消息== "创建" || 消息== "创建"){
               event.cancel=ture;
-              if(发起者.dimension!=主世界){发起者.runCommandAsync(`tellraw @s {"rawtext":[{"text":"§e§l-此假人模组为主世界限定版"}]}`);return;};
+              if(发起者.dimension!=主世界){发起者.sendMessage("§e§l-此假人模组为主世界限定版");return;};
               let _y,__y;
                   _y = 319;
                   __y=-64;;"可用高度判断";;
@@ -321,18 +333,18 @@ world.events.beforeChat.subscribe( event => {
                 )
 
 
-console.error(
-  "__y",__y,
-  "_y",_y,
-  "y",y
-)
+// console.error(
+//   "__y",__y,
+//   "_y",_y,
+//   "y",y
+// )
 
                 let name = "销毁";;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
                                         if(!((__y+1)==y) || __y<-61){
-                                            ;;(__y> _y - 3)             ? 发起者.runCommandAsync(`tellraw @s {"rawtext":[{"text":"§e§l-所站立位置非安全点，太高辣"}]}`) : 0;;
+                                            ;;(__y> _y - 3)             ? 发起者.sendMessage("§e§l-所站立位置非安全点，太高辣") : 0;;
                                             // console.error((__y<(_y==319 ? -61 : 2)),(_y==319 ? -61 : 2),__y)
-                                            ;;(__y<(_y==319 ? -61 : 2)) ? 发起者.runCommandAsync(`tellraw @s {"rawtext":[{"text":"§e§l-所站立位置非安全点，太低辣"}]}`) : 0;;
-                                            ;;发起者.runCommandAsync(`tellraw @s {"rawtext":[{"text":"§e§l-所站立位置非安全点，此坐标安全点位于Y：${__y}"}]}`);;
+                                            ;;(__y<(_y==319 ? -61 : 2)) ? 发起者.sendMessage("§e§l-所站立位置非安全点，太低辣") : 0;;
+                                            ;;发起者.sendMessage(`§e§l-所站立位置非安全点，此坐标安全点位于Y：${__y}`);;
                                             ;;return;;;
                                             ;;"救命！";;
                                             ;;"代码太烂";;
@@ -362,7 +374,7 @@ console.error(
             };
             if(消息== "列表"){
 
-              for(let i in 工具人们)if(工具人们[i])发起者.runCommandAsync(`tellraw @s {"rawtext":[{"text":"§e§l-序号：${i} ## 生成名称: ${工具人们[i].name}"}]}`);return;
+              for(let i in 工具人们)if(工具人们[i])发起者.sendMessage(`§e§l-序号：${i} ## 生成名称: ${工具人们[i].name}`);return;
                 
             };
 
@@ -399,7 +411,7 @@ console.error(
             };
             if(消息== "移动"){
              ! (眼前的工具人)
-             ?  发起者.tell( "§e§l-光标方向，15格内没找到相关实体" )
+             ?  发起者.sendMessage("§e§l-光标方向，15格内没找到相关实体" )
              :  眼前的工具人.teleport(发起者.location,眼前的工具人.dimension,0,0);;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
              ;  
              ;  
@@ -414,6 +426,7 @@ console.error(
                   // xboy("寻路")([寻路标识符])([])
                   xboy("停止")([])([攻击标识符,自动攻击标识符,跳跃标识符,挖掘标识符])
                   xboy("开摆")([])([攻击标识符,自动攻击标识符,跳跃标识符,挖掘标识符])
+                  xboy("自动重生")([自动重生标识符])([])
             
 
 
@@ -436,7 +449,7 @@ console.error(
 
             if(消息== "重生") {
               //;;"对准~";;
-                if(!眼前的工具人)sender.tell( "§e§l-你不要怀疑，10000%是你没对准，如果假人真躺了的话" )
+                if(!眼前的工具人)sender.sendMessage( "§e§l-你不要怀疑，10000%是你没对准，如果假人真躺了的话" )
                 眼前的工具人.respawn()
             };
             if(消息.startsWith("重生 ")) {
@@ -450,7 +463,7 @@ console.error(
             };
 
             if(消息== "销毁") {
-              sender.tell("§e§l-拜拜了您内")
+              sender.sendMessage("§e§l-拜拜了您内")
                 眼前的工具人.disconnect()
             };;"抓住未来!!";;
             if(消息.startsWith("销毁 ")) {
@@ -458,7 +471,7 @@ console.error(
               let temp = 消息.replace("销毁 ","");
 
               if( temp = Number(temp)){
-                sender.tell("§e§l-拜拜了您内")
+                sender.sendMessage("§e§l-拜拜了您内")
                 工具人们[temp].disconnect()
               }
               ;;"能用就行";;
@@ -469,9 +482,9 @@ console.error(
             if(消息== "github"){
               Math.random()>0.5
               ?
-              qrcode.generate("github.com/xBoyMinemc", function (str) {发起者.runCommandAsync("tell @s  §rhttps://github.com/xBoyMinemc 能不能扫上随缘\u000a"+str.replaceAll("#","\u000a").replaceAll("0","⬛").replaceAll("1","  "))})
+              qrcode.generate("github.com/xBoyMinemc", function (str) {发起者.sendMessage("  §rhttps://github.com/xBoyMinemc 能不能扫上随缘\u000a"+str.replaceAll("#","\u000a").replaceAll("0","⬛").replaceAll("1","  "))})
               :
-              qrcode.generate("https://vdse.bdstatic.com//192d9a98d782d9c74c96f09db9378d93.mp4", function (str) {发起者.runCommandAsync("tell @s  §rhttps://github.com/xBoyMinemc 能不能扫上随缘\u000a"+str.replaceAll("#","\u000a").replaceAll("0","⬛").replaceAll("1","  "))})
+              qrcode.generate("https://vdse.bdstatic.com//192d9a98d782d9c74c96f09db9378d93.mp4", function (str) {发起者.sendMessage("§rhttps://github.com/xBoyMinemc 能不能扫上随缘\u000a"+str.replaceAll("#","\u000a").replaceAll("0","⬛").replaceAll("1","  "))})
             };
             if(消息== "帮助"){
               [
@@ -480,7 +493,7 @@ console.error(
                  "使用 # 开始使用 # 停止使用 => 使用鱼竿，鱼钩销毁后会自动抛竿（自动钓鱼）","攻击","自动攻击","交换背包",
                   "一般操作示例 '假人创建' '假人销毁' '假人交换背包'  ’假人github‘  ’假人help‘","销毁 + 空格 +列表标号",
                   "销毁示例","销毁","销毁 0" ,"销毁 1","#赠品：输入'tps开' 或 'tps关'","https://github.com/xBoyMinemc","输入'假人help'了解更多","#赞助作者烂活？得了吧。。"
-              ].forEach((text)=>发起者.runCommandAsync(`tellraw @s {"rawtext":[{"text":"§e§l-${text}"}]}`))
+              ].forEach((text)=>发起者.sendMessage(`§e§l-${text}`))
             };
             if(消息.startsWith("帮助 ")){
               let helpMessage = 
@@ -492,18 +505,28 @@ console.error(
                   ;
                     helpMessage
                   ?
-                    sender.tell(helpMessage.join("\u000a"))
+                    sender.sendMessage(helpMessage.join("\u000a"))
                   :
-                    sender.tell("对不起，没有这种事情，做不到"+(Math.random()<0.233?"给钱也做不到":"真做不到"))
+                    sender.sendMessage("对不起，没有这种事情，做不到"+(Math.random()<0.233?"给钱也做不到":"真做不到"))
             };
             if(消息== "help"){
-              ["§r这里是一些技术解释","假人销毁，或游戏重启后，信息完全丢失","假人可以捡起掉落物品","如果出现莫名其妙的Refer什么什么错误，可能是1.19.40+的垃圾特性，重启即可，有概率因为/reload或进入游戏而出现","1.19.40版本的假人销毁，并不是真正意义上的销毁，可以定期/reload而真正释放","积累过多假人可能会增加不可预测的bug被触发的概率","文件充满汉语是整活","现在依旧是汉语是因为整活把源文件整丢了","输入‘假人github’了解更多"].forEach((text)=>发起者.runCommandAsync(`tellraw @s {"rawtext":[{"text":"§e§l-${text}"}]}`))
+              [
+                "§r这里是一些技术解释",
+                "假人销毁，或游戏重启后，信息完全丢失",
+                "假人可以捡起掉落物品",
+                // "如果出现莫名其妙的Refer什么什么错误，可能是1.19.40+的垃圾特性，重启即可，有概率因为/reload或进入游戏而出现",
+                // "1.19.40版本的假人销毁，并不是真正意义上的销毁，可以定期/reload而真正释放",
+                "积累过多假人可能会增加不可预测的bug被触发的概率",
+                "文件充满汉语是整活",
+                "现在依旧是汉语是因为整活把源文件整丢了",
+                "输入‘假人github’了解更多"
+              ].forEach((text)=>发起者.sendMessage(`§e§l-${text}`))
             };
       
        return event.cancel=ture;;
-    // } catch (err) {
-    //   if(!nodebug)主世界.runCommandAsync("me "+err)
-    //   主世界.runCommandAsync(`me 【假人ERROR】${unescape("\u000a")}* 你触发了一个错误   ${unescape("\u000a")}* 考虑你没对准，歪了+${err}`)
-    // }
+    } catch (err) {
+      if(!nodebug)主世界.runCommandAsync("me "+err)
+      主世界.runCommandAsync(`me 【假人ERROR】${unescape("\u000a")}* 你触发了一个错误   ${unescape("\u000a")}* 考虑你没对准，歪了+${err}`)
+    }
    
 })
