@@ -10,7 +10,7 @@ import {
   } from "@minecraft/server";
 import { xBoyBlocklist } from "../lib/xboyLists/xboyBlocks.js";   //获取特殊方块列表
 
-import qrcode from "../qrcode-terminal/mod.js";
+import qrcode from "../lib/qrcode-terminal/mod.js";
 
 // import world_better_because_of_xboy from "../lib/xboyEvents/index";
 //        world_better_because_of_xboy(world);
