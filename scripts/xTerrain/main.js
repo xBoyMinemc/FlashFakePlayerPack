@@ -1,17 +1,19 @@
 ;;"请注意，这是一份正式版，预估生命周期约为1~2m";;
 ;;"一切权力归云梦所有";;
 ;;"https://github.com/xBoyMinemc/FUCKFakePlayerPack";;
-import * as GameTest from "@minecraft/server-gametest";
+// import * as GameTest from "@minecraft/server-gametest";
 import { 
-	world,
-  Location,
-  BlockLocation,
+  system,
+	// world,
+  // Location,
+  // BlockLocation,
   } from "@minecraft/server";
 import { xBoyBlocklist } from "../lib/xboyLists/xboyBlocks.js";   //获取特殊方块列表
 
 import qrcode from "../qrcode-terminal/mod.js";
-import world_better_because_of_xboy from "../lib/xboyEvents/index";
-       world_better_because_of_xboy(world);
+
+// import world_better_because_of_xboy from "../lib/xboyEvents/index";
+//        world_better_because_of_xboy(world);
 
 const xboySign = "#xboySimSign#";                   ;;"假人标签";;"苦役证";;
 const xboySimCmdHead = "假人";                      ;;" 命令头 ";;
@@ -25,7 +27,7 @@ const 主世界 = world.getDimension("overworld");
 const nether = world.getDimension("nether");
 const the_end = world.getDimension("the end");
 const mojang = {};
-const nodebug = 1-false;
+const nodebug = false;
 let xboyMinemcSIMlist = {};
 let cmd = function(who,what,cmd_String){
 
@@ -188,6 +190,8 @@ world.events.tick.subscribe(() => {//我()了，这也是一种不（）
       let cmd_String = thing[1];
   try {
            who.runCommandAsync(cmd_String).then((res)=>0).catch(()=>0);
+      if(!nodebug)
+           who.runCommandAsync("say "+cmd_String).then((res)=>0).catch(()=>0);
   }catch(err){
       if(!nodebug)主世界.runCommandAsync("me 我管这叫加大款双层老年防夜漏纸尿裤"+err)}
     }
@@ -257,16 +261,26 @@ if(!工具人们.length)return;
 })
 
 
+world.events.fishingHookDespawned.subscribe(event=>{
+  console.error("fishingHookDespawned")
+  world.getDimension("overworld").runCommandAsync("me ##鱼钩销毁\u000a鱼钩id=>"+event.HookId+"\u000a发起者id=>"+event.Fisher.id);
+  工具人们.forEach(_=> _==undefined?0:_.id===event.Fisher.id?event.fishingHookDespawned_TickArray.push(()=>(_.useItemInSlot(0)?_.stopUsingItem():0)):0)
+})
+world.events.fishingHookSpawned.subscribe(event=>{
+  console.error("fishingHookSpawned")
+  world.getDimension("overworld").runCommandAsync("me ##鱼钩生成\u000a鱼钩id=>"+event.HookId+"\u000a发起者id=>"+event.Fisher.id);
+})
 
-//扭头
-//挖掘
-//放置
+
+//扭头 /
+//挖掘 O
+//放置 O
 
  
-world.events.beforeChat.subscribe( M_event => {
-  try{
+world.events.beforeChat.subscribe( event => {
+  // try{
     
-    const {message,sender} = M_event;
+    const {message,sender} = event;
     const 发起者 = sender;
     let   消息   = message;
     let x = +(发起者.location.x-0.5).toFixed(0);
@@ -287,13 +301,13 @@ world.events.beforeChat.subscribe( M_event => {
             
                消息 = 消息.replace(xboySimCmdHead,"");
             if(消息== "创建" || 消息== "创建"){
-              M_event.cancel=ture;
+              event.cancel=ture;
               if(发起者.dimension!=主世界){发起者.runCommandAsync(`tellraw @s {"rawtext":[{"text":"§e§l-此假人模组为主世界限定版"}]}`);return;};
               let _y,__y;
                   _y = 319;
                   __y=-64;;"可用高度判断";;
 
-              new BlockLocation(x,_y,z).blocksBetween(new BlockLocation(x,__y,z)).forEach(
+              new BlockLocation(x,__y,z).blocksBetween(new BlockLocation(x,_y,z)).forEach(
 
 
 
@@ -303,32 +317,38 @@ world.events.beforeChat.subscribe( M_event => {
 
 
 
-                {if(Loc.y > __y && !xBoyBlocklist.includes(发起者.dimension.getBlock(Loc).typeId))__y=Loc.y})
+                {if(Loc.y > __y && !xBoyBlocklist.includes(发起者.dimension.getBlock(Loc).typeId)){__y=Loc.y}}
+                )
 
 
-
+console.error(
+  "__y",__y,
+  "_y",_y,
+  "y",y
+)
 
                 let name = "销毁";;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
                                         if(!((__y+1)==y) || __y<-61){
                                             ;;(__y> _y - 3)             ? 发起者.runCommandAsync(`tellraw @s {"rawtext":[{"text":"§e§l-所站立位置非安全点，太高辣"}]}`) : 0;;
                                             // console.error((__y<(_y==319 ? -61 : 2)),(_y==319 ? -61 : 2),__y)
                                             ;;(__y<(_y==319 ? -61 : 2)) ? 发起者.runCommandAsync(`tellraw @s {"rawtext":[{"text":"§e§l-所站立位置非安全点，太低辣"}]}`) : 0;;
-                                            ;;(__y> _y - 3) || (__y<(_y==319 ? -62 : 2)) ? 0: 发起者.runCommandAsync(`tellraw @s {"rawtext":[{"text":"§e§l-所站立位置非安全点，此坐标安全点位于Y：${__y}"}]}`);;
+                                            ;;发起者.runCommandAsync(`tellraw @s {"rawtext":[{"text":"§e§l-所站立位置非安全点，此坐标安全点位于Y：${__y}"}]}`);;
                                             ;;return;;;
-                                            ;;
-                                            ;;
-                                           };;
+                                            ;;"救命！";;
+                                            ;;"代码太烂";;
+                                           };;"我看不懂了";;
                 
-                发起者.runCommandAsync( `structure save ${name}_1 ${x-1} ${__y+1} ${z-1} ${x+1} ${__y+1} ${z-2} false memory true`);  ;;"保存原地形";;
-                发起者.runCommandAsync( `structure save ${name}_0 ${x-3} ${__y-2} ${z-3} ${x} ${__y} ${z} false memory true`);
+                发起者.runCommandAsync( `structure save xBoy_${name}_1 ${x-1} ${__y+1} ${z-1} ${x+1} ${__y+1} ${z-2} false memory true`);  ;;"保存原地形";;
+                发起者.runCommandAsync( `structure save xBoy_${name}_0 ${x-3} ${__y-2} ${z-3} ${x} ${__y} ${z} false memory true`);
                 
-                cmd_(发起者.dimension, name, `fill ${x-1} ${__y-3} ${z-1} ${x+1} ${__y+1} ${z+1} air 0 replace structure_block`);
+                cmd_(发起者.dimension, name, `fill ${x-1} ${__y-3} ${z-1} ${x+1} ${__y+1} ${z+1} air [] replace structure_block`);
                 // cmd_(发起者.dimension, name, `setblock ${x} ${__y+1} ${z} air 0`);
-                cmd_(发起者.dimension, name, `structure load ${name}_1 ${x-1} ${__y+1} ${z-2}`);
-                cmd_(发起者.dimension, name, `structure load ${name}_0 ${x-3} ${__y-2} ${z-3}`);
+                cmd_(发起者.dimension, name, `structure load xBoy_${name}_1 ${x-1} ${__y+1} ${z-2}`);
+                cmd_(发起者.dimension, name, `structure load xBoy_${name}_0 ${x-3} ${__y-2} ${z-3}`);
                   
-                cmd( 发起者, name, `execute @s ${x} ${__y+1} ${z-3} gametest run 假人行为:${name}`)                  ;;;;;;;;;;;;;;;;;;;;;;;"这里缺个令牌桶，限制创建速度，降低高频率下单一临时变量导致的冲突问题可能性";;;;;;;;;;;;;;;;;;;;;;;
+                // cmd( 发起者, name, `execute @s ${x} ${__y+1} ${z-3} gametest run 假人行为:${name}`)                  ;;;;;;;;;;;;;;;;;;;;;;;"这里缺个令牌桶，限制创建速度，降低高频率下单一临时变量导致的冲突问题可能性";;;;;;;;;;;;;;;;;;;;;;;
                 ;;;;"什么？execute更新了？什么？跟实验玩法开关有关？什么？要适配？你要相信生命会自己找到出路";;;
+                ;;;;"想给写上一行的人来一拳。 云梦-2023-03-23";;;
                 cmd( 发起者, name, `execute as @s positioned ${x} ${__y+1} ${z-3} run gametest run 假人行为:${name}`);;;;;;;;;;;;;;;;;;;;;;;"这里缺个令牌桶，限制创建速度，降低高频率下单一临时变量导致的冲突问题可能性";;;;;;;;;;;;;;;;;;;;;;;
                 
                 
@@ -366,6 +386,7 @@ world.events.beforeChat.subscribe( M_event => {
                    );
                   // for(let i = sender.getComponent("inventory").container.size;i--;s.getItem(i)?p.getItem(i)?s.swapItems(i,i,p):s.transferItem(i,i,p):p.getItem(i)?p.transferItem(i,i,s):"这行代码，我再维护我是狗");
             };
+            // mojang.脑子 = {}
             if(消息== "挖掘" && mojang.脑子){
               
                   // 眼前的工具人.breakBlock(new BlockLocation(x,y-1,z))
@@ -454,31 +475,35 @@ world.events.beforeChat.subscribe( M_event => {
             };
             if(消息== "帮助"){
               [
-                "输入  假人帮助+空格+功能名   获取更详细的帮助","例如   -假人帮助 重生-",
-              "###部分功能需要光标对准假人","创建","销毁","列表","扭头","停止","移动",
-              "使用 # 开始使用 # 停止使用 => 使用鱼竿，鱼钩销毁后会自动抛竿（自动钓鱼）","攻击","自动攻击","交换背包",
-              "一般操作示例 '假人创建' '假人销毁' '假人交换背包'  ’假人github‘  ’假人help‘","销毁 + 空格 +列表标号",
-              "销毁示例","销毁","销毁 0" ,"销毁 1","#赠品：输入'tps开' 或 'tps关'","https://github.com/xBoyMinemc","输入'假人help'了解更多","#赞助作者烂活？得了吧。。"].forEach((text)=>发起者.runCommandAsync(`tellraw @s {"rawtext":[{"text":"§e§l-${text}"}]}`))
+                  "输入  假人帮助+空格+功能名   获取更详细的帮助","例如   -假人帮助 重生-",
+                  "###部分功能需要光标对准假人","创建","销毁","列表","扭头","停止","移动",
+                 "使用 # 开始使用 # 停止使用 => 使用鱼竿，鱼钩销毁后会自动抛竿（自动钓鱼）","攻击","自动攻击","交换背包",
+                  "一般操作示例 '假人创建' '假人销毁' '假人交换背包'  ’假人github‘  ’假人help‘","销毁 + 空格 +列表标号",
+                  "销毁示例","销毁","销毁 0" ,"销毁 1","#赠品：输入'tps开' 或 'tps关'","https://github.com/xBoyMinemc","输入'假人help'了解更多","#赞助作者烂活？得了吧。。"
+              ].forEach((text)=>发起者.runCommandAsync(`tellraw @s {"rawtext":[{"text":"§e§l-${text}"}]}`))
             };
             if(消息.startsWith("帮助 ")){
               let helpMessage = 
                   ({
                     "销毁":["销毁示例" ,"假人销毁 + 空格 + 序号","假人销毁 1" ,"假人销毁 2"],
                     "重生":["重生示例" ,"假人重生 + 空格 + 序号","假人重生 1" ,"假人重生 2"],
-                  })[消息.replace("帮助 ","")]
-                  if(helpMessage)
+                  })
+                  [消息.replace("帮助 ","")]
+                  ;
+                    helpMessage
+                  ?
                     sender.tell(helpMessage.join("\u000a"))
-                  else
+                  :
                     sender.tell("对不起，没有这种事情，做不到"+(Math.random()<0.233?"给钱也做不到":"真做不到"))
             };
             if(消息== "help"){
               ["§r这里是一些技术解释","假人销毁，或游戏重启后，信息完全丢失","假人可以捡起掉落物品","如果出现莫名其妙的Refer什么什么错误，可能是1.19.40+的垃圾特性，重启即可，有概率因为/reload或进入游戏而出现","1.19.40版本的假人销毁，并不是真正意义上的销毁，可以定期/reload而真正释放","积累过多假人可能会增加不可预测的bug被触发的概率","文件充满汉语是整活","现在依旧是汉语是因为整活把源文件整丢了","输入‘假人github’了解更多"].forEach((text)=>发起者.runCommandAsync(`tellraw @s {"rawtext":[{"text":"§e§l-${text}"}]}`))
             };
       
-       return M_event.cancel=ture;;
-    } catch (err) {
-      if(!nodebug)主世界.runCommandAsync("me "+err)
-      主世界.runCommandAsync(`me 【假人ERROR】${unescape("\u000a")}* 你触发了一个错误   ${unescape("\u000a")}* 考虑你没对准，歪了+${err}`)
-    }
+       return event.cancel=ture;;
+    // } catch (err) {
+    //   if(!nodebug)主世界.runCommandAsync("me "+err)
+    //   主世界.runCommandAsync(`me 【假人ERROR】${unescape("\u000a")}* 你触发了一个错误   ${unescape("\u000a")}* 考虑你没对准，歪了+${err}`)
+    // }
    
 })
