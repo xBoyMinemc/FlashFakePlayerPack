@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="86da4608-a0b7-45a0-bdcf-bce2f06a83ca" name="变更" comment="清明时雨&#10;代码整理&#10;祭奠过去">
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -54,9 +55,13 @@
     "TODO_SCOPE": "所有位置",
     "WebServerToolWindowFactoryState": "false",
     "last_opened_file_path": "C:/Users/云梦/AppData/Local/Packages/Microsoft.MinecraftUWP_8wekyb3d8bbwe/LocalState/games/com.mojang/minecraftWorlds/假人测试-1.19.71/behavior_packs/FUCKfakePlayerPack",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "project.propVCSSupport.DirectoryMappings",
-    "ts.external.directory.path": "C:\\Users\\云梦\\AppData\\Local\\JetBrains\\WebStorm 2022.2.3\\plugins\\JavaScriptLanguage\\jsLanguageServicesImpl\\external",
+    "settings.editor.selected.configurable": "settings.typescriptcompiler",
+    "ts.external.directory.path": "C:\\Users\\云梦\\AppData\\Local\\JetBrains\\WebStorm 2022.2.3\\plugins\\javascript-impl\\jsLanguageServicesImpl\\external",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
@@ -72,7 +77,7 @@
       <workItem from="1680688833175" duration="3080000" />
       <workItem from="1680712256348" duration="1124000" />
       <workItem from="1680713567908" duration="988000" />
-      <workItem from="1680714725263" duration="21000" />
+      <workItem from="1680714725263" duration="396000" />
     </task>
     <task id="LOCAL-00001" summary="代码整理&#10;清明时雨&#10;祭奠过去">
       <created>1680686803812</created>
@@ -151,7 +156,14 @@
       <option name="project" value="LOCAL" />
       <updated>1680714263844</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="清明时雨&#10;代码整理&#10;祭奠过去">
+      <created>1680714920148</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1680714920148</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
