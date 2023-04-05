@@ -1,1 +1,0 @@
-import * as G from "@minecraft/server-gametest"
