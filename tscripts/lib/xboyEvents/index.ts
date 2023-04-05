@@ -1,13 +1,9 @@
 import entityDeadByHurt from "./entityDeadByHurt"
 import { fishingHookSpawned, fishingHookDespawned } from "./fishingHookSpawned"
-import {World} from "@xBoyMinemc/server-plus"
+import reloadFromCmd from "./reloadFromCmd" 
 
+world.events.reloadFromCmd = reloadFromCmd
+world.events.entityDeadByHurt = entityDeadByHurt
+world.events.fishingHookSpawned = fishingHookSpawned
+world.events.fishingHookDespawned = fishingHookDespawned
 
-
-
-
-export default (world:World)=>{
-    world.events.entityDeadByHurt = entityDeadByHurt
-    world.events.fishingHookSpawned = fishingHookSpawned
-    world.events.fishingHookDespawned = fishingHookDespawned
-}

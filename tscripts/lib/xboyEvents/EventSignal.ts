@@ -1,13 +1,15 @@
-export default class EventSignal {
-    listeners = new Set()
-    subscribe(listener : (arg) => void) {
+type EventListener<T> = (event: T) => void;
+
+export default class EventSignal<T> {
+    listeners = new Set<EventListener<T>>()
+    subscribe(listener: EventListener<T>) {
         this.listeners.add(listener)
         return listener
     }
-    unsubscribe(listener: (arg) => void) {
+    unsubscribe(listener: EventListener<T>) {
         this.listeners.delete(listener)
     }
-    trigger(ev: Object) {
-        this.listeners.forEach((listener: Function) => listener(ev))
+    trigger(event: T) {
+        this.listeners.forEach((listener) => listener(event))
     }
 }
