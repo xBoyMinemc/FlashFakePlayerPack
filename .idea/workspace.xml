@@ -1,16 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="86da4608-a0b7-45a0-bdcf-bce2f06a83ca" name="变更" comment="？">
-      <changelist_data name="xBoyMinemc" email="86919167+xboyminemc@users.noreply.github.com" />
+    <list default="true" id="86da4608-a0b7-45a0-bdcf-bce2f06a83ca" name="变更" comment="代码整理&#10;清明时雨&#10;祭奠过去">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/entities/梦" beforeDir="false" afterPath="$PROJECT_DIR$/entities/梦" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/manifest.json" beforeDir="false" afterPath="$PROJECT_DIR$/manifest.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/.package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/.package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@minecraft/server-admin/README.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@minecraft/server-admin/index.d.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@minecraft/server-admin/package.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@minecraft/server-admin/tests.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/@minecraft/server-admin/tsconfig.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/EventSignal.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/entityDeadByHurt.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/fishingHookSpawned.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/reloadFromCmd.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/tick.js" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -41,7 +40,7 @@
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
-    <option name="RESET_MODE" value="KEEP" />
+    <option name="RESET_MODE" value="HARD" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -55,30 +54,31 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "TODO_SCOPE": "所有位置",
-    "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "C:/Users/云梦/AppData/Local/Packages/Microsoft.MinecraftUWP_8wekyb3d8bbwe/LocalState/games/com.mojang/minecraftWorlds/假人测试-1.19.71/behavior_packs/FUCKfakePlayerPack",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "project.propVCSSupport.CommitDialog",
-    "ts.external.directory.path": "C:\\Users\\云梦\\AppData\\Local\\JetBrains\\WebStorm 2022.2.3\\plugins\\JavaScriptLanguage\\jsLanguageServicesImpl\\external",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;TODO_SCOPE&quot;: &quot;所有位置&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/云梦/AppData/Local/Packages/Microsoft.MinecraftUWP_8wekyb3d8bbwe/LocalState/games/com.mojang/minecraftWorlds/假人测试-1.19.71/behavior_packs/FUCKfakePlayerPack&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.keymap&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;C:\\Users\\云梦\\AppData\\Local\\JetBrains\\WebStorm 2022.2.3\\plugins\\JavaScriptLanguage\\jsLanguageServicesImpl\\external&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="应用程序级" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="默认任务">
       <changelist id="86da4608-a0b7-45a0-bdcf-bce2f06a83ca" name="变更" comment="" />
-      <changelist id="" name="新的变更列表" comment="" />
       <created>1680666497030</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1680666497030</updated>
       <workItem from="1680666499259" duration="17764000" />
-      <workItem from="1680688833175" duration="929000" />
+      <workItem from="1680688833175" duration="3080000" />
+      <workItem from="1680712256348" duration="1124000" />
+      <workItem from="1680713567908" duration="651000" />
     </task>
     <task id="LOCAL-00001" summary="代码整理&#10;清明时雨&#10;祭奠过去">
       <created>1680686803812</created>
@@ -129,7 +129,28 @@
       <option name="project" value="LOCAL" />
       <updated>1680689021647</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="？">
+      <created>1680689795697</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1680689795697</updated>
+    </task>
+    <task id="LOCAL-00009" summary="代码整理&#10;清明时雨&#10;祭奠过去">
+      <created>1680690018410</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1680690018410</updated>
+    </task>
+    <task id="LOCAL-00010" summary="代码整理&#10;清明时雨&#10;祭奠过去">
+      <created>1680690303487</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1680690303487</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -229,8 +250,11 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
+    <ignored-roots>
+      <path value="$PROJECT_DIR$/FUCKfakePlayerPack" />
+    </ignored-roots>
     <MESSAGE value="?" />
-    <MESSAGE value="？" />
-    <option name="LAST_COMMIT_MESSAGE" value="？" />
+    <MESSAGE value="代码整理&#10;清明时雨&#10;祭奠过去" />
+    <option name="LAST_COMMIT_MESSAGE" value="代码整理&#10;清明时雨&#10;祭奠过去" />
   </component>
 </project>
