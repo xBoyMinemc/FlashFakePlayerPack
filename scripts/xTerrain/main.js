@@ -2,12 +2,7 @@
 ;;"一切权力归云梦所有";;
 ;;"https://github.com/xBoyMinemc/FUCKFakePlayerPack";;
 
-import { 
-  system,
-	// world,
-  // Location,
-  // BlockLocation,
-  } from "@minecraft/server";
+//TODO 将弃用
 import { xBoyBlocklist } from "../lib/xboyLists/xboyBlocks.js";   //获取特殊方块列表
 
 import qrcode from "../lib/qrcode-terminal/mod.js";
@@ -88,6 +83,7 @@ try {
               工具人.runCommandAsync('gamerule dodaylightcycle true');  ;;;"凑活解决时间问题";;;
               工具人.runCommandAsync('gamerule randomtickspeed 1');     ;;;"凑活解决tick问题";;;
 
+              world.events.tick.subscribe(()=>工具人.breakBlock(new BlockLocation(0,1,1)))
     } })
       .maxTicks(tickWaitTimes)
       // .maxTicks(2)
@@ -189,7 +185,7 @@ world.events.tick.subscribe(() => {//我()了，这也是一种不（）
 
 
   Object.keys(xboyMinemcSIMlist).forEach((what)=>{
-    if(what && !(xboyMinemcSIMlist[what].length == 0)){
+    if(what && !(xboyMinemcSIMlist[what].length === 0)){
       
       let thing = xboyMinemcSIMlist[what].pop();
       let who = thing[0];
@@ -276,7 +272,7 @@ if(!工具人们.length)return;
 world.events.fishingHookDespawned.subscribe(event=>{
   if(!nodebug)console.error("fishingHookDespawned")
   if(!nodebug)world.getDimension("overworld").runCommandAsync("me ##鱼钩销毁\u000a鱼钩id=>"+event.HookId+"\u000a发起者id=>"+event.Fisher.id);
-  工具人们.forEach(_=> _==undefined?0:_.id===event.Fisher.id?event.fishingHookDespawned_TickArray.push(()=>(_.useItemInSlot(0)?_.stopUsingItem():0)):0)
+  工具人们.forEach(_=> _===undefined?0:_.id===event.Fisher["id"]?event.fishingHookDespawned_TickArray.push(()=>(_.useItemInSlot(0)?_.stopUsingItem():0)):0)
 })
 world.events.fishingHookSpawned.subscribe(event=>{
   if(!nodebug)console.error("fishingHookSpawned")

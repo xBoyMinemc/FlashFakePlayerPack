@@ -13,9 +13,13 @@ const nowTimeTemp    = new Date().getDate() +"日"+ new Date().getHours() +"时"
 // })
 
 world.events.tick.subscribe(
-       () => tpsMspt()
+       () => {
+              tpsMspt()
+              // let i = overworld.runCommandAsync("list")
+              // overworld.runCommandAsync("me "+JSON.stringify(i))
+              // overworld.runCommandAsync("me #########")
+       }
        );
-       
 
 
 // ⬜⬜⬜🏿🏿🏿🏻🏻🏻🏻

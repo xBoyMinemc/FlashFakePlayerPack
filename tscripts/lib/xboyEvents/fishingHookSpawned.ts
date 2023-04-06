@@ -26,6 +26,7 @@ event.item.typeId === "minecraft:fishing_rod"
 
 const around =(v,r)=> v>-r && v<r;
 world.events.entitySpawn.subscribe((event:EntitySpawnEvent)=>{
+event.entity.runCommandAsync("me "+event.entity.typeId)
 let Fisher : Entity
     event.entity.typeId === "minecraft:fishing_hook"
 ?
@@ -52,16 +53,17 @@ let Fisher : Entity
 
 
 world.events.tick.subscribe((t)=>{
-queue.playerFishingArray = [];
-queue.fishingHookDespawned_TickArray.length?queue.fishingHookDespawned_TickArray.pop()():0;
-const fishingHookArray = Array.from(world.getDimension("overworld").getEntities({type:"minecraft:fishing_hook"}))
-const HookIdArray = fishingHookArray.map(Hook=>Hook.id)
-queue.fishingHookDespawned_HookArray.forEach((Fisher,HookId)=>HookIdArray.includes(HookId)?0:(fishingHookDespawned.trigger({HookId:HookId,Fisher:Fisher,fishingHookDespawned_TickArray:queue.fishingHookDespawned_TickArray}),queue.fishingHookDespawned_HookArray.delete(HookId)))
-
+    queue.playerFishingArray = [];
+    queue.fishingHookDespawned_TickArray.length?queue.fishingHookDespawned_TickArray.pop()():0;
+    const fishingHookArray = Array.from(world.getDimension("overworld").getEntities({type:"minecraft:fishing_hook"}))
+    const HookIdArray = fishingHookArray.map(Hook=>Hook.id)
+    queue.fishingHookDespawned_HookArray.forEach((Fisher,HookId)=>console.error(Fisher,HookId))
+    queue.fishingHookDespawned_HookArray.forEach((Fisher,HookId)=>HookIdArray.includes(HookId)?0:(fishingHookDespawned.trigger({HookId:HookId,Fisher:Fisher,fishingHookDespawned_TickArray:queue.fishingHookDespawned_TickArray}),queue.fishingHookDespawned_HookArray.delete(HookId)))
 //写完感觉效率逆天，但想了想，能够有几个钩子，这又不是海鲜市场，满池子钩子里没有一 滴水
 })
 
 /*
+*/
 world.events.fishingHookDespawned.subscribe(event=>{
   console.error("fishingHookDespawned")
   world.getDimension("overworld").runCommandAsync("me ##鱼钩销毁\u000a鱼钩id=>"+event.HookId+"\u000a发起者id=>"+event.Fisher.id);
@@ -71,6 +73,5 @@ world.events.fishingHookSpawned.subscribe(event=>{
   console.error("fishingHookSpawned")
   world.getDimension("overworld").runCommandAsync("me ##鱼钩生成\u000a鱼钩id=>"+event.HookId+"\u000a发起者id=>"+event.Fisher.id);
 })
-*/
 
 export { fishingHookSpawned, fishingHookDespawned }
