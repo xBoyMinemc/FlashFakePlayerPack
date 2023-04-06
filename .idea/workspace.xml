@@ -4,12 +4,46 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="86da4608-a0b7-45a0-bdcf-bce2f06a83ca" name="变更" comment="清明时雨&#10;代码整理&#10;祭奠过去">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    <list default="true" id="86da4608-a0b7-45a0-bdcf-bce2f06a83ca" name="变更" comment="代码整理-A&#10;准备模块化">
+      <changelist_data name="xBoyMinemc" email="" />
+      <change afterPath="$PROJECT_DIR$/scripts/xboyEvents/EventSignal.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/scripts/xboyEvents/entityDeadByHurt.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/scripts/xboyEvents/fishingHookSpawned.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/scripts/xboyEvents/index.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/scripts/xboyEvents/preload.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/scripts/xboyEvents/reloadFromCmd.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/scripts/xboyEvents/tick.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tscripts/lib/qrcode-terminal/QRCode/QR8bitByte.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tscripts/lib/qrcode-terminal/QRCode/QRBitBuffer.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tscripts/lib/qrcode-terminal/QRCode/QRErrorCorrectLevel.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tscripts/lib/qrcode-terminal/QRCode/QRMaskPattern.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tscripts/lib/qrcode-terminal/QRCode/QRMath.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tscripts/lib/qrcode-terminal/QRCode/QRMode.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tscripts/lib/qrcode-terminal/QRCode/QRPolynomial.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tscripts/lib/qrcode-terminal/QRCode/QRRSBlock.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tscripts/lib/qrcode-terminal/QRCode/QRUtil.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tscripts/lib/qrcode-terminal/QRCode/index.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tscripts/lib/qrcode-terminal/mod.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tscripts/lib/xboyEvents/preload.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/manifest.json" beforeDir="false" afterPath="$PROJECT_DIR$/manifest.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/lib/xboyEvents/entityDeadByHurt.js" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/lib/xboyEvents/entityDeadByHurt.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/scripts/lib/xboyEvents/fishingHookSpawned.js" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/lib/xboyEvents/fishingHookSpawned.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/lib/xboyEvents/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/lib/xboyEvents/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/lib/xboyEvents/reloadFromCmd.js" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/lib/xboyEvents/reloadFromCmd.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/lib/xboyEvents/tick.js" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/lib/xboyEvents/tick.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/scripts/lib/xboyLists/xboyBlocks.js" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/lib/xboyLists/xboyBlocks.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/scripts/main/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/main/main.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/qrcode-terminal/QRCode/QR8bitByte.js" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/qrcode-terminal/QRCode/QR8bitByte.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/qrcode-terminal/QRCode/QRBitBuffer.js" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/qrcode-terminal/QRCode/QRBitBuffer.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/qrcode-terminal/QRCode/QRErrorCorrectLevel.js" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/qrcode-terminal/QRCode/QRErrorCorrectLevel.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/qrcode-terminal/QRCode/QRMaskPattern.js" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/qrcode-terminal/QRCode/QRMaskPattern.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/qrcode-terminal/QRCode/QRMath.js" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/qrcode-terminal/QRCode/QRMath.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/qrcode-terminal/QRCode/QRMode.js" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/qrcode-terminal/QRCode/QRMode.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/qrcode-terminal/QRCode/QRPolynomial.js" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/qrcode-terminal/QRCode/QRPolynomial.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/qrcode-terminal/QRCode/QRRSBlock.js" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/qrcode-terminal/QRCode/QRRSBlock.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/qrcode-terminal/QRCode/QRUtil.js" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/qrcode-terminal/QRCode/QRUtil.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/qrcode-terminal/QRCode/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/qrcode-terminal/QRCode/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/qrcode-terminal/mod.js" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/qrcode-terminal/mod.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/scripts/xTerrain/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/xTerrain/main.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/structures/xboyMinemcSIM/void.mcstructure" beforeDir="false" afterPath="$PROJECT_DIR$/structures/xboyMinemcSIM/void.mcstructure" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/tsconfig.json" beforeDir="false" afterPath="$PROJECT_DIR$/tsconfig.json" afterDir="false" />
@@ -35,6 +69,7 @@
   <component name="Git.Settings">
     <option name="PREVIOUS_COMMIT_AUTHORS">
       <list>
+        <option value="xBoyMinemc" />
         <option value="xBoyMinemc &lt;86919167+xboyminemc@users.noreply.github.com&gt;" />
       </list>
     </option>
@@ -80,7 +115,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "TODO_SCOPE": "所有位置",
     "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "C:/Users/云梦/AppData/Local/Packages/Microsoft.MinecraftUWP_8wekyb3d8bbwe/LocalState/games/com.mojang/minecraftWorlds/假人测试-1.19.71/behavior_packs/FUCKfakePlayerPack",
+    "last_opened_file_path": "C:/Users/云梦/AppData/Local/Packages/Microsoft.MinecraftUWP_8wekyb3d8bbwe/LocalState/games/com.mojang/minecraftWorlds/假人测试-1.19.71/behavior_packs/FUCKfakePlayerPack/tscripts/lib",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -92,7 +127,13 @@
   }
 }]]></component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\云梦\AppData\Local\Packages\Microsoft.MinecraftUWP_8wekyb3d8bbwe\LocalState\games\com.mojang\minecraftWorlds\假人测试-1.19.71\behavior_packs\FUCKfakePlayerPack\tscripts\lib" />
+      <recent name="C:\Users\云梦\AppData\Local\Packages\Microsoft.MinecraftUWP_8wekyb3d8bbwe\LocalState\games\com.mojang\minecraftWorlds\假人测试-1.19.71\behavior_packs\FUCKfakePlayerPack\tscripts\lib\xboyEvents" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\云梦\AppData\Local\Packages\Microsoft.MinecraftUWP_8wekyb3d8bbwe\LocalState\games\com.mojang\minecraftWorlds\假人测试-1.19.71\behavior_packs\FUCKfakePlayerPack\scripts\lib" />
+      <recent name="C:\Users\云梦\AppData\Local\Packages\Microsoft.MinecraftUWP_8wekyb3d8bbwe\LocalState\games\com.mojang\minecraftWorlds\假人测试-1.19.71\behavior_packs\FUCKfakePlayerPack\scripts\lib\xboyEvents" />
       <recent name="C:\Users\云梦\AppData\Local\Packages\Microsoft.MinecraftUWP_8wekyb3d8bbwe\LocalState\games\com.mojang\minecraftWorlds\假人测试-1.19.71\behavior_packs\FUCKfakePlayerPack\structures" />
     </key>
   </component>
@@ -108,7 +149,7 @@
       <workItem from="1680688833175" duration="3080000" />
       <workItem from="1680712256348" duration="1124000" />
       <workItem from="1680713567908" duration="988000" />
-      <workItem from="1680714725263" duration="7769000" />
+      <workItem from="1680714725263" duration="8179000" />
     </task>
     <task id="LOCAL-00001" summary="代码整理&#10;清明时雨&#10;祭奠过去">
       <created>1680686803812</created>
@@ -222,7 +263,14 @@
       <option name="project" value="LOCAL" />
       <updated>1680715511777</updated>
     </task>
-    <option name="localTasksCounter" value="17" />
+    <task id="LOCAL-00017" summary="代码整理-A&#10;准备模块化">
+      <created>1680751034806</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1680751034806</updated>
+    </task>
+    <option name="localTasksCounter" value="18" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -322,6 +370,7 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
+    <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
     <ignored-roots>
       <path value="$PROJECT_DIR$/FUCKfakePlayerPack" />
       <path value="$PROJECT_DIR$" />
@@ -329,6 +378,7 @@
     <MESSAGE value="?" />
     <MESSAGE value="代码整理&#10;清明时雨&#10;祭奠过去" />
     <MESSAGE value="清明时雨&#10;代码整理&#10;祭奠过去" />
-    <option name="LAST_COMMIT_MESSAGE" value="清明时雨&#10;代码整理&#10;祭奠过去" />
+    <MESSAGE value="代码整理-A&#10;准备模块化" />
+    <option name="LAST_COMMIT_MESSAGE" value="代码整理-A&#10;准备模块化" />
   </component>
 </project>
