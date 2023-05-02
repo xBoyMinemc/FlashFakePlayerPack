@@ -1,5 +1,4 @@
-//准备退役
-//不准备更新1.19新方块
+
 const xBoyBlocklist = [
     "minecraft:bamboo",    //apple~
     "minecraft:sapling",   //pen~

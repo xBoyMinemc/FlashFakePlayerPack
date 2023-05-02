@@ -2,13 +2,22 @@
 ;;"一切权力归云梦所有";;
 ;;"https://github.com/xBoyMinemc/FUCKFakePlayerPack";;
 
-//TODO 将弃用
+
 import { xBoyBlocklist } from "../lib/xboyLists/xboyBlocks.js";   //获取特殊方块列表
 
 import qrcode from "../lib/qrcode-terminal/mod.js";
 
 
+const version = {
+  year : '2023',
+  mine : '0.8.81',
+  craft: '1.19.80 +1'
+};
 
+const debug = false;
+const mojang  = {};
+const ture = true;
+const flase = false;
 
 const xboySign = "#xboySimSign#";                   ;;"假人标签";;"苦役证";;
 const xboySimCmdHead = "假人";                      ;;" 命令头 ";;
@@ -18,39 +27,36 @@ const 自动攻击标识符 = "自动攻击标识符";
 const 跳跃标识符 = "跳跃标识符";
 const 自动重生标识符 = "自动重生标识符";
 const 寻路标识符 = "寻路标识符";
-const ture = true;
-const 主世界 = world.getDimension("overworld");
-const nether = world.getDimension("nether");
+const 主世界   = world.getDimension("overworld");
+const nether  = world.getDimension("nether");
 const the_end = world.getDimension("the end");
-const mojang = {};
-const nodebug = 1-false;
-let xboyMinemcSIMlist = {};
-let cmd = function(who,what,cmd_String){
+const xboyMinemcSIMlist = {};
+const cmd = function(who,what,cmd_String){
 
   try {
   if(!xboyMinemcSIMlist[what])xboyMinemcSIMlist[what] = [];
       xboyMinemcSIMlist[what].push([who,cmd_String])
     } catch (err) {
-      if(!nodebug)
+      if(debug)
       主世界.runCommandAsync(`me ${err}`)
     }
 };
-let xboyMinemcSIMlist_ = {};
-let cmd_ = function(where,what,cmd_String){
+const xboyMinemcSIMlist_ = {};
+const cmd_ = function(where,what,cmd_String){
 
   try {
   if(!xboyMinemcSIMlist_[what])xboyMinemcSIMlist_[what] = [];
       xboyMinemcSIMlist_[what].push([where,cmd_String])
     } catch (err) {
-      if(!nodebug)
+      if(debug)
       主世界.runCommandAsync(`me ${err}`)
     }
 };
 
-let 工具人们 = [null];;;;;;;;;;;;;//屎山代码啊不是说一定要设计烂，而是你不能动任何一处小细节，存在即有因，就像这个数组里的null一样
-let tickWaitTimes = 20*60*60*24*365;;
-let xboyTestsList = {};;;;;;;;;;;;;;;
-let xboyTooleesList = {};;;;;;;;;;;;;
+const 工具人们 = [null];;;;;;;;;;;;;//屎山代码啊不是说一定要设计烂，而是你不能动任何一处小细节，存在即有因，就像这个数组里的null一样
+const tickWaitTimes = 20*60*60*24*365;;
+const xboyTestsList = {};;;;;;;;;;;;;;;
+const xboyTooleesList = {};;;;;;;;;;;;;
 try {
 
   {
@@ -83,7 +89,6 @@ try {
               工具人.runCommandAsync('gamerule dodaylightcycle true');  ;;;"凑活解决时间问题";;;
               工具人.runCommandAsync('gamerule randomtickspeed 1');     ;;;"凑活解决tick问题";;;
 
-              world.events.tick.subscribe(()=>工具人.breakBlock(new BlockLocation(0,1,1)))
     } })
       .maxTicks(tickWaitTimes)
       // .maxTicks(2)
@@ -185,17 +190,17 @@ world.events.tick.subscribe(() => {//我()了，这也是一种不（）
 
 
   Object.keys(xboyMinemcSIMlist).forEach((what)=>{
-    if(what && !(xboyMinemcSIMlist[what].length === 0)){
+    if(what && !(xboyMinemcSIMlist[what].length == 0)){
       
       let thing = xboyMinemcSIMlist[what].pop();
       let who = thing[0];
       let cmd_String = thing[1];
   try {
            who.runCommandAsync(cmd_String).then((res)=>0).catch(()=>0);
-      if(!nodebug)
+      if(debug)
            who.runCommandAsync("say "+cmd_String).then((res)=>0).catch(()=>0);
   }catch(err){
-      if(!nodebug)主世界.runCommandAsync("me 我管这叫加大款双层老年防夜漏纸尿裤"+err)}
+      if(debug)主世界.runCommandAsync("me 我管这叫加大款双层老年防夜漏纸尿裤"+err)}
     }
   })
   try {
@@ -263,20 +268,20 @@ if(!工具人们.length)return;
 
 
   } catch (毛病) {
-      if(!nodebug)
+      if(debug)
     主世界.runCommandAsync(`me ${毛病}`)
   }
 })
 
 
 world.events.fishingHookDespawned.subscribe(event=>{
-  if(!nodebug)console.error("fishingHookDespawned")
-  if(!nodebug)world.getDimension("overworld").runCommandAsync("me ##鱼钩销毁\u000a鱼钩id=>"+event.HookId+"\u000a发起者id=>"+event.Fisher.id);
-  工具人们.forEach(_=> _===undefined?0:_.id===event.Fisher["id"]?event.fishingHookDespawned_TickArray.push(()=>(_.useItemInSlot(0)?_.stopUsingItem():0)):0)
+  if(debug)console.error("fishingHookDespawned")
+  if(debug)world.getDimension("overworld").runCommandAsync("me ##鱼钩销毁\u000a鱼钩id=>"+event.HookId+"\u000a发起者id=>"+event.Fisher.id);
+  工具人们.forEach(_=> _==undefined?0:_.id===event.Fisher.id?event.fishingHookDespawned_TickArray.push(()=>(_.useItemInSlot(0)?_.stopUsingItem():0)):0)
 })
 world.events.fishingHookSpawned.subscribe(event=>{
-  if(!nodebug)console.error("fishingHookSpawned")
-  if(!nodebug)world.getDimension("overworld").runCommandAsync("me ##鱼钩生成\u000a鱼钩id=>"+event.HookId+"\u000a发起者id=>"+event.Fisher.id);
+  if(debug)console.error("fishingHookSpawned")
+  if(debug)world.getDimension("overworld").runCommandAsync("me ##鱼钩生成\u000a鱼钩id=>"+event.HookId+"\u000a发起者id=>"+event.Fisher.id);
 })
 
 
@@ -377,23 +382,11 @@ world.events.beforeChat.subscribe( event => {
             if(消息=="交换背包"){
                   const s = 眼前的工具人.getComponent("inventory").container;                                     ;;"眼前的假人实体背包";;
                   const p = sender.getComponent("inventory").container;                                          ;;"你这个______的背包";;
-                  for(let i = sender.getComponent("inventory").container.size;i--;
-                  s.getItem(i)
-                  ?
-                   p.getItem(i)
-                   ?
-                   s.swapItems(i,i,p)
-                   :
-                   s.transferItem(i,i,p)
-                  :
-                   p.getItem(i)
-                   ?
-                   p.transferItem(i,i,s)
-                   :
-                   "这行代码，我再维护我是狗"
-                   );
-                  // for(let i = sender.getComponent("inventory").container.size;i--;s.getItem(i)?p.getItem(i)?s.swapItems(i,i,p):s.transferItem(i,i,p):p.getItem(i)?p.transferItem(i,i,s):"这行代码，我再维护我是狗");
-            };
+                  
+                  for(let i = sender.getComponent("inventory").container.size;i--;s.getItem(i)?p.getItem(i)?s.swapItems(i,i,p):s.moveItem(i,i,p):p.getItem(i)?p.moveItem(i,i,s):"这行代码，我再维护我是狗");
+            
+                   "大家好，我是狗 --2023-05-02"
+           };
             // mojang.脑子 = {}
             if(消息== "挖掘" && mojang.脑子){
               
@@ -521,8 +514,10 @@ world.events.beforeChat.subscribe( event => {
       
        return event.cancel=ture;;
     } catch (err) {
-      if(!nodebug)主世界.runCommandAsync("me "+err)
-      主世界.runCommandAsync(`me 【假人ERROR】${unescape("\u000a")}* 你触发了一个错误   ${unescape("\u000a")}* 考虑你没对准，歪了+${err}`)
+      if(debug)主世界.runCommandAsync("me "+err)
+      主世界.runCommandAsync(`me ${unescape("\u000a")}* §4§l【假人ERROR】§r§l${unescape("\u000a")}* 你触发了一个错误   ${unescape("\u000a")}* 考虑你没对准，歪了+${err}`)
+      主世界.runCommandAsync(`me ${unescape("\u000a")}* §4§l附加信息#2   §r§l${unescape("\u000a")}* ${Object.values(event.sender.location).map(_=>_>>0)} count:${工具人们.length}`)
+      主世界.runCommandAsync(`me ${unescape("\u000a")}* §4§l版本信息#1   §r§l${unescape("\u000a")}* ${JSON.stringify(version)} bug上报请截图并提交GitHub或入群 ${unescape("\u000a")}* `)
     }
    
 })
