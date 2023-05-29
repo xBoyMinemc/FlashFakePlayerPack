@@ -1,39 +1,20 @@
-import { world } from "@minecraft/server";
-
-import * as GameTest from "@minecraft/server-gametest";
-
-import { Location,BlockLocation } from "../lib/xboyPackage/The law of the ancestors is immutable.js";
-
-
-globalThis.world = world;
-globalThis.GameTest = GameTest;
+import { world as _world } from "@minecraft/server";
+import { register } from "@minecraft/server-gametest";
+import { Location, BlockLocation } from "../lib/xboyPackage/The law of the ancestors is immutable";
+globalThis.world = _world;
+globalThis.GameTest = { "register": register };
 globalThis.Location = Location;
 globalThis.BlockLocation = BlockLocation;
-
 import("../lib/xboyEvents/preload.js")
-
-.then(
-    () => {
-    console.error("full ",typeof world)
+    .then(() => {
+    console.error("full ", typeof world);
     import("./main.js");
-    },
-    (rej) => {
-    console.error("rej ",typeof world,rej)
-    // import("./main.js");
-    }
-)
-
-.finally(() => {
-    console.error("finally",typeof world)
-    // import("./main.js");
+}, (rej) => {
+    console.error("rej ", typeof world, rej);
 })
-
-.catch(_=>{
-    console.error("catch","error"+_)
+    .finally(() => {
+    console.error("finally", typeof world);
 })
-;
-
-
-// ################preload################
-
-//别问有多烂，就说能不能跑
+    .catch(_ => {
+    console.error("catch", "error" + _);
+});

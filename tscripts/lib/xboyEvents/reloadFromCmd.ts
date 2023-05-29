@@ -1,10 +1,11 @@
 import { Player } from "@minecraft/server"
 import EventSignal from "./EventSignal"
-import {reloadFromCmdEvent } from "./global"
+import type { World,reloadFromCmdEvent } from "../../@types/globalThis.d.ts";
 
+declare const world: World;
 
 class reloadFromCmdEvents extends EventSignal<reloadFromCmdEvent> {
-    players: Set<Player["id"]>;
+    players = new Set<Player["id"]>();
 }
 
 const reloadFromCmd = new reloadFromCmdEvents()
