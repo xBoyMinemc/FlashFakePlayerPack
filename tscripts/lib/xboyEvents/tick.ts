@@ -1,6 +1,9 @@
+/// <reference path="../../@types/globalThis.d.ts" />
 import { system } from "@minecraft/server"
 import EventSignal from "./EventSignal"
-import {TickEvent} from "./global";
+import type { World,TickEvent } from "../../@types/globalThis.d.ts";
+
+declare const world: World;
 
   const tick = new EventSignal<TickEvent>()
   world.events.tick = tick;

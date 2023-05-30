@@ -1,16 +1,15 @@
 import EventSignal from "./EventSignal"
-import { EntityDeadByHurtEvent } from "./global"
-  
+import type { World,EntityDeadByHurtEvent } from "../../@types/globalThis.d.ts";
+
+declare const world: World;
 const entityDeadByHurt = new EventSignal<EntityDeadByHurtEvent>()
 
 
 
 world.events.entityHurt.subscribe(event=>
   event.hurtEntity.getComponent("minecraft:health")["current"]<=0
-  ?
-  entityDeadByHurt.trigger(event)
-  :
-  0
+  ?entityDeadByHurt.trigger(event)
+  :0
 )
 
 /*
