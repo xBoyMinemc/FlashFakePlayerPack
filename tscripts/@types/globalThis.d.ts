@@ -14,7 +14,7 @@ import
 import { Location,BlockLocation } from "../lib/xboyPackage/The law of the ancestors is immutable";
 
 
-export { };
+// export { };
 declare global {
     interface GlobalThis {
       Location: typeof Location;
@@ -292,3 +292,5 @@ export class FishingHookDespawnedEventSignal {
     trigger(FishingHookDespawnedEvent: FishingHookDespawnedEvent): void;
     protected constructor();
 }
+export { BlockLocation };
+

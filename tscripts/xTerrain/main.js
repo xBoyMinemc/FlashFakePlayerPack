@@ -6,7 +6,7 @@
 import { xBoyBlocklist } from "../lib/xboyLists/xboyBlocks.js";   //获取特殊方块列表
 
 import qrcode from "../lib/qrcode-terminal/mod.js";
-
+import { 生产队, 驴 } from "./spawnFakePlayer.js";
 
 const version = {
   year : '2023',
@@ -313,6 +313,8 @@ world.events.beforeChat.subscribe( event => {
                消息 = 消息.replace(xboySimCmdHead,"");
             if(消息== "创建" || 消息== "生成" || 消息== "召唤"){
               event.cancel=ture;
+              生产队.push("")
+              return "1.19.83-1.0.0b";
               if(发起者.dimension!=主世界){发起者.sendMessage("§e§l-此假人模组为主世界限定版");return;};
               let _y,__y;
                   _y = 319;
