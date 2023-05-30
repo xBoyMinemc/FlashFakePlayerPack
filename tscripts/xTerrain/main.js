@@ -2,13 +2,22 @@
 ;;"一切权力归云梦所有";;
 ;;"https://github.com/xBoyMinemc/FUCKFakePlayerPack";;
 
-//TODO 将弃用
+//TODO 将要弃用
 import { xBoyBlocklist } from "../lib/xboyLists/xboyBlocks.js";   //获取特殊方块列表
 
 import qrcode from "../lib/qrcode-terminal/mod.js";
 
 
+const version = {
+  year : '2023',
+  mine : '1.0.0b',
+  craft: '1.19.83 +1'
+};
 
+const debug = false;
+const mojang  = {};
+const ture = true;
+const flase = false;
 
 const xboySign = "#xboySimSign#";                   ;;"假人标签";;"苦役证";;
 const xboySimCmdHead = "假人";                      ;;" 命令头 ";;
@@ -18,64 +27,104 @@ const 自动攻击标识符 = "自动攻击标识符";
 const 跳跃标识符 = "跳跃标识符";
 const 自动重生标识符 = "自动重生标识符";
 const 寻路标识符 = "寻路标识符";
-const ture = true;
-const 主世界 = world.getDimension("overworld");
-const 地狱 = world.getDimension("nether");
-const 末界 = world.getDimension("the end");
-const mojang = {};
-const nodebug = false;
-let xboyMinemcSIMlist = {};
-let cmd = function(who,what,cmd_String){
+const 主世界   = world.getDimension("overworld");
+const nether  = world.getDimension("nether");
+const the_end = world.getDimension("the end");
+const xboyMinemcSIMlist = {};
+const cmd = function(who,what,cmd_String){
 
-  try {
+try {
   if(!xboyMinemcSIMlist[what])xboyMinemcSIMlist[what] = [];
       xboyMinemcSIMlist[what].push([who,cmd_String])
     } catch (err) {
-      if(!nodebug)
+      if(debug)
       主世界.runCommandAsync(`me ${err}`)
     }
 };
-let xboyMinemcSIMlist_ = {};
-let cmd_ = function(where,what,cmd_String){
+const xboyMinemcSIMlist_ = {};
+const cmd_ = function(where,what,cmd_String){
 
   try {
   if(!xboyMinemcSIMlist_[what])xboyMinemcSIMlist_[what] = [];
       xboyMinemcSIMlist_[what].push([where,cmd_String])
     } catch (err) {
-      if(!nodebug)
+      if(debug)
       主世界.runCommandAsync(`me ${err}`)
     }
 };
 
-let 工具人们 = [null];;;;;;;;;;;;;//屎山代码啊不是说一定要设计烂，而是你不能动任何一处小细节，存在即有因，就像这个数组里的null一样
-let tickWaitTimes = 20*60*60*24*365;;
-let xboyTestsList = {};;;;;;;;;;;;;;;
-let xboyTooleesList = {};;;;;;;;;;;;;
+const 工具人们 = [null];;;;;;;;;;;;;//屎山代码啊不是说一定要设计烂，而是你不能动任何一处小细节，存在即有因，就像这个数组里的null一样
+const tickWaitTimes = 20*60*60*24*365;;
+const xboyTestsList = {};;;;;;;;;;;;;;;
+const xboyTooleesList = {};;;;;;;;;;;;;
+try {
 
+  {
+    GameTest.
+      register("假人行为", "销毁", (test) => { {
+    
+          
+      let thing  = xboyMinemcSIMlist_["销毁"].pop();
+          thing[0].runCommandAsync(thing[1]);
+          thing  = xboyMinemcSIMlist_["销毁"].pop();
+          thing[0].runCommandAsync(thing[1]);
+          thing  = xboyMinemcSIMlist_["销毁"].pop();
+          cmd(thing[0],"销毁",thing[1])
+
+
+          const 工具人 = test.spawnSimulatedPlayer(new BlockLocation(0,2,0), `工具人-`);            ;;"xboy";;
+              工具人.addTag(xboySign);;
+              // 工具人.breakBlock(new BlockLocation(0,1,1))
+          const x = (工具人.location.x-0.5)>>0;
+          const y =  工具人.location.y>>0;
+          const z = (工具人.location.z-0.5)>>0; //for blockLocation
+              工具人.addTag("#xyz#"+x+"#"+(y-2)+"#"+z);;
+              工具人.addTag(自动重生标识符);
+              // 工具人.addTag(自动攻击标识符);
+              xboyTestsList[工具人.name] = test;
+              xboyTooleesList[工具人.name] = 工具人
+              工具人.breakBlock(new BlockLocation(+x,y-1,z))
+              工具人们.push(工具人);;;;;
+              工具人.runCommandAsync('gamerule domobspawning true');    ;;;"凑活解决刷怪问题";;;
+              工具人.runCommandAsync('gamerule dodaylightcycle true');  ;;;"凑活解决时间问题";;;
+              工具人.runCommandAsync('gamerule randomtickspeed 1');     ;;;"凑活解决tick问题";;;
+
+    } })
+      .maxTicks(tickWaitTimes)
+      // .maxTicks(2)
+      // .maxAttempts(tickWaitTimes)
+      // .requiredSuccessfulAttempts(tickWaitTimes)
+      // .padding(0)
+      .structureName("xboyMinemcSIM:void")
+  }
+
+} catch (err) {
+  主世界.runCommandAsync(`me Core-Dump ${err}`)
+}
 
 
       function 获取眼前的假人实体(逻辑主体,距离){
-        let 最远距离 = {}//new EntityRaycastOptions();
+        const 最远距离 = {}//new EntityRaycastOptions();
             最远距离.maxDistance = 距离;                                                              ;;"距离";;
-        let 实体们 = 逻辑主体.getEntitiesFromViewDirection(最远距离);// ViewDirection
+        const 实体们 = 逻辑主体.getEntitiesFromViewDirection(最远距离);// ViewDirection
         let 假人;
         for(let i in 实体们)if(实体们[i].hasTag(xboySign))假人=实体们[i];                              ;;"云梦科技，拯救每一位低血压";;
         return 假人;;"只返回一个";;
       };
       function 获取眼前的实体(逻辑主体,距离){
-        let 最远距离 = {}//new EntityRaycastOptions();
+        const 最远距离 = {}//new EntityRaycastOptions();
             最远距离.maxDistance = 距离;                                                              ;;"距离";;
-        let 实体们 = 逻辑主体.getEntitiesFromViewDirection(最远距离);
+        const 实体们 = 逻辑主体.getEntitiesFromViewDirection(最远距离);
         return 实体们[0];;"只返回一个";;
       };
       function 获取附近的玩家实体(逻辑主体,距离){
-        let 吃个桃桃 = {}//new EntityQueryOptions();
+        const 吃个桃桃 = {}//new EntityQueryOptions();
             吃个桃桃.maxDistance = 距离;                                                               ;;"距离";;
             吃个桃桃.location    = new Location(逻辑主体.location.x,逻辑主体.location.y,逻辑主体.location.z);                                                  ;;"中心坐标-ri泥god";;
             吃个桃桃.type = "minecraft:player";                                              ;;"排除掉的实体类型";;
             吃个桃桃.closest   = 2;
-        let 实体们 = 逻辑主体.dimension.getEntities(吃个桃桃);
-        let 实体组 = [];
+        const 实体们 = 逻辑主体.dimension.getEntities(吃个桃桃);
+        const 实体组 = [];
           for(let 实体 of 实体们)实体组.push(实体);;;;;;;;;;;;
         return 实体组;;
       };
@@ -100,9 +149,9 @@ let xboyTooleesList = {};;;;;;;;;;;;;
         let 源坐标;;;;;;;;;;;;;;;;;;;;;
         let 标签们 = 逻辑主体.getTags();
         for(let i in 标签们)if(标签们[i].startsWith("#xyz#"))源坐标=标签们[i].replace("#xyz#","").split("#");
-        let x = 眼前的方块绝对坐标.x - 源坐标[0];
-        let y = 眼前的方块绝对坐标.y - 源坐标[1];
-        let z = 眼前的方块绝对坐标.z - 源坐标[2];
+        const x = 眼前的方块绝对坐标.x - 源坐标[0];
+        const y = 眼前的方块绝对坐标.y - 源坐标[1];
+        const z = 眼前的方块绝对坐标.z - 源坐标[2];
         // 主世界.runCommandAsync(`me ${源坐标.join("#")} x:${眼前的方块绝对坐标.x} y:${眼前的方块绝对坐标.y} z:${眼前的方块绝对坐标.z} ### ${x+'#'+y+'#'+z+'#'}`)
         return new BlockLocation(x,y,z);;"不绝对咯";;
       };
@@ -146,13 +195,14 @@ world.events.tick.subscribe(() => {//我()了，这也是一种不（）
       let cmd_String = thing[1];
   try {
            who.runCommandAsync(cmd_String).then((res)=>0).catch(()=>0);
-      if(!nodebug)
+      if(debug)
            who.runCommandAsync("say "+cmd_String).then((res)=>0).catch(()=>0);
   }catch(err){
-      if(!nodebug)主世界.runCommandAsync("me 我管这叫加大款双层老年防夜漏纸尿裤"+err)}
+      if(debug)主世界.runCommandAsync("me 我管这叫加大款双层老年防夜漏纸尿裤"+err)}
     }
   })
   try {
+
 if(周期<1)return;
    周期=0;
 if(!工具人们.length)return;
@@ -216,20 +266,20 @@ if(!工具人们.length)return;
 
 
   } catch (毛病) {
-      if(!nodebug)
+      if(debug)
     主世界.runCommandAsync(`me ${毛病}`)
   }
 })
 
 
 world.events.fishingHookDespawned.subscribe(event=>{
-  if(!nodebug)console.error("fishingHookDespawned")
-  if(!nodebug)world.getDimension("overworld").runCommandAsync("me ##鱼钩销毁\u000a鱼钩id=>"+event.HookId+"\u000a发起者id=>"+event.Fisher.id);
-  工具人们.forEach(_=> _===null?0:_.id===event.Fisher["id"]?event.fishingHookDespawned_TickArray.push(()=>(_.useItemInSlot(0)?_.stopUsingItem():0)):0)
+  if(debug)console.error("fishingHookDespawned")
+  if(debug)world.getDimension("overworld").runCommandAsync("me ##鱼钩销毁\u000a鱼钩id=>"+event.HookId+"\u000a发起者id=>"+event.Fisher.id);
+  工具人们.forEach(_=> _==undefined?0:_.id===event.Fisher.id?event.fishingHookDespawned_TickArray.push(()=>(_.useItemInSlot(0)?_.stopUsingItem():0)):0)
 })
 world.events.fishingHookSpawned.subscribe(event=>{
-  if(!nodebug)console.error("fishingHookSpawned")
-  if(!nodebug)world.getDimension("overworld").runCommandAsync("me ##鱼钩生成\u000a鱼钩id=>"+event.HookId+"\u000a发起者id=>"+event.Fisher.id);
+  if(debug)console.error("fishingHookSpawned")
+  if(debug)world.getDimension("overworld").runCommandAsync("me ##鱼钩生成\u000a鱼钩id=>"+event.HookId+"\u000a发起者id=>"+event.Fisher.id);
 })
 
 
@@ -261,7 +311,7 @@ world.events.beforeChat.subscribe( event => {
             const 眼前的工具人 = 获取眼前的假人实体(发起者, 16);
             
                消息 = 消息.replace(xboySimCmdHead,"");
-            if(消息== "创建" || 消息== "创建"){
+            if(消息== "创建" || 消息== "生成" || 消息== "召唤"){
               event.cancel=ture;
               if(发起者.dimension!=主世界){发起者.sendMessage("§e§l-此假人模组为主世界限定版");return;};
               let _y,__y;
@@ -311,7 +361,7 @@ world.events.beforeChat.subscribe( event => {
                 ;;;;"什么？execute更新了？什么？跟实验玩法开关有关？什么？要适配？你要相信生命会自己找到出路";;;
                 ;;;;"想给写上一行的人来一拳。 云梦-2023-03-23";;;
                 cmd( 发起者, name, `execute as @s positioned ${x} ${__y+1} ${z-3} run gametest run 假人行为:${name}`);;;;;;;;;;;;;;;;;;;;;;;"这里缺个令牌桶，限制创建速度，降低高频率下单一临时变量导致的冲突问题可能性";;;;;;;;;;;;;;;;;;;;;;;
-                
+                "缺几百年了，也没见出问题-2023-5-30";
                 
                   
                   
@@ -330,23 +380,11 @@ world.events.beforeChat.subscribe( event => {
             if(消息=="交换背包"){
                   const s = 眼前的工具人.getComponent("inventory").container;                                     ;;"眼前的假人实体背包";;
                   const p = sender.getComponent("inventory").container;                                          ;;"你这个______的背包";;
-                  for(let i = sender.getComponent("inventory").container.size;i--;
-                  s.getItem(i)
-                  ?
-                   p.getItem(i)
-                   ?
-                   s.swapItems(i,i,p)
-                   :
-                   s.transferItem(i,i,p)
-                  :
-                   p.getItem(i)
-                   ?
-                   p.transferItem(i,i,s)
-                   :
-                   "这行代码，我再维护我是狗"
-                   );
-                  // for(let i = sender.getComponent("inventory").container.size;i--;s.getItem(i)?p.getItem(i)?s.swapItems(i,i,p):s.transferItem(i,i,p):p.getItem(i)?p.transferItem(i,i,s):"这行代码，我再维护我是狗");
-            };
+                  
+                  for(let i = sender.getComponent("inventory").container.size;i--;s.getItem(i)?p.getItem(i)?s.swapItems(i,i,p):s.moveItem(i,i,p):p.getItem(i)?p.moveItem(i,i,s):"这行代码，我再维护我是狗");
+            
+                   "大家好，我是狗 --2023-05-02"
+           };
             // mojang.脑子 = {}
             if(消息== "挖掘" && mojang.脑子){
               
@@ -362,8 +400,8 @@ world.events.beforeChat.subscribe( event => {
              ! (眼前的工具人)
              ?  发起者.sendMessage("§e§l-光标方向，15格内没找到相关实体" )
              :  眼前的工具人.teleport(发起者.location,眼前的工具人.dimension,0,0);;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-             ;  
-             ;  
+             ;
+             ;
              ;
             };
             const TagsManager =(xboy)=>(minemc)=>(need)=>(add)=>(remove)=>xboy===need?(add.length?add.forEach(t=>minemc.addTag(t)):0,remove.length?remove.forEach(t=>minemc.removeTag(t)):0):0;
@@ -445,7 +483,7 @@ world.events.beforeChat.subscribe( event => {
               ].forEach((text)=>发起者.sendMessage(`§e§l-${text}`))
             };
             if(消息.startsWith("帮助 ")){
-              let helpMessage = 
+              const helpMessage =
                   ({
                     "销毁":["销毁示例" ,"假人销毁 + 空格 + 序号","假人销毁 1" ,"假人销毁 2"],
                     "重生":["重生示例" ,"假人重生 + 空格 + 序号","假人重生 1" ,"假人重生 2"],
@@ -474,8 +512,10 @@ world.events.beforeChat.subscribe( event => {
       
        return event.cancel=ture;;
     } catch (err) {
-      if(!nodebug)主世界.runCommandAsync("me "+err)
-      主世界.runCommandAsync(`me 【假人ERROR】${unescape("\u000a")}* 你触发了一个错误   ${unescape("\u000a")}* 考虑你没对准，歪了+${err}`)
+      if(debug)主世界.runCommandAsync("me "+err)
+      主世界.runCommandAsync(`me ${unescape("\u000a")}* §4§l【假人ERROR】§r§l${unescape("\u000a")}* 你触发了一个错误   ${unescape("\u000a")}* 考虑你没对准，歪了+${err}`)
+      主世界.runCommandAsync(`me ${unescape("\u000a")}* §4§l附加信息#2   §r§l${unescape("\u000a")}* ${Object.values(event.sender.location).map(_=>_>>0)} count:${工具人们.length}`)
+      主世界.runCommandAsync(`me ${unescape("\u000a")}* §4§l版本信息#1   §r§l${unescape("\u000a")}* ${JSON.stringify(version)} bug上报请截图并提交GitHub或入群 ${unescape("\u000a")}* `)
     }
    
 })
