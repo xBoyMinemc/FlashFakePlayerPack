@@ -6,7 +6,7 @@
 import { xBoyBlocklist } from "../lib/xboyLists/xboyBlocks.js";   //获取特殊方块列表
 
 import qrcode from "../lib/qrcode-terminal/mod.js";
-import { 生产队, 驴 } from "./spawnFakePlayer.js";
+import  {生产任务, 生产队的驴} from "./spawnFakePlayer.js";
 
 const version = {
   year : '2023',
@@ -185,7 +185,10 @@ try {
 let 周期 = 0;
 world.events.tick.subscribe(() => {//我()了，这也是一种不（）
     周期++;
-
+    while(生产队的驴.length!==0){
+      const {驴,location,dimension} = 生产队的驴.pop();
+      驴.teleport(location,dimension,0,0)
+    }
 
   Object.keys(xboyMinemcSIMlist).forEach((what)=>{
     if(what && !(xboyMinemcSIMlist[what].length === 0)){
@@ -287,11 +290,13 @@ world.events.fishingHookSpawned.subscribe(event=>{
 //挖掘 O
 //放置 O
 
+
  
 world.events.beforeChat.subscribe( event => {
   try{
     
     const {message,sender} = event;
+    // 生产任务.数量 +=+message;
     const 发起者 = sender;
     let   消息   = message;
     let x = +(发起者.location.x-0.5).toFixed(0);
@@ -313,7 +318,12 @@ world.events.beforeChat.subscribe( event => {
                消息 = 消息.replace(xboySimCmdHead,"");
             if(消息== "创建" || 消息== "生成" || 消息== "召唤"){
               event.cancel=ture;
-              生产队.push("")
+              生产任务.push({
+                location:发起者.location,
+                dimension:发起者.dimension,
+                count:1,
+              });
+
               return "1.19.83-1.0.0b";
               if(发起者.dimension!=主世界){发起者.sendMessage("§e§l-此假人模组为主世界限定版");return;};
               let _y,__y;
