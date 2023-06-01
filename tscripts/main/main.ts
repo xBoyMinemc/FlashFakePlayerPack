@@ -22,7 +22,7 @@ world.events.tick.subscribe(
               // overworld.runCommandAsync("me "+JSON.stringify(i))
               // overworld.runCommandAsync("me #########")
        }
-);
+);//笑死，祖传代码-2023-5-31
 
 
 // ⬜⬜⬜🏿🏿🏿🏻🏻🏻🏻
