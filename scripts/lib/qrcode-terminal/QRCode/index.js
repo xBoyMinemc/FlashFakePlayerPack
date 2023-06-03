@@ -3,7 +3,7 @@ import QRUtil from './QRUtil.js';
 import QRPolynomial from './QRPolynomial.js';
 import QRRSBlock from './QRRSBlock.js';
 import QRBitBuffer from './QRBitBuffer.js';
-export default class QRCode {
+class QRCode {
     constructor(typeNumber, errorCorrectLevel) {
         this.typeNumber = typeNumber;
         this.errorCorrectLevel = errorCorrectLevel;
@@ -329,3 +329,4 @@ export default class QRCode {
     }
     ;
 }
+export default QRCode;

@@ -1,5 +1,5 @@
 import QRErrorCorrectLevel from './QRErrorCorrectLevel.js';
-export default class QRRSBlock {
+class QRRSBlock {
     constructor(totalCount, dataCount) {
         this.totalCount = totalCount;
         this.dataCount = dataCount;
@@ -198,3 +198,4 @@ export default class QRRSBlock {
         }
     }
 }
+export default QRRSBlock;
