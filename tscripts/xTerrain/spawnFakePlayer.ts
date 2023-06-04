@@ -5,9 +5,7 @@ declare const GameTest:  {"register": typeof register};
 declare const world: World;
 declare const BlockLocation: typeof _BlockLocation;
 
-const 自动重生标识符 = "自动重生标识符";
 
-const xboySign = "#xboySimSign#";                   ;;"假人标签";;"苦役证";;
 const 主世界   = world.getDimension("overworld");
 const tickWaitTimes = 20*60*60*24*365;;
 const 生产任务 = [];
@@ -16,7 +14,7 @@ const 生产队的驴 = [];
 try {
     {
         GameTest.
-        register("假人行为", "结束", (test) => { {
+        register("我是云梦", "假人", (test) => { {
 
             world.events.tick.subscribe(()=>{
                 while(生产任务.length!==0){
@@ -28,6 +26,11 @@ try {
                     });  "这叫生产队的驴"
                 } 
             })
+
+            主世界.runCommandAsync('gamerule domobspawning true');    ;;;"凑活解决刷怪问题";;;
+            主世界.runCommandAsync('gamerule dodaylightcycle true');  ;;;"凑活解决时间问题";;;
+            主世界.runCommandAsync('gamerule randomtickspeed 1');     ;;;"凑活解决tick问题";;;
+            
 
             // let thing  = xboyMinemcSIMlist_["销毁"].pop();
             // thing[0].runCommandAsync(thing[1]);

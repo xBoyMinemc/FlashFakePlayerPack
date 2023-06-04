@@ -1,7 +1,7 @@
 // -302 65 -1556
 // @ts-ignore
 import tpsMspt  from '../lib/xboyTools/tpsMspt.js';
-import type { World } from "../@types/globalThis.d.ts";
+import type { World } from "../@types/globalThis";
 
 declare const world: World;
 

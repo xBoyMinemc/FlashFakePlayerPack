@@ -1,6 +1,6 @@
 import { Entity, EntitySpawnEvent, ItemUseEvent, Player } from "@minecraft/server"
 import EventSignal from "./EventSignal";
-import type { World, FishingHookDespawnedEvent, FishingHookDespawnedEventSignal, FishingHookSpawnedEvent, FishingHookSpawnedEventSignal } from "../../@types/globalThis.d.ts";
+import type { World, FishingHookDespawnedEvent, FishingHookDespawnedEventSignal, FishingHookSpawnedEvent, FishingHookSpawnedEventSignal } from "../../@types/globalThis";
 
 declare const world: World;
 
