@@ -8,7 +8,7 @@ import  {生产任务, 生产队的驴} from "./spawnFakePlayer.js";
 
 const version = {
     year : '2023',
-    mine : '1.0.7',
+    mine : '1.0.9',
     craft: '1.19.83'
 };
 
@@ -114,11 +114,15 @@ let dev_ = flase;
 let 周期 = 0;
 world.events.tick.subscribe(() => {//我()了，这也是一种不（）
     周期++;
-    "又不是不能用"
-    if(!dev_ && 主世界.getPlayers().length !== 0){
+    const 有人吗 = 主世界.getPlayers();
+    ;;;"又不是不能用";;;
+    if(!dev_ && 有人吗.length !== 0){
         dev_ = !dev_
-        主世界.getPlayers()[0].runCommandAsync("execute as @s positioned 30000000 128 0 run gametest run 假人行为:结束")
+        有人吗[0].runCommandAsync("summon xboycraft:ceyk 30000000 128 0 0 0 事了浮尘去")
+        有人吗[0].runCommandAsync("execute as @s positioned 30000000 128 0 run gametest run 我是云梦:假人")
+        有人吗[0].runCommandAsync("fill 29999997 0 5 30000002 319 -1 air replace")
     }
+
     while(生产队的驴.length!==0){
         const {驴,location,dimension} = 生产队的驴.pop();
         驴.teleport(location,dimension,0,0);
@@ -417,3 +421,4 @@ world.events.beforeChat.subscribe( event => {
     }
 
 })
+

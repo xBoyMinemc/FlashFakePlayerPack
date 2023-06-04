@@ -1,6 +1,9 @@
 import EventSignal from "./EventSignal";
 class reloadFromCmdEvents extends EventSignal {
-    players = new Set();
+    constructor() {
+        super(...arguments);
+        this.players = new Set();
+    }
 }
 const reloadFromCmd = new reloadFromCmdEvents();
 world.events.playerJoin.subscribe(event => reloadFromCmd.players.add(event.playerId));
