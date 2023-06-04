@@ -1,11 +1,15 @@
 import { Player } from "@minecraft/server"
 import EventSignal from "./EventSignal"
-import type { World,reloadFromCmdEvent } from "../../@types/globalThis.d.ts";
+import type { World,reloadFromCmdEvent } from "../../@types/globalThis";
 
 declare const world: World;
 
 class reloadFromCmdEvents extends EventSignal<reloadFromCmdEvent> {
     players = new Set<Player["id"]>();
+    restart = ()=>{
+        this.players.clear()
+        world.getAllPlayers().forEach((_:Player)=>reloadFromCmd.players.add(_.id))
+    }
 }
 
 const reloadFromCmd = new reloadFromCmdEvents()
@@ -20,7 +24,12 @@ world.events.playerLeave.subscribe(
 )
 
 world.events.tick.subscribe(()=>{
-   let _noError =  world.getAllPlayers().every((_:Player)=>reloadFromCmd.players.has(_.id))?1:reloadFromCmd.trigger(null)
+    const onlinePlayers = world.getAllPlayers()
+    //
+    if(reloadFromCmd.players.size !== onlinePlayers.length || !onlinePlayers.every((_:Player)=>reloadFromCmd.players.has(_.id))){
+        reloadFromCmd.trigger(null)
+        reloadFromCmd.restart()
+    }
 
 })
 
