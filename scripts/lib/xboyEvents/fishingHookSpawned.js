@@ -7,7 +7,7 @@ const queue = {
     playerFishingArray: new Array(),
 };
 world.events.itemUse.subscribe((event) => {
-    event.item.typeId === "minecraft:fishing_rod"
+    event.itemStack.typeId === "minecraft:fishing_rod"
         ? (queue.playerFishingArray.push(event.source)) : 0;
 });
 const around = (v, r) => v > -r && v < r;
@@ -33,4 +33,5 @@ world.events.tick.subscribe((t) => {
     const HookIdArray = fishingHookArray.map(Hook => Hook.id);
     queue.fishingHookDespawned_HookArray.forEach((Fisher, HookId) => HookIdArray.includes(HookId) ? 0 : (fishingHookDespawned.trigger({ HookId: HookId, Fisher: Fisher, fishingHookDespawned_TickArray: queue.fishingHookDespawned_TickArray }), queue.fishingHookDespawned_HookArray.delete(HookId)));
 });
+console.error(("#########"));
 export { fishingHookSpawned, fishingHookDespawned };

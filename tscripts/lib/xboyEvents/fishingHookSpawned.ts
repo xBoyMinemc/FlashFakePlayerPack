@@ -1,4 +1,4 @@
-import { Entity, EntitySpawnEvent, ItemUseEvent, Player } from "@minecraft/server"
+import { Entity, EntitySpawnAfterEvent, ItemUseAfterEvent, Player } from "@minecraft/server"
 import EventSignal from "./EventSignal";
 import type { World, FishingHookDespawnedEvent, FishingHookDespawnedEventSignal, FishingHookSpawnedEvent, FishingHookSpawnedEventSignal } from "../../@types/globalThis";
 
@@ -15,15 +15,15 @@ const queue = {
   playerFishingArray: new Array<Entity>(),
 };
 
-world.events.itemUse.subscribe((event: ItemUseEvent) => {
-    event.item.typeId === "minecraft:fishing_rod"
+world.events.itemUse.subscribe((event: ItemUseAfterEvent) => {
+    event.itemStack.typeId === "minecraft:fishing_rod"
     ?(
       queue.playerFishingArray.push(event.source)
      ):0
 })
 
 const around = (v:number, r:number) => v > -r && v < r;
-world.events.entitySpawn.subscribe((event: EntitySpawnEvent) => {
+world.events.entitySpawn.subscribe((event: EntitySpawnAfterEvent) => {
   // event.entity.runCommandAsync("me "+event.entity.typeId)
   let Fisher: Entity
   event.entity.typeId === "minecraft:fishing_hook"
@@ -61,17 +61,17 @@ world.events.tick.subscribe((t) => {
 })
 
 /*
-console.error(("#########"))
-fishingHookSpawned.subscribe(event=>{
-    console.error("fishingHookSpawned")
-    world.getDimension("overworld").runCommandAsync("me ##鱼钩生成\u000a鱼钩id=>"+event.HookId+"\u000a发起者id=>"+event.Fisher.id);
-})
-
-console.error(("#########"))
-fishingHookDespawned.subscribe(event=>{
-  console.error("fishingHookDespawned")
-  world.getDimension("overworld").runCommandAsync("me ##鱼钩销毁\u000a鱼钩id=>"+event.HookId+"\u000a发起者id=>"+event.Fisher.id);
-  // 工具人们.forEach(_=> _==undefined?0:_.id===event.Fisher.id?event.fishingHookDespawned_TickArray.push(()=>(_.useItemInSlot(0)?_.stopUsingItem():0)):0)
-})
 */
+console.error(("#########"))
+// fishingHookSpawned.subscribe(event=>{
+//     console.error("fishingHookSpawned")
+//     world.getDimension("overworld").runCommandAsync("me ##鱼钩生成\u000a鱼钩id=>"+event.HookId+"\u000a发起者id=>"+event.Fisher.id);
+// })
+//
+// console.error(("#########"))
+// fishingHookDespawned.subscribe(event=>{
+//   console.error("fishingHookDespawned")
+//   world.getDimension("overworld").runCommandAsync("me ##鱼钩销毁\u000a鱼钩id=>"+event.HookId+"\u000a发起者id=>"+event.Fisher.id);
+//   // 工具人们.forEach(_=> _==undefined?0:_.id===event.Fisher.id?event.fishingHookDespawned_TickArray.push(()=>(_.useItemInSlot(0)?_.stopUsingItem():0)):0)
+// })
 export { fishingHookSpawned, fishingHookDespawned }

@@ -8,8 +8,8 @@ import  {生产任务, 生产队的驴} from "./spawnFakePlayer.js";
 
 const version = {
     year : '2023',
-    mine : '1.0.9',
-    craft: '1.19.83'
+    mine : '1.0.0b',
+    craft: '1.19.83 +5'
 };
 
 const debug = false;
@@ -34,11 +34,12 @@ const 工具人们 = [null];;;;;;;;;;;;;//屎山代码啊不是说一定要设�
 
 
 function 获取眼前的假人实体(逻辑主体,距离){
-    const 最远距离 = {maxDistance:距离} //new EntityRaycastOptions();;;"距离";;
-
+    const 最远距离 = {}//new EntityRaycastOptions();
+    最远距离.maxDistance = 距离;                                                              ;;"距离";;
     const 实体们 = 逻辑主体.getEntitiesFromViewDirection(最远距离);// ViewDirection
-
-    return 实体们.find(实体=>实体.hasTag(xboySign));;"只返回一个假人";;
+    let 假人;
+    for(let i in 实体们)if(实体们[i].hasTag(xboySign))假人=实体们[i];                              ;;"云梦科技，拯救每一位低血压";;
+    return 假人;;"只返回一个";;
 };
 function 获取眼前的实体(逻辑主体,距离){
     const 最远距离 = {}//new EntityRaycastOptions();
@@ -114,21 +115,16 @@ let dev_ = flase;
 let 周期 = 0;
 world.events.tick.subscribe(() => {//我()了，这也是一种不（）
     周期++;
-    const 有人吗 = 主世界.getPlayers();
-    ;;;"又不是不能用";;;
-    if(!dev_ && 有人吗.length !== 0){
+    "又不是不能用"
+    if(!dev_ && 主世界.getPlayers().length !== 0){
         dev_ = !dev_
-        有人吗[0].runCommandAsync("summon xboycraft:ceyk 30000000 128 0 0 0 事了浮尘去")
-        有人吗[0].runCommandAsync("execute as @s positioned 30000000 128 0 run gametest run 我是云梦:假人")
-        有人吗[0].runCommandAsync("fill 29999997 0 5 30000002 319 -1 air replace")
+        主世界.getPlayers()[0].runCommandAsync("execute as @s positioned 30000000 128 0 run gametest run 假人行为:结束")
     }
-
     while(生产队的驴.length!==0){
         const {驴,location,dimension} = 生产队的驴.pop();
-        驴.teleport(location,dimension,0,0);
+        驴.teleport(location,dimension);
         驴.setSpawn(location,dimension);
         驴.addTag(自动重生标识符);
-        驴.addTag(xboySign);
         工具人们.push(驴);
     }
 
@@ -338,18 +334,6 @@ world.events.beforeChat.subscribe( event => {
             }
             ;;"能用就行";;
         };
-        if(消息.startsWith("批量 ")) {
-            let temp = 消息.replace("批量 ","");
-
-            if( temp = Number(temp)){
-                while (temp-->0)
-                    生产任务.push({
-                        location:发起者.location,
-                        dimension:发起者.dimension,
-                        count:1,
-                    });
-            }
-        };
 
         if(消息== "销毁") {
             sender.sendMessage("§e§l-拜拜了您内")
@@ -421,4 +405,3 @@ world.events.beforeChat.subscribe( event => {
     }
 
 })
-

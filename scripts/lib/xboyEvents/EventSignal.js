@@ -1,7 +1,5 @@
 export default class EventSignal {
-    constructor() {
-        this.listeners = new Set();
-    }
+    listeners = new Set();
     subscribe(listener) {
         this.listeners.add(listener);
         return listener;
