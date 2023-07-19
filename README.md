@@ -1,4 +1,4 @@
-# FUCKfakePlayerPack
+# FlashFakePlayerPack
 FFPP-假人~~到处是瑕疵&amp;bug&amp;弃坑~~云梦版
 
 
