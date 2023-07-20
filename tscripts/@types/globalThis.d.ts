@@ -1,61 +1,83 @@
 import {
     World as _World,
-    Events as _Events,
-    EntityEventOptions, Entity, EntityHurtEvent
+    // Events as _Events,
+    EntityEventOptions,
+    Entity,
+    EntityHurtAfterEvent,
+    ChatSendBeforeEventSignal,
+    DataDrivenEntityTriggerBeforeEventSignal,
+    ExplosionBeforeEventSignal,
+    ItemDefinitionBeforeEventSignal,
+    ItemUseBeforeEventSignal,
+    ItemUseOnBeforeEventSignal,
+    PistonActivateBeforeEventSignal,
+    WorldAfterEvents,
+    BlockBreakAfterEventSignal,
+    BlockExplodeAfterEventSignal,
+    BlockPlaceAfterEventSignal,
+    ButtonPushAfterEventSignal,
+    ChatSendAfterEventSignal,
+    DataDrivenEntityTriggerAfterEventSignal,
+    EffectAddAfterEventSignal,
+    EntityDieAfterEventSignal,
+    EntityHealthChangedAfterEventSignal,
+    // EntityHitAfterEventSignal,
+    EntityHurtAfterEventSignal,
+    EntityRemovedAfterEventSignal,
+    EntitySpawnAfterEventSignal,
+    ExplosionAfterEventSignal,
+    ItemCompleteUseAfterEventSignal,
+    ItemDefinitionAfterEventSignal,
+    ItemReleaseUseAfterEventSignal,
+    ItemStartUseAfterEventSignal,
+    ItemStartUseOnAfterEventSignal,
+    ItemStopUseAfterEventSignal,
+    ItemStopUseOnAfterEventSignal,
+    ItemUseAfterEventSignal,
+    ItemUseOnAfterEventSignal,
+    LeverActionAfterEventSignal,
+    ServerMessageAfterEventSignal,
+    PistonActivateAfterEventSignal,
+    PlayerJoinAfterEventSignal,
+    PlayerLeaveAfterEventSignal,
+    PlayerSpawnAfterEventSignal,
+    PressurePlatePopAfterEventSignal,
+    PressurePlatePushAfterEventSignal,
+    ProjectileHitAfterEventSignal,
+    TargetBlockHitAfterEventSignal,
+    TripWireTripAfterEventSignal, WeatherChangeAfterEventSignal, WorldInitializeAfterEventSignal, EntityHitBlockAfterEventSignal, EntityHitEntityAfterEventSignal
 } from "@minecraft/server";
+
+// import type {
+//     Events as _Events
+// } from "./temp"
 //逆码的，乱起来了
-import
-    {
+import {
         register as _register,
-    }
-    // * as o
-    from "@minecraft/server-gametest";
+} from "@minecraft/server-gametest";
 
-import { Location,BlockLocation } from "../lib/xboyPackage/The law of the ancestors is immutable";
+import {
+    Location,
+    BlockLocation
+} from "../lib/xboyPackage/The law of the ancestors is immutable";
 
+export type Events = _WorldBeforeEvents & _WorldAfterEvents & _Events
 
 // export { };
 declare global {
     interface GlobalThis {
       Location: typeof Location;
       BlockLocation: typeof BlockLocation;
-      world: _World;
+      world: _World & {events:Events};
       GameTest:  {"register":typeof _register};
     }
   }
-// declare global {
-
-//     //    let world: _World;
-//     // interface GlobalThis {
-//     //     Location: {
-//     //         new(): globalThis.Location;
-//     //         prototype: globalThis.Location;
-//     //     }
-//     //     GameTest: {
-//     //       register: (name: string, suite: () => void) => void;
-//     //     };
-//     //     // Location: {
-//     //     //   new (x: number, y: number, z: number): any;
-//     //     // };
-//     //     BlockLocation: {
-//     //       new (x: number, y: number, z: number): BlockLocation;
-//     //     };
-
-//     // }
-
-//     // let GameTest: typeof o;
-
-// }
 
 
 
-interface GameTesst {
-    name: string;
-    level: number;
-    start(): void;
-    stop(): void;
-}
-export class Events extends _Events {
+
+
+export class _Events {
 
     /**
      * This event fires every tick - which is 20 times per second.
@@ -81,7 +103,60 @@ export class Events extends _Events {
      */
     fishingHookDespawned: FishingHookDespawnedEventSignal;
 
+
 }
+export class _WorldBeforeEvents {
+    readonly beforeChat: ChatSendBeforeEventSignal;
+    readonly beforeDataDrivenEntityTriggerEvent: DataDrivenEntityTriggerBeforeEventSignal;
+    readonly beforeExplosion: ExplosionBeforeEventSignal;
+    readonly beforeItemDefinitionEvent: ItemDefinitionBeforeEventSignal;
+    readonly beforeItemUse: ItemUseBeforeEventSignal;
+    readonly beforeItemUseOn: ItemUseOnBeforeEventSignal;
+    readonly beforePistonActivate: PistonActivateBeforeEventSignal;
+}
+export class _WorldAfterEvents {
+    readonly blockBreak: BlockBreakAfterEventSignal;
+    readonly blockExplode: BlockExplodeAfterEventSignal;
+    readonly blockPlace: BlockPlaceAfterEventSignal;
+    readonly buttonPush: ButtonPushAfterEventSignal;
+    readonly chatSend: ChatSendAfterEventSignal;
+    readonly dataDrivenEntityTriggerEvent: DataDrivenEntityTriggerAfterEventSignal;
+    readonly effectAdd: EffectAddAfterEventSignal;
+    readonly entityDie: EntityDieAfterEventSignal;
+    readonly entityHealthChanged: EntityHealthChangedAfterEventSignal;
+    readonly entityHit: EntityHitBlockAfterEventSignal;
+    readonly entityHitBlock: EntityHitBlockAfterEventSignal;
+    readonly entityHitEntity: EntityHitEntityAfterEventSignal;
+    readonly entityHurt: EntityHurtAfterEventSignal;
+    readonly entityRemoved: EntityRemovedAfterEventSignal;
+    readonly entitySpawn: EntitySpawnAfterEventSignal;
+    readonly explosion: ExplosionAfterEventSignal;
+    readonly itemCompleteCharge: ItemCompleteUseAfterEventSignal;
+    readonly itemDefinitionEvent: ItemDefinitionAfterEventSignal;
+    readonly itemReleaseCharge: ItemReleaseUseAfterEventSignal;
+    readonly itemStartCharge: ItemStartUseAfterEventSignal;
+    readonly itemStartUseOn: ItemStartUseOnAfterEventSignal;
+    readonly itemStopCharge: ItemStopUseAfterEventSignal;
+    readonly itemStopUseOn: ItemStopUseOnAfterEventSignal;
+    readonly itemUse: ItemUseAfterEventSignal;
+    readonly itemUseOn: ItemUseOnAfterEventSignal;
+    readonly leverActivate: LeverActionAfterEventSignal;
+    readonly messageReceive: ServerMessageAfterEventSignal;
+    readonly pistonActivate: PistonActivateAfterEventSignal;
+    readonly playerJoin: PlayerJoinAfterEventSignal;
+    readonly playerLeave: PlayerLeaveAfterEventSignal;
+    readonly playerSpawn: PlayerSpawnAfterEventSignal;
+    readonly pressurePlatePop: PressurePlatePopAfterEventSignal;
+    readonly pressurePlatePush: PressurePlatePushAfterEventSignal;
+    readonly projectileHit: ProjectileHitAfterEventSignal;
+    readonly targetBlockHit: TargetBlockHitAfterEventSignal;
+    readonly tripWireTrip: TripWireTripAfterEventSignal;
+    readonly weatherChange: WeatherChangeAfterEventSignal;
+    readonly worldInitialize: WorldInitializeAfterEventSignal;
+
+}
+
+// @ts-ignore
 
 export class World extends _World {
     /**
@@ -199,7 +274,8 @@ export class EntityDeadByHurtEventSignal {
  * Contains information related to an entity getting dead by
  * another entity.
  */
-export class EntityDeadByHurtEvent extends EntityHurtEvent {
+// @ts-ignore
+export class EntityDeadByHurtEvent extends EntityHurtAfterEvent {
     // /**
     //  * A summary of the reason that damage was caused.
     //  */

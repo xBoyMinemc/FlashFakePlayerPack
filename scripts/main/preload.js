@@ -1,7 +1,7 @@
 import { world as _world } from "@minecraft/server";
 import { register } from "@minecraft/server-gametest";
-import { Location, BlockLocation } from "../lib/xboyPackage/The law of the ancestors is immutable";
-globalThis.world = _world;
+import { Location, BlockLocation, Events } from "../lib/xboyPackage/The law of the ancestors is immutable";
+globalThis.world = Object.assign(_world, { events: Events });
 globalThis.GameTest = { "register": register };
 globalThis.Location = Location;
 globalThis.BlockLocation = BlockLocation;

@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="86da4608-a0b7-45a0-bdcf-bce2f06a83ca" name="变更" comment="代码整理-A&#10;准备模块化">
+    <list default="true" id="86da4608-a0b7-45a0-bdcf-bce2f06a83ca" name="变更" comment="1.20.10适配">
       <changelist_data name="xBoyMinemc" email="" />
       <change afterPath="$PROJECT_DIR$/scripts/xboyEvents/EventSignal.js" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/scripts/xboyEvents/entityDeadByHurt.js" afterDir="false" />
@@ -81,11 +81,11 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
     <option name="RESET_MODE" value="HARD" />
   </component>
-  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
-  "lastFilter": {
-    "state": "OPEN"
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;
   }
-}]]></component>
+}</component>
   <component name="GithubPullRequestsUISettings">
     <option name="selectedUrlAndAccountId">
       <UrlAndAccount>
@@ -109,23 +109,24 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "TODO_SCOPE": "所有位置",
-    "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "C:/Users/云梦/AppData/Local/Packages/Microsoft.MinecraftUWP_8wekyb3d8bbwe/LocalState/games/com.mojang/minecraftWorlds/假人测试-1.19.71/behavior_packs/FUCKfakePlayerPack/tscripts/lib",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "settings.typescriptcompiler",
-    "ts.external.directory.path": "C:\\Users\\云梦\\AppData\\Local\\JetBrains\\WebStorm 2022.2.3\\plugins\\javascript-impl\\jsLanguageServicesImpl\\external",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;TODO_SCOPE&quot;: &quot;所有位置&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/云梦/AppData/Local/Packages/Microsoft.MinecraftUWP_8wekyb3d8bbwe/LocalState/games/com.mojang/minecraftWorlds/假人测试-1.19.71/behavior_packs/FUCKfakePlayerPack/tscripts/lib&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;settings.typescriptcompiler&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;D:\\WebStorm\\WebStorm 2023.1.2\\plugins\\javascript-impl\\jsLanguageServicesImpl\\external&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\云梦\AppData\Local\Packages\Microsoft.MinecraftUWP_8wekyb3d8bbwe\LocalState\games\com.mojang\minecraftWorlds\假人测试-1.19.71\behavior_packs\FUCKfakePlayerPack\tscripts\lib" />
@@ -150,6 +151,14 @@
       <workItem from="1680712256348" duration="1124000" />
       <workItem from="1680713567908" duration="988000" />
       <workItem from="1680714725263" duration="8179000" />
+      <workItem from="1685627829505" duration="70000" />
+      <workItem from="1685627916975" duration="3706000" />
+      <workItem from="1685635862550" duration="131000" />
+      <workItem from="1685698971317" duration="8373000" />
+      <workItem from="1689779477024" duration="53000" />
+      <workItem from="1689780072094" duration="1389000" />
+      <workItem from="1689876388725" duration="106000" />
+      <workItem from="1689876513111" duration="27000" />
     </task>
     <task id="LOCAL-00001" summary="代码整理&#10;清明时雨&#10;祭奠过去">
       <created>1680686803812</created>
@@ -379,6 +388,7 @@
     <MESSAGE value="代码整理&#10;清明时雨&#10;祭奠过去" />
     <MESSAGE value="清明时雨&#10;代码整理&#10;祭奠过去" />
     <MESSAGE value="代码整理-A&#10;准备模块化" />
-    <option name="LAST_COMMIT_MESSAGE" value="代码整理-A&#10;准备模块化" />
+    <MESSAGE value="1.20.10适配" />
+    <option name="LAST_COMMIT_MESSAGE" value="1.20.10适配" />
   </component>
 </project>

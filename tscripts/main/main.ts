@@ -1,7 +1,7 @@
 // -302 65 -1556
 // @ts-ignore
 import tpsMspt  from '../lib/xboyTools/tpsMspt.js';
-import type { World } from "../@types/globalThis.d.ts";
+import type { World } from "../@types/globalThis";
 
 declare const world: World;
 
@@ -13,6 +13,7 @@ const nowTimeTemp    = new Date().getDate() +"日"+ new Date().getHours() +"时"
 
 // world.events.reloadFromCmd.subscribe(()=>{
 //        console.error("你没事reload干嘛呢？")
+//        overworld.runCommand("me 你没事reload干嘛呢？")
 // })
 
 world.events.tick.subscribe(
