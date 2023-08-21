@@ -19,6 +19,7 @@ try {
             {
                 world.events.tick.subscribe(() => {
                     while (生产任务.length !== 0) {
+                        主世界.runCommandAsync(`me 生产任务.length==>${生产任务.length}`);
                         const 任务 = 生产任务.pop();
                         生产队的驴.push({
                             驴: test.spawnSimulatedPlayer(new BlockLocation(0, 2, 0), `工具人-${pid++}`),
