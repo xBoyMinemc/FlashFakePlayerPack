@@ -1,5 +1,5 @@
-# FUCKfakePlayerPack
-FFPP-假人~~到处是瑕疵&amp;bug&amp;弃坑~~云梦版
+# FlashFakePlayerPack
+FFPP-假人闪闪云梦版
 
 
 # TODO
@@ -14,6 +14,10 @@ i18n -- 我觉得外国人也有权利被我的屎山震惊
 
 #
 ChangeLog
+
+1.20.10~~仅适配~~ 骂了人，改了名，优化了命名规则
+
+1.20.0仅适配
 
 1.19.80仅适配
 

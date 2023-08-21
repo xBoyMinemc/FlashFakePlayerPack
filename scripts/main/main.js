@@ -1,5 +1,6 @@
 import tpsMspt from '../lib/xboyTools/tpsMspt.js';
 import "../xTerrain/main.js";
+import "./test.js"
 const overworld = world.getDimension("overworld");
 const nether = world.getDimension("nether");
 const the_end = world.getDimension("the end");

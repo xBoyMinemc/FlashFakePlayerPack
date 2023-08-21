@@ -14,7 +14,12 @@ var mspta = 100
 var msptb = 0
 var mspt  = 0
 
-
+// 🟧🟧🟧🟧🟧🟧🟧🟧
+// 🟧🟧🟧🟧🟧🟧🟧🟧
+// 🟧🟧🟧🟧🟧🟧🟧🟧
+// ⬛️⬛️🟧🟧🟧🟧⬛️⬛️
+// 🟧🟧⬜️⬛️⬛️⬜️🟧🟧
+// ⬜️⬜️⬜️⬜️⬜️⬜️⬜️⬜️
 
 
 const tpsMspt = function(){
@@ -48,7 +53,7 @@ timea = Date.now()
 
 }
 
-world.events.chat.subscribe((msg)=>{
+world.afterEvents.chatSend.subscribe((msg)=>{
     if(msg.message == "tps开")msg.sender.addTag("tps");
     if(msg.message == "tps关")msg.sender.removeTag("tps");
 })

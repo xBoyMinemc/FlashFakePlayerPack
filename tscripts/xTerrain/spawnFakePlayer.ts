@@ -12,17 +12,17 @@ const 主世界   = world.getDimension("overworld");
 const tickWaitTimes = 20*60*60*24*365;;
 const 生产任务 = [];
 const 生产队的驴 = [];
-
+let pid = 1;
 try {
     {
         GameTest.
-        register("假人行为", "结束", (test) => { {
+        register("我是云梦", "假人", (test) => { {
 
             world.events.tick.subscribe(()=>{
                 while(生产任务.length!==0){
                     const 任务 = 生产任务.pop();
                     生产队的驴.push({
-                        驴:test.spawnSimulatedPlayer(new BlockLocation(0,2,0), `工具人-`),
+                        驴:test.spawnSimulatedPlayer(new BlockLocation(0,2,0), `工具人-${pid++}`),
                         location:任务.location,
                         dimension:任务.dimension,
                     });  "这叫生产队的驴"
@@ -50,9 +50,9 @@ try {
             // xboyTooleesList[工具人.name] = 工具人
             // // 工具人.breakBlock(new BlockLocation(+x,y-1,z))
             // 工具人们.push(工具人);;;;;
-            // 工具人.runCommandAsync('gamerule domobspawning true');    ;;;"凑活解决刷怪问题";;;
-            // 工具人.runCommandAsync('gamerule dodaylightcycle true');  ;;;"凑活解决时间问题";;;
-            // 工具人.runCommandAsync('gamerule randomtickspeed 1');     ;;;"凑活解决tick问题";;;
+            主世界.runCommandAsync('gamerule domobspawning true');    ;;;"凑活解决刷怪问题";;;
+            主世界.runCommandAsync('gamerule dodaylightcycle true');  ;;;"凑活解决时间问题";;;
+            主世界.runCommandAsync('gamerule randomtickspeed 1');     ;;;"凑活解决tick问题";;;
 
             // world.events.tick.subscribe(()=>工具人.breakBlock(new BlockLocation(0,1,1)))
         } })

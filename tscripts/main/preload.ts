@@ -5,17 +5,19 @@ import { world as _world,World } from "@minecraft/server";
 
 import { register } from "@minecraft/server-gametest";
 
-// @ts-ignore
-import { Location,BlockLocation } from "../lib/xboyPackage/The law of the ancestors is immutable";
+import type { Events as all_Events,_WorldBeforeEvents,_WorldAfterEvents } from  "../@types/globalThis"
+
+import { Location,BlockLocation, Events } from "../lib/xboyPackage/The law of the ancestors is immutable";
 declare const globalThis: GlobalThis;
-declare const world: World;
+declare const world: World & {events:_WorldBeforeEvents&_WorldAfterEvents} ;
 
 //不会写
-globalThis.world = _world;
+// @ts-ignore
+globalThis.world = Object.assign(_world,{events:Events});
 globalThis.GameTest = {"register":register};
 globalThis.Location = Location;
 globalThis.BlockLocation = BlockLocation;
-
+  // world.events.
 import("../lib/xboyEvents/preload.js")
 
 .then(
