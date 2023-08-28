@@ -74,7 +74,7 @@
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;TODO_SCOPE&quot;: &quot;所有位置&quot;,
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;1.20.13-code-rewriting&quot;,
     &quot;last_opened_file_path&quot;: &quot;C:/Users/云梦/AppData/Local/Packages/Microsoft.MinecraftUWP_8wekyb3d8bbwe/LocalState/games/com.mojang/minecraftWorlds/假人测试-1.19.71/behavior_packs/FUCKfakePlayerPack/tscripts/lib&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
@@ -125,6 +125,8 @@
       <workItem from="1692619905762" duration="5017000" />
       <workItem from="1692634859340" duration="15000" />
       <workItem from="1692634885072" duration="875000" />
+      <workItem from="1693250380293" duration="5000" />
+      <workItem from="1693250395429" duration="465000" />
     </task>
     <task id="LOCAL-00001" summary="代码整理&#10;清明时雨&#10;祭奠过去">
       <created>1680686803812</created>
@@ -258,6 +260,11 @@
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+    <option name="exactExcludedFiles">
+      <list>
+        <option value="$PROJECT_DIR$/tscripts/xTerrain/main.js" />
+      </list>
+    </option>
   </component>
   <component name="UpdateCopyrightCheckinHandler">
     <option name="UPDATE_COPYRIGHT" value="true" />
@@ -340,7 +347,7 @@
                   <entry key="branch">
                     <value>
                       <list>
-                        <option value="origin/1.20.13" />
+                        <option value="1.20.13-code-rewriting" />
                       </list>
                     </value>
                   </entry>
