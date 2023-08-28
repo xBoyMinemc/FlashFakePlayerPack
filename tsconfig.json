@@ -1,7 +1,7 @@
 {
   "include": [
     "./tscripts/**/*"
-  ],
+, "tscripts/lib/PureEval.es.curry.min.ts"  ],
 //  "exclude": ["./tscripts/xTerrain/main.js"],
   "compilerOptions": {
     /* Visit https://aka.ms/tsconfig to read more about this file */

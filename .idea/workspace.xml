@@ -4,44 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="86da4608-a0b7-45a0-bdcf-bce2f06a83ca" name="变更" comment="1.20.13 jia'r自动追击 更新">
-      <changelist_data name="xBoyMinemc" email="" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/entities/一只夜空.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/entities/小云米" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/entities/梦" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/manifest.json" beforeDir="false" afterPath="$PROJECT_DIR$/manifest.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/lib/xboyEvents/EventSignal.js" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/lib/xboyEvents/EventSignal.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/lib/xboyEvents/entityDeadByHurt.js" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/lib/xboyEvents/entityDeadByHurt.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/lib/xboyEvents/fishingHookSpawned.js" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/lib/xboyEvents/fishingHookSpawned.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/lib/xboyEvents/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/lib/xboyEvents/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/lib/xboyEvents/preload.js" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/lib/xboyEvents/preload.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/lib/xboyEvents/reloadFromCmd.js" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/lib/xboyEvents/reloadFromCmd.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/lib/xboyEvents/tick.js" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/lib/xboyEvents/tick.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/lib/xboyPackage/The law of the ancestors is immutable.js" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/lib/xboyPackage/The law of the ancestors is immutable.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/lib/xboyTools/tpsMspt.js" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/lib/xboyTools/tpsMspt.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/main/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/main/main.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/main/preload.js" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/main/preload.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/main/test.js" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/main/test.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/tsconfig.tsbuildinfo" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/xTerrain/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/xTerrain/main.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/xTerrain/spawnFakePlayer.js" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/xTerrain/spawnFakePlayer.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tsconfig.json" beforeDir="false" afterPath="$PROJECT_DIR$/tsconfig.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tscripts/@types/globalThis.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/tscripts/@types/globalThis.d.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tscripts/lib/xboyEvents/fishingHookSpawned.ts" beforeDir="false" afterPath="$PROJECT_DIR$/tscripts/lib/xboyEvents/fishingHookSpawned.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tscripts/lib/xboyEvents/global.d.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/tscripts/lib/xboyEvents/reloadFromCmd.ts" beforeDir="false" afterPath="$PROJECT_DIR$/tscripts/lib/xboyEvents/reloadFromCmd.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tscripts/lib/xboyPackage/The law of the ancestors is immutable.ts" beforeDir="false" afterPath="$PROJECT_DIR$/tscripts/lib/xboyPackage/The law of the ancestors is immutable.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tscripts/main/main.ts" beforeDir="false" afterPath="$PROJECT_DIR$/tscripts/main/main.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tscripts/main/preload.ts" beforeDir="false" afterPath="$PROJECT_DIR$/tscripts/main/preload.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tscripts/xTerrain/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/tscripts/xTerrain/main.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tscripts/xTerrain/soso.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/tscripts/xTerrain/spawnFakePlayer.ts" beforeDir="false" afterPath="$PROJECT_DIR$/tscripts/xTerrain/spawnFakePlayer.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/xboy.d.ts" beforeDir="false" />
-    </list>
+    <list default="true" id="86da4608-a0b7-45a0-bdcf-bce2f06a83ca" name="变更" comment="1.20.13 假人自动追击 更新" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -96,9 +59,9 @@
   <component name="ProblemsViewState">
     <option name="selectedTabId" value="CurrentFile" />
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 6
-}]]></component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 6
+}</component>
   <component name="ProjectId" id="2NzUeCFQrh1T4AB0ld1mmO4nk7z" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
@@ -161,6 +124,7 @@
       <workItem from="1692284940882" duration="10887000" />
       <workItem from="1692619905762" duration="5017000" />
       <workItem from="1692634859340" duration="15000" />
+      <workItem from="1692634885072" duration="875000" />
     </task>
     <task id="LOCAL-00001" summary="代码整理&#10;清明时雨&#10;祭奠过去">
       <created>1680686803812</created>
@@ -281,7 +245,15 @@
       <option name="project" value="LOCAL" />
       <updated>1680751034806</updated>
     </task>
-    <option name="localTasksCounter" value="18" />
+    <task id="LOCAL-00018" summary="1.20.13 假人自动追击 更新">
+      <option name="closed" value="true" />
+      <created>1692634928146</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1692634928146</updated>
+    </task>
+    <option name="localTasksCounter" value="19" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -368,7 +340,7 @@
                   <entry key="branch">
                     <value>
                       <list>
-                        <option value="origin/main" />
+                        <option value="origin/1.20.13" />
                       </list>
                     </value>
                   </entry>
@@ -391,6 +363,7 @@
     <MESSAGE value="清明时雨&#10;代码整理&#10;祭奠过去" />
     <MESSAGE value="代码整理-A&#10;准备模块化" />
     <MESSAGE value="1.20.10适配" />
-    <option name="LAST_COMMIT_MESSAGE" value="1.20.10适配" />
+    <MESSAGE value="1.20.13 假人自动追击 更新" />
+    <option name="LAST_COMMIT_MESSAGE" value="1.20.13 假人自动追击 更新" />
   </component>
 </project>

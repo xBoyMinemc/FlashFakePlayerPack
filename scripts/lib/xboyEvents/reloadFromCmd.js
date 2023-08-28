@@ -1,10 +1,13 @@
 import EventSignal from "./EventSignal";
 class reloadFromCmdEvents extends EventSignal {
-    players = new Set();
-    restart = () => {
-        this.players.clear();
-        world.getAllPlayers().forEach((_) => reloadFromCmd.players.add(_.id));
-    };
+    constructor() {
+        super(...arguments);
+        this.players = new Set();
+        this.restart = () => {
+            this.players.clear();
+            world.getAllPlayers().forEach((_) => reloadFromCmd.players.add(_.id));
+        };
+    }
 }
 const reloadFromCmd = new reloadFromCmdEvents();
 world.events.playerJoin.subscribe(event => reloadFromCmd.players.add(event.playerId));

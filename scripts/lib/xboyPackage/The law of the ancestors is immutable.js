@@ -1,9 +1,6 @@
 import { system } from "@minecraft/server";
 import { world as _world } from "@minecraft/server";
 export class Location {
-    x;
-    y;
-    z;
     constructor(x, y, z) {
         this.x = x;
         this.y = y;
@@ -21,7 +18,9 @@ export class BlockLocation extends Location {
     }
 }
 export class EventSignal {
-    listeners = new Set();
+    constructor() {
+        this.listeners = new Set();
+    }
     subscribe(listener) {
         this.listeners.add(listener);
         return listener;
