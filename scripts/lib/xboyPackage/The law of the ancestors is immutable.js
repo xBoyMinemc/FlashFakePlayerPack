@@ -1,9 +1,6 @@
 import { system } from "@minecraft/server";
 import { world as _world } from "@minecraft/server";
 export class Location {
-    x;
-    y;
-    z;
     constructor(x, y, z) {
         this.x = x;
         this.y = y;
@@ -21,7 +18,9 @@ export class BlockLocation extends Location {
     }
 }
 export class EventSignal {
-    listeners = new Set();
+    constructor() {
+        this.listeners = new Set();
+    }
     subscribe(listener) {
         this.listeners.add(listener);
         return listener;
@@ -54,6 +53,7 @@ export const Events = {
     dataDrivenEntityTriggerEvent: af.dataDrivenEntityTriggerEvent,
     effectAdd: af.effectAdd,
     entityDie: af.entityDie,
+    // entityHit: af.entityHit, // pupupu 裂开
     entityHit: af.entityHitBlock,
     entityHitEntity: af.entityHitEntity,
     entityHitBlock: af.entityHitBlock,
@@ -70,6 +70,7 @@ export const Events = {
     itemStopUseOn: af.itemStopUseOn,
     itemUse: af.itemUse,
     itemUseOn: af.itemUseOn,
+    // leverActivate: af.leverActivate,//有*？
     leverActivate: af.leverAction,
     messageReceive: af.messageReceive,
     pistonActivate: af.pistonActivate,
@@ -84,6 +85,9 @@ export const Events = {
     weatherChange: af.weatherChange,
     worldInitialize: af.worldInitialize,
 };
+//不会写
+// @ts-ignore
 globalThis.world = Object.assign(_world, { events: Events });
+//   globalThis.GameTest = {"register":register};
 globalThis.Location = Location;
 globalThis.BlockLocation = BlockLocation;

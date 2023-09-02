@@ -2,13 +2,16 @@
   "format_version": "1.13.0",
   "minecraft:entity": {
     "description": {
-      "identifier": "xboycraft:ceyk",
+      "identifier": "yumecraft:ceyk",
       "is_spawnable": false,
       "is_summonable": true,
       "is_experimental": false
     },
     "component_groups": {
-    },
+      "yumecraft:despawn": {
+          "minecraft:despawn": {}
+        }
+      },
 
 
     "components": {
@@ -22,7 +25,7 @@
       },
       "minecraft:fire_immune": true,
       "minecraft:inventory": {
-        "inventory_size": 81,
+        "inventory_size": 91000,
         "container_type": "container"
 //        "restrict_to_owner": true
       },
@@ -63,6 +66,16 @@
         "is_pushable_by_piston": true
       },
       "minecraft:conditional_bandwidth_optimization": {
+      }
+    },
+    "events":{
+      
+      "yumecraft:despawn": {
+        "add": {
+          "component_groups": [
+            "yumecraft:despawn"
+          ]
+        }
       }
     }
   }
