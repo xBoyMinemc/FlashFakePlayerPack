@@ -5,7 +5,7 @@ let ScoreBaseSnapshot = <ScoreboardObjective[]>ScoreBase.GetObject()
 
 const checkScoreObjectExist = (ScoreObjectName : string) : boolean =>  !!Array.from(ScoreBaseSnapshot).find((ScoreObject)=>{if(ScoreObjectName === ScoreObject.id)return true})
 
-const verif = function(){
+const verify = function(){
     ScoreBaseSnapshot = <ScoreboardObjective[]>ScoreBase.GetObject();
     ['##FlashPlayer##'].forEach((_)=>{
         checkScoreObjectExist(_) 
@@ -21,4 +21,4 @@ const verif = function(){
      }
 }
 
-export default verif
+export default verify

@@ -25,7 +25,7 @@
       },
       "minecraft:fire_immune": true,
       "minecraft:inventory": {
-        "inventory_size": 1048576,
+        "inventory_size": 91000,
         "container_type": "container"
 //        "restrict_to_owner": true
       },

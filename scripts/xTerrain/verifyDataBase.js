@@ -2,7 +2,7 @@ import ScoreBase from '../lib/xboyPackage/scoreBase/rw';
 let ScoreBaseSnapshot = ScoreBase.GetObject();
 const checkScoreObjectExist = (ScoreObjectName) => !!Array.from(ScoreBaseSnapshot).find((ScoreObject) => { if (ScoreObjectName === ScoreObject.id)
     return true; });
-const verif = function () {
+const verify = function () {
     ScoreBaseSnapshot = ScoreBase.GetObject();
     ['##FlashPlayer##'].forEach((_) => {
         checkScoreObjectExist(_)
@@ -17,4 +17,4 @@ const verif = function () {
     catch (error) {
     }
 };
-export default verif;
+export default verify;
