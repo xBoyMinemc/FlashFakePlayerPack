@@ -78,12 +78,13 @@ function init() {
     // -检测0号ceyk(tag:init)实体以及坐标
     const ceykList = overworld.getEntities({ type: 'yumecraft:ceyk', tags: ['init'] });
     // overworld.runCommand('me ceykList.length'+ceykList.length)
-    if (ceykList.length === 0)
-        players.forEach(_ => _.sendMessage('[模拟玩家] 假人初始化'));
     // 移除超过1个的ceyk init实体
     while (ceykList.length > 1)
         ceykList.pop().triggerEvent('yumecraft:despawn');
     if (ceykList.length === 0) {
+        // init message
+        players.forEach(_ => _.sendMessage('[模拟玩家] 假人初始化'));
+        // init
         const ceyk = dimension.spawnEntity('yumecraft:ceyk', { x: location.x, y: 123, z: location.z });
         ceyk.addTag('init');
         // -使用0号实体完成区域加载

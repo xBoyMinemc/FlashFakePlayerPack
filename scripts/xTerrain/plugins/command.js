@@ -131,6 +131,43 @@ function 获取附近的非玩家实体(逻辑主体, 距离, 昊京牌过滤器
     ;
 }
 ;
+function 获取附近的玩家实体2(逻辑主体, 距离, 昊京牌过滤器) {
+    let 吃个桃桃 = {}; //new EntityQueryOptions();
+    吃个桃桃.maxDistance = 距离;
+    ;
+    ;
+    "距离";
+    ;
+    吃个桃桃.location = 逻辑主体.location; //new Location(逻辑主体.location.x,逻辑主体.location.y,逻辑主体.location.z);                                                  ;;"中心坐标-ri泥god";;
+    // 吃个桃桃.excludeTypes= ["minecraft:arrow","minecraft:xp_orb","minecraft:item"];                                              ;;"排除掉的实体类型";;
+    吃个桃桃.closest = 1;
+    吃个桃桃.excludeTags = [yumeSign];
+    Object.assign(吃个桃桃, 昊京牌过滤器);
+    ;
+    ;
+    ;
+    "”任何邪恶“";
+    ;
+    ;
+    let 实体们 = 逻辑主体.dimension.getEntities(吃个桃桃);
+    let 实体组 = [];
+    for (let 实体 of 实体们)
+        实体组.push(实体);
+    ;
+    ;
+    ;
+    ;
+    ;
+    ;
+    ;
+    ;
+    ;
+    ;
+    ;
+    return 实体组;
+    ;
+}
+;
 function 获取眼前的方块(逻辑主体, 距离) {
     let 最远距离 = {};
     最远距离.maxDistance = 距离;
@@ -466,7 +503,7 @@ world.events.tick.subscribe(() => {
             ;
             try {
                 if (工具人.hasTag(自动攻击标识符))
-                    工具人.lookAtEntity(获取附近的非玩家实体(工具人, 4)[0]);
+                    工具人.lookAtEntity(获取附近的非玩家实体(工具人, 4, {})[0]);
             }
             catch (e) {
             }
@@ -599,7 +636,7 @@ world.events.tick.subscribe(() => {
             ;
             try {
                 if (工具人.hasTag(自动追击标识符)) {
-                    const 实体们 = 获取附近的非玩家实体(工具人, 12, { families: ["undead"] }).concat(获取附近的非玩家实体(工具人, 12, { families: ["monster"] }));
+                    const 实体们 = 获取附近的非玩家实体(工具人, 12, { families: ["undead"] }).concat(获取附近的非玩家实体(工具人, 12, { families: ["monster"] })).concat(获取附近的玩家实体2(工具人, 12, {}));
                     工具人们States[工具人] ? 0 : (工具人们States[工具人] = {});
                     工具人们States[工具人]["o"] ? 0 : (工具人们States[工具人]["o"] = 工具人.location);
                     const r = (x, _x, v) => x - _x > v || x - _x < -v;
