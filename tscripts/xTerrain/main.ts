@@ -16,16 +16,24 @@ const tickWaitTimes = 20*60*60*24*365
 // const yume = ({x,y,z},{x:a,y:b,z:c})=>Math.sqrt((x-a)**2+(y-b)**2+(z-c)**2)
 
 
-export const SimulatedPlayerList = [];
-let spawnSimulatedPlayer : (location:Vector3, dimension:Dimension, _pid: { value:number; valueOf: () => number; } )=>SimulatedPlayer;
+export const SimulatedPlayerList = {};
+let spawnSimulatedPlayer : (location:Vector3, dimension:Dimension, pid: number  )=>SimulatedPlayer;
 let testWorldLocation : (relativeLocation: Vector3) => Vector3;
-const pid = {value:1,valueOf:()=>pid.value}
 
+const GetPID = ()=>{
+        const __FlashPlayer__ = <ScoreboardObjective>ScoreBase.GetObject('##FlashPlayer##')
+
+        const value = ScoreBase.GetPoints(__FlashPlayer__,'##currentPID')
+
+        __FlashPlayer__.setScore('##currentPID',value+1)
+
+        return value
+}
 export const initialized : initializedEventSignal = new EventSignal<initializedEvent>()
 export const spawned : spawnedEventSignal = new EventSignal<spawnedEvent>()
-spawned.subscribe(({spawnedSimulatedPlayer})=>{
-        SimulatedPlayerList.push(spawnedSimulatedPlayer)
-})
+// spawned.subscribe(({spawnedSimulatedPlayer})=>{
+//         // SimulatedPlayerList.push(spawnedSimulatedPlayer)
+// })
 
 
 
@@ -36,7 +44,7 @@ spawned.subscribe(({spawnedSimulatedPlayer})=>{
 import { register } from '@minecraft/server-gametest'
 import ScoreBase from '../lib/xboyPackage/scoreBase/rw';
 import EventSignal from '../lib/xboyEvents/EventSignal';
-import {
+import type {
         initializedEvent,
         initializedEventSignal,
         spawnedEvent,
@@ -52,18 +60,18 @@ register("我是云梦", "假人", (test:Test) => {
         overworld.runCommand('gamerule dodaylightcycle true');;;; "凑活解决时间问题";;;
         overworld.runCommand('gamerule randomtickspeed 1');;;; "凑活解决tick问题";;;
 
-        spawnSimulatedPlayer = (location:Vector3, dimension:Dimension, _pid: { value:number; valueOf: () => number; } = {value:0,valueOf:()=>_pid.value}):SimulatedPlayer=>{
+        spawnSimulatedPlayer = (location:Vector3, dimension:Dimension, pid: number ):SimulatedPlayer=>{
                         // const y2 = { x: 0, y: 2, z: 0 }
-                        // overworld.runCommand('me _pid'+(+_pid))
+                        // overworld.runCommand('me pid=>'+(+pid))
                         // const dimensionLocation : DimensionLocation = {...location,dimension}
-                        const SimulatedPlayer = test.spawnSimulatedPlayer({ x:0, y:2, z:0 }, `工具人-${_pid.value?_pid.value:pid.value++}`)
+                        const SimulatedPlayer = test.spawnSimulatedPlayer({ x:0, y:2, z:0 }, `工具人-${pid}`)
                         SimulatedPlayer.addTag('init')
                         SimulatedPlayer.addTag(yumeSign)
                         SimulatedPlayer.addTag(自动重生标识符)
                         // SimulatedPlayer.runCommand("tp @a @s")
                         SimulatedPlayer.setSpawnPoint({...location,dimension})
                         SimulatedPlayer.teleport(location, { dimension })
-                        SimulatedPlayerList.push(SimulatedPlayer)
+                        // SimulatedPlayerList.push(SimulatedPlayer)
                         return SimulatedPlayer;
         }
 })
@@ -74,7 +82,7 @@ register("我是云梦", "假人", (test:Test) => {
 // .padding(0)
 .structureName("xboyMinemcSIM:void")
 
-export {spawnSimulatedPlayer,testWorldLocation,pid}
+export {spawnSimulatedPlayer,testWorldLocation,GetPID}
 export default spawnSimulatedPlayer
 
 
@@ -110,7 +118,7 @@ function init(){
         // pid初始化 
         verify()
         verify()
-        pid.value = ScoreBase.GetPoints(<ScoreboardObjective>ScoreBase.GetObject('##FlashPlayer##'),'##currentPID')
+
         // -使用fill完成区域清理 (29999997 0 5 30000002 319 -1)
         // * 待商榷改用getBlock
         overworld.runCommand('fill 29999997 0 5 30000002 319 -1 air replace') //height 320

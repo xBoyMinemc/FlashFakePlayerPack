@@ -2,7 +2,7 @@ import type { Entity } from "@minecraft/server";
 import type { World } from "../../@types/globalThis";
 import type { SimulatedPlayer } from "@minecraft/server-gametest";
 import { EquipmentSlot } from "@minecraft/server";
-import {spawnSimulatedPlayer,SimulatedPlayerList as 工具人们} from "../main";
+import {spawnSimulatedPlayer, SimulatedPlayerList as 工具人们, GetPID, spawned as spawnedEvent} from "../main";
 
 import qrcode from "../../lib/qrcode-terminal/mod.js";
 
@@ -71,6 +71,19 @@ function 获取附近的非玩家实体(逻辑主体,距离,昊京牌过滤器){
     吃个桃桃.location    = 逻辑主体.location;  //new Location(逻辑主体.location.x,逻辑主体.location.y,逻辑主体.location.z);                                                  ;;"中心坐标-ri泥god";;
     吃个桃桃.excludeTypes= ["minecraft:player","minecraft:arrow","minecraft:xp_orb","minecraft:item"];                                              ;;"排除掉的实体类型";;
     吃个桃桃.closest   = 1;
+    Object.assign(吃个桃桃,昊京牌过滤器);;;;"”任何邪恶“";;;
+    let 实体们 = 逻辑主体.dimension.getEntities(吃个桃桃);
+    let 实体组 = [];
+    for(let 实体 of 实体们)实体组.push(实体);;;;;;;;;;;;
+    return 实体组;;
+};
+function 获取附近的玩家实体2(逻辑主体,距离,昊京牌过滤器){
+    let 吃个桃桃 = {}//new EntityQueryOptions();
+    吃个桃桃.maxDistance = 距离;                                                               ;;"距离";;
+    吃个桃桃.location    = 逻辑主体.location;  //new Location(逻辑主体.location.x,逻辑主体.location.y,逻辑主体.location.z);                                                  ;;"中心坐标-ri泥god";;
+    // 吃个桃桃.excludeTypes= ["minecraft:arrow","minecraft:xp_orb","minecraft:item"];                                              ;;"排除掉的实体类型";;
+    吃个桃桃.closest   = 1;
+    吃个桃桃.excludeTags = [yumeSign]
     Object.assign(吃个桃桃,昊京牌过滤器);;;;"”任何邪恶“";;;
     let 实体们 = 逻辑主体.dimension.getEntities(吃个桃桃);
     let 实体组 = [];
@@ -154,12 +167,12 @@ world.events.tick.subscribe(() => {//我()了，这也是一种不（）
                 if(工具人.hasTag(攻击标识符))工具人.attackEntity(获取眼前的实体(工具人,4));
             }catch(e){};;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
             try{
-                if(工具人.hasTag(自动攻击标识符))工具人.lookAtEntity(获取附近的非玩家实体(工具人,4)[0]);
+                if(工具人.hasTag(自动攻击标识符))工具人.lookAtEntity(获取附近的非玩家实体(工具人,4,{})[0]);
             }catch(e){
             };;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
             try{
                 if(工具人.hasTag(自动追击标识符)){
-                    const 实体们 = 获取附近的非玩家实体(工具人,12,{families:["undead"]}).concat(获取附近的非玩家实体(工具人,12,{families:["monster"]}));
+                    const 实体们 = 获取附近的非玩家实体(工具人,12,{families:["undead"]}).concat(获取附近的非玩家实体(工具人,12,{families:["monster"]})).concat(获取附近的玩家实体2(工具人,12,{}));
 
                     工具人们States[工具人]?0:(工具人们States[工具人]={});
                     工具人们States[工具人]["o"]?0:(工具人们States[工具人]["o"]=工具人.location);
@@ -274,11 +287,11 @@ world.afterEvents.chatSend.subscribe( event => {
             }
             ;
             if (消息 == "交换装备" || 消息 == "装备交换") {
-                const s = 眼前的工具人.getComponent("minecraft:equipment_inventory");
+                const s = 眼前的工具人.getComponent("minecraft:equippable");
                 ;
                 ;"眼前的假人实体背包";
                 ;
-                const p = sender.getComponent("minecraft:equipment_inventory");
+                const p = sender.getComponent("minecraft:equippable");
                 for (const i in EquipmentSlot) {
                     //跳过主手
                     if (i === "mainhand") continue;
@@ -291,7 +304,7 @@ world.afterEvents.chatSend.subscribe( event => {
             }
             ;
             if (消息 == "清空背包" || 消息 == "爆金币") {
-                const _s = 眼前的工具人.getComponent("minecraft:equipment_inventory");
+                const _s = 眼前的工具人.getComponent("minecraft:equippable");
                 for (const i in EquipmentSlot) {
                     //跳过主手
                     if (i === "mainhand") continue;
@@ -420,7 +433,12 @@ world.afterEvents.chatSend.subscribe( event => {
             if (消息.startsWith("批量 ")) {
                 let temp = 消息.replace("批量 ", "");
                 if (temp = Number(temp))
-                    while (temp-- > 0) spawnSimulatedPlayer(发起者.location, 发起者.dimension, 0)
+                    while (temp --> 0) {
+                    const PID = GetPID()
+                    const SimulatedPlayer = spawnSimulatedPlayer(发起者.location, 发起者.dimension, PID )
+                        spawnedEvent.trigger({spawnedSimulatedPlayer:SimulatedPlayer,PID})
+                            工具人们[PID] = SimulatedPlayer
+                    }
                 // 生产任务.push({
                 //     location:发起者.location,
                 //     dimension:发起者.dimension,
@@ -429,7 +447,7 @@ world.afterEvents.chatSend.subscribe( event => {
             }
             ;
             if (消息 == "销毁") {
-                const _s = 眼前的工具人.getComponent("minecraft:equipment_inventory");
+                const _s = 眼前的工具人.getComponent("minecraft:equippable");
                 for (const i in EquipmentSlot) {
                     //跳过主手
                     if (i === "mainhand") continue;

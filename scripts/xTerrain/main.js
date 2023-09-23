@@ -9,15 +9,20 @@ const yumeSign = "#yumeSimSign#";
 const overworld = world.getDimension('overworld');
 const tickWaitTimes = 20 * 60 * 60 * 24 * 365;
 // const yume = ({x,y,z},{x:a,y:b,z:c})=>Math.sqrt((x-a)**2+(y-b)**2+(z-c)**2)
-export const SimulatedPlayerList = [];
+export const SimulatedPlayerList = {};
 let spawnSimulatedPlayer;
 let testWorldLocation;
-const pid = { value: 1, valueOf: () => pid.value };
+const GetPID = () => {
+    const __FlashPlayer__ = ScoreBase.GetObject('##FlashPlayer##');
+    const value = ScoreBase.GetPoints(__FlashPlayer__, '##currentPID');
+    __FlashPlayer__.setScore('##currentPID', value + 1);
+    return value;
+};
 export const initialized = new EventSignal();
 export const spawned = new EventSignal();
-spawned.subscribe(({ spawnedSimulatedPlayer }) => {
-    SimulatedPlayerList.push(spawnedSimulatedPlayer);
-});
+// spawned.subscribe(({spawnedSimulatedPlayer})=>{
+//         // SimulatedPlayerList.push(spawnedSimulatedPlayer)
+// })
 import { register } from '@minecraft/server-gametest';
 import ScoreBase from '../lib/xboyPackage/scoreBase/rw';
 import EventSignal from '../lib/xboyEvents/EventSignal';
@@ -45,18 +50,18 @@ register("我是云梦", "假人", (test) => {
     "凑活解决tick问题";
     ;
     ;
-    spawnSimulatedPlayer = (location, dimension, _pid = { value: 0, valueOf: () => _pid.value }) => {
+    spawnSimulatedPlayer = (location, dimension, pid) => {
         // const y2 = { x: 0, y: 2, z: 0 }
-        // overworld.runCommand('me _pid'+(+_pid))
+        // overworld.runCommand('me pid=>'+(+pid))
         // const dimensionLocation : DimensionLocation = {...location,dimension}
-        const SimulatedPlayer = test.spawnSimulatedPlayer({ x: 0, y: 2, z: 0 }, `工具人-${_pid.value ? _pid.value : pid.value++}`);
+        const SimulatedPlayer = test.spawnSimulatedPlayer({ x: 0, y: 2, z: 0 }, `工具人-${pid}`);
         SimulatedPlayer.addTag('init');
         SimulatedPlayer.addTag(yumeSign);
         SimulatedPlayer.addTag(自动重生标识符);
         // SimulatedPlayer.runCommand("tp @a @s")
         SimulatedPlayer.setSpawnPoint({ ...location, dimension });
         SimulatedPlayer.teleport(location, { dimension });
-        SimulatedPlayerList.push(SimulatedPlayer);
+        // SimulatedPlayerList.push(SimulatedPlayer)
         return SimulatedPlayer;
     };
 })
@@ -66,7 +71,7 @@ register("我是云梦", "假人", (test) => {
     // .requiredSuccessfulAttempts(tickWaitTimes)
     // .padding(0)
     .structureName("xboyMinemcSIM:void");
-export { spawnSimulatedPlayer, testWorldLocation, pid };
+export { spawnSimulatedPlayer, testWorldLocation, GetPID };
 export default spawnSimulatedPlayer;
 //  # 初始化
 function init() {
@@ -78,12 +83,13 @@ function init() {
     // -检测0号ceyk(tag:init)实体以及坐标
     const ceykList = overworld.getEntities({ type: 'yumecraft:ceyk', tags: ['init'] });
     // overworld.runCommand('me ceykList.length'+ceykList.length)
-    if (ceykList.length === 0)
-        players.forEach(_ => _.sendMessage('[模拟玩家] 假人初始化'));
     // 移除超过1个的ceyk init实体
     while (ceykList.length > 1)
         ceykList.pop().triggerEvent('yumecraft:despawn');
     if (ceykList.length === 0) {
+        // init message
+        players.forEach(_ => _.sendMessage('[模拟玩家] 假人初始化'));
+        // init
         const ceyk = dimension.spawnEntity('yumecraft:ceyk', { x: location.x, y: 123, z: location.z });
         ceyk.addTag('init');
         // -使用0号实体完成区域加载
@@ -96,7 +102,6 @@ function init() {
     // pid初始化 
     verify();
     verify();
-    pid.value = ScoreBase.GetPoints(ScoreBase.GetObject('##FlashPlayer##'), '##currentPID');
     // -使用fill完成区域清理 (29999997 0 5 30000002 319 -1)
     // * 待商榷改用getBlock
     overworld.runCommand('fill 29999997 0 5 30000002 319 -1 air replace'); //height 320

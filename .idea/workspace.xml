@@ -4,31 +4,26 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="86da4608-a0b7-45a0-bdcf-bce2f06a83ca" name="变更" comment="markdown">
-      <change afterPath="$PROJECT_DIR$/.github/workflows/qodana_code_quality.yml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/qodana.yaml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/tscripts/xTerrain/plugins/chatSpawn.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/tscripts/xTerrain/plugins/command.ts" afterDir="false" />
+    <list default="true" id="86da4608-a0b7-45a0-bdcf-bce2f06a83ca" name="变更" comment="auto flash">
+      <change afterPath="$PROJECT_DIR$/packpack.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tscripts/lib/xboyEvents/projectileFired.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/entities/#U4e00#U53ea#U591c#U7a7a.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/entities/ceyk.json" beforeDir="false" afterPath="$PROJECT_DIR$/entities/ceyk.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/lib/PureEval.es.curry.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/lib/PureEval.es.curry.min.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/lib/xboyEvents/entityDeadByHurt.js" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/lib/xboyEvents/entityDeadByHurt.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/lib/xboyEvents/fishingHookSpawned.js" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/lib/xboyEvents/fishingHookSpawned.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/lib/xboyEvents/preload.js" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/lib/xboyEvents/preload.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/lib/xboyEvents/reloadFromCmd.js" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/lib/xboyEvents/reloadFromCmd.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/lib/xboyEvents/tick.js" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/lib/xboyEvents/tick.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/lib/xboyPackage/The law of the ancestors is immutable.js" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/lib/xboyPackage/The law of the ancestors is immutable.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/lib/xboyPackage/scoreBase/rw.js" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/lib/xboyPackage/scoreBase/rw.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/main/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/main/main.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/main/preload.js" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/main/preload.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/lib/xboyEvents/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/lib/xboyEvents/index.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/scripts/xTerrain/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/xTerrain/main.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/xTerrain/spawnFakePlayer.js" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/xTerrain/spawnFakePlayer.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/xTerrain/verifyDataBase.js" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/xTerrain/verifyDataBase.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/xTerrain/plugins/command.js" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/xTerrain/plugins/command.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/xTerrain/plugins/test.js" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/xTerrain/plugins/test.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/xboyEvents/EventSignal.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/xboyEvents/entityDeadByHurt.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/xboyEvents/fishingHookSpawned.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/xboyEvents/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/xboyEvents/preload.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/xboyEvents/reloadFromCmd.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/xboyEvents/tick.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tsconfig.json" beforeDir="false" afterPath="$PROJECT_DIR$/tsconfig.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/tscripts/@types/globalThis.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/tscripts/@types/globalThis.d.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tscripts/xTerrain/main.ts" beforeDir="false" afterPath="$PROJECT_DIR$/tscripts/xTerrain/main.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tscripts/xTerrain/verifyDataBase.ts" beforeDir="false" afterPath="$PROJECT_DIR$/tscripts/xTerrain/verifyDataBase.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/重写.md" beforeDir="false" afterPath="$PROJECT_DIR$/重写.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tscripts/lib/xboyEvents/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/tscripts/lib/xboyEvents/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tscripts/xTerrain/plugins/command.ts" beforeDir="false" afterPath="$PROJECT_DIR$/tscripts/xTerrain/plugins/command.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tscripts/xTerrain/plugins/test.ts" beforeDir="false" afterPath="$PROJECT_DIR$/tscripts/xTerrain/plugins/test.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -76,7 +71,8 @@
     </option>
   </component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="file://$PROJECT_DIR$/tscripts/lib/xboyEvents/global.d.ts" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/node_modules/@minecraft/server/index.d.ts" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/tscripts/lib/xboyEvents/projectileFired.ts" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -100,6 +96,8 @@
     &quot;TODO_SCOPE&quot;: &quot;所有位置&quot;,
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
     &quot;git-widget-placeholder&quot;: &quot;1.20.13-code-rewriting&quot;,
+    &quot;javascript.nodejs.core.library.configured.version&quot;: &quot;20.1.0&quot;,
+    &quot;javascript.nodejs.core.library.typings.version&quot;: &quot;20.1.0&quot;,
     &quot;last_opened_file_path&quot;: &quot;C:/Users/云梦/AppData/Local/Packages/Microsoft.MinecraftUWP_8wekyb3d8bbwe/LocalState/games/com.mojang/minecraftWorlds/假人测试-1.19.71/behavior_packs/FUCKfakePlayerPack/tscripts/lib&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
@@ -164,7 +162,10 @@
       <workItem from="1693409178761" duration="173000" />
       <workItem from="1693409619017" duration="9470000" />
       <workItem from="1693623985238" duration="1093000" />
-      <workItem from="1693625099297" duration="441000" />
+      <workItem from="1693625099297" duration="1024000" />
+      <workItem from="1693668543322" duration="4103000" />
+      <workItem from="1693731740252" duration="17037000" />
+      <workItem from="1694936345133" duration="496000" />
     </task>
     <task id="LOCAL-00001" summary="代码整理&#10;清明时雨&#10;祭奠过去">
       <created>1680686803812</created>
@@ -309,7 +310,15 @@
       <option name="project" value="LOCAL" />
       <updated>1693251105193</updated>
     </task>
-    <option name="localTasksCounter" value="21" />
+    <task id="LOCAL-00021" summary="auto flash">
+      <option name="closed" value="true" />
+      <created>1693625591896</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1693625591896</updated>
+    </task>
+    <option name="localTasksCounter" value="22" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -426,6 +435,7 @@
     <MESSAGE value="1.20.10适配" />
     <MESSAGE value="1.20.13 假人自动追击 更新" />
     <MESSAGE value="markdown" />
-    <option name="LAST_COMMIT_MESSAGE" value="markdown" />
+    <MESSAGE value="auto flash" />
+    <option name="LAST_COMMIT_MESSAGE" value="auto flash" />
   </component>
 </project>
