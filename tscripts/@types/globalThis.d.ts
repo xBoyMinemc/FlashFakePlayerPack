@@ -12,9 +12,9 @@ import {
     ItemUseOnBeforeEventSignal,
     PistonActivateBeforeEventSignal,
     WorldAfterEvents,
-    BlockBreakAfterEventSignal,
+    PlayerBreakBlockAfterEventSignal,
     BlockExplodeAfterEventSignal,
-    BlockPlaceAfterEventSignal,
+    PlayerPlaceBlockAfterEventSignal,
     ButtonPushAfterEventSignal,
     ChatSendAfterEventSignal,
     DataDrivenEntityTriggerAfterEventSignal,
@@ -23,7 +23,10 @@ import {
     EntityHealthChangedAfterEventSignal,
     // EntityHitAfterEventSignal,
     EntityHurtAfterEventSignal,
-    EntityRemovedAfterEventSignal,
+    EntityHitEntityAfterEventSignal,
+    // EntityRemovedAfterEventSignal, // matter?
+    EntityRemoveAfterEventSignal,
+    EntityRemoveBeforeEventSignal,
     EntitySpawnAfterEventSignal,
     ExplosionAfterEventSignal,
     ItemCompleteUseAfterEventSignal,
@@ -43,9 +46,13 @@ import {
     PlayerSpawnAfterEventSignal,
     PressurePlatePopAfterEventSignal,
     PressurePlatePushAfterEventSignal,
-    ProjectileHitAfterEventSignal,
+    // ProjectileHitAfterEventSignal,
+    ProjectileHitBlockAfterEventSignal,
     TargetBlockHitAfterEventSignal,
-    TripWireTripAfterEventSignal, WeatherChangeAfterEventSignal, WorldInitializeAfterEventSignal, EntityHitBlockAfterEventSignal, EntityHitEntityAfterEventSignal
+    TripWireTripAfterEventSignal,
+    WeatherChangeAfterEventSignal,
+    WorldInitializeAfterEventSignal,
+    EntityHitBlockAfterEventSignal, ProjectileHitEntityAfterEventSignal,
 } from "@minecraft/server";
 
 // import type {
@@ -113,11 +120,12 @@ export class _WorldBeforeEvents {
     readonly beforeItemUse: ItemUseBeforeEventSignal;
     readonly beforeItemUseOn: ItemUseOnBeforeEventSignal;
     readonly beforePistonActivate: PistonActivateBeforeEventSignal;
+    readonly beforeEntityRemoved : EntityRemoveBeforeEventSignal;
 }
 export class _WorldAfterEvents {
-    readonly blockBreak: BlockBreakAfterEventSignal;
+    readonly blockBreak: PlayerBreakBlockAfterEventSignal;
     readonly blockExplode: BlockExplodeAfterEventSignal;
-    readonly blockPlace: BlockPlaceAfterEventSignal;
+    readonly blockPlace: PlayerPlaceBlockAfterEventSignal;
     readonly buttonPush: ButtonPushAfterEventSignal;
     readonly chatSend: ChatSendAfterEventSignal;
     readonly dataDrivenEntityTriggerEvent: DataDrivenEntityTriggerAfterEventSignal;
@@ -128,7 +136,7 @@ export class _WorldAfterEvents {
     readonly entityHitBlock: EntityHitBlockAfterEventSignal;
     readonly entityHitEntity: EntityHitEntityAfterEventSignal;
     readonly entityHurt: EntityHurtAfterEventSignal;
-    readonly entityRemoved: EntityRemovedAfterEventSignal;
+    readonly entityRemoved: EntityRemoveAfterEventSignal;
     readonly entitySpawn: EntitySpawnAfterEventSignal;
     readonly explosion: ExplosionAfterEventSignal;
     readonly itemCompleteCharge: ItemCompleteUseAfterEventSignal;
@@ -148,7 +156,9 @@ export class _WorldAfterEvents {
     readonly playerSpawn: PlayerSpawnAfterEventSignal;
     readonly pressurePlatePop: PressurePlatePopAfterEventSignal;
     readonly pressurePlatePush: PressurePlatePushAfterEventSignal;
-    readonly projectileHit: ProjectileHitAfterEventSignal;
+    readonly projectileHit: ProjectileHitBlockAfterEventSignal;
+    readonly ProjectileHitBlock: ProjectileHitBlockAfterEventSignal;
+    readonly ProjectileHitEntity: ProjectileHitEntityAfterEventSignal;
     readonly targetBlockHit: TargetBlockHitAfterEventSignal;
     readonly tripWireTrip: TripWireTripAfterEventSignal;
     readonly weatherChange: WeatherChangeAfterEventSignal;
@@ -390,7 +400,9 @@ export  class initializedEventSignal {
 }
 export class spawnedEvent {
     // a spawned SimulatedPlayer Entity
-    spawnedSimulatedPlayer : SimulatedPlayer
+    spawnedSimulatedPlayer : SimulatedPlayer;
+    // PID
+    PID : number;
 }
 export  class spawnedEventSignal {
     /**

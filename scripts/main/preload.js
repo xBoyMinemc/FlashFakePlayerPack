@@ -13,14 +13,14 @@ globalThis.BlockLocation = BlockLocation;
 // world.events.
 import("../lib/xboyEvents/preload.js")
     .then(() => {
-    console.error("full ", typeof world);
+    console.error("[模拟玩家] full 加载成功");
     import("./main.js");
 }, (rej) => {
-    console.error("rej ", typeof world, rej);
+    console.error("[模拟玩家] rejected 报错了", rej);
     // import("./main.ts");
 })
     .finally(() => {
-    console.error("finally", typeof world);
+    console.error("[模拟玩家] finally 加载完毕");
     // import("./main.ts");
 })
     .catch(_ => {
