@@ -1,6 +1,6 @@
 // -302 65 -1556
 // @ts-ignore
-import tpsMspt  from '../lib/xboyTools/tpsMspt.js';
+import tpsShower  from '../lib/xboyTools/tpsShower';
 import type { World } from "../@types/globalThis";
 
 declare const world: World;
@@ -18,7 +18,7 @@ const nowTimeTemp    = new Date().getDate() +"日"+ new Date().getHours() +"时"
 
 world.events.tick.subscribe(
        () => {
-              tpsMspt()
+              tpsShower()
               // let i = overworld.runCommandAsync("list")
               // overworld.runCommandAsync("me "+JSON.stringify(i))
               // overworld.runCommandAsync("me #########")

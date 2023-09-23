@@ -16,6 +16,7 @@
 
     "components": {
       "minecraft:tick_world": {
+
       },
       "minecraft:damage_sensor": {
         "triggers": {

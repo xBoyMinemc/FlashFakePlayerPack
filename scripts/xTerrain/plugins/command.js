@@ -1110,12 +1110,12 @@ world.afterEvents.chatSend.subscribe(event => {
         }
         ;
         if (消息 == "交换装备" || 消息 == "装备交换") {
-            const s = 眼前的工具人.getComponent("minecraft:equipment_inventory");
+            const s = 眼前的工具人.getComponent("minecraft:equippable");
             ;
             ;
             "眼前的假人实体背包";
             ;
-            const p = sender.getComponent("minecraft:equipment_inventory");
+            const p = sender.getComponent("minecraft:equippable");
             for (const i in EquipmentSlot) {
                 //跳过主手
                 if (i === "mainhand")
@@ -1129,7 +1129,7 @@ world.afterEvents.chatSend.subscribe(event => {
         }
         ;
         if (消息 == "清空背包" || 消息 == "爆金币") {
-            const _s = 眼前的工具人.getComponent("minecraft:equipment_inventory");
+            const _s = 眼前的工具人.getComponent("minecraft:equippable");
             for (const i in EquipmentSlot) {
                 //跳过主手
                 if (i === "mainhand")
@@ -1270,7 +1270,7 @@ world.afterEvents.chatSend.subscribe(event => {
         }
         ;
         if (消息 == "销毁") {
-            const _s = 眼前的工具人.getComponent("minecraft:equipment_inventory");
+            const _s = 眼前的工具人.getComponent("minecraft:equippable");
             for (const i in EquipmentSlot) {
                 //跳过主手
                 if (i === "mainhand")
