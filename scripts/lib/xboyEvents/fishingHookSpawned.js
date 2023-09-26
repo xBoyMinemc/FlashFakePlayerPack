@@ -29,9 +29,9 @@ world.events.entitySpawn.subscribe(({ entity: entity }) => {
                 // entity.runCommandAsync("tell @a[tag=xboy] length z "+(entity.location.z - playerFishing.location.z - playerFishing.getVelocity().z)),
                 // entity.runCommandAsync("tell @a[tag=xboy] ==========================================")
                 //       ) &&
-                around(entity.location.x - playerFishing.location.x - playerFishing.getVelocity().x, 3) // @ts-ignore
-                    && around(entity.location.y - playerFishing.location.y - playerFishing.getVelocity().y, ("你问我0.08哪里来的我就杀了你", "你问我为什么在这里code shit我还是会杀了你", 3))
-                    && around(entity.location.z - playerFishing.location.z - playerFishing.getVelocity().z, 3)))
+                around(entity.location.x - playerFishing.location.x - playerFishing.getVelocity().x, 6) // @ts-ignore
+                    && around(entity.location.y - playerFishing.location.y - playerFishing.getVelocity().y, ("免你一死", 7))
+                    && around(entity.location.z - playerFishing.location.z - playerFishing.getVelocity().z, 6)))
                     ?
                         (queue.fishingHookDespawned_HookArray.set(entity.id, Fisher),
                             fishingHookSpawned.trigger({ HookId: entity.id, Fisher: Fisher }))
