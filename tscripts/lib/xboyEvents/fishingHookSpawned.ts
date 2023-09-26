@@ -1,4 +1,4 @@
-import { Entity, EntitySpawnAfterEvent, ItemUseAfterEvent, Player } from "@minecraft/server"
+import { Entity, ItemUseAfterEvent } from "@minecraft/server"
 import EventSignal from "./EventSignal";
 import type { World, FishingHookDespawnedEvent, FishingHookDespawnedEventSignal, FishingHookSpawnedEvent, FishingHookSpawnedEventSignal } from "../../@types/globalThis";
 
@@ -53,7 +53,7 @@ world.events.entitySpawn.subscribe(({entity: entity}) => {
         )
       )
         ?
-        (
+        (       // @ts-ignore
           queue.fishingHookDespawned_HookArray.set(entity.id, Fisher),
           fishingHookSpawned.trigger({ HookId: entity.id, Fisher: Fisher })
         )
@@ -66,13 +66,11 @@ world.events.entitySpawn.subscribe(({entity: entity}) => {
   // world.getDimension("overworld").runCommandAsync("tell @a[tag=xboy] error"+error)
   // world.getDimension("overworld").runCommandAsync("tell @a[tag=xboy] lifetimeState"+entity.location)
   // world.getDimension("overworld").runCommandAsync("tell @a[tag=xboy] error"+entity.dimension.id)
-
-      
   }
 })
 
 
-world.events.tick.subscribe((t) => {
+world.events.tick.subscribe(() => {
   //这里清空干嘛的
   // queue.playerFishingArray = [];
   queue.fishingHookDespawned_TickArray.length ? queue.fishingHookDespawned_TickArray.pop()() : 0;
@@ -85,7 +83,7 @@ world.events.tick.subscribe((t) => {
 
 /*
 */
-console.error(("#########"))
+// console.error(("######### fishingHookSpawned"))
 // fishingHookSpawned.subscribe(event=>{
 //     console.error("fishingHookSpawned")
 //     world.getDimension("overworld").runCommandAsync("me ##鱼钩生成\u000a鱼钩id=>"+event.HookId+"\u000a发起者id=>"+event.Fisher.id);
