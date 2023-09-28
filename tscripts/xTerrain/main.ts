@@ -151,12 +151,13 @@ world.events.tick.subscribe(init)
 initialized.subscribe(()=> console.error('[假人]初始化完毕，开始加载内置插件') )
 initialized.subscribe(()=>
                 [
-                        'test',
-                        'chatSpawn',
-                        'command',
+                    'test',
+                    'chatSpawn',
+                    'command',
+                    // 'newCommand',
                 ].forEach(
                     name=> import('./plugins/'+name)
-                        .catch((reason) => console.error("[模拟玩家] 初始化错误 ERROR:" + reason))
+                        .catch((reason) => console.error("[模拟玩家] "+name+" 模块初始化错误 ERROR:" + reason))
                 )
 )
 console.error('[假人] init一次')

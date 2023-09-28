@@ -129,8 +129,9 @@ initialized.subscribe(() => [
     'test',
     'chatSpawn',
     'command',
+    // 'newCommand',
 ].forEach(name => import('./plugins/' + name)
-    .catch((reason) => console.error("[模拟玩家] 初始化错误 ERROR:" + reason))));
+    .catch((reason) => console.error("[模拟玩家] " + name + " 模块初始化错误 ERROR:" + reason))));
 console.error('[假人] init一次');
 export function a() { console.error('a一次'); }
 //写一个100次的for循环
