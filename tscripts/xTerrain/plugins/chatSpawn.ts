@@ -1,12 +1,16 @@
-import type { World } from "../../@types/globalThis";
+import type { World } from '../../@types/globalThis'
 import type { SimulatedPlayer } from '@minecraft/server-gametest'
 
 import { spawnSimulatedPlayer, SimulatedPlayerList, spawned as spawnedEvent, GetPID } from '../main'
-import {CommandRegistry} from "./CommandRegistry";
+import { CommandRegistry } from '../../lib/yumeCommand/CommandRegistry'
 
 declare const world: World
 
-const commandRegistry: CommandRegistry = new CommandRegistry();
+
+const commandRegistry: CommandRegistry = new CommandRegistry()
+commandRegistry.registerCommand('假人创建')
+
+//
 const noArgs = ({args,entity,location,isEntity})=>{
     if(args.length!==1)return;
     // TEST without pid input
@@ -40,7 +44,6 @@ const noArgs = ({args,entity,location,isEntity})=>{
 
 
 }
-commandRegistry.registerCommand('假人创建')
 commandRegistry.registerCommand('假人创建',noArgs)
 
 

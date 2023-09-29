@@ -54,9 +54,9 @@ import type {
 register("我是云梦", "假人", (test:Test) => {
         testWorldLocation = test.worldLocation
 
-        overworld.runCommand('gamerule domobspawning true');;;; "凑活解决刷怪问题";;;
-        overworld.runCommand('gamerule dodaylightcycle true');;;; "凑活解决时间问题";;;
-        overworld.runCommand('gamerule randomtickspeed 1');;;; "凑活解决tick问题";;;
+        overworld.runCommand('gamerule domobspawning true');;;; "凑活解决生物生成被禁用的问题";;;
+        overworld.runCommand('gamerule dodaylightcycle true');;;; "凑活解决游戏内时间停止问题";;;
+        overworld.runCommand('gamerule randomtickspeed 1');;;; "凑活解决tick因为gametest而设定为0的问题";;;
 
         spawnSimulatedPlayer = (location:Vector3, dimension:Dimension, pid: number ):SimulatedPlayer=>{
                         // const y2 = { x: 0, y: 2, z: 0 }
@@ -66,12 +66,32 @@ register("我是云梦", "假人", (test:Test) => {
                         SimulatedPlayer.addTag('init')
                         SimulatedPlayer.addTag(yumeSign)
                         SimulatedPlayer.addTag(自动重生标识符)
+
+                        // //for blockLocation
+                        // const x = (SimulatedPlayer.location.x-0.5)>>0
+                        // const y =  SimulatedPlayer.location.y>>0
+                        // const z = (SimulatedPlayer.location.z-0.5)>>0
+                        // SimulatedPlayer.addTag('#xyz#'+x+'#'+(y-2)+'#'+z)
+
                         // SimulatedPlayer.runCommand("tp @a @s")
                         SimulatedPlayer.setSpawnPoint({...location,dimension})
                         SimulatedPlayer.teleport(location, { dimension })
                         // SimulatedPlayerList.push(SimulatedPlayer)
-                        return SimulatedPlayer;
+                        return SimulatedPlayer
         }
+
+        // initialized.subscribe(()=> console.error('[假人]初始化完毕，开始加载内置插件') )
+        // initialized.subscribe(()=> )
+            [
+                'test',
+                'chatSpawn',
+                'command',
+                // 'newCommand',
+            ].forEach(
+                name=> import('./plugins/'+name)
+                    .catch((reason) => console.error("[模拟玩家] "+name+" 模块初始化错误 ERROR:" + reason))
+            )
+        console.error('[假人] init一次')
 })
 .maxTicks(tickWaitTimes)
 // .maxTicks(2)
@@ -148,19 +168,6 @@ function init() {
 // world.events.playerSpawn.subscribe(init)
 world.events.tick.subscribe(init)
 
-initialized.subscribe(()=> console.error('[假人]初始化完毕，开始加载内置插件') )
-initialized.subscribe(()=>
-                [
-                    'test',
-                    'chatSpawn',
-                    'command',
-                    // 'newCommand',
-                ].forEach(
-                    name=> import('./plugins/'+name)
-                        .catch((reason) => console.error("[模拟玩家] "+name+" 模块初始化错误 ERROR:" + reason))
-                )
-)
-console.error('[假人] init一次')
 
 export function a(){console.error('a一次') }
 //写一个100次的for循环

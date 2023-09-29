@@ -1,6 +1,8 @@
 import { spawnSimulatedPlayer, SimulatedPlayerList, spawned as spawnedEvent, GetPID } from '../main';
-import { CommandRegistry } from "./CommandRegistry";
+import { CommandRegistry } from '../../lib/yumeCommand/CommandRegistry';
 const commandRegistry = new CommandRegistry();
+commandRegistry.registerCommand('假人创建');
+//
 const noArgs = ({ args, entity, location, isEntity }) => {
     if (args.length !== 1)
         return;
@@ -27,7 +29,6 @@ const noArgs = ({ args, entity, location, isEntity }) => {
         __FlashPlayer__.setScore(SimulatedPlayer.id, PID);
     }
 };
-commandRegistry.registerCommand('假人创建');
 commandRegistry.registerCommand('假人创建', noArgs);
 world.afterEvents.chatSend.subscribe(({ message, sender }) => {
     if (message !== '假人创建')
