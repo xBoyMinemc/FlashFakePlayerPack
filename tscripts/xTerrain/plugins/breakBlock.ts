@@ -24,17 +24,16 @@ const noArgs = ({args,entity,location,isEntity})=>{
     // Gets the relative coordinates of the square in front of the dummy entity
     function getCoordinatesFromView(sim:SimulatedPlayer){
         const viewLocation = sim.getBlockFromViewDirection({maxDistance:4}).faceLocation
-        let bornLocation:number[]
         const tags = sim.getTags();
-        for(let i in tags)if(tags[i].startsWith("#xyz#"))bornLocation=tags[i].replace("#xyz#","").split("#").map(s=>Number(s))
-        // tags.find(tag=>tag.startsWith("#xyz#")).replace("#xyz#","").split("#").map(s=>Number(s))
-        const x = viewLocation.x - bornLocation[0]
-        const y = viewLocation.y - bornLocation[1]
-        const z = viewLocation.z - bornLocation[2]
+        // for(let i in tags)if(tags[i].startsWith("#xyz#"))bornLocation=tags[i].replace("#xyz#","").split("#").map(s=>Number(s))
+        const bornLocation:number[] = tags.find(tag=>tag.startsWith("#xyz#")).replace("#xyz#","").split("#").map(s=>Number(s))
+        // const x = viewLocation.x - bornLocation[0]
+        // const y = viewLocation.y - bornLocation[1]
+        // const z = viewLocation.z - bornLocation[2]
         // or
-        // viewLocation.x -= bornLocation[0]
-        // viewLocation.y -= bornLocation[1]
-        // viewLocation.z -= bornLocation[2]
+        viewLocation.x -= bornLocation[0]
+        viewLocation.y -= bornLocation[1]
+        viewLocation.z -= bornLocation[2]
         // viewLocation.x -= testWorldLocation.x
         // viewLocation.y -= testWorldLocation.y
         // viewLocation.z -= testWorldLocation.z

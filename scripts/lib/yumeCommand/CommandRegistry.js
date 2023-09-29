@@ -1,3 +1,4 @@
+// Parse command
 export function commandParse(command) {
     const tokens = [];
     let currentToken = '';
@@ -39,7 +40,7 @@ export class CommandRegistry {
         this.CommandRegistrySign = CommandRegistrySign;
         this.commands = new Map();
     }
-    // 注册命令
+    // registerCommand
     registerCommand(commandName, callback) {
         if (!Boolean(callback))
             return this.commands.set(commandName, new Set());
@@ -47,7 +48,7 @@ export class CommandRegistry {
             return this.commands.set(commandName, new Set());
         return this.commands.get(commandName).add(callback);
     }
-    // 执行命令
+    // executeCommand
     executeCommand(commandName, commandInfo) {
         this.commands.get(commandName)?.forEach((callback) => callback(commandInfo));
         // if (this.commands.has(commandName)){
@@ -57,14 +58,14 @@ export class CommandRegistry {
         // else
         //     console.error(`Command "${commandName}" not found.`);
     }
-    // 移除命令
+    // removeCommand
     removeCommand(commandName, callback) {
         this.commands.get(commandName)?.delete(callback);
         // if (this.commands.has(commandName)){
         //     if(this.commands.get(commandName).delete(callback)){
         //         return true
         //     }
-        //         console.error(`Command "${commandName}" not has this callback.`);
+        //         console.error('Command '+commandName+' not has this callback.')
         //         return false
         // }
         // else
@@ -73,11 +74,11 @@ export class CommandRegistry {
 }
 CommandRegistry.parse = commandParse;
 // const {executeCommand, registerCommand, removeCommand} = new CommandRegistry();
-// 创建一个命令注册器实例
-const commandRegistry = new CommandRegistry();
-// 注册一些命令
-// function sayHello(name) {
-//         console.log(`Hello, ${name}!`);
+// create a CommandRegistry object
+// const commandRegistry: CommandRegistry = new CommandRegistry();
+// Registry command
+// function sayHello({args:string[],entity:Entity|Player|Dimension,location?:Vector3,isEntity:boolean,commandName:string}) {
+//         entity.sendMessage(`Hello, ${args}!`);
 // }
 //
 // function sayGoodbye(name) {
@@ -87,12 +88,12 @@ const commandRegistry = new CommandRegistry();
 // commandRegistry.registerCommand('hello', sayHello);
 // commandRegistry.registerCommand('goodbye', sayGoodbye);
 //
-// // 执行命令
-// commandRegistry.executeCommand('hello', 'Alice'); // 输出：Hello, Alice!
-// commandRegistry.executeCommand('goodbye', 'Bob');   // 输出：Goodbye, Bob!
+// Execute command
+// commandRegistry.executeCommand('hello', {args:string[],entity:Entity|Player|Dimension,location?:Vector3,isEntity:boolean,commandName:string}); // 输出：Hello, Alice!
+// commandRegistry.executeCommand('goodbye', {args:string[],entity:Entity|Player|Dimension,location?:Vector3,isEntity:boolean,commandName:string});   // 输出：Goodbye, Bob!
 //
-// // 移除命令
+// Removed command
 // commandRegistry.removeCommand('hello', sayHello);
 //
-// // 再次执行命令
-// commandRegistry.executeCommand('hello', 'Eve');     // 不会有任何输出，因为已经移除了 sayHello 回调
+// try ti execute the command again
+// commandRegistry.executeCommand('hello', {args:string[],entity:Entity|Player|Dimension,location?:Vector3,isEntity:boolean,commandName:string});     // 不会有任何输出，因为已经移除了 sayHello 回调
