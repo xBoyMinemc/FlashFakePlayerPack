@@ -23,10 +23,8 @@ const noArgs = ({args,entity,location,isEntity})=>{
     if(!SimPlayer)return
 
     // Gets the relative coordinates of the square in front of the dummy entity
-    function getCoordinatesFromView(sim:SimulatedPlayer){
-        const viewLocation = sim.getBlockFromViewDirection({maxDistance:4}).faceLocation
-            return testWorldLocation(viewLocation)
-    }
+    const getCoordinatesFromView = (sim:SimulatedPlayer)=> testWorldLocation(sim.getBlockFromViewDirection({maxDistance:4}).faceLocation)
+
 
 
 

@@ -14,10 +14,7 @@ const noArgs = ({ args, entity, location, isEntity }) => {
     if (!SimPlayer)
         return;
     // Gets the relative coordinates of the square in front of the dummy entity
-    function getCoordinatesFromView(sim) {
-        const viewLocation = sim.getBlockFromViewDirection({ maxDistance: 4 }).faceLocation;
-        return testWorldLocation(viewLocation);
-    }
+    const getCoordinatesFromView = (sim) => testWorldLocation(sim.getBlockFromViewDirection({ maxDistance: 4 }).faceLocation);
 };
 commandRegistry.registerCommand(commandName, noArgs);
 world.afterEvents.chatSend.subscribe(({ message, sender }) => {
