@@ -13,8 +13,10 @@ const noArgs = ({ args, entity, location, isEntity }) => {
     const SimPlayer = getSimPlayer.formView(entity);
     if (!SimPlayer)
         return;
-    // Gets the relative coordinates of the square in front of the dummy entity
-    const getCoordinatesFromView = (sim) => testWorldLocation(sim.getBlockFromViewDirection({ maxDistance: 4 }).faceLocation);
+    // Gets the relative coordinates of the square in front of the dummy entity.
+    // when getBlockFromViewDirection unexpected object will make error.
+    const getCoordinatesFromView = (sim) => testWorldLocation(sim.getBlockFromViewDirection({ maxDistance: 4 })?.faceLocation);
+    SimPlayer.breakBlock(getCoordinatesFromView(SimPlayer));
 };
 commandRegistry.registerCommand(commandName, noArgs);
 world.afterEvents.chatSend.subscribe(({ message, sender }) => {

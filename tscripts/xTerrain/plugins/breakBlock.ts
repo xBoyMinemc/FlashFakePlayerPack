@@ -19,13 +19,14 @@ const noArgs = ({args,entity,location,isEntity})=>{
 
     if(!isEntity)return
 
-    const SimPlayer = getSimPlayer.formView(entity)
+    const SimPlayer:SimulatedPlayer = getSimPlayer.formView(entity)
     if(!SimPlayer)return
 
-    // Gets the relative coordinates of the square in front of the dummy entity
-    const getCoordinatesFromView = (sim:SimulatedPlayer)=> testWorldLocation(sim.getBlockFromViewDirection({maxDistance:4}).faceLocation)
+    // Gets the relative coordinates of the square in front of the dummy entity.
+    // when getBlockFromViewDirection unexpected object will make error.
+    const getCoordinatesFromView = (sim:SimulatedPlayer)=> testWorldLocation(sim.getBlockFromViewDirection({maxDistance:4})?.faceLocation)
 
-
+    SimPlayer.breakBlock(getCoordinatesFromView(SimPlayer))
 
 
 

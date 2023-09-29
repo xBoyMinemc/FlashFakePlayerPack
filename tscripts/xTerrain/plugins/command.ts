@@ -324,14 +324,14 @@ world.afterEvents.chatSend.subscribe( event => {
             }
             ;
             // mojang.脑子 = {}
-            if (消息 == "挖掘" && mojang.脑子) {
-                //正在准备塞入脑子
-                // 眼前的工具人.breakBlock(new BlockLocation(x,y-1,z))
-                眼前的工具人.addTag(挖掘标识符);
-                眼前的工具人.removeTag(攻击标识符);
-                眼前的工具人.removeTag(自动攻击标识符);
-            }
-            ;
+            // if (消息 == "挖掘" && mojang.脑子) {
+            //     //正在准备塞入脑子
+            //     // 眼前的工具人.breakBlock(new BlockLocation(x,y-1,z))
+            //     眼前的工具人.addTag(挖掘标识符);
+            //     眼前的工具人.removeTag(攻击标识符);
+            //     眼前的工具人.removeTag(自动攻击标识符);
+            // }
+            // ;
             if (消息 == "扭头" || 消息 == "转向") {
                 眼前的工具人.lookAtEntity(发起者);
             }
