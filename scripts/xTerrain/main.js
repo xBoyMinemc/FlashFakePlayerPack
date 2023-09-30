@@ -9,6 +9,7 @@ const yumeSign = "#yumeSimSign#";
 const overworld = world.getDimension('overworld');
 const tickWaitTimes = 20 * 60 * 60 * 24 * 365;
 export const SimulatedPlayerList = {};
+export const BreakBlockSimulatedPlayerList = new Set();
 let spawnSimulatedPlayer;
 let testWorldLocation;
 const GetPID = () => {
@@ -25,9 +26,10 @@ export const spawned = new EventSignal();
 import { register } from '@minecraft/server-gametest';
 import ScoreBase from '../lib/xboyPackage/scoreBase/rw';
 import EventSignal from '../lib/xboyEvents/EventSignal';
+import { Vector } from "@minecraft/server";
 // declare const GameTest:  {"register": typeof register}
 register("我是云梦", "假人", (test) => {
-    testWorldLocation = test.worldLocation;
+    testWorldLocation = test.worldLocation({ x: 0, y: 0, z: 0 });
     overworld.runCommand('gamerule domobspawning true');
     ;
     ;
@@ -74,9 +76,22 @@ register("我是云梦", "假人", (test) => {
         'test',
         'chatSpawn',
         'command',
+        'breakBlock',
         // 'newCommand',
     ].forEach(name => import('./plugins/' + name)
-        .catch((reason) => console.error("[模拟玩家] " + name + " 模块初始化错误 ERROR:" + reason)));
+        .then(() => console.error('[模拟玩家] ' + name + '模块初始化结束'))
+        .catch((reason) => console.error('[模拟玩家] ' + name + ' 模块初始化错误 ERROR:' + reason)));
+    const getCoordinatesFromView = (sim) => Vector.subtract(sim.getBlockFromViewDirection({ maxDistance: 4 })?.block.location, { x: 30000000, y: 128, z: 0 });
+    const v2ray = ({ x, y, z }) => ({ x, y, z });
+    const breaks = () => {
+        BreakBlockSimulatedPlayerList.forEach((simIndex) => {
+            const l = SimulatedPlayerList[simIndex].getBlockFromViewDirection({ maxDistance: 4 })?.block?.location;
+            if (l)
+                SimulatedPlayerList[simIndex].breakBlock(Vector.subtract(l, testWorldLocation));
+        });
+        test.runAfterDelay(10, () => breaks());
+    };
+    breaks();
     console.error('[假人] init一次');
 })
     .maxTicks(tickWaitTimes)
@@ -87,7 +102,8 @@ register("我是云梦", "假人", (test) => {
     .structureName("xboyMinemcSIM:void");
 export { spawnSimulatedPlayer, testWorldLocation, GetPID };
 export default spawnSimulatedPlayer;
-//  # 初始化
+//  # 初始化 init
+// how about turn to world.afterEvents.playerSpawn
 function init() {
     const players = world.getAllPlayers();
     if (players.length === 0)
@@ -141,3 +157,4 @@ function init() {
 world.events.tick.subscribe(init);
 export function a() { console.error('a一次'); }
 //写一个100次的for循环
+a;
