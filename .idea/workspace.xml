@@ -4,20 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="03abb361-6706-45ed-a79b-5c3c48504c42" name="更改" comment="clear">
-      <change afterPath="$PROJECT_DIR$/tscripts/lib/xboyPackage/YumeSignEnum.ts" afterDir="false" />
+    <list default="true" id="03abb361-6706-45ed-a79b-5c3c48504c42" name="更改" comment="release breakBlock">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packpack.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/xTerrain/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/xTerrain/main.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/scripts/xTerrain/plugins/breakBlock.js" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/xTerrain/plugins/breakBlock.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/xTerrain/plugins/command.js" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/xTerrain/plugins/command.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tscripts/xTerrain/main.ts" beforeDir="false" afterPath="$PROJECT_DIR$/tscripts/xTerrain/main.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/tscripts/xTerrain/plugins/breakBlock.ts" beforeDir="false" afterPath="$PROJECT_DIR$/tscripts/xTerrain/plugins/breakBlock.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tscripts/xTerrain/plugins/command.ts" beforeDir="false" afterPath="$PROJECT_DIR$/tscripts/xTerrain/plugins/command.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tscripts/xTerrain/plugins/test.ts" beforeDir="false" afterPath="$PROJECT_DIR$/tscripts/xTerrain/plugins/test.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -104,7 +94,7 @@
       <workItem from="1695749278071" duration="2681000" />
       <workItem from="1695882760220" duration="8411000" />
       <workItem from="1695971350449" duration="1355000" />
-      <workItem from="1696010081579" duration="20533000" />
+      <workItem from="1696010081579" duration="20666000" />
     </task>
     <task id="LOCAL-00001" summary="better spawn">
       <option name="closed" value="true" />
@@ -250,7 +240,23 @@
       <option name="project" value="LOCAL" />
       <updated>1696052079101</updated>
     </task>
-    <option name="localTasksCounter" value="19" />
+    <task id="LOCAL-00019" summary="sign enum">
+      <option name="closed" value="true" />
+      <created>1696056100102</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1696056100102</updated>
+    </task>
+    <task id="LOCAL-00020" summary="sign enum">
+      <option name="closed" value="true" />
+      <created>1696056120960</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1696056120960</updated>
+    </task>
+    <option name="localTasksCounter" value="21" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -277,6 +283,8 @@
     <MESSAGE value="Dao =&gt; verifyDataBase.ts =&gt; ScoreBase" />
     <MESSAGE value="update breakBlock" />
     <MESSAGE value="clear" />
-    <option name="LAST_COMMIT_MESSAGE" value="clear" />
+    <MESSAGE value="sign enum" />
+    <MESSAGE value="release breakBlock" />
+    <option name="LAST_COMMIT_MESSAGE" value="release breakBlock" />
   </component>
 </project>

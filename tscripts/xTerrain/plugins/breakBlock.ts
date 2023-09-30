@@ -28,7 +28,7 @@ const noArgs = ({args,entity,isEntity})=>{
     const SimPlayer:SimulatedPlayer = getSimPlayer.formView(entity)
     if(!SimPlayer)return
 
-    const v2ray = ({x,y,z})=>({x,y,z})
+    // const v2ray = ({x,y,z})=>({x,y,z})
     // getCoordinatesFromView(SimPlayer)
     for(const i in SimulatedPlayerList)
         if(SimulatedPlayerList[i]===SimPlayer)
@@ -46,13 +46,14 @@ world.afterEvents.chatSend.subscribe(({message, sender})=>{
 })
 
 const breaks = ()=>{
-    for (let simulatedPlayerListKey in SimulatedPlayerList) {
-
-        const blockLocation = SimulatedPlayerList[simulatedPlayerListKey].getBlockFromViewDirection({maxDistance: 4})?.block?.location
-        if (blockLocation)
-            SimulatedPlayerList[simulatedPlayerListKey].breakBlock(Vector.subtract(blockLocation, testWorldLocation))
-
-    }
+    // TEST
+    // for (let simulatedPlayerListKey in SimulatedPlayerList) {
+    //
+    //     const blockLocation = SimulatedPlayerList[simulatedPlayerListKey].getBlockFromViewDirection({maxDistance: 4})?.block?.location
+    //     if (blockLocation)
+    //         SimulatedPlayerList[simulatedPlayerListKey].breakBlock(Vector.subtract(blockLocation, testWorldLocation))
+    //
+    // }
     BreakBlockSimulatedPlayerList.forEach((simIndex)=> {
         const blockLocation = SimulatedPlayerList[simIndex].getBlockFromViewDirection({maxDistance: 4})?.block?.location
         if (blockLocation)
