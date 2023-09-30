@@ -7,7 +7,7 @@ import {spawnSimulatedPlayer, SimulatedPlayerList as 工具人们, GetPID, spawn
 import qrcode from "../../lib/qrcode-terminal/mod.js";
 
 import {Location} from "../../lib/xboyPackage/The law of the ancestors is immutable";
-import {生产队的驴} from "../spawnFakePlayer";
+//
 // import {BlockLocation} from "../../@types/globalThis";
 // class BlockLocation extends Location {
 //     blocksBetween(BlockLocation:Location) {

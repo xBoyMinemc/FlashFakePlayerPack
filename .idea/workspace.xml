@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="03abb361-6706-45ed-a79b-5c3c48504c42" name="更改" comment="breakBlock.ts">
+      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/lib/xboyPackage/The law of the ancestors is immutable.js" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/lib/xboyPackage/The law of the ancestors is immutable.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/lib/xboyPackage/Util.js" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/lib/xboyPackage/Util.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/xTerrain/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/xTerrain/main.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/xTerrain/plugins/command.js" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/xTerrain/plugins/command.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/xTerrain/spawnFakePlayer.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tscripts/lib/xboyPackage/The law of the ancestors is immutable.ts" beforeDir="false" afterPath="$PROJECT_DIR$/tscripts/lib/xboyPackage/The law of the ancestors is immutable.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tscripts/lib/xboyPackage/Util.ts" beforeDir="false" afterPath="$PROJECT_DIR$/tscripts/lib/xboyPackage/Util.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tscripts/xTerrain/main.ts" beforeDir="false" afterPath="$PROJECT_DIR$/tscripts/xTerrain/main.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tscripts/xTerrain/plugins/command.ts" beforeDir="false" afterPath="$PROJECT_DIR$/tscripts/xTerrain/plugins/command.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tscripts/xTerrain/spawnFakePlayer.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tscripts/xTerrain/verifyDataBase.ts" beforeDir="false" afterPath="$PROJECT_DIR$/tscripts/lib/xboyPackage/verifyDataBase.ts" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ChangesViewManager" show_ignored="true" />
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
+  "lastFilter": {
+    "state": "OPEN",
+    "assignee": "xBoyMinemc"
+  }
+}]]></component>
+  <component name="GithubPullRequestsUISettings">
+    <option name="selectedUrlAndAccountId">
+      <UrlAndAccount>
+        <option name="accountId" value="23052ebc-f6db-4d05-96be-634dababf515" />
+        <option name="url" value="https://github.com/xBoyMinemc/FUCKfakePlayerPack.git" />
+      </UrlAndAccount>
+    </option>
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 2
+}</component>
+  <component name="ProjectId" id="2VoClNe9RuVIAN35xd9xGz28kX7" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "git-widget-placeholder": "1.20.30-dev",
+    "last_opened_file_path": "C:/Users/yume/AppData/Local/Packages/Microsoft.MinecraftUWP_8wekyb3d8bbwe/LocalState/games/com.mojang/minecraftWorlds/假人1-20-30/behavior_packs/FlashFakePlayerPack",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "preferences.keymap",
+    "ts.external.directory.path": "D:\\WebStorm\\WebStorm 2023.1.2\\plugins\\javascript-impl\\jsLanguageServicesImpl\\external",
+    "vue.rearranger.settings.migration": "true"
+  },
+  "keyToStringList": {
+    "com.intellij.ide.scratch.ScratchImplUtil$2/新建临时文件": [
+      "ECMA Script Level 4"
+    ]
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\yume\AppData\Local\Packages\Microsoft.MinecraftUWP_8wekyb3d8bbwe\LocalState\games\com.mojang\minecraftWorlds\假人1-20-30\behavior_packs\FlashFakePlayerPack\tscripts\lib\xboyPackage" />
+      <recent name="C:\Users\yume\AppData\Local\Packages\Microsoft.MinecraftUWP_8wekyb3d8bbwe\LocalState\games\com.mojang\minecraftWorlds\假人1-20-30\behavior_packs\FlashFakePlayerPack\tscripts\lib\yumeCommand" />
+    </key>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="应用程序级" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="默认任务">
+      <changelist id="03abb361-6706-45ed-a79b-5c3c48504c42" name="更改" comment="" />
+      <created>1695493198977</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1695493198977</updated>
+      <workItem from="1695493200749" duration="54000" />
+      <workItem from="1695543381531" duration="5418000" />
+      <workItem from="1695711304019" duration="6337000" />
+      <workItem from="1695749278071" duration="2681000" />
+      <workItem from="1695882760220" duration="8411000" />
+      <workItem from="1695971350449" duration="1355000" />
+      <workItem from="1696010081579" duration="15510000" />
+    </task>
+    <task id="LOCAL-00001" summary="better spawn">
+      <option name="closed" value="true" />
+      <created>1695719519440</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1695719519440</updated>
+    </task>
+    <task id="LOCAL-00002" summary="try to fix Event fishingHookSpawned">
+      <option name="closed" value="true" />
+      <created>1695749910375</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1695749910375</updated>
+    </task>
+    <task id="LOCAL-00003" summary="try to fix Event fishingHookSpawned">
+      <option name="closed" value="true" />
+      <created>1695750204658</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1695750204658</updated>
+    </task>
+    <task id="LOCAL-00004" summary="CommandRegistry and new chatSpawn.ts">
+      <option name="closed" value="true" />
+      <created>1695888943666</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1695888943666</updated>
+    </task>
+    <task id="LOCAL-00005" summary="getCoordinatesFromView">
+      <option name="closed" value="true" />
+      <created>1696013239741</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1696013239741</updated>
+    </task>
+    <task id="LOCAL-00006" summary="getCoordinatesFromView">
+      <option name="closed" value="true" />
+      <created>1696013337716</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1696013337716</updated>
+    </task>
+    <task id="LOCAL-00007" summary="getCoordinatesFromView">
+      <option name="closed" value="true" />
+      <created>1696013792965</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1696013792965</updated>
+    </task>
+    <task id="LOCAL-00008" summary="getCoordinatesFromView">
+      <option name="closed" value="true" />
+      <created>1696013876317</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1696013876317</updated>
+    </task>
+    <task id="LOCAL-00009" summary="breakBlock.ts">
+      <option name="closed" value="true" />
+      <created>1696014349314</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1696014349314</updated>
+    </task>
+    <task id="LOCAL-00010" summary="breakBlock.ts">
+      <option name="closed" value="true" />
+      <created>1696049142274</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1696049142274</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="better spawn" />
+    <MESSAGE value="try to fix Event fishingHookSpawned" />
+    <MESSAGE value="CommandRegistry and new chatSpawn.ts" />
+    <MESSAGE value="getCoordinatesFromView" />
+    <MESSAGE value="breakBlock.ts" />
+    <option name="LAST_COMMIT_MESSAGE" value="breakBlock.ts" />
+  </component>
+</project>

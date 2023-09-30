@@ -2,7 +2,7 @@ import type { SimulatedPlayer, Test } from '@minecraft/server-gametest'
 import type { World } from '../@types/globalThis'
 import type { Dimension, ScoreboardObjective, Vector3 } from '@minecraft/server';
 
-import verify from './verifyDataBase'
+import { verify } from '../lib/xboyPackage/Util'
 
 declare const world: World
 // declare const BlockLocation: typeof _BlockLocation
@@ -121,7 +121,7 @@ register("我是云梦", "假人", (test:Test) => {
     // .padding(0)
     .structureName("xboyMinemcSIM:void")
 
-export {spawnSimulatedPlayer,testWorldLocation,GetPID}
+export { spawnSimulatedPlayer,testWorldLocation,GetPID }
 export default spawnSimulatedPlayer
 
 //  # 初始化 init

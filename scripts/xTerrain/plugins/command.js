@@ -2,6 +2,7 @@ import { EquipmentSlot } from "@minecraft/server";
 import { spawnSimulatedPlayer, SimulatedPlayerList as 工具人们, GetPID, spawned as spawnedEvent } from "../main";
 import qrcode from "../../lib/qrcode-terminal/mod.js";
 import { Location } from "../../lib/xboyPackage/The law of the ancestors is immutable";
+//
 // import {BlockLocation} from "../../@types/globalThis";
 // class BlockLocation extends Location {
 //     blocksBetween(BlockLocation:Location) {
