@@ -42,7 +42,7 @@ export class CommandRegistry {
     }
     // registerCommand
     registerCommand(commandName, callback) {
-        if (!Boolean(callback))
+        if (!callback)
             return this.commands.set(commandName, new Set());
         if (!this.commands.has(commandName))
             return this.commands.set(commandName, new Set());

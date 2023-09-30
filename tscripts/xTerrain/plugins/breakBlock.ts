@@ -7,7 +7,7 @@ import {
 } from '../main'
 import { CommandRegistry } from '../../lib/yumeCommand/CommandRegistry'
 import { getSimPlayer } from '../../lib/xboyPackage/Util'
-import {system, Vector} from "@minecraft/server";
+import { system, Vector } from "@minecraft/server";
 
 declare const world: World
 

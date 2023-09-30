@@ -81,6 +81,7 @@ register("我是云梦", "假人", (test:Test) => {
         'chatSpawn',
         'command',
         'breakBlock',
+        'youAreMine'
         // 'newCommand',
     ].forEach(
         name=> import('./plugins/'+name)

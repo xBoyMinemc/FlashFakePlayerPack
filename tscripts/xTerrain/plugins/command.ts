@@ -271,64 +271,64 @@ world.afterEvents.chatSend.subscribe( event => {
                 return;
             }
             ;
-            if (消息 == "交换背包" || 消息 == "背包交换") {
-                const s = 眼前的工具人.getComponent("minecraft:inventory").container;
-                ;
-                ;"眼前的假人实体背包";
-                ;
-                const p = sender.getComponent("minecraft:inventory").container;
-                ;
-                ;"你这个______的背包";
-                ;
-
-                for (let i = sender.getComponent("minecraft:inventory").container.size; i--; s.getItem(i) ? p.getItem(i) ? s.swapItems(i, i, p) : s.moveItem(i, i, p) : p.getItem(i) ? p.moveItem(i, i, s) : "这行代码，我再维护我是狗") ;
-
-                "大家好，我是狗 --2023-05-02"
-            }
-            ;
-            if (消息 == "交换装备" || 消息 == "装备交换") {
-                const s = 眼前的工具人.getComponent("minecraft:equippable");
-                ;
-                ;"眼前的假人实体背包";
-                ;
-                const p = sender.getComponent("minecraft:equippable");
-                for (const i in EquipmentSlot) {
-                    //跳过主手
-                    if (i === "mainhand") continue;
-                    // console.error(i)
-                    const _ = s.getEquipment(i);
-                    const __ = p.getEquipment(i);
-                    s.setEquipment(i, __);
-                    p.setEquipment(i, _);
-                }
-            }
-            ;
-            if (消息 == "清空背包" || 消息 == "爆金币") {
-                const _s = <EntityEquippableComponent>眼前的工具人.getComponent("minecraft:equippable");
-                for (const i in EquipmentSlot) {
-                    //跳过主手
-                    if (i === "mainhand") continue;
-                    // 获取
-                    const _ = _s.getEquipment(<EquipmentSlot>i);
-                    // 置空
-                    _s.setEquipment(<EquipmentSlot>i, undefined);
-                }
-                const s = <Container>(<EntityInventoryComponent>眼前的工具人.getComponent("minecraft:inventory")).container;
-                ;
-                ;"眼前的假人实体背包";
-                ;
-                const l = sender.location;
-                const d = sender.dimension;
-
-
-                for (
-                    let i = 眼前的工具人.getComponent("minecraft:inventory").container.size;
-                    i--;
-                    s.getItem(i) ? (d.spawnItem(s.getItem(i), l), s.setItem(i, null)) : "这行代码，我再维护我是狗"
-                ) ;
-
-            }
-            ;
+            // if (消息 == "交换背包" || 消息 == "背包交换") {
+            //     const s = 眼前的工具人.getComponent("minecraft:inventory").container;
+            //     ;
+            //     ;"眼前的假人实体背包";
+            //     ;
+            //     const p = sender.getComponent("minecraft:inventory").container;
+            //     ;
+            //     ;"你这个______的背包";
+            //     ;
+            //
+            //     for (let i = sender.getComponent("minecraft:inventory").container.size; i--; s.getItem(i) ? p.getItem(i) ? s.swapItems(i, i, p) : s.moveItem(i, i, p) : p.getItem(i) ? p.moveItem(i, i, s) : "这行代码，我再维护我是狗") ;
+            //
+            //     "大家好，我是狗 --2023-05-02"
+            // }
+            // ;
+            // if (消息 == "交换装备" || 消息 == "装备交换") {
+            //     const s = 眼前的工具人.getComponent("minecraft:equippable");
+            //     ;
+            //     ;"眼前的假人实体背包";
+            //     ;
+            //     const p = sender.getComponent("minecraft:equippable");
+            //     for (const i in EquipmentSlot) {
+            //         //跳过主手
+            //         if (i === "mainhand") continue;
+            //         // console.error(i)
+            //         const _ = s.getEquipment(i);
+            //         const __ = p.getEquipment(i);
+            //         s.setEquipment(i, __);
+            //         p.setEquipment(i, _);
+            //     }
+            // }
+            // ;
+            // if (消息 == "清空背包" || 消息 == "爆金币") {
+            //     const _s = <EntityEquippableComponent>眼前的工具人.getComponent("minecraft:equippable");
+            //     for (const i in EquipmentSlot) {
+            //         //跳过主手
+            //         if (i === "mainhand") continue;
+            //         // 获取
+            //         const _ = _s.getEquipment(<EquipmentSlot>i);
+            //         // 置空
+            //         _s.setEquipment(<EquipmentSlot>i, undefined);
+            //     }
+            //     const s = <Container>(<EntityInventoryComponent>眼前的工具人.getComponent("minecraft:inventory")).container;
+            //     ;
+            //     ;"眼前的假人实体背包";
+            //     ;
+            //     const l = sender.location;
+            //     const d = sender.dimension;
+            //
+            //
+            //     for (
+            //         let i = 眼前的工具人.getComponent("minecraft:inventory").container.size;
+            //         i--;
+            //         s.getItem(i) ? (d.spawnItem(s.getItem(i), l), s.setItem(i, null)) : "这行代码，我再维护我是狗"
+            //     ) ;
+            //
+            // }
+            // ;
             // mojang.脑子 = {}
             // if (消息 == "挖掘" && mojang.脑子) {
             //     //正在准备塞入脑子
@@ -346,50 +346,6 @@ world.afterEvents.chatSend.subscribe( event => {
                 !(眼前的工具人)
                     ? 发起者.sendMessage("§e§l-光标方向，15格内没找到相关实体")
                     : 眼前的工具人.teleport(发起者.location, {dimension: 眼前的工具人.dimension});
-                ;
-                ;
-                ;
-                ;
-                ;
-                ;
-                ;
-                ;
-                ;
-                ;
-                ;
-                ;
-                ;
-                ;
-                ;
-                ;
-                ;
-                ;
-                ;
-                ;
-                ;
-                ;
-                ;
-                ;
-                ;
-                ;
-                ;
-                ;
-                ;
-                ;
-                ;
-                ;
-                ;
-                ;
-                ;
-                ;
-                ;
-                ;
-                ;
-                ;
-                ;
-                ;
-                ;
-                ;
                 ;
             }
             ;

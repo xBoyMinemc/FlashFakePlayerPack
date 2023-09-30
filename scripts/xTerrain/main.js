@@ -74,6 +74,7 @@ initialized.subscribe(() => [
     'chatSpawn',
     'command',
     'breakBlock',
+    'youAreMine'
     // 'newCommand',
 ].forEach(name => import('./plugins/' + name)
     .then(() => console.error('[模拟玩家] ' + name + '模块初始化结束'))
