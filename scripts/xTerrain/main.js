@@ -1,4 +1,4 @@
-import { verify } from '../lib/xboyPackage/Util';
+import verify from '../lib/xboyPackage/scoreBase/verifyDataBase';
 // declare const BlockLocation: typeof _BlockLocation
 const 自动重生标识符 = "自动重生标识符";
 const yumeSign = "#yumeSimSign#";
@@ -145,8 +145,8 @@ function init() {
         overworld.runCommand('fill 29999997 0 5 30000002 319 -1 air replace'); //height 320
         // -执行gametest创建test环境 坐标 (30000000 128 0)
         overworld.runCommand('execute positioned 30000000 128 0 run gametest run 我是云梦:假人');
-        // TODO
-        // 唤醒 从ceyk[init] 重新生成模拟玩家并配置背包与经验值
+        // TODO 唤醒 从ceyk[init] 重新生成模拟玩家并配置背包与经验值
+        // then initialized
         initialized.trigger(null);
         console.error("[模拟玩家] 初始化检查完成");
     }, (reason) => console.error("[模拟玩家] 初始化错误 ERROR:" + reason))
