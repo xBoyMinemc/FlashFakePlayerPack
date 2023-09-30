@@ -4,7 +4,6 @@ import { EquipmentSlot } from "@minecraft/server";
 // 后面还要重构一遍
 const commandName1 = '假人背包交换';
 const commandName2 = '假人装备交换';
-
 const commandName3 = '假人背包清空';
 // 首先注册命令
 const commandRegistry = new CommandRegistry();

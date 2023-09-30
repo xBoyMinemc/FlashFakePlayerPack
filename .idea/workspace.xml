@@ -5,8 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="03abb361-6706-45ed-a79b-5c3c48504c42" name="更改" comment="command ts">
-      <change afterPath="$PROJECT_DIR$/tscripts/xTerrain/plugins/youAreMine.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/manifest.json" beforeDir="false" afterPath="$PROJECT_DIR$/manifest.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tscripts/lib/xboyEvents/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/tscripts/lib/xboyEvents/index.ts" afterDir="false" />
     </list>
     <list id="e6298618-3181-46c5-b774-8624634a09bf" name="PrairieFire2b 进行的更改" comment="" />
     <option name="SHOW_DIALOG" value="false" />
@@ -97,6 +98,7 @@
       <workItem from="1695971350449" duration="1355000" />
       <workItem from="1696010081579" duration="21095000" />
       <workItem from="1696056954388" duration="4781000" />
+      <workItem from="1696084871078" duration="317000" />
     </task>
     <task id="LOCAL-00001" summary="better spawn">
       <option name="closed" value="true" />

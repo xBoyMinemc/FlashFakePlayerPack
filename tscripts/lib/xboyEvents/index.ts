@@ -1,7 +1,7 @@
 import entityDeadByHurt from "./entityDeadByHurt"
 import { fishingHookSpawned, fishingHookDespawned } from "./fishingHookSpawned"
 import reloadFromCmd from "./reloadFromCmd"
-import  "./projectileFired";
+// import  "./projectileFired"; // TEST
 import type { World } from "../../@types/globalThis.d.ts";
 
 declare const world: World;
