@@ -1135,7 +1135,9 @@ world.afterEvents.chatSend.subscribe(event => {
                 //跳过主手
                 if (i === "mainhand")
                     continue;
+                // 获取
                 const _ = _s.getEquipment(i);
+                // 置空
                 _s.setEquipment(i, undefined);
             }
             const s = 眼前的工具人.getComponent("minecraft:inventory").container;

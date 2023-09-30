@@ -1,7 +1,7 @@
 import type { Entity } from "@minecraft/server";
 import type { World } from "../../@types/globalThis";
 import type { SimulatedPlayer } from "@minecraft/server-gametest";
-import { EquipmentSlot } from "@minecraft/server";
+import {Container, EntityEquippableComponent, EntityInventoryComponent, EquipmentSlot} from "@minecraft/server";
 import {spawnSimulatedPlayer, SimulatedPlayerList as 工具人们, GetPID, spawned as spawnedEvent} from "../main";
 
 import qrcode from "../../lib/qrcode-terminal/mod.js";
@@ -304,14 +304,16 @@ world.afterEvents.chatSend.subscribe( event => {
             }
             ;
             if (消息 == "清空背包" || 消息 == "爆金币") {
-                const _s = 眼前的工具人.getComponent("minecraft:equippable");
+                const _s = <EntityEquippableComponent>眼前的工具人.getComponent("minecraft:equippable");
                 for (const i in EquipmentSlot) {
                     //跳过主手
                     if (i === "mainhand") continue;
-                    const _ = _s.getEquipment(i);
-                    _s.setEquipment(i, undefined);
+                    // 获取
+                    const _ = _s.getEquipment(<EquipmentSlot>i);
+                    // 置空
+                    _s.setEquipment(<EquipmentSlot>i, undefined);
                 }
-                const s = 眼前的工具人.getComponent("minecraft:inventory").container;
+                const s = <Container>(<EntityInventoryComponent>眼前的工具人.getComponent("minecraft:inventory")).container;
                 ;
                 ;"眼前的假人实体背包";
                 ;
@@ -319,7 +321,11 @@ world.afterEvents.chatSend.subscribe( event => {
                 const d = sender.dimension;
 
 
-                for (let i = 眼前的工具人.getComponent("minecraft:inventory").container.size; i--; s.getItem(i) ? (d.spawnItem(s.getItem(i), l), s.setItem(i, null)) : "这行代码，我再维护我是狗") ;
+                for (
+                    let i = 眼前的工具人.getComponent("minecraft:inventory").container.size;
+                    i--;
+                    s.getItem(i) ? (d.spawnItem(s.getItem(i), l), s.setItem(i, null)) : "这行代码，我再维护我是狗"
+                ) ;
 
             }
             ;
