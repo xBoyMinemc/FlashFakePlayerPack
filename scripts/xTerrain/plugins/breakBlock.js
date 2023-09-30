@@ -1,6 +1,8 @@
-import { SimulatedPlayerList, BreakBlockSimulatedPlayerList } from '../main';
+import { SimulatedPlayerList, testWorldLocation } from '../main';
 import { CommandRegistry } from '../../lib/yumeCommand/CommandRegistry';
 import { getSimPlayer } from '../../lib/xboyPackage/Util';
+import { system, Vector } from "@minecraft/server";
+export const BreakBlockSimulatedPlayerList = new Set();
 const commandName = '假人挖掘';
 const commandRegistry = new CommandRegistry();
 commandRegistry.registerCommand(commandName);
@@ -13,11 +15,6 @@ const noArgs = ({ args, entity, isEntity }) => {
     const SimPlayer = getSimPlayer.formView(entity);
     if (!SimPlayer)
         return;
-    // Gets the relative coordinates of the square in front of the dummy entity.
-    // when getBlockFromViewDirection unexpected object will make error.
-    // const getCoordinatesFromView = (sim:SimulatedPlayer)=> testWorldLocation(sim.getBlockFromViewDirection({maxDistance:4})?.faceLocation)
-    // BreakBlockSimulatedPlayerList.set(SimPlayer,getCoordinatesFromView(SimPlayer))
-    // SimPlayer.breakBlock(getCoordinatesFromView(SimPlayer))
     const v2ray = ({ x, y, z }) => ({ x, y, z });
     // getCoordinatesFromView(SimPlayer)
     for (const i in SimulatedPlayerList)
@@ -31,4 +28,17 @@ world.afterEvents.chatSend.subscribe(({ message, sender }) => {
         return;
     commandRegistry.executeCommand(commandName, { commandName: commandName, entity: sender, isEntity: true, args: CommandRegistry.parse(message) });
 });
+const breaks = () => {
+    for (let simulatedPlayerListKey in SimulatedPlayerList) {
+        const blockLocation = SimulatedPlayerList[simulatedPlayerListKey].getBlockFromViewDirection({ maxDistance: 4 })?.block?.location;
+        if (blockLocation)
+            SimulatedPlayerList[simulatedPlayerListKey].breakBlock(Vector.subtract(blockLocation, testWorldLocation));
+    }
+    BreakBlockSimulatedPlayerList.forEach((simIndex) => {
+        const blockLocation = SimulatedPlayerList[simIndex].getBlockFromViewDirection({ maxDistance: 4 })?.block?.location;
+        if (blockLocation)
+            SimulatedPlayerList[simIndex].breakBlock(Vector.subtract(blockLocation, testWorldLocation));
+    });
+};
+system.runInterval(() => breaks(), 3);
 console.error('[假人]内置插件' + commandName + '加载成功');

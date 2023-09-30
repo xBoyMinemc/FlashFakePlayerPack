@@ -1,21 +1,28 @@
-import type { SimulatedPlayer, Test } from '@minecraft/server-gametest'
-import type { World } from '../@types/globalThis'
-import type { Dimension, ScoreboardObjective, Vector3 } from '@minecraft/server';
+import type {SimulatedPlayer, Test} from '@minecraft/server-gametest'
+import {register} from '@minecraft/server-gametest'
+import type {
+    initializedEvent,
+    initializedEventSignal,
+    spawnedEvent,
+    spawnedEventSignal,
+    World
+} from '../@types/globalThis'
+import type {Dimension, ScoreboardObjective, Vector3} from '@minecraft/server';
 
 import verify from '../lib/xboyPackage/scoreBase/verifyDataBase'
+import ScoreBase from '../lib/xboyPackage/scoreBase/rw';
+import EventSignal from '../lib/xboyEvents/EventSignal';
+import { SIGN } from "../lib/xboyPackage/YumeSignEnum";
 
 declare const world: World
 // declare const BlockLocation: typeof _BlockLocation
 
-const 自动重生标识符 = "自动重生标识符";
-
-const yumeSign = "#yumeSimSign#";                   ;;"假人标签";;
+;;"假人标签";;
 const overworld = world.getDimension('overworld')
 const tickWaitTimes = 20*60*60*24*365
 
 
 export const SimulatedPlayerList  = {};
-export const BreakBlockSimulatedPlayerList:Set<string> = new Set();
 let spawnSimulatedPlayer : (location:Vector3, dimension:Dimension, pid: number  )=>SimulatedPlayer;
 let testWorldLocation : Vector3;
 
@@ -33,25 +40,6 @@ export const spawned : spawnedEventSignal = new EventSignal<spawnedEvent>()
 // spawned.subscribe(({spawnedSimulatedPlayer})=>{
 //         // SimulatedPlayerList.push(spawnedSimulatedPlayer)
 // })
-
-
-
-
-
-
-
-import { register } from '@minecraft/server-gametest'
-import ScoreBase from '../lib/xboyPackage/scoreBase/rw';
-import EventSignal from '../lib/xboyEvents/EventSignal';
-import type {
-    initializedEvent,
-    initializedEventSignal,
-    spawnedEvent,
-    spawnedEventSignal
-} from "../@types/globalThis";
-import {CommandRegistry} from "../lib/yumeCommand/CommandRegistry";
-import {getSimPlayer} from "../lib/xboyPackage/Util";
-import {BlockType, system, Vector} from "@minecraft/server";
 // declare const GameTest:  {"register": typeof register}
 
 
@@ -64,18 +52,12 @@ register("我是云梦", "假人", (test:Test) => {
 
     spawnSimulatedPlayer = (location:Vector3, dimension:Dimension, pid: number ):SimulatedPlayer=>{
         // const y2 = { x: 0, y: 2, z: 0 }
-        // overworld.runCommand('me pid=>'+(+pid))
+        // overworld.sendMessage('pid=>'+pid)
         // const dimensionLocation : DimensionLocation = {...location,dimension}
         const SimulatedPlayer = test.spawnSimulatedPlayer({ x:0, y:2, z:0 }, `工具人-${pid}`)
         SimulatedPlayer.addTag('init')
-        SimulatedPlayer.addTag(yumeSign)
-        SimulatedPlayer.addTag(自动重生标识符)
-
-        // //for blockLocation
-        // const x = (SimulatedPlayer.location.x-0.5)>>0
-        // const y =  SimulatedPlayer.location.y>>0
-        // const z = (SimulatedPlayer.location.z-0.5)>>0
-        // SimulatedPlayer.addTag('#xyz#'+x+'#'+(y-2)+'#'+z)
+        SimulatedPlayer.addTag(SIGN.YUME_SIM_SIGN)
+        SimulatedPlayer.addTag(SIGN.AUTO_RESPAWN_SIGN)
 
         // SimulatedPlayer.runCommand("tp @a @s")
         SimulatedPlayer.setSpawnPoint({...location,dimension})
@@ -83,34 +65,6 @@ register("我是云梦", "假人", (test:Test) => {
         // SimulatedPlayerList.push(SimulatedPlayer)
         return SimulatedPlayer
     }
-
-    // initialized.subscribe(()=> console.error('[假人]初始化完毕，开始加载内置插件') )
-    // initialized.subscribe(()=> )
-    [
-        'test',
-        'chatSpawn',
-        'command',
-        'breakBlock',
-        // 'newCommand',
-    ].forEach(
-        name=> import('./plugins/'+name)
-            .then(()=>console.error('[模拟玩家] '+name+'模块初始化结束'))
-            .catch((reason) => console.error('[模拟玩家] '+name+' 模块初始化错误 ERROR:' + reason))
-    )
-
-
-    const getCoordinatesFromView = (sim:SimulatedPlayer)=> Vector.subtract(sim.getBlockFromViewDirection({maxDistance:4})?.block.location, {x:30000000,y:128,z:0})
-
-    const v2ray = ({x,y,z})=>({x,y,z})
-    const breaks = ()=>{
-        BreakBlockSimulatedPlayerList.forEach((simIndex)=> {
-            const l = SimulatedPlayerList[simIndex].getBlockFromViewDirection({maxDistance: 4})?.block?.location
-            if (l)
-                SimulatedPlayerList[simIndex].breakBlock(Vector.subtract(l, testWorldLocation))
-        })
-        test.runAfterDelay(10,()=>breaks())
-    }
-    breaks()
 
     console.error('[假人] init一次')
 })
@@ -120,6 +74,19 @@ register("我是云梦", "假人", (test:Test) => {
     // .requiredSuccessfulAttempts(tickWaitTimes)
     // .padding(0)
     .structureName("xboyMinemcSIM:void")
+
+    initialized.subscribe(()=> console.error('[假人]初始化完毕，开始加载内置插件') );
+    initialized.subscribe(()=>[
+        'test',
+        'chatSpawn',
+        'command',
+        'breakBlock',
+        // 'newCommand',
+    ].forEach(
+        name=> import('./plugins/'+name)
+            .then(()=>console.error('[模拟玩家] '+name+'模块初始化结束'))
+            .catch((reason) => console.error('[模拟玩家] '+name+' 模块初始化错误 ERROR:' + reason))
+    ))
 
 export { spawnSimulatedPlayer,testWorldLocation,GetPID }
 export default spawnSimulatedPlayer

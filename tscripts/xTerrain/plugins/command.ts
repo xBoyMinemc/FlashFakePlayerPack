@@ -36,7 +36,7 @@ const 攻击标识符 = "攻击标识符";
 const 自动攻击标识符 = "自动攻击标识符";
 const 自动追击标识符 = "自动追击标识符";
 const 自动跳跃标识符 = "自动跳跃标识符";
-const 自动重生标识符 = "自动重生标识符";
+const AUTO_RESPAWN_SIGN = "AUTO_RESPAWN_SIGN";
 const 寻路标识符 = "寻路标识符";
 
 
@@ -130,7 +130,7 @@ world.events.tick.subscribe(() => {//我()了，这也是一种不（）
     //     驴.teleport(location,{dimension});
     //     location.dimension = dimension;
     //     驴.setSpawnPoint(location);
-    //     驴.addTag(自动重生标识符);
+    //     驴.addTag(AUTO_RESPAWN_SIGN);
     //     驴.addTag(yumeSign);
     //     工具人们.push(驴);
     // }
@@ -148,7 +148,7 @@ world.events.tick.subscribe(() => {//我()了，这也是一种不（）
                 //判假人是否存活
                 //瞎几把乱改接口名--2023-07-21-02：02
                 if(工具人.getComponent("minecraft:health").currentValue<=0){
-                    if(工具人.hasTag(自动重生标识符))工具人.respawn();
+                    if(工具人.hasTag(AUTO_RESPAWN_SIGN))工具人.respawn();
                     return;
                 };
 
@@ -264,7 +264,7 @@ world.afterEvents.chatSend.subscribe( event => {
             xboy("自动追击")([自动追击标识符, 自动攻击标识符,自动跳跃标识符])([])
             xboy("停止")([])([攻击标识符, 自动攻击标识符, 自动跳跃标识符, 挖掘标识符])
             xboy("开摆")([])([攻击标识符, 自动攻击标识符, 自动跳跃标识符, 挖掘标识符])
-            xboy("自动重生")([自动重生标识符])([])
+            xboy("自动重生")([AUTO_RESPAWN_SIGN])([])
 
             if (消息 == "列表") {
                 for (let i in 工具人们) if (工具人们[i]) 发起者.sendMessage(`§e§l-序号：${i} ## 生成名称: ${工具人们[i].name}`);
