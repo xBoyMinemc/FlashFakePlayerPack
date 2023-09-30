@@ -1,4 +1,3 @@
-
 import { system } from "@minecraft/server";
 
 import { world as _world,World as _World } from "@minecraft/server";
@@ -56,9 +55,9 @@ export const Events = {
     beforeItemUseOn: bf.itemUseOn,
     beforePistonActivate: bf.pistonActivate,
     
-    blockBreak: af.blockBreak,
+    blockBreak: af.playerBreakBlock,
     blockExplode: af.blockExplode,
-    blockPlace: af.blockPlace,
+    blockPlace: af.playerPlaceBlock,
     buttonPush: af.buttonPush,
     chat: af.chatSend,
     dataDrivenEntityTriggerEvent: af.dataDrivenEntityTriggerEvent,
@@ -69,7 +68,7 @@ export const Events = {
     entityHitEntity: af.entityHitEntity,
     entityHitBlock: af.entityHitBlock,
     entityHurt: af.entityHurt,
-    entityRemoved: af.entityRemoved,
+    entityRemoved: af.entityRemove,
     entitySpawn: af.entitySpawn,
     explosion: af.explosion,
     itemCompleteCharge: af.itemCompleteUse,
@@ -90,7 +89,9 @@ export const Events = {
     playerSpawn: af.playerSpawn,
     pressurePlatePop: af.pressurePlatePop,
     pressurePlatePush: af.pressurePlatePush,
-    projectileHit: af.projectileHit,
+    projectileHit: af.projectileHitBlock,
+    projectileHitBlock: af.projectileHitBlock,
+    projectileHitEntity: af.projectileHitEntity,
     targetBlockHit: af.targetBlockHit,
     tripWireTrip: af.tripWireTrip,
     weatherChange: af.weatherChange,

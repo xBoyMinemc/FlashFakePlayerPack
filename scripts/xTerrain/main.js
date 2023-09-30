@@ -1,4 +1,4 @@
-import verify from './verifyDataBase';
+import { verify } from '../lib/xboyPackage/Util';
 // declare const BlockLocation: typeof _BlockLocation
 const 自动重生标识符 = "自动重生标识符";
 const yumeSign = "#yumeSimSign#";
