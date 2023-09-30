@@ -2,7 +2,7 @@ import type { SimulatedPlayer, Test } from '@minecraft/server-gametest'
 import type { World } from '../@types/globalThis'
 import type { Dimension, ScoreboardObjective, Vector3 } from '@minecraft/server';
 
-import { verify } from '../lib/xboyPackage/Util'
+import verify from '../lib/xboyPackage/scoreBase/verifyDataBase'
 
 declare const world: World
 // declare const BlockLocation: typeof _BlockLocation
@@ -173,8 +173,8 @@ function init() {
                 // -执行gametest创建test环境 坐标 (30000000 128 0)
                 overworld.runCommand('execute positioned 30000000 128 0 run gametest run 我是云梦:假人')
 
-                // TODO
-                // 唤醒 从ceyk[init] 重新生成模拟玩家并配置背包与经验值
+                // TODO 唤醒 从ceyk[init] 重新生成模拟玩家并配置背包与经验值
+                // then initialized
                 initialized.trigger(null)
 
 
