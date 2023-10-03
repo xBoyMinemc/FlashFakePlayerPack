@@ -111,6 +111,7 @@ export class CommandRegistry {
 // }
 //
 // commandRegistry.registerCommand('hello', sayHello);
+// commandRegistry.registerAlias('hi', 'hello');
 // commandRegistry.registerCommand('goodbye', sayGoodbye);
 //
 // Execute command

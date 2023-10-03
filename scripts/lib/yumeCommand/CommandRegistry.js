@@ -93,6 +93,7 @@ CommandRegistry.parse = commandParse;
 // }
 //
 // commandRegistry.registerCommand('hello', sayHello);
+// commandRegistry.registerAlias('hi', 'hello');
 // commandRegistry.registerCommand('goodbye', sayGoodbye);
 //
 // Execute command
