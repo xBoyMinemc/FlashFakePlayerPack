@@ -41,17 +41,27 @@ export function commandParse(command:string):string[] {
 
 export class CommandRegistry {
     private commands :Map<string,Set<Function>> = new Map();
-    public CommandRegistrySign :string;
+    public commandRegistrySign :string;
     static parse = commandParse;
-    constructor(CommandRegistrySign:string='funny') {
-        this.CommandRegistrySign  = CommandRegistrySign;
+    private  alias = new Map<string,string>();
+
+
+    constructor(commandRegistrySign:string='funny') {
+        this.commandRegistrySign  = commandRegistrySign;
         this.commands  = new Map();
+    }
+
+    // registerAlias
+    registerAlias( alias:string ,commandName:string) {
+        return this.alias.set(alias,commandName);
     }
 
     // registerCommand
     registerCommand(commandName:string, callback?:Function) {
         if(!callback)
             return this.commands.set(commandName,new Set());
+        if(this.alias.has(commandName))
+            this.alias.delete(commandName);
         if (!this.commands.has(commandName))
             return this.commands.set(commandName,new Set());
         return this.commands.get(commandName).add(callback);
@@ -59,7 +69,9 @@ export class CommandRegistry {
 
     // executeCommand
     executeCommand(commandName:string, commandInfo:{args:string[],entity:Entity|Player|Dimension,location?:Vector3,isEntity:boolean,commandName:string}) {
-        this.commands.get(commandName)?.forEach((callback:Function) => callback(commandInfo) )
+        this.commands.get(
+            this.alias.get(commandName)??commandName
+        )?.forEach((callback:Function) => callback(commandInfo) )
 
         // if (this.commands.has(commandName)){
         //     const callbacks = this.commands.get(commandName);

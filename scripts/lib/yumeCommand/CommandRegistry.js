@@ -35,22 +35,29 @@ export function commandParse(command) {
 // console.log(tokens);
 // tokens => [ 'cmdHead', 'arg1', 'arg2', 'arg3', '_arg4', '7', '8', '~-5' ]
 export class CommandRegistry {
-    constructor(CommandRegistrySign = 'funny') {
+    constructor(commandRegistrySign = 'funny') {
         this.commands = new Map();
-        this.CommandRegistrySign = CommandRegistrySign;
+        this.alias = new Map();
+        this.commandRegistrySign = commandRegistrySign;
         this.commands = new Map();
+    }
+    // registerAlias
+    registerAlias(alias, commandName) {
+        return this.alias.set(alias, commandName);
     }
     // registerCommand
     registerCommand(commandName, callback) {
         if (!callback)
             return this.commands.set(commandName, new Set());
+        if (this.alias.has(commandName))
+            this.alias.delete(commandName);
         if (!this.commands.has(commandName))
             return this.commands.set(commandName, new Set());
         return this.commands.get(commandName).add(callback);
     }
     // executeCommand
     executeCommand(commandName, commandInfo) {
-        this.commands.get(commandName)?.forEach((callback) => callback(commandInfo));
+        this.commands.get(this.alias.get(commandName) ?? commandName)?.forEach((callback) => callback(commandInfo));
         // if (this.commands.has(commandName)){
         //     const callbacks = this.commands.get(commandName);
         //     callbacks.forEach((callback:Function) => callback(...args) );
