@@ -4,11 +4,18 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="03abb361-6706-45ed-a79b-5c3c48504c42" name="更改" comment="no arrow event">
+    <list default="true" id="03abb361-6706-45ed-a79b-5c3c48504c42" name="更改" comment="commandRegistry update, help.ts">
+      <change afterPath="$PROJECT_DIR$/scripts/xTerrain/plugins/task.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tscripts/xTerrain/plugins/task.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/manifest.json" beforeDir="false" afterPath="$PROJECT_DIR$/manifest.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/scripts/xTerrain/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/xTerrain/main.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/xTerrain/plugins/command.js" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/xTerrain/plugins/command.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/xTerrain/plugins/help.js" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/xTerrain/plugins/help.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tsconfig.json" beforeDir="false" afterPath="$PROJECT_DIR$/tsconfig.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tscripts/lib/yumeCommand/CommandRegistry.ts" beforeDir="false" afterPath="$PROJECT_DIR$/tscripts/lib/yumeCommand/CommandRegistry.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/tscripts/xTerrain/main.ts" beforeDir="false" afterPath="$PROJECT_DIR$/tscripts/xTerrain/main.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tscripts/xTerrain/plugins/command.ts" beforeDir="false" afterPath="$PROJECT_DIR$/tscripts/xTerrain/plugins/command.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tscripts/xTerrain/plugins/help.ts" beforeDir="false" afterPath="$PROJECT_DIR$/tscripts/xTerrain/plugins/help.ts" afterDir="false" />
     </list>
     <list id="e6298618-3181-46c5-b774-8624634a09bf" name="PrairieFire2b 进行的更改" comment="" />
     <option name="SHOW_DIALOG" value="false" />
@@ -103,7 +110,7 @@
       <workItem from="1696129410357" duration="118000" />
       <workItem from="1696170300400" duration="6000" />
       <workItem from="1696221627511" duration="30000" />
-      <workItem from="1696314105710" duration="676000" />
+      <workItem from="1696314105710" duration="6745000" />
     </task>
     <task id="LOCAL-00001" summary="better spawn">
       <option name="closed" value="true" />
@@ -289,7 +296,31 @@
       <option name="project" value="LOCAL" />
       <updated>1696085246873</updated>
     </task>
-    <option name="localTasksCounter" value="24" />
+    <task id="LOCAL-00024" summary="v5">
+      <option name="closed" value="true" />
+      <created>1696315971090</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1696315971090</updated>
+    </task>
+    <task id="LOCAL-00025" summary="commandName alias">
+      <option name="closed" value="true" />
+      <created>1696317653964</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1696317653964</updated>
+    </task>
+    <task id="LOCAL-00026" summary="commandName alias">
+      <option name="closed" value="true" />
+      <created>1696317737020</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1696317737021</updated>
+    </task>
+    <option name="localTasksCounter" value="27" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -320,6 +351,9 @@
     <MESSAGE value="release breakBlock" />
     <MESSAGE value="command ts" />
     <MESSAGE value="no arrow event" />
-    <option name="LAST_COMMIT_MESSAGE" value="no arrow event" />
+    <MESSAGE value="v5" />
+    <MESSAGE value="commandName alias" />
+    <MESSAGE value="commandRegistry update, help.ts" />
+    <option name="LAST_COMMIT_MESSAGE" value="commandRegistry update, help.ts" />
   </component>
 </project>

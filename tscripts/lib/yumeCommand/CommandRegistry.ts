@@ -40,7 +40,7 @@ export function commandParse(command:string):string[] {
 // tokens => [ 'cmdHead', 'arg1', 'arg2', 'arg3', '_arg4', '7', '8', '~-5' ]
 
 export class CommandRegistry {
-    private commands :Map<string,Set<Function>> = new Map();
+    public commands :Map<string,Set<Function>> = new Map();
     public commandRegistrySign :string;
     static parse = commandParse;
     private  alias = new Map<string,string>();

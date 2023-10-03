@@ -1,5 +1,4 @@
 import type {SimulatedPlayer, Test} from '@minecraft/server-gametest'
-import {register} from '@minecraft/server-gametest'
 import type {
     initializedEvent,
     initializedEventSignal,
@@ -9,6 +8,9 @@ import type {
 } from '../@types/globalThis'
 import type {Dimension, ScoreboardObjective, Vector3} from '@minecraft/server';
 
+import { register } from '@minecraft/server-gametest'
+
+
 import verify from '../lib/xboyPackage/scoreBase/verifyDataBase'
 import ScoreBase from '../lib/xboyPackage/scoreBase/rw';
 import EventSignal from '../lib/xboyEvents/EventSignal';
@@ -16,7 +18,6 @@ import EventSignal from '../lib/xboyEvents/EventSignal';
 import { SIGN } from "../lib/xboyPackage/YumeSignEnum";    ;;"假人标签";;
 
 declare const world: World
-// declare const BlockLocation: typeof _BlockLocation
 
 const overworld = world.getDimension('overworld')
 const tickWaitTimes = 20*60*60*24*365
@@ -40,7 +41,6 @@ export const spawned : spawnedEventSignal = new EventSignal<spawnedEvent>()
 // spawned.subscribe(({spawnedSimulatedPlayer})=>{
 //         // SimulatedPlayerList.push(spawnedSimulatedPlayer)
 // })
-// declare const GameTest:  {"register": typeof register}
 
 
 register("我是云梦", "假人", (test:Test) => {
@@ -81,7 +81,9 @@ register("我是云梦", "假人", (test:Test) => {
         'chatSpawn',
         'command',
         'breakBlock',
-        'youAreMine'
+        'youAreMine',
+        // 'help',
+        // 'task',
         // 'newCommand',
     ].forEach(
         name=> import('./plugins/'+name)
@@ -92,11 +94,19 @@ register("我是云梦", "假人", (test:Test) => {
 export { spawnSimulatedPlayer,testWorldLocation,GetPID }
 export default spawnSimulatedPlayer
 
+let initCounter = 5
 //  # 初始化 init
 // how about turn to world.afterEvents.playerSpawn
 function init() {
+        // Limit the number of retries
+        if(--initCounter<0){
+            world.sendMessage('[模拟玩家] 初始化失败，尝试输入reload')
+            world.events.tick.unsubscribe(init)
+        }
+
     const players = world.getAllPlayers()
     if (players.length === 0) return;
+
     world.events.tick.unsubscribe(init)
     // -使用try实体完成区域加载
     overworld.runCommandAsync('summon yumecraft:ceyk 30000000 128 0 -1 -1 null try')
@@ -105,7 +115,7 @@ function init() {
                 console.error("[模拟玩家] 初始化检查开始")
 
                 // -检测0号ceyk(tag:init)实体以及坐标
-                const ceykList = overworld.getEntities({type: 'yumecraft:ceyk', tags: ['init']})
+                const ceykList = overworld.getEntities({ type: 'yumecraft:ceyk', tags: ['init'] })
                 // world.sendMessage('[模拟玩家] ceykList[init].length ==>'+overworld.getEntities({type:'yumecraft:ceyk',tags:['init']}).length)
 
                 if (ceykList.length === 0) {

@@ -7,7 +7,6 @@ import { SIGN } from "../lib/xboyPackage/YumeSignEnum";
 ;
 "假人标签";
 ;
-// declare const BlockLocation: typeof _BlockLocation
 const overworld = world.getDimension('overworld');
 const tickWaitTimes = 20 * 60 * 60 * 24 * 365;
 export const SimulatedPlayerList = {};
@@ -24,7 +23,6 @@ export const spawned = new EventSignal();
 // spawned.subscribe(({spawnedSimulatedPlayer})=>{
 //         // SimulatedPlayerList.push(spawnedSimulatedPlayer)
 // })
-// declare const GameTest:  {"register": typeof register}
 register("我是云梦", "假人", (test) => {
     testWorldLocation = test.worldLocation({ x: 0, y: 0, z: 0 });
     overworld.runCommand('gamerule domobspawning true');
@@ -76,16 +74,24 @@ initialized.subscribe(() => [
     'chatSpawn',
     'command',
     'breakBlock',
-    'youAreMine'
+    'youAreMine',
+    // 'help',
+    // 'task',
     // 'newCommand',
 ].forEach(name => import('./plugins/' + name)
     .then(() => console.error('[模拟玩家] ' + name + '模块初始化结束'))
     .catch((reason) => console.error('[模拟玩家] ' + name + ' 模块初始化错误 ERROR:' + reason))));
 export { spawnSimulatedPlayer, testWorldLocation, GetPID };
 export default spawnSimulatedPlayer;
+let initCounter = 5;
 //  # 初始化 init
 // how about turn to world.afterEvents.playerSpawn
 function init() {
+    // Limit the number of retries
+    if (--initCounter < 0) {
+        world.sendMessage('[模拟玩家] 初始化失败，尝试输入reload');
+        world.events.tick.unsubscribe(init);
+    }
     const players = world.getAllPlayers();
     if (players.length === 0)
         return;
