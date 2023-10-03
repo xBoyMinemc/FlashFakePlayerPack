@@ -12,12 +12,12 @@ import type {Dimension, ScoreboardObjective, Vector3} from '@minecraft/server';
 import verify from '../lib/xboyPackage/scoreBase/verifyDataBase'
 import ScoreBase from '../lib/xboyPackage/scoreBase/rw';
 import EventSignal from '../lib/xboyEvents/EventSignal';
-import { SIGN } from "../lib/xboyPackage/YumeSignEnum";
+
+import { SIGN } from "../lib/xboyPackage/YumeSignEnum";    ;;"假人标签";;
 
 declare const world: World
 // declare const BlockLocation: typeof _BlockLocation
 
-;;"假人标签";;
 const overworld = world.getDimension('overworld')
 const tickWaitTimes = 20*60*60*24*365
 
@@ -148,9 +148,15 @@ function init() {
 
                 console.error("[模拟玩家] 初始化检查完成")
             },
-            (reason) => console.error("[模拟玩家] 初始化错误 ERROR:" + reason)
+            (reason) => {
+                world.events.tick.subscribe(init)
+                console.error("[模拟玩家] 初始化错误 ERROR:" + reason)
+            }
         )
-        .catch((reason) => console.error("[模拟玩家] 初始化错误 ERROR:" + reason))
+        .catch((reason) => {
+            world.events.tick.subscribe(init)
+            console.error("[模拟玩家] 初始化错误catch ERROR:" + reason)
+        })
         .finally(() => console.error("[模拟玩家] 初始化检查结束"))
 }
 
@@ -160,7 +166,3 @@ world.events.tick.subscribe(init)
 
 export function a(){console.error('a一次') }
 //写一个100次的for循环
-
-
-
-a
