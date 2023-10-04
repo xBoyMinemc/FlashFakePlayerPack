@@ -54,22 +54,22 @@ function 获取眼前的假人实体(逻辑主体,距离){
 
     return 实体们.find(({entity:实体})=>实体.hasTag(SIGN.YUME_SIM_SIGN))?.entity;;"只返回一个假人";;
 };
-function 获取眼前的实体(逻辑主体,距离){
-    const 最远距离 = {maxDistance:距离}//new EntityRaycastOptions();;;"距离";;
-    const 实体们 = 逻辑主体.getEntitiesFromViewDirection(最远距离);
-    return 实体们[0]?.entity;;"只返回一个";;
-};
-function 获取附近的玩家实体(逻辑主体,距离){
-    const 吃个桃桃 = {}//new EntityQueryOptions();
-    吃个桃桃.maxDistance = 距离;                                                               ;;"距离";;
-    吃个桃桃.location    = new Location(逻辑主体.location.x,逻辑主体.location.y,逻辑主体.location.z);                                                  ;;"中心坐标-ri泥god";;
-    吃个桃桃.type = "minecraft:player";                                              ;;"排除掉的实体类型";;
-    吃个桃桃.closest   = 2;
-    const 实体们 = 逻辑主体.dimension.getEntities(吃个桃桃);
-    const 实体组 = [];
-    for(let 实体 of 实体们)实体组.push(实体);;;;;;;;;;;;
-    return 实体组;;
-};
+// function 获取眼前的实体(逻辑主体,距离){
+//     const 最远距离 = {maxDistance:距离}//new EntityRaycastOptions();;;"距离";;
+//     const 实体们 = 逻辑主体.getEntitiesFromViewDirection(最远距离);
+//     return 实体们[0]?.entity;;"只返回一个";;
+// };
+// function 获取附近的玩家实体(逻辑主体,距离){
+//     const 吃个桃桃 = {}//new EntityQueryOptions();
+//     吃个桃桃.maxDistance = 距离;                                                               ;;"距离";;
+//     吃个桃桃.location    = new Location(逻辑主体.location.x,逻辑主体.location.y,逻辑主体.location.z);                                                  ;;"中心坐标-ri泥god";;
+//     吃个桃桃.type = "minecraft:player";                                              ;;"排除掉的实体类型";;
+//     吃个桃桃.closest   = 2;
+//     const 实体们 = 逻辑主体.dimension.getEntities(吃个桃桃);
+//     const 实体组 = [];
+//     for(let 实体 of 实体们)实体组.push(实体);;;;;;;;;;;;
+//     return 实体组;;
+// };
 function 获取附近的非玩家实体(逻辑主体,距离,昊京牌过滤器){
     let 吃个桃桃 = {}//new EntityQueryOptions();
     吃个桃桃.maxDistance = 距离;                                                               ;;"距离";;
@@ -208,12 +208,12 @@ world.events.tick.subscribe(() => {//我()了，这也是一种不（）
                 };
             }catch(e){
             };;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-            try{
-                if(工具人.hasTag(SIGN.AUTO_ATTACK_SIGN) && 获取眼前的实体(工具人,4).name!="")工具人.attackEntity(获取眼前的实体(工具人,4));
-            }catch(e){};;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-            try{
-                if(工具人.hasTag(SIGN.AUTO_JUMP_SIGN))工具人.jump();
-            }catch(e){};;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+            // try{
+            //     if(工具人.hasTag(SIGN.AUTO_ATTACK_SIGN) && 获取眼前的实体(工具人,4).name!="")工具人.attackEntity(获取眼前的实体(工具人,4));
+            // }catch(e){};;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+            // try{
+            //     if(工具人.hasTag(SIGN.AUTO_JUMP_SIGN))工具人.jump();
+            // }catch(e){};;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
             // try{
             //   // if(工具人.hasTag(寻路标识符))Array.from(工具人.navigateToEntity(获取附近的玩家实体(工具人,128)[1]).path).forEach(_=>工具人.runCommandAsync("me "+JSON.stringify(_.x)));
             //   if(工具人.hasTag(寻路标识符))工具人.runCommandAsync("me "+Array.from(工具人.navigateToEntity(获取附近的玩家实体(工具人,128)[1]).path).length )
