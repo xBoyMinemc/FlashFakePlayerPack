@@ -1,6 +1,7 @@
 import { EquipmentSlot } from "@minecraft/server";
 import { SimulatedPlayerList as 工具人们 } from "../main";
 import { Location } from "../../lib/xboyPackage/The law of the ancestors is immutable";
+import SIGN from "../../lib/xboyPackage/YumeSignEnum";
 //
 // import {BlockLocation} from "../../@types/globalThis";
 // class BlockLocation extends Location {
@@ -23,23 +24,22 @@ const yumeSimCmdHead = "假人";
 ;
 " 命令头 ";
 ;
-const yumeSign = "#yumeSimSign#";
-;
-;
-"假人标签";
-;
-const 挖掘标识符 = "挖掘标识符";
-const 攻击标识符 = "攻击标识符";
-const 自动攻击标识符 = "自动攻击标识符";
-const 自动追击标识符 = "自动追击标识符";
-const 自动跳跃标识符 = "自动跳跃标识符";
-const AUTO_RESPAWN_SIGN = "AUTO_RESPAWN_SIGN";
-const 寻路标识符 = "寻路标识符";
+// const YUME_SIM_SIGN = "#yumeSimSign#";                   ;;"假人标签";;
+// const 挖掘标识符 = "挖掘标识符";
+// 攻击标识符
+// const ATTACK_SIGN = "ATTACK_SIGN";
+// // 自动攻击标识符
+// const AUTO_ATTACK_SIGN = "AUTO_ATTACK_SIGN";
+// // 自动追击标识符
+// const AUTO_CHASE_SIGN = "AUTO_CHASE_SIGN";
+// const AUTO_JUMP_SIGN = "AUTO_JUMP_SIGN";
+// const AUTO_RESPAWN_SIGN = "AUTO_RESPAWN_SIGN";
+// const 寻路标识符 = "寻路标识符";
 const 工具人们States = {};
 function 获取眼前的假人实体(逻辑主体, 距离) {
     const 最远距离 = { maxDistance: 距离 }; //new EntityRaycastOptions();;;"距离";;
     const 实体们 = 逻辑主体.getEntitiesFromViewDirection(最远距离); // ViewDirection
-    return 实体们.find(({ entity: 实体 }) => 实体.hasTag(yumeSign))?.entity;
+    return 实体们.find(({ entity: 实体 }) => 实体.hasTag(SIGN.YUME_SIM_SIGN))?.entity;
     ;
     "只返回一个假人";
     ;
@@ -141,7 +141,7 @@ function 获取附近的玩家实体2(逻辑主体, 距离, 昊京牌过滤器) 
     吃个桃桃.location = 逻辑主体.location; //new Location(逻辑主体.location.x,逻辑主体.location.y,逻辑主体.location.z);                                                  ;;"中心坐标-ri泥god";;
     // 吃个桃桃.excludeTypes= ["minecraft:arrow","minecraft:xp_orb","minecraft:item"];                                              ;;"排除掉的实体类型";;
     吃个桃桃.closest = 1;
-    吃个桃桃.excludeTags = [yumeSign];
+    吃个桃桃.excludeTags = [SIGN.YUME_SIM_SIGN];
     Object.assign(吃个桃桃, 昊京牌过滤器);
     ;
     ;
@@ -244,263 +244,15 @@ world.events.tick.subscribe(() => {
             //     if(工具人.hasTag(挖掘标识符))工具人.breakBlock(获取假人实体眼前的方块的相对坐标(工具人));
             // }catch(e){  主世界.runCommandAsync(`me 挖掘标识符 ${e}`)
             // };;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+            // try{
+            //     if(工具人.hasTag(攻击标识符))工具人.attackEntity(获取眼前的实体(工具人,4));
+            // }catch(e){};;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+            // try{
+            //     if(工具人.hasTag(自动攻击标识符))工具人.lookAtEntity(获取附近的非玩家实体(工具人,4,{})[0]);
+            // }catch(e){
+            // };;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
             try {
-                if (工具人.hasTag(攻击标识符))
-                    工具人.attackEntity(获取眼前的实体(工具人, 4));
-            }
-            catch (e) { }
-            ;
-            ;
-            ;
-            ;
-            ;
-            ;
-            ;
-            ;
-            ;
-            ;
-            ;
-            ;
-            ;
-            ;
-            ;
-            ;
-            ;
-            ;
-            ;
-            ;
-            ;
-            ;
-            ;
-            ;
-            ;
-            ;
-            ;
-            ;
-            ;
-            ;
-            ;
-            ;
-            ;
-            ;
-            ;
-            ;
-            ;
-            ;
-            ;
-            ;
-            ;
-            ;
-            ;
-            ;
-            ;
-            ;
-            ;
-            ;
-            ;
-            ;
-            ;
-            ;
-            ;
-            ;
-            ;
-            ;
-            ;
-            ;
-            ;
-            ;
-            ;
-            ;
-            ;
-            ;
-            ;
-            ;
-            ;
-            ;
-            ;
-            ;
-            ;
-            ;
-            ;
-            ;
-            ;
-            ;
-            ;
-            ;
-            ;
-            ;
-            ;
-            ;
-            ;
-            ;
-            ;
-            ;
-            ;
-            ;
-            ;
-            ;
-            ;
-            ;
-            ;
-            ;
-            ;
-            ;
-            ;
-            ;
-            ;
-            ;
-            ;
-            ;
-            ;
-            ;
-            ;
-            ;
-            ;
-            ;
-            ;
-            ;
-            ;
-            ;
-            ;
-            ;
-            ;
-            ;
-            ;
-            try {
-                if (工具人.hasTag(自动攻击标识符))
-                    工具人.lookAtEntity(获取附近的非玩家实体(工具人, 4, {})[0]);
-            }
-            catch (e) {
-            }
-            ;
-            ;
-            ;
-            ;
-            ;
-            ;
-            ;
-            ;
-            ;
-            ;
-            ;
-            ;
-            ;
-            ;
-            ;
-            ;
-            ;
-            ;
-            ;
-            ;
-            ;
-            ;
-            ;
-            ;
-            ;
-            ;
-            ;
-            ;
-            ;
-            ;
-            ;
-            ;
-            ;
-            ;
-            ;
-            ;
-            ;
-            ;
-            ;
-            ;
-            ;
-            ;
-            ;
-            ;
-            ;
-            ;
-            ;
-            ;
-            ;
-            ;
-            ;
-            ;
-            ;
-            ;
-            ;
-            ;
-            ;
-            ;
-            ;
-            ;
-            ;
-            ;
-            ;
-            ;
-            ;
-            ;
-            ;
-            ;
-            ;
-            ;
-            ;
-            ;
-            ;
-            ;
-            ;
-            ;
-            ;
-            ;
-            ;
-            ;
-            ;
-            ;
-            ;
-            ;
-            ;
-            ;
-            ;
-            ;
-            ;
-            ;
-            ;
-            ;
-            ;
-            ;
-            ;
-            ;
-            ;
-            ;
-            ;
-            ;
-            ;
-            ;
-            ;
-            ;
-            ;
-            ;
-            ;
-            ;
-            ;
-            ;
-            ;
-            ;
-            ;
-            ;
-            ;
-            ;
-            ;
-            ;
-            ;
-            ;
-            ;
-            ;
-            ;
-            ;
-            ;
-            ;
-            ;
-            try {
-                if (工具人.hasTag(自动追击标识符)) {
+                if (工具人.hasTag(SIGN.AUTO_CHASE_SIGN)) {
                     const 实体们 = 获取附近的非玩家实体(工具人, 12, { families: ["undead"] }).concat(获取附近的非玩家实体(工具人, 12, { families: ["monster"] })).concat(获取附近的玩家实体2(工具人, 12, {}));
                     工具人们States[工具人] ? 0 : (工具人们States[工具人] = {});
                     工具人们States[工具人]["o"] ? 0 : (工具人们States[工具人]["o"] = 工具人.location);
@@ -655,7 +407,7 @@ world.events.tick.subscribe(() => {
             ;
             ;
             try {
-                if (工具人.hasTag(自动攻击标识符) && 获取眼前的实体(工具人, 4).name != "")
+                if (工具人.hasTag(SIGN.AUTO_ATTACK_SIGN) && 获取眼前的实体(工具人, 4).name != "")
                     工具人.attackEntity(获取眼前的实体(工具人, 4));
             }
             catch (e) { }
@@ -777,7 +529,7 @@ world.events.tick.subscribe(() => {
             ;
             ;
             try {
-                if (工具人.hasTag(自动跳跃标识符))
+                if (工具人.hasTag(SIGN.AUTO_JUMP_SIGN))
                     工具人.jump();
             }
             catch (e) { }
@@ -942,15 +694,15 @@ world.afterEvents.chatSend.subscribe(event => {
         //懒改--2023-07-21--评
         const TagsManager = (xboy) => (minemc) => (need) => (add) => (remove) => xboy === need ? (add.length ? add.forEach(t => minemc.addTag(t)) : 0, remove.length ? remove.forEach(t => minemc.removeTag(t)) : 0) : 0;
         const xboy = TagsManager(消息)(眼前的工具人);
-        xboy("攻击")([攻击标识符])([自动攻击标识符, 挖掘标识符]);
-        xboy("自动攻击")([自动攻击标识符])([攻击标识符, 挖掘标识符]);
-        xboy("开始跳跃")([自动跳跃标识符])([]);
-        xboy("结束跳跃")([])([自动跳跃标识符]);
+        xboy("攻击")([SIGN.ATTACK_SIGN])([SIGN.AUTO_ATTACK_SIGN]);
+        xboy("自动攻击")([SIGN.AUTO_ATTACK_SIGN])([SIGN.ATTACK_SIGN]);
+        xboy("开始跳跃")([SIGN.AUTO_JUMP_SIGN])([]);
+        xboy("结束跳跃")([])([SIGN.AUTO_JUMP_SIGN]);
         // xboy("寻路")([寻路标识符])([])
-        xboy("自动追击")([自动追击标识符, 自动攻击标识符, 自动跳跃标识符])([]);
-        xboy("停止")([])([攻击标识符, 自动攻击标识符, 自动跳跃标识符, 挖掘标识符]);
-        xboy("开摆")([])([攻击标识符, 自动攻击标识符, 自动跳跃标识符, 挖掘标识符]);
-        xboy("自动重生")([AUTO_RESPAWN_SIGN])([]);
+        xboy("自动追击")([SIGN.AUTO_CHASE_SIGN, SIGN.AUTO_ATTACK_SIGN, SIGN.AUTO_JUMP_SIGN])([]);
+        xboy("停止")([])([SIGN.ATTACK_SIGN, SIGN.AUTO_ATTACK_SIGN, SIGN.AUTO_JUMP_SIGN]);
+        xboy("开摆")([])([SIGN.ATTACK_SIGN, SIGN.AUTO_ATTACK_SIGN, SIGN.AUTO_JUMP_SIGN]);
+        xboy("自动重生")([SIGN.AUTO_RESPAWN_SIGN])([]);
         if (消息 == "列表") {
             for (let i in 工具人们)
                 if (工具人们[i])

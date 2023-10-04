@@ -6,10 +6,12 @@
   <component name="ChangeListManager">
     <list default="true" id="03abb361-6706-45ed-a79b-5c3c48504c42" name="更改" comment="fix respawn">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/xTerrain/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/xTerrain/main.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/lib/xboyPackage/Util.js" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/lib/xboyPackage/Util.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/lib/xboyPackage/YumeSignEnum.js" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/lib/xboyPackage/YumeSignEnum.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/scripts/xTerrain/plugins/command.js" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/xTerrain/plugins/command.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/scripts/xTerrain/plugins/task.js" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/xTerrain/plugins/task.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tscripts/xTerrain/main.ts" beforeDir="false" afterPath="$PROJECT_DIR$/tscripts/xTerrain/main.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tscripts/lib/xboyPackage/Util.ts" beforeDir="false" afterPath="$PROJECT_DIR$/tscripts/lib/xboyPackage/Util.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tscripts/lib/xboyPackage/YumeSignEnum.ts" beforeDir="false" afterPath="$PROJECT_DIR$/tscripts/lib/xboyPackage/YumeSignEnum.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/tscripts/xTerrain/plugins/command.ts" beforeDir="false" afterPath="$PROJECT_DIR$/tscripts/xTerrain/plugins/command.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/tscripts/xTerrain/plugins/task.ts" beforeDir="false" afterPath="$PROJECT_DIR$/tscripts/xTerrain/plugins/task.ts" afterDir="false" />
     </list>
@@ -108,7 +110,7 @@
       <workItem from="1696221627511" duration="30000" />
       <workItem from="1696314105710" duration="9123000" />
       <workItem from="1696345142460" duration="5556000" />
-      <workItem from="1696401136388" duration="7704000" />
+      <workItem from="1696401136388" duration="9719000" />
     </task>
     <task id="LOCAL-00001" summary="better spawn">
       <option name="closed" value="true" />
@@ -350,7 +352,15 @@
       <option name="project" value="LOCAL" />
       <updated>1696428785237</updated>
     </task>
-    <option name="localTasksCounter" value="31" />
+    <task id="LOCAL-00031" summary="fix respawn">
+      <option name="closed" value="true" />
+      <created>1696434211341</created>
+      <option name="number" value="00031" />
+      <option name="presentableId" value="LOCAL-00031" />
+      <option name="project" value="LOCAL" />
+      <updated>1696434211341</updated>
+    </task>
+    <option name="localTasksCounter" value="32" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

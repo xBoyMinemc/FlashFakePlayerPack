@@ -1,13 +1,14 @@
 import {SimulatedPlayer} from "@minecraft/server-gametest";
-import {SimulatedPlayerList as 工具人们} from "../main";
+import { SimulatedPlayerList } from "../main";
 import SIGN from "../../lib/xboyPackage/YumeSignEnum";
 import {EntityHealthComponent, system} from "@minecraft/server";
+import {getEntitiesNear} from "../../lib/xboyPackage/Util";
 
-const AUTO_RESPAWN = ()=>{
+const AUTO_BEHAV = ()=>{
 
-    for (const index in 工具人们) {
+    for (const index in SimulatedPlayerList) {
 
-        const SimPlayer:SimulatedPlayer = 工具人们[index]
+        const SimPlayer:SimulatedPlayer = SimulatedPlayerList[index]
 
         //判假人是否存在
         if(!SimPlayer)continue;
@@ -17,7 +18,15 @@ const AUTO_RESPAWN = ()=>{
             if(SimPlayer.hasTag(SIGN.AUTO_RESPAWN_SIGN))SimPlayer.respawn();
             continue;
         }
+
+        const EntitiesFromView = SimPlayer.getEntitiesFromViewDirection({maxDistance:4})[0]?.entity
+        if(SimPlayer.hasTag(SIGN.ATTACK_SIGN) && EntitiesFromView)SimPlayer.attackEntity(EntitiesFromView);
+
+        const EntitiesNear = getEntitiesNear(SimPlayer.location,SimPlayer.dimension,4,{})[0]
+        if(SimPlayer.hasTag(SIGN.AUTO_ATTACK_SIGN) && EntitiesNear)SimPlayer.lookAtEntity(EntitiesNear);
     }
 
 }
-system.runInterval(AUTO_RESPAWN,0)
+system.runInterval(AUTO_BEHAV,0)
+
+
