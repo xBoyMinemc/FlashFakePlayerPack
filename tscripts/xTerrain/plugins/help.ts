@@ -68,9 +68,9 @@ commandRegistry.registerCommand('假人github',githubMsg)
 
 world.afterEvents.chatSend.subscribe(({message, sender})=>{
 
-    const cmd = CommandRegistry.parse(message)
-    if(commandRegistry.commands.has(cmd[0]))
-        commandRegistry.executeCommand(cmd[0],{commandName:cmd[0],entity:sender,isEntity:true,args:cmd})
+    const args = CommandRegistry.parse(message)
+    if(commandRegistry.commandsList.has(args[0]))
+        commandRegistry.executeCommand(args[0], { entity:sender,isEntity:true,args })
 })
 
 

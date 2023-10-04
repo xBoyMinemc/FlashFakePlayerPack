@@ -40,7 +40,8 @@ export function commandParse(command:string):string[] {
 // tokens => [ 'cmdHead', 'arg1', 'arg2', 'arg3', '_arg4', '7', '8', '~-5' ]
 
 export class CommandRegistry {
-    public commands :Map<string,Set<Function>> = new Map();
+    private commandsRegistryMap :Map<string,Set<Function>> = new Map();
+    public commandsList = new Set<string>()
     public commandRegistrySign :string;
     static parse = commandParse;
     private  alias = new Map<string,string>();
@@ -48,28 +49,30 @@ export class CommandRegistry {
 
     constructor(commandRegistrySign:string='funny') {
         this.commandRegistrySign  = commandRegistrySign;
-        this.commands  = new Map();
+        this.commandsRegistryMap  = new Map();
     }
 
     // registerAlias
     registerAlias( alias:string ,commandName:string) {
-        return this.alias.set(alias,commandName);
+        this.alias.set(alias,commandName)
+        this.commandsList.add(alias)
     }
 
     // registerCommand
     registerCommand(commandName:string, callback?:Function) {
         if(!callback)
-            return this.commands.set(commandName,new Set());
+            return this.commandsRegistryMap.set(commandName,new Set());
         if(this.alias.has(commandName))
-            this.alias.delete(commandName);
-        if (!this.commands.has(commandName))
-            return this.commands.set(commandName,new Set());
-        return this.commands.get(commandName).add(callback);
-    }
+            this.alias.delete(commandName)
+        if (!this.commandsRegistryMap.has(commandName))
+            this.commandsRegistryMap.set(commandName,new Set());
 
+        this.commandsList.add(commandName)
+        return this.commandsRegistryMap.get(commandName).add(callback);
+    }
     // executeCommand
-    executeCommand(commandName:string, commandInfo:{args:string[],entity:Entity|Player|Dimension,location?:Vector3,isEntity:boolean,commandName:string}) {
-        this.commands.get(
+    executeCommand(commandName:string, commandInfo:{args:string[],entity:Entity|Player|Dimension,location?:Vector3,isEntity:boolean}) {
+        this.commandsRegistryMap.get(
             this.alias.get(commandName)??commandName
         )?.forEach((callback:Function) => callback(commandInfo) )
 
@@ -83,8 +86,10 @@ export class CommandRegistry {
 
     // removeCommand
     removeCommand(commandName:string, callback:Function) {
-        this.commands.get(commandName)?.delete(callback)
-
+        if(callback)
+            this.commandsRegistryMap.get(commandName)?.delete(callback)
+        else
+            this.commandsRegistryMap.delete(commandName)
         // if (this.commands.has(commandName)){
         //     if(this.commands.get(commandName).delete(callback)){
         //         return true

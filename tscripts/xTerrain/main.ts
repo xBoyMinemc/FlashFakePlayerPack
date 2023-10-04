@@ -54,6 +54,8 @@ register("我是云梦", "假人", (test:Test) => {
         // const y2 = { x: 0, y: 2, z: 0 }
         // overworld.sendMessage('pid=>'+pid)
         // const dimensionLocation : DimensionLocation = {...location,dimension}
+
+        // 生成模拟玩家
         const SimulatedPlayer = test.spawnSimulatedPlayer({ x:0, y:2, z:0 }, `工具人-${pid}`)
         SimulatedPlayer.addTag('init')
         SimulatedPlayer.addTag(SIGN.YUME_SIM_SIGN)
@@ -61,6 +63,7 @@ register("我是云梦", "假人", (test:Test) => {
 
         // SimulatedPlayer.runCommand("tp @a @s")
         SimulatedPlayer.setSpawnPoint({...location,dimension})
+        // tp到指定地点
         SimulatedPlayer.teleport(location, { dimension })
         // SimulatedPlayerList.push(SimulatedPlayer)
         return SimulatedPlayer
@@ -82,9 +85,8 @@ register("我是云梦", "假人", (test:Test) => {
         'command',
         'breakBlock',
         'youAreMine',
-        // 'help',
+        'help',
         // 'task',
-        // 'newCommand',
     ].forEach(
         name=> import('./plugins/'+name)
             .then(()=>console.error('[模拟玩家] '+name+'模块初始化结束'))

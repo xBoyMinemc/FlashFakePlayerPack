@@ -36,28 +36,31 @@ export function commandParse(command) {
 // tokens => [ 'cmdHead', 'arg1', 'arg2', 'arg3', '_arg4', '7', '8', '~-5' ]
 export class CommandRegistry {
     constructor(commandRegistrySign = 'funny') {
-        this.commands = new Map();
+        this.commandsRegistryMap = new Map();
+        this.commandsList = new Set();
         this.alias = new Map();
         this.commandRegistrySign = commandRegistrySign;
-        this.commands = new Map();
+        this.commandsRegistryMap = new Map();
     }
     // registerAlias
     registerAlias(alias, commandName) {
-        return this.alias.set(alias, commandName);
+        this.alias.set(alias, commandName);
+        this.commandsList.add(alias);
     }
     // registerCommand
     registerCommand(commandName, callback) {
         if (!callback)
-            return this.commands.set(commandName, new Set());
+            return this.commandsRegistryMap.set(commandName, new Set());
         if (this.alias.has(commandName))
             this.alias.delete(commandName);
-        if (!this.commands.has(commandName))
-            return this.commands.set(commandName, new Set());
-        return this.commands.get(commandName).add(callback);
+        if (!this.commandsRegistryMap.has(commandName))
+            this.commandsRegistryMap.set(commandName, new Set());
+        this.commandsList.add(commandName);
+        return this.commandsRegistryMap.get(commandName).add(callback);
     }
     // executeCommand
     executeCommand(commandName, commandInfo) {
-        this.commands.get(this.alias.get(commandName) ?? commandName)?.forEach((callback) => callback(commandInfo));
+        this.commandsRegistryMap.get(this.alias.get(commandName) ?? commandName)?.forEach((callback) => callback(commandInfo));
         // if (this.commands.has(commandName)){
         //     const callbacks = this.commands.get(commandName);
         //     callbacks.forEach((callback:Function) => callback(...args) );
@@ -67,7 +70,10 @@ export class CommandRegistry {
     }
     // removeCommand
     removeCommand(commandName, callback) {
-        this.commands.get(commandName)?.delete(callback);
+        if (callback)
+            this.commandsRegistryMap.get(commandName)?.delete(callback);
+        else
+            this.commandsRegistryMap.delete(commandName);
         // if (this.commands.has(commandName)){
         //     if(this.commands.get(commandName).delete(callback)){
         //         return true

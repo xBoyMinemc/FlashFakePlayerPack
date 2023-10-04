@@ -392,22 +392,22 @@ world.afterEvents.chatSend.subscribe( event => {
                 ;
             }
             ;
-            if (消息.startsWith("批量 ")) {
-                let temp = 消息.replace("批量 ", "");
-                if (temp = Number(temp))
-                    while (temp --> 0) {
-                    const PID = GetPID()
-                    const SimulatedPlayer = spawnSimulatedPlayer(发起者.location, 发起者.dimension, PID )
-                        spawnedEvent.trigger({spawnedSimulatedPlayer:SimulatedPlayer,PID})
-                            工具人们[PID] = SimulatedPlayer
-                    }
-                // 生产任务.push({
-                //     location:发起者.location,
-                //     dimension:发起者.dimension,
-                //     count:1,
-                // });
-            }
-            ;
+            // if (消息.startsWith("批量 ")) {
+            //     let temp = 消息.replace("批量 ", "");
+            //     if (temp = Number(temp))
+            //         while (temp --> 0) {
+            //         const PID = GetPID()
+            //         const SimulatedPlayer = spawnSimulatedPlayer(发起者.location, 发起者.dimension, PID )
+            //             spawnedEvent.trigger({spawnedSimulatedPlayer:SimulatedPlayer,PID})
+            //                 工具人们[PID] = SimulatedPlayer
+            //         }
+            //     // 生产任务.push({
+            //     //     location:发起者.location,
+            //     //     dimension:发起者.dimension,
+            //     //     count:1,
+            //     // });
+            // }
+            // ;
             if (消息 == "销毁") {
                 const _s = 眼前的工具人.getComponent("minecraft:equippable");
                 for (const i in EquipmentSlot) {

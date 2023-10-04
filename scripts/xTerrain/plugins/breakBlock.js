@@ -26,7 +26,7 @@ commandRegistry.registerCommand(commandName, noArgs);
 world.afterEvents.chatSend.subscribe(({ message, sender }) => {
     if (message !== commandName)
         return;
-    commandRegistry.executeCommand(commandName, { commandName: commandName, entity: sender, isEntity: true, args: CommandRegistry.parse(message) });
+    commandRegistry.executeCommand(commandName, { entity: sender, isEntity: true, args: CommandRegistry.parse(message) });
 });
 const breaks = () => {
     // TEST
