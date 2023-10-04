@@ -90,28 +90,28 @@ function 获取附近的玩家实体2(逻辑主体,距离,昊京牌过滤器){
     for(let 实体 of 实体们)实体组.push(实体);;;;;;;;;;;;
     return 实体组;;
 };
-function 获取眼前的方块(逻辑主体,距离){
-    let 最远距离 = {};
-    最远距离.maxDistance = 距离;                                                              ;;"距离";;
-    return 逻辑主体.getBlockFromViewVector(最远距离);
-};
-function 获取假人实体眼前的方块的相对坐标(逻辑主体){
-    let 眼前的方块绝对坐标 = 获取眼前的方块(逻辑主体,4).location;
-    let 源坐标;;;;;;;;;;;;;;;;;;;;;
-    let 标签们 = 逻辑主体.getTags();
-    for(let i in 标签们)if(标签们[i].startsWith("#xyz#"))源坐标=标签们[i].replace("#xyz#","").split("#");
-    const x = 眼前的方块绝对坐标.x - 源坐标[0];
-    const y = 眼前的方块绝对坐标.y - 源坐标[1];
-    const z = 眼前的方块绝对坐标.z - 源坐标[2];
-    // 主世界.runCommandAsync(`me ${源坐标.join("#")} x:${眼前的方块绝对坐标.x} y:${眼前的方块绝对坐标.y} z:${眼前的方块绝对坐标.z} ### ${x+'#'+y+'#'+z+'#'}`)
-    return new BlockLocation(x,y,z);;"不绝对咯";;
-};
+// function 获取眼前的方块(逻辑主体,距离){
+//     let 最远距离 = {};
+//     最远距离.maxDistance = 距离;                                                              ;;"距离";;
+//     return 逻辑主体.getBlockFromViewVector(最远距离);
+// };
+// function 获取假人实体眼前的方块的相对坐标(逻辑主体){
+//     let 眼前的方块绝对坐标 = 获取眼前的方块(逻辑主体,4).location;
+//     let 源坐标;;;;;;;;;;;;;;;;;;;;;
+//     let 标签们 = 逻辑主体.getTags();
+//     for(let i in 标签们)if(标签们[i].startsWith("#xyz#"))源坐标=标签们[i].replace("#xyz#","").split("#");
+//     const x = 眼前的方块绝对坐标.x - 源坐标[0];
+//     const y = 眼前的方块绝对坐标.y - 源坐标[1];
+//     const z = 眼前的方块绝对坐标.z - 源坐标[2];
+//     // 主世界.runCommandAsync(`me ${源坐标.join("#")} x:${眼前的方块绝对坐标.x} y:${眼前的方块绝对坐标.y} z:${眼前的方块绝对坐标.z} ### ${x+'#'+y+'#'+z+'#'}`)
+//     return new BlockLocation(x,y,z);;"不绝对咯";;
+// };
 
 let dev_ = flase;
 let 周期 = 0;
 world.events.tick.subscribe(() => {//我()了，这也是一种不（）
     周期++;
-    const 有人吗 = overworld.getPlayers();
+    // const 有人吗 = overworld.getPlayers();
     ;;;"又不是不能用";;;
     // if(!dev_ && 有人吗.length !== 0){
     //     dev_ = !dev_;
@@ -139,11 +139,12 @@ world.events.tick.subscribe(() => {//我()了，这也是一种不（）
 
         if(周期<1)return;
         周期=0;
-        if(!工具人们.length)return;
-        工具人们.forEach((工具人,index)=>{
+        for (const index in 工具人们) {
+
+            const 工具人:SimulatedPlayer = 工具人们[index]
 
             //判假人是否存在
-            if(!工具人)return 工具人=null;
+            if(!工具人)return;
             try{
                 //判假人是否存活
                 //瞎几把乱改接口名--2023-07-21-02：02
@@ -152,11 +153,13 @@ world.events.tick.subscribe(() => {//我()了，这也是一种不（）
                     return;
                 };
 
-                工具人.hasTag(攻击标识符)
-                ;;"为什么说屎山代码呢，因为一些莫名其妙的代码增加，它们实现的功能你是完全不知道的，可能修改后会导致另外一个你根本无法察觉的功能报错";;
-                ;;"可能是可控的，也可能是致命的";;
-                ;;"就像这里增加的两个return一样，表面作用都是跳过遍历中的这一次";;
-            }catch(e){return 工具人们[index]=null};;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                // 工具人.hasTag(攻击标识符)
+                // ;;"为什么说屎山代码呢，因为一些莫名其妙的代码增加，它们实现的功能你是完全不知道的，可能修改后会导致另外一个你根本无法察觉的功能报错";;
+                // ;;"可能是可控的，也可能是致命的";;
+                // ;;"就像这里增加的两个return一样，表面作用都是跳过遍历中的这一次";;
+            }catch(e){
+                '?'
+            };;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
             if(!工具人)return;
 
             // try{

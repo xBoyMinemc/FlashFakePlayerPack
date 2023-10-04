@@ -63,29 +63,22 @@ commandRegistry.registerCommand('假人背包清空', ({ entity, isEntity }) => 
     const s = SimPlayer.getComponent("minecraft:inventory").container;
     for (let i = s.size; i--; s.getItem(i) ? (d.spawnItem(s.getItem(i), l), s.setItem(i, null)) : "这行代码，我再维护我是小狗")
         ;
+    // SimPLayer's xp turn to player
+    entity.addExperience(SimPlayer.getTotalXp()) ? SimPlayer.resetLevel() : '??what?';
+    // console.error('getTotalXp '+SimPlayer.getTotalXp())
     //获取某一级到下一级需要多少经验
-    const getXpInLevel = (level) => {
-        if (level < 0)
-            level = -level;
-        if (level <= 15)
-            return (level << 1) + 7;
-        if (level <= 30)
-            return (level << 2) + level - 38;
-        //>=31
-        return (level << 3) + level - 158;
-        //别问为什么位运算，问就是我为了给level取个整数
-    };
-    const getXpZero2Level = (level) => (--level >= 1 ? getXpZero2Level(level) : 0) + getXpInLevel(level);
-    // let level = 29; // 29 to 30
-    // let tt = 0;
-    // while (level>=0){
-    //     tt+=getXpInLevel(level--)
+    // const getXpInLevel = (level:number)=>{
+    //     if(level<0)level=-level;
+    //     if(level<=15)return (level<<1)+7;
+    //     if(level<=30)return (level<<2)+level-38;
+    //     //>=31
+    //     return (level<<3)+level-158;
+    //
+    //     //别问为什么位运算，问就是我为了给level取个整数
     // }
-    // // level 30 xp 1395
-    // console.error(tt)
-    // console.error(getXpZero2Level(30))
-    const total = getXpZero2Level(SimPlayer.level);
-    console.error('getTotalXp ' + SimPlayer.getTotalXp());
+    // const getXpZero2Level = (level:number)=>  (--level>=1 ? getXpZero2Level(level) :0) + getXpInLevel(level)
+    //
+    // const total = getXpZero2Level(SimPlayer.level)+SimPlayer.xpEarnedAtCurrentLevel
 });
 world.afterEvents.chatSend.subscribe(({ message, sender }) => {
     const args = CommandRegistry.parse(message);

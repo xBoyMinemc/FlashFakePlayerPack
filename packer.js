@@ -4,11 +4,13 @@ const fs = require('fs');
 const archiver = require('archiver');
 const name = './bin/'+require('./manifest.json').header.name.replace(/§./g,'').replaceAll(/\./g,'-').trim()+'.mcpack'
 
+// make dir ./bin
 fs.existsSync('./bin')?0:fs.mkdirSync('bin')
 
+
 // 创建一个输出流，将ZIP文件写入到指定的文件中
-const output1 = fs.createWriteStream(name ?? 'example.zip');
-const output2 = fs.createWriteStream(name.replace('FlashFakePlayerPack','假人测试版') ?? 'example.zip');
+const output1 = fs.createWriteStream(  name ?? 'example.zip');
+const output2 = fs.createWriteStream(  name.replace('FlashFakePlayerPack','假人测试版') ?? 'example.zip');
 
 // 创建一个Archiver实例，将输出流传递给它
 const archive = archiver('zip', {
