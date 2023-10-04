@@ -1001,13 +1001,11 @@ world.events.tick.subscribe(() => {
             // };;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
         }
     }
-    finally { }
+    catch (毛病) {
+        if (debug)
+            overworld.runCommandAsync(`me ${毛病}`);
+    }
 });
-try { }
-catch (毛病) {
-    if (debug)
-        overworld.runCommandAsync(`me ${毛病}`);
-}
 world.events.fishingHookDespawned.subscribe(event => {
     if (debug)
         console.error("fishingHook Despawned");
