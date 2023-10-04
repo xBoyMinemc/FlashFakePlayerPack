@@ -15,6 +15,8 @@ const AUTO_BEHAV = () => {
                 SimPlayer.respawn();
             continue;
         }
+        if (SimPlayer.hasTag(SIGN.AUTO_JUMP_SIGN))
+            SimPlayer.jump();
         const EntitiesFromView = SimPlayer.getEntitiesFromViewDirection({ maxDistance: 4 })[0]?.entity;
         if (SimPlayer.hasTag(SIGN.ATTACK_SIGN) && EntitiesFromView)
             SimPlayer.attackEntity(EntitiesFromView);
