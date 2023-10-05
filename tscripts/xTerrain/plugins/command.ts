@@ -2,7 +2,13 @@ import type { Entity } from "@minecraft/server";
 import type { World } from "../../@types/globalThis";
 import type { SimulatedPlayer } from "@minecraft/server-gametest";
 import {Container, EntityEquippableComponent, EntityInventoryComponent, EquipmentSlot} from "@minecraft/server";
-import {spawnSimulatedPlayer, SimulatedPlayerList as 工具人们, GetPID, spawned as spawnedEvent} from "../main";
+import {
+    spawnSimulatedPlayer,
+    SimulatedPlayerList as 工具人们,
+    GetPID,
+    spawned as spawnedEvent,
+    SimulatedPlayerList
+} from "../main";
 
 import qrcode from "../../lib/qrcode-terminal/mod.js";
 
@@ -233,8 +239,11 @@ world.events.tick.subscribe(() => {//我()了，这也是一种不（）
 world.events.fishingHookDespawned.subscribe(event=>{
     if(debug)console.error("fishingHook Despawned")
     if(debug)world.sendMessage("me ##鱼钩销毁\u000a鱼钩id=>"+event.HookId+"\u000a发起者id=>"+event.Fisher.id);
+    for (const index in SimulatedPlayerList) {
+        const _ = SimulatedPlayerList[index]
 
-    工具人们.forEach(_=> !_?0:_.id===event.Fisher.id?event.fishingHookDespawned_TickArray.push(()=>(_.useItemInSlot(0)?_.stopUsingItem():0)):0)
+        !_?0:_.id===event.Fisher.id?event.fishingHookDespawned_TickArray.push(()=>(_.useItemInSlot(0)?_.stopUsingItem():0)):0
+    }
 })
 world.events.fishingHookSpawned.subscribe(event=>{
     if(debug)console.error("fishingHook Spawned")
