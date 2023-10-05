@@ -4,10 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="03abb361-6706-45ed-a79b-5c3c48504c42" name="更改" comment="update SIGN and task">
+    <list default="true" id="03abb361-6706-45ed-a79b-5c3c48504c42" name="更改" comment="v7">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tscripts/xTerrain/plugins/command.ts" beforeDir="false" afterPath="$PROJECT_DIR$/tscripts/xTerrain/plugins/command.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tscripts/xTerrain/plugins/task.ts" beforeDir="false" afterPath="$PROJECT_DIR$/tscripts/xTerrain/plugins/task.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/manifest.json" beforeDir="false" afterPath="$PROJECT_DIR$/manifest.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/xTerrain/plugins/breakBlock.js" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/xTerrain/plugins/breakBlock.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tscripts/xTerrain/plugins/breakBlock.ts" beforeDir="false" afterPath="$PROJECT_DIR$/tscripts/xTerrain/plugins/breakBlock.ts" afterDir="false" />
     </list>
     <list id="e6298618-3181-46c5-b774-8624634a09bf" name="PrairieFire2b 进行的更改" comment="" />
     <option name="SHOW_DIALOG" value="false" />
@@ -61,7 +62,7 @@
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "settings.sync",
+    "settings.editor.selected.configurable": "settings.json.schema",
     "ts.external.directory.path": "D:\\WebStorm\\WebStorm 2023.1.2\\plugins\\javascript-impl\\jsLanguageServicesImpl\\external",
     "vue.rearranger.settings.migration": "true"
   },
@@ -105,6 +106,7 @@
       <workItem from="1696314105710" duration="9123000" />
       <workItem from="1696345142460" duration="5556000" />
       <workItem from="1696401136388" duration="9927000" />
+      <workItem from="1696478180791" duration="1228000" />
     </task>
     <task id="LOCAL-00001" summary="better spawn">
       <option name="closed" value="true" />
@@ -362,7 +364,15 @@
       <option name="project" value="LOCAL" />
       <updated>1696436324879</updated>
     </task>
-    <option name="localTasksCounter" value="33" />
+    <task id="LOCAL-00033" summary="update manifest.json,add @minecraft/server-ui@1.2.0-beta">
+      <option name="closed" value="true" />
+      <created>1696478495699</created>
+      <option name="number" value="00033" />
+      <option name="presentableId" value="LOCAL-00033" />
+      <option name="project" value="LOCAL" />
+      <updated>1696478495699</updated>
+    </task>
+    <option name="localTasksCounter" value="34" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -399,6 +409,8 @@
     <MESSAGE value="v6" />
     <MESSAGE value="fix respawn" />
     <MESSAGE value="update SIGN and task" />
-    <option name="LAST_COMMIT_MESSAGE" value="update SIGN and task" />
+    <MESSAGE value="update manifest.json,add @minecraft/server-ui@1.2.0-beta" />
+    <MESSAGE value="v7" />
+    <option name="LAST_COMMIT_MESSAGE" value="v7" />
   </component>
 </project>

@@ -60,6 +60,6 @@ const breaks = ()=>{
             SimulatedPlayerList[simIndex].breakBlock(Vector.subtract(blockLocation, testWorldLocation))
     })
 }
-system.runInterval(()=>breaks(),3)
+system.runInterval(()=>breaks(),0)
 
 console.error('[假人]内置插件'+commandName+'加载成功')
