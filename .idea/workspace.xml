@@ -4,8 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="03abb361-6706-45ed-a79b-5c3c48504c42" name="更改" comment="list  command">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    <list default="true" id="03abb361-6706-45ed-a79b-5c3c48504c42" name="更改" comment="fix auto fishing">
       <change beforePath="$PROJECT_DIR$/tscripts/xTerrain/plugins/command.ts" beforeDir="false" afterPath="$PROJECT_DIR$/tscripts/xTerrain/plugins/command.ts" afterDir="false" />
     </list>
     <list id="e6298618-3181-46c5-b774-8624634a09bf" name="PrairieFire2b 进行的更改" comment="" />
@@ -104,7 +103,7 @@
       <workItem from="1696314105710" duration="9123000" />
       <workItem from="1696345142460" duration="5556000" />
       <workItem from="1696401136388" duration="9927000" />
-      <workItem from="1696478180791" duration="7026000" />
+      <workItem from="1696478180791" duration="7040000" />
     </task>
     <task id="LOCAL-00001" summary="better spawn">
       <option name="closed" value="true" />
@@ -402,7 +401,15 @@
       <option name="project" value="LOCAL" />
       <updated>1696492911768</updated>
     </task>
-    <option name="localTasksCounter" value="38" />
+    <task id="LOCAL-00038" summary="fix auto fishing">
+      <option name="closed" value="true" />
+      <created>1696492992509</created>
+      <option name="number" value="00038" />
+      <option name="presentableId" value="LOCAL-00038" />
+      <option name="project" value="LOCAL" />
+      <updated>1696492992509</updated>
+    </task>
+    <option name="localTasksCounter" value="39" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -444,6 +451,7 @@
     <MESSAGE value="before disconnect,turn res to player" />
     <MESSAGE value="respawn command" />
     <MESSAGE value="list  command" />
-    <option name="LAST_COMMIT_MESSAGE" value="list  command" />
+    <MESSAGE value="fix auto fishing" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix auto fishing" />
   </component>
 </project>

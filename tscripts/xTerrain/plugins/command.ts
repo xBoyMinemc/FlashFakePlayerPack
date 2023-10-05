@@ -252,7 +252,7 @@ world.events.fishingHookSpawned.subscribe(event=>{
 
 
 //扭头 /
-//挖掘 O
+//挖掘 /
 //放置 O
 
 
