@@ -1,4 +1,3 @@
-import { EquipmentSlot } from "@minecraft/server";
 import { SimulatedPlayerList as 工具人们 } from "../main";
 import SIGN from "../../lib/xboyPackage/YumeSignEnum";
 //
@@ -580,42 +579,41 @@ world.afterEvents.chatSend.subscribe(event => {
         //     // });
         // }
         // ;
-        if (消息 == "销毁") {
-            const _s = 眼前的工具人.getComponent("minecraft:equippable");
-            for (const i in EquipmentSlot) {
-                //跳过主手
-                if (i === "mainhand")
-                    continue;
-                const _ = _s.getEquipment(i);
-                _s.setEquipment(i, undefined);
-            }
-            const s = 眼前的工具人.getComponent("minecraft:inventory").container;
-            ;
-            ;
-            "眼前的假人实体背包";
-            ;
-            const l = sender.location;
-            const d = sender.dimension;
-            for (let i = 眼前的工具人.getComponent("minecraft:inventory").container.size; i--; s.getItem(i) ? (d.spawnItem(s.getItem(i), l), s.setItem(i, null)) : "这行代码，我再维护我是狗")
-                ;
-            眼前的工具人.sendMessage("§e§l-拜拜了您内" + 眼前的工具人);
-            眼前的工具人.disconnect();
-        }
-        ;
-        ;
-        "抓住未来!!";
-        if (消息.startsWith("销毁 ")) {
-            let temp = 消息.replace("销毁 ", "");
-            if (temp = Number(temp)) {
-                sender.sendMessage("§e§l-拜拜了您内");
-                工具人们[temp].disconnect();
-            }
-            ;
-            ;
-            "能用就行";
-            ;
-        }
-        ;
+        // if (消息 == "销毁") {
+        //     const _s = 眼前的工具人.getComponent("minecraft:equippable");
+        //     for (const i in EquipmentSlot) {
+        //         //跳过主手
+        //         if (i === "mainhand") continue;
+        //         const _ = _s.getEquipment(i);
+        //         _s.setEquipment(i, undefined);
+        //     }
+        //     const s = 眼前的工具人.getComponent("minecraft:inventory").container;
+        //     ;
+        //     ;"眼前的假人实体背包";
+        //     ;
+        //     const l = sender.location;
+        //     const d = sender.dimension;
+        //
+        //
+        //     for (let i = 眼前的工具人.getComponent("minecraft:inventory").container.size; i--; s.getItem(i) ? (d.spawnItem(s.getItem(i), l), s.setItem(i, null)) : "这行代码，我再维护我是狗") ;
+        //
+        //
+        //     眼前的工具人.sendMessage("§e§l-拜拜了您内" + 眼前的工具人)
+        //     眼前的工具人.disconnect()
+        // }
+        // ;
+        // ;"抓住未来!!";
+        // if (消息.startsWith("销毁 ")) {
+        //     let temp = 消息.replace("销毁 ", "");
+        //     if (temp = Number(temp)) {
+        //         sender.sendMessage("§e§l-拜拜了您内")
+        //         工具人们[temp].disconnect()
+        //     }
+        //     ;
+        //     ;"能用就行";
+        //     ;
+        // }
+        // ;
         // if (消息 == "github") {
         //     Math.random() > 0.5
         //         ?

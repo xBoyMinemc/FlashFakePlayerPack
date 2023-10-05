@@ -1,10 +1,11 @@
 import { getSimPlayer } from "../../lib/xboyPackage/Util";
 import { CommandRegistry } from "../../lib/yumeCommand/CommandRegistry";
 import { EquipmentSlot } from "@minecraft/server";
+import { SimulatedPlayerList } from "../main";
 // 后面还要重构一遍
 // const commandName1 = '假人背包交换'
 // const commandName2 = '假人装备交换'
-const commandName3 = '假人背包清空';
+// const commandName3 = '假人背包清空'
 // 首先注册命令
 const commandRegistry = new CommandRegistry();
 // commandRegistry.registerCommand(commandName1)
@@ -36,12 +37,12 @@ commandRegistry.registerCommand('假人装备交换', ({ entity, isEntity }) => 
         p.setEquipment(i, _);
     }
 });
-commandRegistry.registerCommand('假人背包清空', ({ entity, isEntity }) => {
+const returnResWithoutArgs = ({ entity, isEntity, sim }) => {
     if (!isEntity) {
         console.error('error not isEntity');
         return;
     }
-    const SimPlayer = getSimPlayer.formView(entity);
+    const SimPlayer = sim ?? getSimPlayer.formView(entity);
     if (!SimPlayer)
         return;
     const _s = SimPlayer.getComponent("minecraft:equippable");
@@ -64,22 +65,43 @@ commandRegistry.registerCommand('假人背包清空', ({ entity, isEntity }) => 
     for (let i = s.size; i--; s.getItem(i) ? (d.spawnItem(s.getItem(i), l), s.setItem(i, null)) : "这行代码，我再维护我是小狗")
         ;
     // SimPLayer's xp turn to player
-    entity.addExperience(SimPlayer.getTotalXp()) ? SimPlayer.resetLevel() : '??what?';
-    // console.error('getTotalXp '+SimPlayer.getTotalXp())
-    //获取某一级到下一级需要多少经验
-    // const getXpInLevel = (level:number)=>{
-    //     if(level<0)level=-level;
-    //     if(level<=15)return (level<<1)+7;
-    //     if(level<=30)return (level<<2)+level-38;
-    //     //>=31
-    //     return (level<<3)+level-158;
-    //
-    //     //别问为什么位运算，问就是我为了给level取个整数
-    // }
-    // const getXpZero2Level = (level:number)=>  (--level>=1 ? getXpZero2Level(level) :0) + getXpInLevel(level)
-    //
-    // const total = getXpZero2Level(SimPlayer.level)+SimPlayer.xpEarnedAtCurrentLevel
+    const total = SimPlayer.getTotalXp();
+    if (total !== 0) {
+        entity.sendMessage('xp +' + total),
+            entity.addExperience(total),
+            SimPlayer.resetLevel(),
+            entity.playSound('random.levelup');
+    }
+};
+commandRegistry.registerCommand('假人背包清空', returnResWithoutArgs);
+commandRegistry.registerAlias('假人资源回收', '假人背包清空');
+commandRegistry.registerCommand('假人销毁', ({ entity, isEntity, args }) => {
+    if (!isEntity) {
+        console.error('error not isEntity');
+        return;
+    }
+    if (args.length === 1) {
+        const SimPlayer = getSimPlayer.formView(entity);
+        if (!SimPlayer)
+            return entity.sendMessage("§e§l-面前不存在模拟玩家");
+        commandRegistry.executeCommand('假人背包清空', { args: ['假人背包清空'], entity, isEntity, sim: SimPlayer });
+        entity.sendMessage("§e§l-拜拜了您内");
+        SimPlayer.disconnect();
+    }
+    else {
+        const index = Number(args[1]);
+        if (typeof index !== 'number')
+            return entity?.sendMessage('[模拟玩家] 命令错误，期待数字却得到 ' + typeof Number(args[1]));
+        const SimPlayer = SimulatedPlayerList[index];
+        if (!SimPlayer)
+            return entity.sendMessage("§e§l-不存在模拟玩家" + index);
+        commandRegistry.executeCommand('假人背包清空', { args: ['假人背包清空'], entity, isEntity, sim: SimPlayer });
+        entity.sendMessage("§e§l-拜拜了您内");
+        SimPlayer.disconnect();
+    }
 });
+commandRegistry.registerAlias('假人移除', '假人销毁');
+commandRegistry.registerAlias('假人清除', '假人销毁');
 world.afterEvents.chatSend.subscribe(({ message, sender }) => {
     const args = CommandRegistry.parse(message);
     if (commandRegistry.commandsList.has(args[0]))
@@ -89,20 +111,3 @@ world.afterEvents.chatSend.subscribe(({ message, sender }) => {
 // youAreMine
 // ~
 console.error('[假人]内置插件youAreMine加载完成');
-const getXpInLevel = (level) => {
-    if (level < 0)
-        level = -level;
-    if (level <= 15)
-        return (level << 1) + 7;
-    if (level <= 30)
-        return (level << 2) + level - 38;
-    //>=31
-    return (level << 3) + level - 158;
-    //别问为什么位运算，问就是我为了给level取个整数
-};
-let level = 29;
-let tt = 0;
-while (level >= 0) {
-    tt += getXpInLevel(level--);
-}
-console.log(tt);

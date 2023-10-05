@@ -1,5 +1,8 @@
 import {Dimension, type Entity, Player, Vector3} from "@minecraft/server";
+import {SimulatedPlayer} from "@minecraft/server-gametest";
 
+export type commandInfo = {args: string[], entity: Player, location?: Vector3, isEntity: boolean, sim?: SimulatedPlayer}
+    // | Player | Dimension | Entity
 // Parse command
 export function commandParse(command:string):string[] {
     const tokens = [];
@@ -59,7 +62,7 @@ export class CommandRegistry {
     }
 
     // registerCommand
-    registerCommand(commandName:string, callback?:Function) {
+    registerCommand(commandName:string, callback?:(commandInfoObject:commandInfo)=>void) {
         if(!callback)
             return this.commandsRegistryMap.set(commandName,new Set());
         if(this.alias.has(commandName))
@@ -71,7 +74,7 @@ export class CommandRegistry {
         return this.commandsRegistryMap.get(commandName).add(callback);
     }
     // executeCommand
-    executeCommand(commandName:string, commandInfo:{args:string[],entity:Entity|Player|Dimension,location?:Vector3,isEntity:boolean}) {
+    executeCommand(commandName:string, commandInfo:commandInfo) {
         this.commandsRegistryMap.get(
             this.alias.get(commandName)??commandName
         )?.forEach((callback:Function) => callback(commandInfo) )

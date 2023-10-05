@@ -1,6 +1,6 @@
 {
   "scripts": {
-    "watch": "cd  . && tsc -w",
+    "watch": "cd . && tsc -w",
     "build": "cd . && node packer.js"
   },
   "dependencies": {

@@ -1,3 +1,4 @@
+// | Player | Dimension | Entity
 // Parse command
 export function commandParse(command) {
     const tokens = [];
