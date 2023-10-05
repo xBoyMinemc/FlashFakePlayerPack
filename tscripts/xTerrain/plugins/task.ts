@@ -11,7 +11,10 @@ const AUTO_BEHAV = ()=>{
         const SimPlayer:SimulatedPlayer = SimulatedPlayerList[index]
 
         //判假人是否存在
-        if(!SimPlayer)continue;
+        if(!SimPlayer || !SimPlayer.isValid()){
+            SimulatedPlayerList[index]=null
+            continue
+        }
         //判假人是否存活
         //瞎糊乱改接口名--2023-07-21-02：02
         if((<EntityHealthComponent>SimPlayer.getComponent("minecraft:health")).currentValue<=0){

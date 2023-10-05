@@ -102,6 +102,35 @@ commandRegistry.registerCommand('假人销毁', ({ entity, isEntity, args }) => 
 });
 commandRegistry.registerAlias('假人移除', '假人销毁');
 commandRegistry.registerAlias('假人清除', '假人销毁');
+commandRegistry.registerCommand('假人重生', ({ entity, isEntity, args }) => {
+    if (!isEntity && args.length === 1) {
+        console.error('error not isEntity');
+        return;
+    }
+    if (args.length === 1) {
+        ;
+        ;
+        "对准~";
+        ;
+        const SimPlayer = getSimPlayer.formView(entity);
+        if (!SimPlayer)
+            return entity.sendMessage("§e§l-你不要怀疑，10000%是你没对准，如果假人真躺了的话"); //entity.sendMessage("§e§l-面前不存在模拟玩家")
+        SimPlayer.respawn();
+    }
+    else {
+        ;
+        ;
+        "云梦知道有人对不准，所以给你做了指向性的功能，输入假人序号即可";
+        ;
+        const index = Number(args[1]);
+        if (typeof index !== 'number')
+            return entity?.sendMessage('[模拟玩家] 命令错误，期待数字却得到 ' + typeof Number(args[1]));
+        const SimPlayer = SimulatedPlayerList[index];
+        if (!SimPlayer)
+            return entity.sendMessage("§e§l-不存在模拟玩家" + index);
+        SimPlayer.respawn();
+    }
+});
 world.afterEvents.chatSend.subscribe(({ message, sender }) => {
     const args = CommandRegistry.parse(message);
     if (commandRegistry.commandsList.has(args[0]))

@@ -538,31 +538,28 @@ world.afterEvents.chatSend.subscribe(event => {
         ;
         "希望你对中文编程没意见，有也给我保留";
         ;
-        if (消息 == "重生") {
-            ;
-            ;
-            "对准~";
-            ;
-            if (!眼前的工具人)
-                sender.sendMessage("§e§l-你不要怀疑，10000%是你没对准，如果假人真躺了的话");
-            眼前的工具人.respawn();
-        }
-        ;
-        if (消息.startsWith("重生 ")) {
-            ;
-            ;
-            "云梦知道有人对不准，所以给你做了指向性的功能，输入假人序号即可";
-            ;
-            let temp = 消息.replace("重生 ", "");
-            if (temp = Number(temp)) {
-                工具人们[temp].respawn();
-            }
-            ;
-            ;
-            "能用就行";
-            ;
-        }
-        ;
+        // if (消息 == "重生") {
+        //     ;
+        //     ;"对准~";
+        //     ;
+        //     if (!眼前的工具人) sender.sendMessage("§e§l-你不要怀疑，10000%是你没对准，如果假人真躺了的话")
+        //     眼前的工具人.respawn()
+        // }
+        // ;
+        // if (消息.startsWith("重生 ")) {
+        //     ;
+        //     ;"云梦知道有人对不准，所以给你做了指向性的功能，输入假人序号即可";
+        //     ;
+        //     let temp = 消息.replace("重生 ", "");
+        //
+        //     if (temp = Number(temp)) {
+        //         工具人们[temp].respawn()
+        //     }
+        //     ;
+        //     ;"能用就行";
+        //     ;
+        // }
+        // ;
         // if (消息.startsWith("批量 ")) {
         //     let temp = 消息.replace("批量 ", "");
         //     if (temp = Number(temp))
