@@ -433,13 +433,6 @@ world.afterEvents.chatSend.subscribe(event => {
         xboy("停止")([])([SIGN.ATTACK_SIGN, SIGN.AUTO_ATTACK_SIGN, SIGN.AUTO_JUMP_SIGN]);
         xboy("开摆")([])([SIGN.ATTACK_SIGN, SIGN.AUTO_ATTACK_SIGN, SIGN.AUTO_JUMP_SIGN]);
         xboy("自动重生")([SIGN.AUTO_RESPAWN_SIGN])([]);
-        if (消息 == "列表") {
-            for (let i in 工具人们)
-                if (工具人们[i])
-                    发起者.sendMessage(`§e§l-序号：${i} ## 生成名称: ${工具人们[i].name}`);
-            return;
-        }
-        ;
         // if (消息 == "交换背包" || 消息 == "背包交换") {
         //     const s = 眼前的工具人.getComponent("minecraft:inventory").container;
         //     ;

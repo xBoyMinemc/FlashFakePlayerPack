@@ -131,6 +131,11 @@ commandRegistry.registerCommand('假人重生', ({ entity, isEntity, args }) => 
         SimPlayer.respawn();
     }
 });
+commandRegistry.registerCommand('假人列表', () => {
+    for (const index in SimulatedPlayerList)
+        if (SimulatedPlayerList[index])
+            world.sendMessage(`§e§l-序号：${index} ## 生成名称: ${SimulatedPlayerList[index].name}`);
+});
 world.afterEvents.chatSend.subscribe(({ message, sender }) => {
     const args = CommandRegistry.parse(message);
     if (commandRegistry.commandsList.has(args[0]))

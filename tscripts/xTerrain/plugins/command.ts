@@ -233,6 +233,7 @@ world.events.tick.subscribe(() => {//我()了，这也是一种不（）
 world.events.fishingHookDespawned.subscribe(event=>{
     if(debug)console.error("fishingHook Despawned")
     if(debug)world.sendMessage("me ##鱼钩销毁\u000a鱼钩id=>"+event.HookId+"\u000a发起者id=>"+event.Fisher.id);
+
     工具人们.forEach(_=> !_?0:_.id===event.Fisher.id?event.fishingHookDespawned_TickArray.push(()=>(_.useItemInSlot(0)?_.stopUsingItem():0)):0)
 })
 world.events.fishingHookSpawned.subscribe(event=>{
@@ -274,10 +275,10 @@ world.afterEvents.chatSend.subscribe( event => {
             xboy("开摆")([])([SIGN.ATTACK_SIGN, SIGN.AUTO_ATTACK_SIGN, SIGN.AUTO_JUMP_SIGN])
             xboy("自动重生")([SIGN.AUTO_RESPAWN_SIGN])([])
 
-            if (消息 == "列表") {
-                for (let i in 工具人们) if (工具人们[i]) 发起者.sendMessage(`§e§l-序号：${i} ## 生成名称: ${工具人们[i].name}`);
-                return;
-            }
+            // if (消息 == "列表") {
+            //     for (let i in 工具人们) if (工具人们[i]) 发起者.sendMessage(`§e§l-序号：${i} ## 生成名称: ${工具人们[i].name}`);
+            //     return;
+            // }
             ;
             // if (消息 == "交换背包" || 消息 == "背包交换") {
             //     const s = 眼前的工具人.getComponent("minecraft:inventory").container;
