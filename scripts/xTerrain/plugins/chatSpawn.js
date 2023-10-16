@@ -61,4 +61,4 @@ world.afterEvents.chatSend.subscribe(({ message, sender }) => {
     if (commandRegistry.commandsList.has(cmdArgs[0]))
         commandRegistry.executeCommand(cmdArgs[0], { entity: sender, isEntity: true, args: cmdArgs });
 });
-console.error('[假人]内置插件chatSpawn加载成功');
+// console.error('[假人]内置插件chatSpawn加载成功')

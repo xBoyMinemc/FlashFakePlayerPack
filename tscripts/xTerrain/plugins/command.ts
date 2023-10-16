@@ -4,10 +4,10 @@ import type { SimulatedPlayer } from "@minecraft/server-gametest";
 import {Container, EntityEquippableComponent, EntityInventoryComponent, EquipmentSlot} from "@minecraft/server";
 import {
     spawnSimulatedPlayer,
+    SimulatedPlayerList,
     SimulatedPlayerList as 工具人们,
     GetPID,
     spawned as spawnedEvent,
-    SimulatedPlayerList
 } from "../main";
 
 import qrcode from "../../lib/qrcode-terminal/mod.js";
@@ -519,4 +519,4 @@ world.afterEvents.chatSend.subscribe( event => {
 })
 
 
-console.error('[假人]内置插件command加载成功')
+// console.error('[假人]内置插件command加载成功')

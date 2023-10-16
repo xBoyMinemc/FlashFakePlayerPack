@@ -1,4 +1,4 @@
-import { SimulatedPlayerList as 工具人们 } from "../main";
+import { SimulatedPlayerList, SimulatedPlayerList as 工具人们, } from "../main";
 import SIGN from "../../lib/xboyPackage/YumeSignEnum";
 //
 // import {BlockLocation} from "../../@types/globalThis";
@@ -398,7 +398,10 @@ world.events.fishingHookDespawned.subscribe(event => {
         console.error("fishingHook Despawned");
     if (debug)
         world.sendMessage("me ##鱼钩销毁\u000a鱼钩id=>" + event.HookId + "\u000a发起者id=>" + event.Fisher.id);
-    工具人们.forEach(_ => !_ ? 0 : _.id === event.Fisher.id ? event.fishingHookDespawned_TickArray.push(() => (_.useItemInSlot(0) ? _.stopUsingItem() : 0)) : 0);
+    for (const index in SimulatedPlayerList) {
+        const _ = SimulatedPlayerList[index];
+        !_ ? 0 : _.id === event.Fisher.id ? event.fishingHookDespawned_TickArray.push(() => (_.useItemInSlot(0) ? _.stopUsingItem() : 0)) : 0;
+    }
 });
 world.events.fishingHookSpawned.subscribe(event => {
     if (debug)
@@ -407,7 +410,7 @@ world.events.fishingHookSpawned.subscribe(event => {
         world.sendMessage("me ##鱼钩生成\u000a鱼钩id=>" + event.HookId + "\u000a发起者id=>" + event.Fisher.id);
 });
 //扭头 /
-//挖掘 O
+//挖掘 /
 //放置 O
 world.afterEvents.chatSend.subscribe(event => {
     try {
@@ -660,4 +663,4 @@ world.afterEvents.chatSend.subscribe(event => {
         console.error('[假人]内置插件command error ' + e);
     }
 });
-console.error('[假人]内置插件command加载成功');
+// console.error('[假人]内置插件command加载成功')

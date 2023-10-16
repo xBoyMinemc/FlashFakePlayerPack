@@ -177,4 +177,4 @@ world.afterEvents.chatSend.subscribe(({message, sender})=> {
 // 你懂的~
 // youAreMine
 // ~
-console.error('[假人]内置插件youAreMine加载完成')
+// console.error('[假人]内置插件youAreMine加载完成')

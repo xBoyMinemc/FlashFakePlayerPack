@@ -2,7 +2,8 @@ import {Dimension, type Entity, Player, Vector3} from "@minecraft/server";
 import {SimulatedPlayer} from "@minecraft/server-gametest";
 
 export type commandInfo = {args: string[], entity: Player, location?: Vector3, isEntity: boolean, sim?: SimulatedPlayer}
-    // | Player | Dimension | Entity
+// | Player | Dimension | Entity
+export type commandInfoNoArgs = {entity: Player, location?: Vector3, isEntity: boolean, sim?: SimulatedPlayer}
 // Parse command
 export function commandParse(command:string):string[] {
     const tokens = [];
@@ -74,10 +75,11 @@ export class CommandRegistry {
         return this.commandsRegistryMap.get(commandName).add(callback);
     }
     // executeCommand
-    executeCommand(commandName:string, commandInfo:commandInfo) {
+    executeCommand(commandName:string, cmdInfo:commandInfo) {
         this.commandsRegistryMap.get(
             this.alias.get(commandName)??commandName
-        )?.forEach((callback:Function) => callback(commandInfo) )
+        )?.forEach((callback:Function) => callback(cmdInfo) )
+        // 感谢 .?  我不需要为判空做try-catch
 
         // if (this.commands.has(commandName)){
         //     const callbacks = this.commands.get(commandName);
@@ -86,7 +88,10 @@ export class CommandRegistry {
         // else
         //     console.error(`Command "${commandName}" not found.`);
     }
-
+    execute(commandText:string,cmdInfo:commandInfoNoArgs){
+        const args = CommandRegistry.parse(commandText)
+        this.executeCommand(args[0],{...cmdInfo,args})
+    }
     // removeCommand
     removeCommand(commandName:string, callback:Function) {
         if(callback)

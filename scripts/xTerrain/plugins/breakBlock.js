@@ -3,10 +3,7 @@ import { CommandRegistry } from '../../lib/yumeCommand/CommandRegistry';
 import { getSimPlayer } from '../../lib/xboyPackage/Util';
 import { system, Vector } from "@minecraft/server";
 export const BreakBlockSimulatedPlayerList = new Set();
-const commandName = '假人挖掘';
 const commandRegistry = new CommandRegistry();
-commandRegistry.registerCommand(commandName);
-//
 const noArgs = ({ args, entity, isEntity }) => {
     if (args.length !== 1)
         return;
@@ -15,19 +12,19 @@ const noArgs = ({ args, entity, isEntity }) => {
     const SimPlayer = getSimPlayer.formView(entity);
     if (!SimPlayer)
         return;
-    // const v2ray = ({x,y,z})=>({x,y,z})
-    // getCoordinatesFromView(SimPlayer)
     for (const i in SimulatedPlayerList)
         if (SimulatedPlayerList[i] === SimPlayer)
             BreakBlockSimulatedPlayerList.add(i);
-    console.error('[假人]内置插件' + commandName + '执行成功');
+    // console.error('[假人]内置插件'+'假人挖掘'+'执行成功')
 };
-commandRegistry.registerCommand(commandName, noArgs);
+commandRegistry.registerCommand('假人挖掘', noArgs);
 world.afterEvents.chatSend.subscribe(({ message, sender }) => {
-    if (message !== commandName)
-        return;
-    commandRegistry.executeCommand(commandName, { entity: sender, isEntity: true, args: CommandRegistry.parse(message) });
+    // const cmdArgs = CommandRegistry.parse(message)
+    // if(commandRegistry.commandsList.has(cmdArgs[0]))
+    //     commandRegistry.executeCommand(cmdArgs[0],{entity:sender,isEntity:true,args:cmdArgs})
+    commandRegistry.execute(message, { entity: sender, isEntity: true });
 });
+// task
 const breaks = () => {
     // TEST
     // for (let simulatedPlayerListKey in SimulatedPlayerList) {
@@ -43,5 +40,5 @@ const breaks = () => {
             SimulatedPlayerList[simIndex].breakBlock(Vector.subtract(blockLocation, testWorldLocation));
     });
 };
-system.runInterval(() => breaks(), 0);
-console.error('[假人]内置插件' + commandName + '加载成功');
+system.runInterval(breaks, 0);
+// console.error('[假人]内置插件'+commandName+'加载成功')

@@ -74,4 +74,4 @@ world.afterEvents.chatSend.subscribe(({message, sender})=>{
 })
 
 
-console.error('[假人]内置插件help加载成功')
+// console.error('[假人]内置插件help加载成功')

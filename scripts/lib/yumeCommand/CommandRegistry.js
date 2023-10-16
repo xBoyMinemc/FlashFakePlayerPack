@@ -1,4 +1,3 @@
-// | Player | Dimension | Entity
 // Parse command
 export function commandParse(command) {
     const tokens = [];
@@ -60,14 +59,19 @@ export class CommandRegistry {
         return this.commandsRegistryMap.get(commandName).add(callback);
     }
     // executeCommand
-    executeCommand(commandName, commandInfo) {
-        this.commandsRegistryMap.get(this.alias.get(commandName) ?? commandName)?.forEach((callback) => callback(commandInfo));
+    executeCommand(commandName, cmdInfo) {
+        this.commandsRegistryMap.get(this.alias.get(commandName) ?? commandName)?.forEach((callback) => callback(cmdInfo));
+        // 感谢 .?  我不需要为判空做try-catch
         // if (this.commands.has(commandName)){
         //     const callbacks = this.commands.get(commandName);
         //     callbacks.forEach((callback:Function) => callback(...args) );
         // }
         // else
         //     console.error(`Command "${commandName}" not found.`);
+    }
+    execute(commandText, cmdInfo) {
+        const args = CommandRegistry.parse(commandText);
+        this.executeCommand(args[0], { ...cmdInfo, args });
     }
     // removeCommand
     removeCommand(commandName, callback) {

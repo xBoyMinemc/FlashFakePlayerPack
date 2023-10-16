@@ -4,8 +4,26 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="03abb361-6706-45ed-a79b-5c3c48504c42" name="更改" comment="fix auto fishing">
+    <list default="true" id="03abb361-6706-45ed-a79b-5c3c48504c42" name="更改" comment="todo /">
+      <change afterPath="$PROJECT_DIR$/tscripts/lib/xboyEvents/move.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/lib/xboyEvents/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/lib/xboyEvents/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/lib/yumeCommand/CommandRegistry.js" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/lib/yumeCommand/CommandRegistry.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/xTerrain/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/xTerrain/main.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/xTerrain/plugins/breakBlock.js" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/xTerrain/plugins/breakBlock.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/xTerrain/plugins/chatSpawn.js" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/xTerrain/plugins/chatSpawn.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/xTerrain/plugins/command.js" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/xTerrain/plugins/command.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/xTerrain/plugins/help.js" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/xTerrain/plugins/help.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/xTerrain/plugins/youAreMine.js" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/xTerrain/plugins/youAreMine.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tscripts/@types/globalThis.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/tscripts/@types/globalThis.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tscripts/lib/xboyEvents/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/tscripts/lib/xboyEvents/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tscripts/lib/yumeCommand/CommandRegistry.ts" beforeDir="false" afterPath="$PROJECT_DIR$/tscripts/lib/yumeCommand/CommandRegistry.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tscripts/xTerrain/main.ts" beforeDir="false" afterPath="$PROJECT_DIR$/tscripts/xTerrain/main.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tscripts/xTerrain/plugins/breakBlock.ts" beforeDir="false" afterPath="$PROJECT_DIR$/tscripts/xTerrain/plugins/breakBlock.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tscripts/xTerrain/plugins/chatSpawn.ts" beforeDir="false" afterPath="$PROJECT_DIR$/tscripts/xTerrain/plugins/chatSpawn.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/tscripts/xTerrain/plugins/command.ts" beforeDir="false" afterPath="$PROJECT_DIR$/tscripts/xTerrain/plugins/command.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tscripts/xTerrain/plugins/help.ts" beforeDir="false" afterPath="$PROJECT_DIR$/tscripts/xTerrain/plugins/help.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tscripts/xTerrain/plugins/youAreMine.ts" beforeDir="false" afterPath="$PROJECT_DIR$/tscripts/xTerrain/plugins/youAreMine.ts" afterDir="false" />
     </list>
     <list id="e6298618-3181-46c5-b774-8624634a09bf" name="PrairieFire2b 进行的更改" comment="" />
     <option name="SHOW_DIALOG" value="false" />
@@ -46,29 +64,31 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "codeWithMe.voiceChat.enabledByDefault": "false",
-    "git-widget-placeholder": "1.20.30-dev",
-    "last_opened_file_path": "C:/Users/yume/AppData/Local/Packages/Microsoft.MinecraftUWP_8wekyb3d8bbwe/LocalState/games/com.mojang/minecraftWorlds/假人1-20-30/behavior_packs/FlashFakePlayerPack/tscripts/lib/xboyPackage/SIGN_ENUM.ts",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "settings.sync",
-    "ts.external.directory.path": "D:\\WebStorm\\WebStorm 2023.1.2\\plugins\\javascript-impl\\jsLanguageServicesImpl\\external",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Notification.DisplayName-DoNotAsk-Translation Plugin&quot;: &quot;Translation Plugin&quot;,
+    &quot;Notification.DoNotAsk-Translation Plugin&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;codeWithMe.voiceChat.enabledByDefault&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;1.20.30-dev&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/yume/AppData/Local/Packages/Microsoft.MinecraftUWP_8wekyb3d8bbwe/LocalState/games/com.mojang/minecraftWorlds/假人1-20-30/behavior_packs/FlashFakePlayerPack/tscripts/lib/xboyPackage/SIGN_ENUM.ts&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;settings.sync&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;D:\\WebStorm\\WebStorm 2023.1.2\\plugins\\javascript-impl\\jsLanguageServicesImpl\\external&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   },
-  "keyToStringList": {
-    "com.intellij.ide.scratch.ScratchImplUtil$2/新建临时文件": [
-      "ECMA Script Level 4"
+  &quot;keyToStringList&quot;: {
+    &quot;com.intellij.ide.scratch.ScratchImplUtil$2/新建临时文件&quot;: [
+      &quot;ECMA Script Level 4&quot;
     ]
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\yume\AppData\Local\Packages\Microsoft.MinecraftUWP_8wekyb3d8bbwe\LocalState\games\com.mojang\minecraftWorlds\假人1-20-30\behavior_packs\FlashFakePlayerPack\tscripts\lib\xboyPackage\scoreBase" />
@@ -103,7 +123,15 @@
       <workItem from="1696314105710" duration="9123000" />
       <workItem from="1696345142460" duration="5556000" />
       <workItem from="1696401136388" duration="9927000" />
-      <workItem from="1696478180791" duration="7040000" />
+      <workItem from="1696478180791" duration="8489000" />
+      <workItem from="1696597551493" duration="9241000" />
+      <workItem from="1696689167625" duration="597000" />
+      <workItem from="1696818158310" duration="7159000" />
+      <workItem from="1696948822432" duration="609000" />
+      <workItem from="1697125116947" duration="105000" />
+      <workItem from="1697194960485" duration="614000" />
+      <workItem from="1697356832937" duration="492000" />
+      <workItem from="1697430603876" duration="549000" />
     </task>
     <task id="LOCAL-00001" summary="better spawn">
       <option name="closed" value="true" />
@@ -409,11 +437,30 @@
       <option name="project" value="LOCAL" />
       <updated>1696492992509</updated>
     </task>
-    <option name="localTasksCounter" value="39" />
+    <task id="LOCAL-00039" summary="todo /">
+      <option name="closed" value="true" />
+      <created>1696493024476</created>
+      <option name="number" value="00039" />
+      <option name="presentableId" value="LOCAL-00039" />
+      <option name="project" value="LOCAL" />
+      <updated>1696493024476</updated>
+    </task>
+    <option name="localTasksCounter" value="40" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.History.Properties">
+    <option name="COLUMN_ID_ORDER">
+      <list>
+        <option value="Default.Root" />
+        <option value="Default.Author" />
+        <option value="Default.Date" />
+        <option value="Default.Subject" />
+        <option value="Space.CommitStatus" />
+      </list>
+    </option>
   </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
@@ -427,7 +474,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="better spawn" />
     <MESSAGE value="try to fix Event fishingHookSpawned" />
     <MESSAGE value="CommandRegistry and new chatSpawn.ts" />
     <MESSAGE value="getCoordinatesFromView" />
@@ -452,6 +498,7 @@
     <MESSAGE value="respawn command" />
     <MESSAGE value="list  command" />
     <MESSAGE value="fix auto fishing" />
-    <option name="LAST_COMMIT_MESSAGE" value="fix auto fishing" />
+    <MESSAGE value="todo /" />
+    <option name="LAST_COMMIT_MESSAGE" value="todo /" />
   </component>
 </project>

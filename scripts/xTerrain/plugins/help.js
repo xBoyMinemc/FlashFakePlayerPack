@@ -44,4 +44,4 @@ world.afterEvents.chatSend.subscribe(({ message, sender }) => {
     if (commandRegistry.commandsList.has(args[0]))
         commandRegistry.executeCommand(args[0], { entity: sender, isEntity: true, args });
 });
-console.error('[假人]内置插件help加载成功');
+// console.error('[假人]内置插件help加载成功')
