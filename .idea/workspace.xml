@@ -4,26 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="03abb361-6706-45ed-a79b-5c3c48504c42" name="更改" comment="todo /">
-      <change afterPath="$PROJECT_DIR$/tscripts/lib/xboyEvents/move.ts" afterDir="false" />
+    <list default="true" id="03abb361-6706-45ed-a79b-5c3c48504c42" name="更改" comment="before v8 amd fix spwan">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/lib/xboyEvents/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/lib/xboyEvents/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/lib/yumeCommand/CommandRegistry.js" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/lib/yumeCommand/CommandRegistry.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/scripts/xTerrain/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/xTerrain/main.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/xTerrain/plugins/breakBlock.js" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/xTerrain/plugins/breakBlock.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/xTerrain/plugins/chatSpawn.js" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/xTerrain/plugins/chatSpawn.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/xTerrain/plugins/command.js" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/xTerrain/plugins/command.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/xTerrain/plugins/help.js" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/xTerrain/plugins/help.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/xTerrain/plugins/youAreMine.js" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/xTerrain/plugins/youAreMine.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tscripts/@types/globalThis.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/tscripts/@types/globalThis.d.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tscripts/lib/xboyEvents/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/tscripts/lib/xboyEvents/index.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tscripts/lib/yumeCommand/CommandRegistry.ts" beforeDir="false" afterPath="$PROJECT_DIR$/tscripts/lib/yumeCommand/CommandRegistry.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/tscripts/xTerrain/main.ts" beforeDir="false" afterPath="$PROJECT_DIR$/tscripts/xTerrain/main.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tscripts/xTerrain/plugins/breakBlock.ts" beforeDir="false" afterPath="$PROJECT_DIR$/tscripts/xTerrain/plugins/breakBlock.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tscripts/xTerrain/plugins/chatSpawn.ts" beforeDir="false" afterPath="$PROJECT_DIR$/tscripts/xTerrain/plugins/chatSpawn.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tscripts/xTerrain/plugins/command.ts" beforeDir="false" afterPath="$PROJECT_DIR$/tscripts/xTerrain/plugins/command.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tscripts/xTerrain/plugins/help.ts" beforeDir="false" afterPath="$PROJECT_DIR$/tscripts/xTerrain/plugins/help.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tscripts/xTerrain/plugins/youAreMine.ts" beforeDir="false" afterPath="$PROJECT_DIR$/tscripts/xTerrain/plugins/youAreMine.ts" afterDir="false" />
     </list>
     <list id="e6298618-3181-46c5-b774-8624634a09bf" name="PrairieFire2b 进行的更改" comment="" />
     <option name="SHOW_DIALOG" value="false" />
@@ -131,7 +115,10 @@
       <workItem from="1697125116947" duration="105000" />
       <workItem from="1697194960485" duration="614000" />
       <workItem from="1697356832937" duration="492000" />
-      <workItem from="1697430603876" duration="549000" />
+      <workItem from="1697430603876" duration="1694000" />
+      <workItem from="1697465979728" duration="593000" />
+      <workItem from="1697559025500" duration="17000" />
+      <workItem from="1697684774839" duration="2540000" />
     </task>
     <task id="LOCAL-00001" summary="better spawn">
       <option name="closed" value="true" />
@@ -445,7 +432,15 @@
       <option name="project" value="LOCAL" />
       <updated>1696493024476</updated>
     </task>
-    <option name="localTasksCounter" value="40" />
+    <task id="LOCAL-00040" summary="before v8 amd fix spwan">
+      <option name="closed" value="true" />
+      <created>1697431291819</created>
+      <option name="number" value="00040" />
+      <option name="presentableId" value="LOCAL-00040" />
+      <option name="project" value="LOCAL" />
+      <updated>1697431291819</updated>
+    </task>
+    <option name="localTasksCounter" value="41" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -474,7 +469,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="try to fix Event fishingHookSpawned" />
     <MESSAGE value="CommandRegistry and new chatSpawn.ts" />
     <MESSAGE value="getCoordinatesFromView" />
     <MESSAGE value="breakBlock.ts" />
@@ -499,6 +493,7 @@
     <MESSAGE value="list  command" />
     <MESSAGE value="fix auto fishing" />
     <MESSAGE value="todo /" />
-    <option name="LAST_COMMIT_MESSAGE" value="todo /" />
+    <MESSAGE value="before v8 amd fix spwan" />
+    <option name="LAST_COMMIT_MESSAGE" value="before v8 amd fix spwan" />
   </component>
 </project>

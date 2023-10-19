@@ -15,7 +15,8 @@ import verify from '../lib/xboyPackage/scoreBase/verifyDataBase'
 import ScoreBase from '../lib/xboyPackage/scoreBase/rw';
 import EventSignal from '../lib/xboyEvents/EventSignal';
 
-import { SIGN } from "../lib/xboyPackage/YumeSignEnum";    ;;"假人标签";;
+import { SIGN } from "../lib/xboyPackage/YumeSignEnum";
+import {system} from "@minecraft/server";
 
 declare const world: World
 
@@ -36,11 +37,14 @@ const GetPID = ()=>{
 
     return value
 }
+
 export const initialized : initializedEventSignal = new EventSignal<initializedEvent>()
 export const spawned : spawnedEventSignal = new EventSignal<spawnedEvent>()
 // spawned.subscribe(({spawnedSimulatedPlayer})=>{
 //         // SimulatedPlayerList.push(spawnedSimulatedPlayer)
 // })
+
+
 
 
 register("我是云梦", "假人", (test:Test) => {
@@ -54,8 +58,6 @@ register("我是云梦", "假人", (test:Test) => {
         // const y2 = { x: 0, y: 2, z: 0 }
         // overworld.sendMessage('pid=>'+pid)
         // const dimensionLocation : DimensionLocation = {...location,dimension}
-
-        // 生成模拟玩家
         const SimulatedPlayer = test.spawnSimulatedPlayer({ x:0, y:2, z:0 }, `工具人-${pid}`)
         SimulatedPlayer.addTag('init')
         SimulatedPlayer.addTag(SIGN.YUME_SIM_SIGN)
@@ -63,7 +65,6 @@ register("我是云梦", "假人", (test:Test) => {
 
         // SimulatedPlayer.runCommand("tp @a @s")
         SimulatedPlayer.setSpawnPoint({...location,dimension})
-        // tp到指定地点
         SimulatedPlayer.teleport(location, { dimension })
         // SimulatedPlayerList.push(SimulatedPlayer)
         return SimulatedPlayer
@@ -71,12 +72,12 @@ register("我是云梦", "假人", (test:Test) => {
 
     console.error('[假人] init一次')
 })
-    .maxTicks(tickWaitTimes)
-    // .maxTicks(2)
-    // .maxAttempts(tickWaitTimes)
-    // .requiredSuccessfulAttempts(tickWaitTimes)
-    // .padding(0)
-    .structureName("xboyMinemcSIM:void")
+.maxTicks(tickWaitTimes)
+.structureName("xboyMinemcSIM:void")
+// .maxTicks(2)
+// .maxAttempts(tickWaitTimes)
+// .requiredSuccessfulAttempts(tickWaitTimes)
+// .padding(0)
 
     initialized.subscribe(()=> console.error('[假人]初始化完毕，开始加载内置插件') );
     initialized.subscribe(()=>[
@@ -102,79 +103,116 @@ let initCounter = 5
 function init() {
         // Limit the number of retries
         if(--initCounter<0){
-            world.sendMessage('[模拟玩家] 初始化失败，尝试输入reload')
-            world.events.tick.unsubscribe(init)
+            world.sendMessage('[模拟玩家] 初始化失败，尝试输入reload'+initCounter)
         }
 
     const players = world.getAllPlayers()
     if (players.length === 0) return;
+    const player = players[0]
+    const {x,y,z} = player.location
+    const dimension = player.dimension
 
-    world.events.tick.unsubscribe(init)
     // -使用try实体完成区域加载
-    overworld.runCommandAsync('summon yumecraft:ceyk 30000000 128 0 -1 -1 null try')
-        .then(
-            (CommandResult) => {
-                console.error("[模拟玩家] 初始化检查开始")
+     const ceykTry = dimension.spawnEntity('yumecraft:ceyk',{x,y:dimension.heightRange.max,z})
+           ceykTry.nameTag = 'try'
 
-                // -检测0号ceyk(tag:init)实体以及坐标
-                const ceykList = overworld.getEntities({ type: 'yumecraft:ceyk', tags: ['init'] })
-                // world.sendMessage('[模拟玩家] ceykList[init].length ==>'+overworld.getEntities({type:'yumecraft:ceyk',tags:['init']}).length)
+    system.run(  ()=>{
+        ceykTry.teleport({x: 30000000, y: (overworld.heightRange.max-1), z: 0})
 
-                if (ceykList.length === 0) {
-                    // init message
-                    world.sendMessage('[模拟玩家] 假人初始化')
-                    world.sendMessage('[模拟玩家] 直接输入“假人创建”或“假人帮助”')
-                    // init
-                    const   ceyk = overworld.spawnEntity('yumecraft:ceyk', {x: 30000000, y: 128, z: 0})
-                    ceyk.addTag('init')
-                    ceykList.push(ceyk)
-                }
-                // 移除超过1个的ceyk init实体
-                else while (ceykList.length > 1) ceykList.pop().triggerEvent('yumecraft:despawn')
+        // .runCommandAsync('summon yumecraft:ceyk ~ 128 0 -1 -1 null try')
+        // .then(
+        //     (CommandResult) => {
+        console.error("[模拟玩家] 初始化检查开始")
 
+        // -检测0号ceyk(tag:init)实体以及坐标
+        const ceykList = overworld.getEntities({type: 'yumecraft:ceyk', tags: ['init']})
+        // world.sendMessage('[模拟玩家] ceykList[init].length ==>'+overworld.getEntities({type:'yumecraft:ceyk',tags:['init']}).length)
 
-                // const ceyk = overworld.getEntities({type:'yumecraft:ceyk',tags:['init']})[0]
-                // -有则跳过创建或修正坐标
-                ceykList[0].teleport({x: 30000000, y: 128, z: 0}, {dimension: overworld})
-
-                // 移除其他ceyk
-                overworld.getEntities({
-                    type: 'yumecraft:ceyk',
-                    excludeTags: ['init']
-                }).forEach(e => e.triggerEvent('yumecraft:despawn'))
-
-                // 记分板PID初始化 写的烂 执行两次
-                verify()
-                verify()
-
-                // -使用fill完成区域清理 (29999997 0 5 30000002 319 -1)
-                // * 待商榷改用getBlock
-                overworld.runCommand('fill 29999997 0 5 30000002 319 -1 air replace') //height 320
-                // -执行gametest创建test环境 坐标 (30000000 128 0)
-                overworld.runCommand('execute positioned 30000000 128 0 run gametest run 我是云梦:假人')
-
-                // TODO 唤醒 从ceyk[init] 重新生成模拟玩家并配置背包与经验值
-                // then initialized
-                initialized.trigger(null)
+        if (ceykList.length === 0) {
+            // init message
+            world.sendMessage('[模拟玩家] 第一次初始化')
+            world.sendMessage('[模拟玩家] 直接输入“假人创建”或“假人帮助”')
+            // init
+            const ceyk = overworld.spawnEntity('yumecraft:ceyk', {x: 30000000, y: 128, z: 0})
+            ceyk.addTag('init')
+            ceykList.push(ceyk)
+        }
+        // 移除超过1个的ceyk init实体
+        else while (ceykList.length > 1) ceykList.pop().triggerEvent('yumecraft:despawn')
 
 
-                console.error("[模拟玩家] 初始化检查完成")
-            },
-            (reason) => {
-                world.events.tick.subscribe(init)
-                console.error("[模拟玩家] 初始化错误 ERROR:" + reason)
-            }
-        )
-        .catch((reason) => {
-            world.events.tick.subscribe(init)
-            console.error("[模拟玩家] 初始化错误catch ERROR:" + reason)
-        })
-        .finally(() => console.error("[模拟玩家] 初始化检查结束"))
+        // const ceyk = overworld.getEntities({type:'yumecraft:ceyk',tags:['init']})[0]
+        // -有则跳过创建或修正坐标
+        ceykList[0].teleport({x: 30000000, y: 128, z: 0}, {dimension: overworld})
+
+        // 移除其他ceyk
+        overworld.getEntities({
+            type: 'yumecraft:ceyk',
+            excludeTags: ['init']
+        }).forEach(e => e.triggerEvent('yumecraft:despawn'))
+
+        // 记分板PID初始化 写的烂 执行两次
+        verify()
+        verify()
+
+        // -使用fill完成区域清理 (29999997 0 5 30000002 319 -1)
+        // * 待商榷改用getBlock
+        overworld.runCommand('fill 29999997 0 5 30000002 ' + (overworld.heightRange.max-1) + ' -1 air replace') //height 320
+        // -执行gametest创建test环境 坐标 (30000000 128 0)
+        overworld.runCommand('execute positioned 30000000 128 0 run gametest run 我是云梦:假人')
+
+        // TODO 唤醒 从ceyk[init] 重新生成模拟玩家并配置背包与经验值
+        // then initialized
+        initialized.trigger(null)
+
+        world.events.playerMove.unsubscribe(init)
+        console.error("[模拟玩家] 初始化检查完成")
+    })
+
+
+        //     },
+        //     (reason) => {
+        //         console.error("[模拟玩家] 初始化错误 reason ERROR:" + reason)
+        //     }
+        // )
+        // .catch((reason) => {
+        //     console.error("[模拟玩家] 初始化错误catch ERROR:" + typeof  reason +' '+ JSON.stringify(reason))
+        //
+        //     // if(reason.name == 'LocationInUnloadedChunkError'){
+        //     //     console.error("[模拟玩家] 第一次初始化")
+        //     //     // init_RunSign = system.runInterval(init_,1)
+        //     //     // init message
+        //     //     world.sendMessage('[模拟玩家] 第一次初始化')
+        //     //     world.sendMessage('[模拟玩家] 直接输入“假人创建”或“假人帮助”')
+        //     // }
+        //
+        // })
+        // .finally(() => console.error("[模拟玩家] 初始化检查结束"))
 }
 
 // world.events.playerSpawn.subscribe(init)
-world.events.tick.subscribe(init)
 
+// init()
+world.events.playerMove.subscribe(init)
+//
+
+
+// const init_=()=>{
+//
+//     const players = world.getAllPlayers()
+//     if (players.length === 0) return;
+//
+//     const {dimension,location} = players[0]
+//
+//     // players[0].teleport({x: 30000000, y: 128, z: 0},{dimension:overworld})
+//     // system.runTimeout(()=>{
+//     //     init()
+//     //     // overworld.runCommandAsync('setblock 30000000 128 0 stone').then((cs)=>console.error(JSON.stringify(cs)),(reason)=>console.error(reason))
+//     //     players[0].teleport(location,{dimension})
+//     // },30)
+//
+//     system.clearRun(init_RunSign)
+// }
 
 export function a(){console.error('a一次') }
 //写一个100次的for循环
