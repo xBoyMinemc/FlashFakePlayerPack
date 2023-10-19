@@ -4,10 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="03abb361-6706-45ed-a79b-5c3c48504c42" name="更改" comment="before v8 amd fix spwan">
+    <list default="true" id="03abb361-6706-45ed-a79b-5c3c48504c42" name="更改" comment="just do do clear">
+      <change beforePath="$PROJECT_DIR$/.github/workflows/qodana_code_quality.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/xTerrain/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/xTerrain/main.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tscripts/xTerrain/main.ts" beforeDir="false" afterPath="$PROJECT_DIR$/tscripts/xTerrain/main.ts" afterDir="false" />
     </list>
     <list id="e6298618-3181-46c5-b774-8624634a09bf" name="PrairieFire2b 进行的更改" comment="" />
     <option name="SHOW_DIALOG" value="false" />
@@ -118,7 +118,7 @@
       <workItem from="1697430603876" duration="1694000" />
       <workItem from="1697465979728" duration="593000" />
       <workItem from="1697559025500" duration="17000" />
-      <workItem from="1697684774839" duration="2540000" />
+      <workItem from="1697684774839" duration="4951000" />
     </task>
     <task id="LOCAL-00001" summary="better spawn">
       <option name="closed" value="true" />
@@ -440,7 +440,31 @@
       <option name="project" value="LOCAL" />
       <updated>1697431291819</updated>
     </task>
-    <option name="localTasksCounter" value="41" />
+    <task id="LOCAL-00041" summary="before v8 and fix ed spawn">
+      <option name="closed" value="true" />
+      <created>1697687722536</created>
+      <option name="number" value="00041" />
+      <option name="presentableId" value="LOCAL-00041" />
+      <option name="project" value="LOCAL" />
+      <updated>1697687722536</updated>
+    </task>
+    <task id="LOCAL-00042" summary="do do v8">
+      <option name="closed" value="true" />
+      <created>1697688037873</created>
+      <option name="number" value="00042" />
+      <option name="presentableId" value="LOCAL-00042" />
+      <option name="project" value="LOCAL" />
+      <updated>1697688037873</updated>
+    </task>
+    <task id="LOCAL-00043" summary="just do do clear">
+      <option name="closed" value="true" />
+      <created>1697689295262</created>
+      <option name="number" value="00043" />
+      <option name="presentableId" value="LOCAL-00043" />
+      <option name="project" value="LOCAL" />
+      <updated>1697689295262</updated>
+    </task>
+    <option name="localTasksCounter" value="44" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -469,9 +493,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="CommandRegistry and new chatSpawn.ts" />
-    <MESSAGE value="getCoordinatesFromView" />
-    <MESSAGE value="breakBlock.ts" />
     <MESSAGE value="Dao =&gt; verifyDataBase.ts =&gt; Util" />
     <MESSAGE value="Dao =&gt; verifyDataBase.ts =&gt; ScoreBase" />
     <MESSAGE value="update breakBlock" />
@@ -494,6 +515,9 @@
     <MESSAGE value="fix auto fishing" />
     <MESSAGE value="todo /" />
     <MESSAGE value="before v8 amd fix spwan" />
-    <option name="LAST_COMMIT_MESSAGE" value="before v8 amd fix spwan" />
+    <MESSAGE value="before v8 and fix ed spawn" />
+    <MESSAGE value="do do v8" />
+    <MESSAGE value="just do do clear" />
+    <option name="LAST_COMMIT_MESSAGE" value="just do do clear" />
   </component>
 </project>
