@@ -165,7 +165,7 @@ commandRegistry.registerCommand('假人重生', ({entity,isEntity,args}) => {
     }
 
 
-}
+})
 
 
 // List
