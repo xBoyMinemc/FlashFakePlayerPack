@@ -1,6 +1,11 @@
 {
+  "scripts": {
+    "watch": "cd . && tsc -w",
+    "build": "cd . && node packer.js"
+  },
   "dependencies": {
     "@minecraft/server": "^1.6.0-beta.1.20.30-stable",
-    "@minecraft/server-gametest": "^1.0.0-beta.1.20.10-stable"
+    "@minecraft/server-gametest": "^1.0.0-beta.1.20.30-stable",
+    "archiver": "^6.0.1"
   }
 }

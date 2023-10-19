@@ -2,17 +2,17 @@
     "format_version": 2,
     "header": {
         "description": "【云梦dev包】1.20.30 \u000a开启实验性游戏内容（测试版 API）-游戏内输入“假人帮助”或“假人创建”  ，当前版本充满了可能有的bug，还请凑活 无关QQ群：122957051:",
-        "name": "§e§lFlash§fFakePlayerPack §t-1.20.30 ",
-        "uuid": "aa101e99-abb4-448d-b58f-71e9da43063d",
-        "version": [ 1,  20, 30 ],
+        "name": "§t1.20.30 v8 §e§lFlash§fFakePlayerPack",
+        "uuid": "aa101e99-abb4-448d-b58f-71e9da43064e",
+        "version": [ 1,  20, 38 ],
         "min_engine_version": [ 1, 20, 30 ]
     },
     "modules": [
         {
-            "description": "§e§lFlash§fFakePlayerPack ",
+            "description": "§e§lFlash§fFakePlayerPack",
             "type": "script",
-            "uuid": "10101e99-abc1-5488-ba76-71e9da430030",
-            "version": [ 1,  20, 30 ],
+            "uuid": "10101e99-abc1-5488-ba76-71e9da430058",
+            "version": [ 1,  20, 38 ],
             "entry": "scripts/main/preload.js"
         }
     ],
@@ -24,11 +24,10 @@
         {
             "module_name": "@minecraft/server-gametest",
             "version": "1.0.0-beta"
-        }
-//    ,
-//        {
-//            "module_name": "@minecraft/server-ui",
-//            "version": "1.0.0-beta"
-//        }
+        },
+       {
+           "module_name": "@minecraft/server-ui",
+           "version": "1.2.0-beta"
+       }
     ]
 }
