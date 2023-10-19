@@ -132,9 +132,17 @@ commandRegistry.registerCommand('假人重生', ({ entity, isEntity, args }) => 
             return entity.sendMessage("§e§l-不存在模拟玩家" + index);
         SimPlayer.respawn();
     }
-}
+});
 // List
-, 
+commandRegistry.registerCommand('假人时区', ({ entity }) => {
+    // entity.sendMessage(''+Intl.DateTimeFormat().resolvedOptions().timeZone)
+    const now = new Date();
+    const offsetMinutes = now.getTimezoneOffset();
+    const offsetHours = offsetMinutes / 60;
+    entity.sendMessage(`本地时间：${now}`);
+    entity.sendMessage(`UTC偏移量：${offsetMinutes} 分钟`);
+    entity.sendMessage(`UTC偏移量：${offsetHours} 小时`);
+});
 // List
 commandRegistry.registerCommand('假人列表', ({ entity }) => {
     if (Object.keys(SimulatedPlayerList).length === 0)
@@ -142,9 +150,7 @@ commandRegistry.registerCommand('假人列表', ({ entity }) => {
     for (const index in SimulatedPlayerList)
         if (SimulatedPlayerList[index])
             entity.sendMessage(`§e§l-序号：${index} ## 生成名称: ${SimulatedPlayerList[index].name}${SimulatedPlayerList[index].name === SimulatedPlayerList[index].nameTag ? '' : ' #当前名称: ' + SimulatedPlayerList[index].nameTag}`);
-})
-// rename
-, 
+});
 // rename
 commandRegistry.registerCommand('假人改名', ({ entity, isEntity, args }) => {
     if (!isEntity && args.length === 1) {
@@ -162,11 +168,12 @@ commandRegistry.registerCommand('假人改名', ({ entity, isEntity, args }) => 
         SimPlayer.nameTag = args[1];
         entity.sendMessage("§e§l-改名成功");
     }
-}), world.afterEvents.chatSend.subscribe(({ message, sender }) => {
+});
+world.afterEvents.chatSend.subscribe(({ message, sender }) => {
     const args = CommandRegistry.parse(message);
     if (commandRegistry.commandsList.has(args[0]))
         commandRegistry.executeCommand(args[0], { isEntity: true, entity: sender, location: sender.location, args });
-}));
+});
 // 你懂的~
 // youAreMine
 // ~

@@ -167,6 +167,18 @@ commandRegistry.registerCommand('假人重生', ({entity,isEntity,args}) => {
 
 })
 
+// List
+commandRegistry.registerCommand('假人时区', ({entity}) => {
+    // entity.sendMessage(''+Intl.DateTimeFormat().resolvedOptions().timeZone)
+
+    const now = new Date();
+    const offsetMinutes = now.getTimezoneOffset();
+    const offsetHours = offsetMinutes / 60;
+
+    entity.sendMessage(`本地时间：${now}`);
+    entity.sendMessage(`UTC偏移量：${offsetMinutes} 分钟`);
+    entity.sendMessage(`UTC偏移量：${offsetHours} 小时`);
+})
 
 // List
 commandRegistry.registerCommand('假人列表', ({entity}) => {
