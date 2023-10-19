@@ -75,6 +75,7 @@ const returnResWithoutArgs = ({ entity, isEntity, sim }) => {
 };
 commandRegistry.registerCommand('假人背包清空', returnResWithoutArgs);
 commandRegistry.registerAlias('假人资源回收', '假人背包清空');
+// disconnect
 commandRegistry.registerCommand('假人销毁', ({ entity, isEntity, args }) => {
     if (!isEntity) {
         console.error('error not isEntity');
@@ -102,6 +103,7 @@ commandRegistry.registerCommand('假人销毁', ({ entity, isEntity, args }) => 
 });
 commandRegistry.registerAlias('假人移除', '假人销毁');
 commandRegistry.registerAlias('假人清除', '假人销毁');
+// respawn
 commandRegistry.registerCommand('假人重生', ({ entity, isEntity, args }) => {
     if (!isEntity && args.length === 1) {
         console.error('error not isEntity');
@@ -130,17 +132,41 @@ commandRegistry.registerCommand('假人重生', ({ entity, isEntity, args }) => 
             return entity.sendMessage("§e§l-不存在模拟玩家" + index);
         SimPlayer.respawn();
     }
-});
-commandRegistry.registerCommand('假人列表', () => {
+}
+// List
+, 
+// List
+commandRegistry.registerCommand('假人列表', ({ entity }) => {
+    if (Object.keys(SimulatedPlayerList).length === 0)
+        entity.sendMessage('列表空的');
     for (const index in SimulatedPlayerList)
         if (SimulatedPlayerList[index])
-            world.sendMessage(`§e§l-序号：${index} ## 生成名称: ${SimulatedPlayerList[index].name}`);
-});
-world.afterEvents.chatSend.subscribe(({ message, sender }) => {
+            entity.sendMessage(`§e§l-序号：${index} ## 生成名称: ${SimulatedPlayerList[index].name}${SimulatedPlayerList[index].name === SimulatedPlayerList[index].nameTag ? '' : ' #当前名称: ' + SimulatedPlayerList[index].nameTag}`);
+})
+// rename
+, 
+// rename
+commandRegistry.registerCommand('假人改名', ({ entity, isEntity, args }) => {
+    if (!isEntity && args.length === 1) {
+        console.error('error not isEntity');
+        return;
+    }
+    if (args.length === 2) {
+        ;
+        ;
+        "对准~";
+        ;
+        const SimPlayer = getSimPlayer.formView(entity);
+        if (!SimPlayer)
+            return entity.sendMessage("§e§l-你不要怀疑，10000%是你没对准，如果假人真躺了的话"); //entity.sendMessage("§e§l-面前不存在模拟玩家")
+        SimPlayer.nameTag = args[1];
+        entity.sendMessage("§e§l-改名成功");
+    }
+}), world.afterEvents.chatSend.subscribe(({ message, sender }) => {
     const args = CommandRegistry.parse(message);
     if (commandRegistry.commandsList.has(args[0]))
         commandRegistry.executeCommand(args[0], { isEntity: true, entity: sender, location: sender.location, args });
-});
+}));
 // 你懂的~
 // youAreMine
 // ~
