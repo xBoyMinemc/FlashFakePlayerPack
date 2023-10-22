@@ -1,7 +1,14 @@
 import type { Entity } from "@minecraft/server";
 import type { World } from "../../@types/globalThis";
 import type { SimulatedPlayer } from "@minecraft/server-gametest";
-import {Container, EntityEquippableComponent, EntityInventoryComponent, EquipmentSlot} from "@minecraft/server";
+import {
+    Container,
+    EntityEquippableComponent,
+    EntityInventoryComponent,
+    EquipmentSlot,
+    system,
+    TicksPerSecond
+} from "@minecraft/server";
 import {
     spawnSimulatedPlayer,
     SimulatedPlayerList,
@@ -51,7 +58,7 @@ const yumeSimCmdHead = "假人";                      ;;" 命令头 ";;
 // const 寻路标识符 = "寻路标识符";
 
 
-const 工具人们States = {};
+const 工具人们States:{SimulatedPlayer?:{'o'}} = {};
 
 function 获取眼前的假人实体(逻辑主体,距离){
     const 最远距离 = {maxDistance:距离} //new EntityRaycastOptions();;;"距离";;
@@ -254,7 +261,7 @@ world.events.fishingHookSpawned.subscribe(event=>{
 //扭头 /
 //挖掘 /
 //放置 O
-
+//投掷三叉戟 /
 
 world.afterEvents.chatSend.subscribe( event => {
         try {
@@ -288,7 +295,7 @@ world.afterEvents.chatSend.subscribe( event => {
             //     for (let i in 工具人们) if (工具人们[i]) 发起者.sendMessage(`§e§l-序号：${i} ## 生成名称: ${工具人们[i].name}`);
             //     return;
             // }
-            ;
+            // ;
             // if (消息 == "交换背包" || 消息 == "背包交换") {
             //     const s = 眼前的工具人.getComponent("minecraft:inventory").container;
             //     ;
@@ -382,7 +389,6 @@ world.afterEvents.chatSend.subscribe( event => {
             if (消息 == "开始交互") {
                 眼前的工具人.interact()
             }
-            ;
 
             ;
             ;"希望你对中文编程没意见，有也给我保留";

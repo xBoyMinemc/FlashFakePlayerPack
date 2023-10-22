@@ -1,6 +1,6 @@
 import { getSimPlayer } from "../../lib/xboyPackage/Util";
 import { CommandRegistry } from "../../lib/yumeCommand/CommandRegistry";
-import { EquipmentSlot } from "@minecraft/server";
+import { EquipmentSlot, TicksPerSecond } from "@minecraft/server";
 import { SimulatedPlayerList } from "../main";
 // 后面还要重构一遍
 // const commandName1 = '假人背包交换'
@@ -142,6 +142,7 @@ commandRegistry.registerCommand('假人时区', ({ entity }) => {
     entity.sendMessage(`本地时间：${now}`);
     entity.sendMessage(`UTC偏移量：${offsetMinutes} 分钟`);
     entity.sendMessage(`UTC偏移量：${offsetHours} 小时`);
+    entity.sendMessage(`TicksPerSecond：${TicksPerSecond}`);
 });
 // List
 commandRegistry.registerCommand('假人列表', ({ entity }) => {

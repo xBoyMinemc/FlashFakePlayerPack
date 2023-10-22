@@ -6,6 +6,7 @@ import { SIGN } from '../lib/xboyPackage/YumeSignEnum';
 import { system } from '@minecraft/server';
 const overworld = world.getDimension('overworld');
 const tickWaitTimes = 20 * 60 * 60 * 24 * 365;
+// all of SimulatedPlayer List
 export const SimulatedPlayerList = {};
 let spawnSimulatedPlayer;
 let testWorldLocation;

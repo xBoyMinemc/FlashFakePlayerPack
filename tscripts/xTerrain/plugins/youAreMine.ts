@@ -3,8 +3,8 @@ import type { SimulatedPlayer } from "@minecraft/server-gametest";
 import type {Dimension, Entity, EntityInventoryComponent, Player, Vector3} from "@minecraft/server";
 import { getSimPlayer } from "../../lib/xboyPackage/Util";
 import { CommandRegistry, type commandInfo } from "../../lib/yumeCommand/CommandRegistry";
-import {Container, EntityEquippableComponent, EquipmentSlot} from "@minecraft/server";
-import {SimulatedPlayerList as 工具人们, SimulatedPlayerList} from "../main";
+import {Container, EntityEquippableComponent, EquipmentSlot, TicksPerSecond} from "@minecraft/server";
+import { SimulatedPlayerList } from "../main";
 
 declare const world: World
 
@@ -51,7 +51,6 @@ commandRegistry.registerCommand('假人装备交换', ({entity,isEntity}) => {
 const returnResWithoutArgs = ({entity,isEntity,sim}:commandInfo)=>{
     if(!isEntity) {
         console.error('error not isEntity')
-
         return
     }
 
@@ -178,6 +177,7 @@ commandRegistry.registerCommand('假人时区', ({entity}) => {
     entity.sendMessage(`本地时间：${now}`);
     entity.sendMessage(`UTC偏移量：${offsetMinutes} 分钟`);
     entity.sendMessage(`UTC偏移量：${offsetHours} 小时`);
+    entity.sendMessage(`TicksPerSecond：${TicksPerSecond}`);
 })
 
 // List

@@ -23,7 +23,7 @@ declare const world: World
 const overworld = world.getDimension('overworld')
 const tickWaitTimes = 20*60*60*24*365
 
-
+// all of SimulatedPlayer List
 export const SimulatedPlayerList  = {}
 let spawnSimulatedPlayer : (location:Vector3, dimension:Dimension, pid: number  )=>SimulatedPlayer
 let testWorldLocation : Vector3
@@ -41,7 +41,6 @@ const GetPID = ()=>{
 export const initialized : initializedEventSignal = new EventSignal<initializedEvent>()
 export const spawned : spawnedEventSignal = new EventSignal<spawnedEvent>()
 // spawned.subscribe(({spawnedSimulatedPlayer})=>{
-
 
 // add SimulatedPlayer to SimulatedPlayerList,by ues obj <key,value>
 

@@ -6,6 +6,7 @@ export var SIGN;
     SIGN["AUTO_ATTACK_SIGN"] = "AUTO_ATTACK_SIGN";
     SIGN["AUTO_CHASE_SIGN"] = "AUTO_CHASE_SIGN";
     SIGN["AUTO_JUMP_SIGN"] = "AUTO_JUMP_SIGN";
+    SIGN["AUTO_trident_SIGN"] = "AUTO_trident_SIGN";
 })(SIGN || (SIGN = {}));
 export default SIGN;
 export const AUTO_RESPAWN_SIGN = 'AUTO_RESPAWN_SIGN';
