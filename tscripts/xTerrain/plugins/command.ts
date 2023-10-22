@@ -287,7 +287,7 @@ world.afterEvents.chatSend.subscribe( event => {
             xboy("结束跳跃")([])([SIGN.AUTO_JUMP_SIGN])
             // xboy("寻路")([寻路标识符])([])
             xboy("自动追击")([SIGN.AUTO_CHASE_SIGN, SIGN.AUTO_ATTACK_SIGN,SIGN.AUTO_JUMP_SIGN])([])
-            xboy("停止")([])([SIGN.ATTACK_SIGN, SIGN.AUTO_ATTACK_SIGN, SIGN.AUTO_JUMP_SIGN])
+            xboy("停止")([])([SIGN.ATTACK_SIGN, SIGN.AUTO_ATTACK_SIGN, SIGN.AUTO_JUMP_SIGN,SIGN.AUTO_trident_SIGN])
             xboy("开摆")([])([SIGN.ATTACK_SIGN, SIGN.AUTO_ATTACK_SIGN, SIGN.AUTO_JUMP_SIGN])
             xboy("自动重生")([SIGN.AUTO_RESPAWN_SIGN])([])
             xboy("自动丢三叉戟")([SIGN.AUTO_trident_SIGN])([])
