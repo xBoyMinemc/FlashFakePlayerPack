@@ -1,7 +1,7 @@
 import { SimulatedPlayerList } from '../main';
 import SIGN from '../../lib/xboyPackage/YumeSignEnum';
 import { system, world } from '@minecraft/server';
-import { getEntitiesNear, getSimPlayer } from '../../lib/xboyPackage/Util';
+import { getEntitiesNear } from '../../lib/xboyPackage/Util';
 import { CommandRegistry } from '../../lib/yumeCommand/CommandRegistry';
 // behavior
 const AUTO_BEHAVIOR = () => {
@@ -36,15 +36,16 @@ const AUTO_BEHAVIOR = () => {
 system.runInterval(AUTO_BEHAVIOR, 0);
 const commandRegistry = new CommandRegistry('task');
 // AUTO_trident_SIGN
-commandRegistry.registerCommand('假人自动丢三叉戟', ({ entity, isEntity }) => {
-    if (!isEntity)
-        return;
-    const SimPlayer = getSimPlayer.formView(entity);
-    if (!SimPlayer)
-        return;
-    else
-        SimPlayer.addTag(SIGN.AUTO_trident_SIGN);
-});
+// commandRegistry.registerCommand('假人自动丢三叉戟', ({entity,isEntity}) => {
+//     if(!isEntity)return
+//
+//     const SimPlayer:SimulatedPlayer = getSimPlayer.formView(entity)
+//
+//     if(!SimPlayer)return
+//     else
+//         SimPlayer.addTag(SIGN.AUTO_trident_SIGN)
+//
+// })
 world.afterEvents.chatSend.subscribe(({ message, sender }) => {
     const args = CommandRegistry.parse(message);
     if (commandRegistry.commandsList.has(args[0]))

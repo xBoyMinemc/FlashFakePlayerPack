@@ -48,16 +48,16 @@ const commandRegistry: CommandRegistry = new CommandRegistry('task')
 
 
 // AUTO_trident_SIGN
-commandRegistry.registerCommand('假人自动丢三叉戟', ({entity,isEntity}) => {
-    if(!isEntity)return
-
-    const SimPlayer:SimulatedPlayer = getSimPlayer.formView(entity)
-
-    if(!SimPlayer)return
-    else
-        SimPlayer.addTag(SIGN.AUTO_trident_SIGN)
-
-})
+// commandRegistry.registerCommand('假人自动丢三叉戟', ({entity,isEntity}) => {
+//     if(!isEntity)return
+//
+//     const SimPlayer:SimulatedPlayer = getSimPlayer.formView(entity)
+//
+//     if(!SimPlayer)return
+//     else
+//         SimPlayer.addTag(SIGN.AUTO_trident_SIGN)
+//
+// })
 
 
 world.afterEvents.chatSend.subscribe(({message, sender})=> {
