@@ -48,4 +48,4 @@ export const BEHAVIOR_FUNCTION = {
     stopUsingItem: (sim) => sim.stopUsingItem(),
     interact: (sim) => sim.interact(),
 };
-export const exeBehavior = (behavior) => BEHAVIOR[behavior] && BEHAVIOR_FUNCTION[behavior]();
+export const exeBehavior = (behavior) => BEHAVIOR[behavior] && BEHAVIOR_FUNCTION[behavior];

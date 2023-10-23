@@ -53,5 +53,5 @@ export const BEHAVIOR_FUNCTION = {
     stopUsingItem : (sim:SimulatedPlayer)=>sim.stopUsingItem(),
     interact : (sim:SimulatedPlayer)=>sim.interact(),
 }
-export const exeBehavior = (behavior: string) => BEHAVIOR[behavior] && BEHAVIOR_FUNCTION[behavior]()
+export const exeBehavior = (behavior: string) => BEHAVIOR[behavior] && BEHAVIOR_FUNCTION[behavior]
 
