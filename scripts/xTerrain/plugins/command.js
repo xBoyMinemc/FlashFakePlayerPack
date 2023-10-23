@@ -1,4 +1,14 @@
+// import {
+//     Container,
+//     EntityEquippableComponent,
+//     EntityInventoryComponent,
+//     EquipmentSlot,
+//     system,
+//     TicksPerSecond
+// } from "@minecraft/server";
 import { SimulatedPlayerList, SimulatedPlayerList as 工具人们, } from "../main";
+// import qrcode from "../../lib/qrcode-terminal/mod.js";
+// import {Location} from "../../lib/xboyPackage/The law of the ancestors is immutable";
 import SIGN from "../../lib/xboyPackage/YumeSignEnum";
 //
 // import {BlockLocation} from "../../@types/globalThis";

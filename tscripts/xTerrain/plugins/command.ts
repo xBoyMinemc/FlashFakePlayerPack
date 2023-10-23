@@ -1,14 +1,15 @@
+// @ts-nocheck
 import type { Entity } from "@minecraft/server";
 import type { World } from "../../@types/globalThis";
 import type { SimulatedPlayer } from "@minecraft/server-gametest";
-import {
-    Container,
-    EntityEquippableComponent,
-    EntityInventoryComponent,
-    EquipmentSlot,
-    system,
-    TicksPerSecond
-} from "@minecraft/server";
+// import {
+//     Container,
+//     EntityEquippableComponent,
+//     EntityInventoryComponent,
+//     EquipmentSlot,
+//     system,
+//     TicksPerSecond
+// } from "@minecraft/server";
 import {
     spawnSimulatedPlayer,
     SimulatedPlayerList,
@@ -17,9 +18,9 @@ import {
     spawned as spawnedEvent,
 } from "../main";
 
-import qrcode from "../../lib/qrcode-terminal/mod.js";
+// import qrcode from "../../lib/qrcode-terminal/mod.js";
 
-import {Location} from "../../lib/xboyPackage/The law of the ancestors is immutable";
+// import {Location} from "../../lib/xboyPackage/The law of the ancestors is immutable";
 import SIGN from "../../lib/xboyPackage/YumeSignEnum";
 //
 // import {BlockLocation} from "../../@types/globalThis";
