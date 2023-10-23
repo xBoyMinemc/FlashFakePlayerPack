@@ -143,5 +143,11 @@ function init() {
 // world.events.playerSpawn.subscribe(init)
 // init()
 world.events.playerMove.subscribe(init);
+const reload = () => {
+    world.events.reloadFromCmd.unsubscribe(reload);
+    init();
+    // world.sendMessage('#reload?')
+};
+world.events.reloadFromCmd.subscribe(reload);
 export function a() { console.error('a一次'); }
 //写一个100次的for循环
