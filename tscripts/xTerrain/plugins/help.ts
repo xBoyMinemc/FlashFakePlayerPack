@@ -5,7 +5,7 @@ import type { World } from '../../@types/globalThis'
 import type { SimulatedPlayer } from '@minecraft/server-gametest'
 
 
-import { spawnSimulatedPlayer, SimulatedPlayerList, spawned as spawnedEvent, GetPID } from '../main'
+// import { spawnSimulatedPlayer, SimulatedPlayerList, spawned as spawnedEvent, GetPID } from '../main'
 import { CommandRegistry } from '../../lib/yumeCommand/CommandRegistry'
 
 declare const world: World
