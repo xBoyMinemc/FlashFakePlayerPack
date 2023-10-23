@@ -7,7 +7,7 @@ import { getEntitiesNear, getPlayerNear} from '../../lib/xboyPackage/Util'
 import { CommandRegistry } from '../../lib/yumeCommand/CommandRegistry'
 
 // @ts-ignore
-const SimulatedPlayerStates : ({ "str-SimPlayer.id": { o: Vector3 }}) = {};
+const SimulatedPlayerStates : ({ "str-SimPlayer.id": { o: Vector3 }}) = {}
 
 // behavior
 const AUTO_BEHAVIOR = ()=>{
