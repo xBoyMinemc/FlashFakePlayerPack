@@ -75,6 +75,7 @@ initialized.subscribe(() => [
     'help',
     'task',
     'gui',
+    'autoFishing',
 ].forEach(name => import('./plugins/' + name)
     .then(() => console.error('[模拟玩家] ' + name + '模块初始化结束'))
     .catch((reason) => console.error('[模拟玩家] ' + name + ' 模块初始化错误 ERROR:' + reason))));
