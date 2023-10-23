@@ -104,6 +104,7 @@ let initCounter = 5
 //  # 初始化 init
 // how about turn to world.afterEvents.playerSpawn
 function init() {
+    world.events.reloadFromCmd.unsubscribe(reload)
         // Limit the number of retries
         if(--initCounter<0){
             world.sendMessage('[模拟玩家] 初始化失败，尝试输入reload'+initCounter)
@@ -177,11 +178,13 @@ function init() {
 world.events.playerMove.subscribe(init)
 
 const reload = ()=>{
-    world.events.reloadFromCmd.unsubscribe(reload)
-    world.events.playerMove.unsubscribe(init)
+    // world.sendMessage('#reload?2')
     init()
-    // world.sendMessage('#reload?')
+    // world.sendMessage('#reload?1')
+    // world.events.playerMove.unsubscribe(init)
+    // world.sendMessage('#reload?3')
+    // world.events.reloadFromCmd.unsubscribe(reload)
 }
-world.events.reloadFromCmd.subscribe(reload)
+world.events.reloadFromCmd.subscribe(()=>reload())
 export function a(){console.error('a一次') }
 //写一个100次的for循环
