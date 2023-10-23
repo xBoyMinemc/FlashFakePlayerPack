@@ -1,5 +1,6 @@
 import {system, world} from '@minecraft/server'
 import SIGN, {
+    BEHAVIOR,
     BEHAVIOR_LIST,
     BEHAVIOR_ZH,
     exeBehavior,
@@ -33,7 +34,7 @@ world.beforeEvents.itemUse.subscribe(e=>{
             mng.body('#x#').body(SimPlayer.nameTag)//.button('喵？');
 
             for (const signKey of SIGN_TAG_LIST) {
-                mng.button((SimPlayer.hasTag(signKey)?'§l§e':'§l§1') + SIGN_ZH[signKey])
+                mng.button((SimPlayer.hasTag(signKey)?'§l§e':'§l§1') + SIGN_ZH[SIGN[signKey]])
                 // world.sendMessage("#tag=>"+signKey);
             }
             mng.show(player).then((response) => {
@@ -48,7 +49,7 @@ world.beforeEvents.itemUse.subscribe(e=>{
             mng.body('#x#').body(SimPlayer.nameTag)
 
             for (const behavior of BEHAVIOR_LIST) {
-                mng.button((SimPlayer.hasTag(behavior)?'§l§e':'§l§1') + BEHAVIOR_ZH[behavior])
+                mng.button((SimPlayer.hasTag(behavior)?'§l§e':'§l§1') + BEHAVIOR_ZH[BEHAVIOR[behavior]])
                 // world.sendMessage("#behavior=>"+behavior);
             }
             mng.show(player).then((response) => {
