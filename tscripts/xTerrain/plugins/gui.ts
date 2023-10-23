@@ -39,8 +39,8 @@ world.beforeEvents.itemUse.subscribe(e=>{
         :
         system.run(()=>{
             const mng = new ActionFormData().title('功能');
-            mng.body('#x#').body(SimPlayer.nameTag)//.button('喵？');
-            const TagList = []
+            mng.body('#x#').body(SimPlayer.nameTag)
+
             for (const signKey of SIGN_TAG_LIST) {
                 mng.button((SimPlayer.hasTag(signKey)?'§l§e':'§l§1') + SIGN_ZH[signKey])
                 world.sendMessage("#tag=>"+signKey);
