@@ -4,35 +4,25 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="03abb361-6706-45ed-a79b-5c3c48504c42" name="更改" comment="qjs no time">
+    <list default="true" id="94b2f331-3f65-498e-aa3b-c36686d080bf" name="更改" comment="#AUTO CHASE">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/lib/xboyPackage/YumeSignEnum.js" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/lib/xboyPackage/YumeSignEnum.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/xTerrain/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/xTerrain/main.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/scripts/xTerrain/plugins/command.js" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/xTerrain/plugins/command.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/xTerrain/plugins/task.js" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/xTerrain/plugins/task.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/xTerrain/plugins/youAreMine.js" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/xTerrain/plugins/youAreMine.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tscripts/lib/xboyPackage/YumeSignEnum.ts" beforeDir="false" afterPath="$PROJECT_DIR$/tscripts/lib/xboyPackage/YumeSignEnum.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tscripts/xTerrain/main.ts" beforeDir="false" afterPath="$PROJECT_DIR$/tscripts/xTerrain/main.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/tscripts/xTerrain/plugins/command.ts" beforeDir="false" afterPath="$PROJECT_DIR$/tscripts/xTerrain/plugins/command.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tscripts/xTerrain/plugins/task.ts" beforeDir="false" afterPath="$PROJECT_DIR$/tscripts/xTerrain/plugins/task.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tscripts/xTerrain/plugins/youAreMine.ts" beforeDir="false" afterPath="$PROJECT_DIR$/tscripts/xTerrain/plugins/youAreMine.ts" afterDir="false" />
     </list>
-    <list id="e6298618-3181-46c5-b774-8624634a09bf" name="PrairieFire2b 进行的更改" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="ChangesViewManager" show_ignored="true" />
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="GitHubPullRequestSearchHistory">{
-  &quot;lastFilter&quot;: {
-    &quot;state&quot;: &quot;OPEN&quot;,
-    &quot;assignee&quot;: &quot;xBoyMinemc&quot;
+  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
+  "lastFilter": {
+    "state": "OPEN",
+    "assignee": "xBoyMinemc"
   }
-}</component>
+}]]></component>
   <component name="GithubPullRequestsUISettings">
     <option name="selectedUrlAndAccountId">
       <UrlAndAccount>
@@ -44,527 +34,153 @@
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
-  <component name="ProblemsViewState">
-    <option name="selectedTabId" value="CurrentFile" />
-  </component>
-  <component name="ProjectColorInfo">{
-  &quot;associatedIndex&quot;: 2
-}</component>
-  <component name="ProjectId" id="2VoClNe9RuVIAN35xd9xGz28kX7" />
+  <component name="ProjectColorInfo"><![CDATA[{
+  "customColor": "",
+  "associatedIndex": 2
+}]]></component>
+  <component name="ProjectId" id="2XAYua7wx2X2c3OWfsIn8rGqY7H" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Notification.DisplayName-DoNotAsk-Translation Plugin&quot;: &quot;Translation Plugin&quot;,
-    &quot;Notification.DoNotAsk-Translation Plugin&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;codeWithMe.voiceChat.enabledByDefault&quot;: &quot;false&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;1.20.30-dev&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/yume/AppData/Local/Packages/Microsoft.MinecraftUWP_8wekyb3d8bbwe/LocalState/games/com.mojang/minecraftWorlds/假人1-20-30/behavior_packs/FlashFakePlayerPack/tscripts/lib/xboyPackage/SIGN_ENUM.ts&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;settings.sync&quot;,
-    &quot;ts.external.directory.path&quot;: &quot;D:\\WebStorm\\WebStorm 2023.1.2\\plugins\\javascript-impl\\jsLanguageServicesImpl\\external&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
-  },
-  &quot;keyToStringList&quot;: {
-    &quot;com.intellij.ide.scratch.ScratchImplUtil$2/新建临时文件&quot;: [
-      &quot;ECMA Script Level 4&quot;
-    ]
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "git-widget-placeholder": "1.20.30-dev",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "ts.external.directory.path": "D:\\WebStorm\\WebStorm 2023.1.2\\plugins\\javascript-impl\\jsLanguageServicesImpl\\external",
+    "ts.rename.search.for.dynamic.occurrences": "true",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
-  <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\Users\yume\AppData\Local\Packages\Microsoft.MinecraftUWP_8wekyb3d8bbwe\LocalState\games\com.mojang\minecraftWorlds\假人1-20-30\behavior_packs\FlashFakePlayerPack\tscripts\lib\xboyPackage\scoreBase" />
-      <recent name="C:\Users\yume\AppData\Local\Packages\Microsoft.MinecraftUWP_8wekyb3d8bbwe\LocalState\games\com.mojang\minecraftWorlds\假人1-20-30\behavior_packs\FlashFakePlayerPack\tscripts\lib\xboyPackage" />
-      <recent name="C:\Users\yume\AppData\Local\Packages\Microsoft.MinecraftUWP_8wekyb3d8bbwe\LocalState\games\com.mojang\minecraftWorlds\假人1-20-30\behavior_packs\FlashFakePlayerPack\tscripts\lib\yumeCommand" />
-    </key>
-    <key name="es6.move.members.recent.items">
-      <recent name="C:\Users\yume\AppData\Local\Packages\Microsoft.MinecraftUWP_8wekyb3d8bbwe\LocalState\games\com.mojang\minecraftWorlds\假人1-20-30\behavior_packs\FlashFakePlayerPack\tscripts\lib\xboyPackage\SIGN_ENUM.ts" />
-      <recent name="C:\Users\yume\AppData\Local\Packages\Microsoft.MinecraftUWP_8wekyb3d8bbwe\LocalState\games\com.mojang\minecraftWorlds\假人1-20-30\behavior_packs\FlashFakePlayerPack\tscripts\xTerrain\AUTO_RESPAWN_SIGN.ts" />
-    </key>
-  </component>
+}]]></component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="应用程序级" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
-    <task active="true" id="Default" summary="默认任务">
-      <changelist id="03abb361-6706-45ed-a79b-5c3c48504c42" name="更改" comment="" />
-      <created>1695493198977</created>
-      <option name="number" value="Default" />
-      <option name="presentableId" value="Default" />
-      <updated>1695493198977</updated>
-      <workItem from="1695493200749" duration="54000" />
-      <workItem from="1695543381531" duration="5418000" />
-      <workItem from="1695711304019" duration="6337000" />
-      <workItem from="1695749278071" duration="2681000" />
-      <workItem from="1695882760220" duration="8411000" />
-      <workItem from="1695971350449" duration="1355000" />
-      <workItem from="1696010081579" duration="21095000" />
-      <workItem from="1696056954388" duration="4781000" />
-      <workItem from="1696084871078" duration="449000" />
-      <workItem from="1696129410357" duration="118000" />
-      <workItem from="1696170300400" duration="6000" />
-      <workItem from="1696221627511" duration="30000" />
-      <workItem from="1696314105710" duration="9123000" />
-      <workItem from="1696345142460" duration="5556000" />
-      <workItem from="1696401136388" duration="9927000" />
-      <workItem from="1696478180791" duration="8489000" />
-      <workItem from="1696597551493" duration="9241000" />
-      <workItem from="1696689167625" duration="597000" />
-      <workItem from="1696818158310" duration="7159000" />
-      <workItem from="1696948822432" duration="609000" />
-      <workItem from="1697125116947" duration="105000" />
-      <workItem from="1697194960485" duration="614000" />
-      <workItem from="1697356832937" duration="492000" />
-      <workItem from="1697430603876" duration="1694000" />
-      <workItem from="1697465979728" duration="593000" />
-      <workItem from="1697559025500" duration="17000" />
-      <workItem from="1697684774839" duration="6396000" />
-      <workItem from="1697715187137" duration="4423000" />
-      <workItem from="1697725411617" duration="481000" />
-      <workItem from="1697807832518" duration="689000" />
-      <workItem from="1697810765146" duration="1258000" />
-      <workItem from="1697855218233" duration="2016000" />
-      <workItem from="1697951037917" duration="817000" />
-      <workItem from="1697987324580" duration="132000" />
-    </task>
-    <task id="LOCAL-00001" summary="better spawn">
+    <task id="LOCAL-00001" summary="add AUTO_trident_SIGN">
       <option name="closed" value="true" />
-      <created>1695719519440</created>
+      <created>1697987603235</created>
       <option name="number" value="00001" />
       <option name="presentableId" value="LOCAL-00001" />
       <option name="project" value="LOCAL" />
-      <updated>1695719519440</updated>
+      <updated>1697987603235</updated>
     </task>
-    <task id="LOCAL-00002" summary="try to fix Event fishingHookSpawned">
+    <task id="LOCAL-00002" summary="add AUTO_trident_SIGN">
       <option name="closed" value="true" />
-      <created>1695749910375</created>
+      <created>1697987667346</created>
       <option name="number" value="00002" />
       <option name="presentableId" value="LOCAL-00002" />
       <option name="project" value="LOCAL" />
-      <updated>1695749910375</updated>
+      <updated>1697987667346</updated>
     </task>
-    <task id="LOCAL-00003" summary="try to fix Event fishingHookSpawned">
+    <task id="LOCAL-00003" summary="fix entityDeadByHurt.ts">
       <option name="closed" value="true" />
-      <created>1695750204658</created>
+      <created>1698035860812</created>
       <option name="number" value="00003" />
       <option name="presentableId" value="LOCAL-00003" />
       <option name="project" value="LOCAL" />
-      <updated>1695750204658</updated>
+      <updated>1698035860812</updated>
     </task>
-    <task id="LOCAL-00004" summary="CommandRegistry and new chatSpawn.ts">
+    <task id="LOCAL-00004" summary="test gui">
       <option name="closed" value="true" />
-      <created>1695888943666</created>
+      <created>1698035870592</created>
       <option name="number" value="00004" />
       <option name="presentableId" value="LOCAL-00004" />
       <option name="project" value="LOCAL" />
-      <updated>1695888943666</updated>
+      <updated>1698035870592</updated>
     </task>
-    <task id="LOCAL-00005" summary="getCoordinatesFromView">
+    <task id="LOCAL-00005" summary="fix entityDeadByHurt.ts">
       <option name="closed" value="true" />
-      <created>1696013239741</created>
+      <created>1698036113479</created>
       <option name="number" value="00005" />
       <option name="presentableId" value="LOCAL-00005" />
       <option name="project" value="LOCAL" />
-      <updated>1696013239741</updated>
+      <updated>1698036113479</updated>
     </task>
-    <task id="LOCAL-00006" summary="getCoordinatesFromView">
+    <task id="LOCAL-00006" summary="fix entityDeadByHurt.ts">
       <option name="closed" value="true" />
-      <created>1696013337716</created>
+      <created>1698036137885</created>
       <option name="number" value="00006" />
       <option name="presentableId" value="LOCAL-00006" />
       <option name="project" value="LOCAL" />
-      <updated>1696013337716</updated>
+      <updated>1698036137885</updated>
     </task>
-    <task id="LOCAL-00007" summary="getCoordinatesFromView">
+    <task id="LOCAL-00007" summary="dodo need">
       <option name="closed" value="true" />
-      <created>1696013792965</created>
+      <created>1698036578475</created>
       <option name="number" value="00007" />
       <option name="presentableId" value="LOCAL-00007" />
       <option name="project" value="LOCAL" />
-      <updated>1696013792965</updated>
+      <updated>1698036578475</updated>
     </task>
-    <task id="LOCAL-00008" summary="getCoordinatesFromView">
+    <task id="LOCAL-00008" summary="// @ts-nocheck">
       <option name="closed" value="true" />
-      <created>1696013876317</created>
+      <created>1698036728032</created>
       <option name="number" value="00008" />
       <option name="presentableId" value="LOCAL-00008" />
       <option name="project" value="LOCAL" />
-      <updated>1696013876317</updated>
+      <updated>1698036728032</updated>
     </task>
-    <task id="LOCAL-00009" summary="breakBlock.ts">
+    <task active="true" id="Default" summary="默认任务">
+      <changelist id="94b2f331-3f65-498e-aa3b-c36686d080bf" name="更改" comment="// @ts-nocheck" />
+      <created>1698073580112</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1698073580112</updated>
+      <workItem from="1698073582216" duration="6401000" />
+    </task>
+    <task id="LOCAL-00009" summary="meow~">
       <option name="closed" value="true" />
-      <created>1696014349314</created>
+      <created>1698073740243</created>
       <option name="number" value="00009" />
       <option name="presentableId" value="LOCAL-00009" />
       <option name="project" value="LOCAL" />
-      <updated>1696014349314</updated>
+      <updated>1698073740243</updated>
     </task>
-    <task id="LOCAL-00010" summary="breakBlock.ts">
+    <task id="LOCAL-00010" summary="#auto fishing">
       <option name="closed" value="true" />
-      <created>1696049142274</created>
+      <created>1698080091698</created>
       <option name="number" value="00010" />
       <option name="presentableId" value="LOCAL-00010" />
       <option name="project" value="LOCAL" />
-      <updated>1696049142274</updated>
+      <updated>1698080091698</updated>
     </task>
-    <task id="LOCAL-00011" summary="Dao =&gt; verifyDataBase.ts =&gt; Util">
+    <task id="LOCAL-00011" summary="#AUTO CHASE">
       <option name="closed" value="true" />
-      <created>1696050672374</created>
+      <created>1698080128404</created>
       <option name="number" value="00011" />
       <option name="presentableId" value="LOCAL-00011" />
       <option name="project" value="LOCAL" />
-      <updated>1696050672374</updated>
+      <updated>1698080128404</updated>
     </task>
-    <task id="LOCAL-00012" summary="Dao =&gt; verifyDataBase.ts =&gt; Util">
+    <task id="LOCAL-00012" summary="#AUTO CHASE">
       <option name="closed" value="true" />
-      <created>1696050676911</created>
+      <created>1698080147399</created>
       <option name="number" value="00012" />
       <option name="presentableId" value="LOCAL-00012" />
       <option name="project" value="LOCAL" />
-      <updated>1696050676911</updated>
+      <updated>1698080147399</updated>
     </task>
-    <task id="LOCAL-00013" summary="Dao =&gt; verifyDataBase.ts =&gt; Util">
-      <option name="closed" value="true" />
-      <created>1696050684021</created>
-      <option name="number" value="00013" />
-      <option name="presentableId" value="LOCAL-00013" />
-      <option name="project" value="LOCAL" />
-      <updated>1696050684021</updated>
-    </task>
-    <task id="LOCAL-00014" summary="Dao =&gt; verifyDataBase.ts =&gt; ScoreBase">
-      <option name="closed" value="true" />
-      <created>1696050832920</created>
-      <option name="number" value="00014" />
-      <option name="presentableId" value="LOCAL-00014" />
-      <option name="project" value="LOCAL" />
-      <updated>1696050832920</updated>
-    </task>
-    <task id="LOCAL-00015" summary="Dao =&gt; verifyDataBase.ts =&gt; ScoreBase">
-      <option name="closed" value="true" />
-      <created>1696050837338</created>
-      <option name="number" value="00015" />
-      <option name="presentableId" value="LOCAL-00015" />
-      <option name="project" value="LOCAL" />
-      <updated>1696050837338</updated>
-    </task>
-    <task id="LOCAL-00016" summary="Dao =&gt; verifyDataBase.ts =&gt; ScoreBase">
-      <option name="closed" value="true" />
-      <created>1696050964180</created>
-      <option name="number" value="00016" />
-      <option name="presentableId" value="LOCAL-00016" />
-      <option name="project" value="LOCAL" />
-      <updated>1696050964180</updated>
-    </task>
-    <task id="LOCAL-00017" summary="update breakBlock">
-      <option name="closed" value="true" />
-      <created>1696051031715</created>
-      <option name="number" value="00017" />
-      <option name="presentableId" value="LOCAL-00017" />
-      <option name="project" value="LOCAL" />
-      <updated>1696051031715</updated>
-    </task>
-    <task id="LOCAL-00018" summary="clear">
-      <option name="closed" value="true" />
-      <created>1696052079101</created>
-      <option name="number" value="00018" />
-      <option name="presentableId" value="LOCAL-00018" />
-      <option name="project" value="LOCAL" />
-      <updated>1696052079101</updated>
-    </task>
-    <task id="LOCAL-00019" summary="sign enum">
-      <option name="closed" value="true" />
-      <created>1696056100102</created>
-      <option name="number" value="00019" />
-      <option name="presentableId" value="LOCAL-00019" />
-      <option name="project" value="LOCAL" />
-      <updated>1696056100102</updated>
-    </task>
-    <task id="LOCAL-00020" summary="sign enum">
-      <option name="closed" value="true" />
-      <created>1696056120960</created>
-      <option name="number" value="00020" />
-      <option name="presentableId" value="LOCAL-00020" />
-      <option name="project" value="LOCAL" />
-      <updated>1696056120960</updated>
-    </task>
-    <task id="LOCAL-00021" summary="release breakBlock">
-      <option name="closed" value="true" />
-      <created>1696056226920</created>
-      <option name="number" value="00021" />
-      <option name="presentableId" value="LOCAL-00021" />
-      <option name="project" value="LOCAL" />
-      <updated>1696056226920</updated>
-    </task>
-    <task id="LOCAL-00022" summary="command ts">
-      <option name="closed" value="true" />
-      <created>1696060379949</created>
-      <option name="number" value="00022" />
-      <option name="presentableId" value="LOCAL-00022" />
-      <option name="project" value="LOCAL" />
-      <updated>1696060379949</updated>
-    </task>
-    <task id="LOCAL-00023" summary="no arrow event">
-      <option name="closed" value="true" />
-      <created>1696085246873</created>
-      <option name="number" value="00023" />
-      <option name="presentableId" value="LOCAL-00023" />
-      <option name="project" value="LOCAL" />
-      <updated>1696085246873</updated>
-    </task>
-    <task id="LOCAL-00024" summary="v5">
-      <option name="closed" value="true" />
-      <created>1696315971090</created>
-      <option name="number" value="00024" />
-      <option name="presentableId" value="LOCAL-00024" />
-      <option name="project" value="LOCAL" />
-      <updated>1696315971090</updated>
-    </task>
-    <task id="LOCAL-00025" summary="commandName alias">
-      <option name="closed" value="true" />
-      <created>1696317653964</created>
-      <option name="number" value="00025" />
-      <option name="presentableId" value="LOCAL-00025" />
-      <option name="project" value="LOCAL" />
-      <updated>1696317653964</updated>
-    </task>
-    <task id="LOCAL-00026" summary="commandName alias">
-      <option name="closed" value="true" />
-      <created>1696317737020</created>
-      <option name="number" value="00026" />
-      <option name="presentableId" value="LOCAL-00026" />
-      <option name="project" value="LOCAL" />
-      <updated>1696317737021</updated>
-    </task>
-    <task id="LOCAL-00027" summary="commandRegistry update, help.ts">
-      <option name="closed" value="true" />
-      <created>1696322081670</created>
-      <option name="number" value="00027" />
-      <option name="presentableId" value="LOCAL-00027" />
-      <option name="project" value="LOCAL" />
-      <updated>1696322081670</updated>
-    </task>
-    <task id="LOCAL-00028" summary="v6">
-      <option name="closed" value="true" />
-      <created>1696410344831</created>
-      <option name="number" value="00028" />
-      <option name="presentableId" value="LOCAL-00028" />
-      <option name="project" value="LOCAL" />
-      <updated>1696410344831</updated>
-    </task>
-    <task id="LOCAL-00029" summary="fix respawn">
-      <option name="closed" value="true" />
-      <created>1696428530602</created>
-      <option name="number" value="00029" />
-      <option name="presentableId" value="LOCAL-00029" />
-      <option name="project" value="LOCAL" />
-      <updated>1696428530602</updated>
-    </task>
-    <task id="LOCAL-00030" summary="fix respawn">
-      <option name="closed" value="true" />
-      <created>1696428785237</created>
-      <option name="number" value="00030" />
-      <option name="presentableId" value="LOCAL-00030" />
-      <option name="project" value="LOCAL" />
-      <updated>1696428785237</updated>
-    </task>
-    <task id="LOCAL-00031" summary="fix respawn">
-      <option name="closed" value="true" />
-      <created>1696434211341</created>
-      <option name="number" value="00031" />
-      <option name="presentableId" value="LOCAL-00031" />
-      <option name="project" value="LOCAL" />
-      <updated>1696434211341</updated>
-    </task>
-    <task id="LOCAL-00032" summary="update SIGN and task">
-      <option name="closed" value="true" />
-      <created>1696436324879</created>
-      <option name="number" value="00032" />
-      <option name="presentableId" value="LOCAL-00032" />
-      <option name="project" value="LOCAL" />
-      <updated>1696436324879</updated>
-    </task>
-    <task id="LOCAL-00033" summary="update manifest.json,add @minecraft/server-ui@1.2.0-beta">
-      <option name="closed" value="true" />
-      <created>1696478495699</created>
-      <option name="number" value="00033" />
-      <option name="presentableId" value="LOCAL-00033" />
-      <option name="project" value="LOCAL" />
-      <updated>1696478495699</updated>
-    </task>
-    <task id="LOCAL-00034" summary="v7">
-      <option name="closed" value="true" />
-      <created>1696482093205</created>
-      <option name="number" value="00034" />
-      <option name="presentableId" value="LOCAL-00034" />
-      <option name="project" value="LOCAL" />
-      <updated>1696482093205</updated>
-    </task>
-    <task id="LOCAL-00035" summary="before disconnect,turn res to player">
-      <option name="closed" value="true" />
-      <created>1696491927648</created>
-      <option name="number" value="00035" />
-      <option name="presentableId" value="LOCAL-00035" />
-      <option name="project" value="LOCAL" />
-      <updated>1696491927648</updated>
-    </task>
-    <task id="LOCAL-00036" summary="respawn command">
-      <option name="closed" value="true" />
-      <created>1696492726953</created>
-      <option name="number" value="00036" />
-      <option name="presentableId" value="LOCAL-00036" />
-      <option name="project" value="LOCAL" />
-      <updated>1696492726953</updated>
-    </task>
-    <task id="LOCAL-00037" summary="list  command">
-      <option name="closed" value="true" />
-      <created>1696492911768</created>
-      <option name="number" value="00037" />
-      <option name="presentableId" value="LOCAL-00037" />
-      <option name="project" value="LOCAL" />
-      <updated>1696492911768</updated>
-    </task>
-    <task id="LOCAL-00038" summary="fix auto fishing">
-      <option name="closed" value="true" />
-      <created>1696492992509</created>
-      <option name="number" value="00038" />
-      <option name="presentableId" value="LOCAL-00038" />
-      <option name="project" value="LOCAL" />
-      <updated>1696492992509</updated>
-    </task>
-    <task id="LOCAL-00039" summary="todo /">
-      <option name="closed" value="true" />
-      <created>1696493024476</created>
-      <option name="number" value="00039" />
-      <option name="presentableId" value="LOCAL-00039" />
-      <option name="project" value="LOCAL" />
-      <updated>1696493024476</updated>
-    </task>
-    <task id="LOCAL-00040" summary="before v8 amd fix spwan">
-      <option name="closed" value="true" />
-      <created>1697431291819</created>
-      <option name="number" value="00040" />
-      <option name="presentableId" value="LOCAL-00040" />
-      <option name="project" value="LOCAL" />
-      <updated>1697431291819</updated>
-    </task>
-    <task id="LOCAL-00041" summary="before v8 and fix ed spawn">
-      <option name="closed" value="true" />
-      <created>1697687722536</created>
-      <option name="number" value="00041" />
-      <option name="presentableId" value="LOCAL-00041" />
-      <option name="project" value="LOCAL" />
-      <updated>1697687722536</updated>
-    </task>
-    <task id="LOCAL-00042" summary="do do v8">
-      <option name="closed" value="true" />
-      <created>1697688037873</created>
-      <option name="number" value="00042" />
-      <option name="presentableId" value="LOCAL-00042" />
-      <option name="project" value="LOCAL" />
-      <updated>1697688037873</updated>
-    </task>
-    <task id="LOCAL-00043" summary="just do do clear">
-      <option name="closed" value="true" />
-      <created>1697689295262</created>
-      <option name="number" value="00043" />
-      <option name="presentableId" value="LOCAL-00043" />
-      <option name="project" value="LOCAL" />
-      <updated>1697689295262</updated>
-    </task>
-    <task id="LOCAL-00044" summary="just do do clear">
-      <option name="closed" value="true" />
-      <created>1697690183666</created>
-      <option name="number" value="00044" />
-      <option name="presentableId" value="LOCAL-00044" />
-      <option name="project" value="LOCAL" />
-      <updated>1697690183666</updated>
-    </task>
-    <task id="LOCAL-00045" summary="update : add function rename">
-      <option name="closed" value="true" />
-      <created>1697691227751</created>
-      <option name="number" value="00045" />
-      <option name="presentableId" value="LOCAL-00045" />
-      <option name="project" value="LOCAL" />
-      <updated>1697691227751</updated>
-    </task>
-    <task id="LOCAL-00046" summary="update : add function rename">
-      <option name="closed" value="true" />
-      <created>1697691259988</created>
-      <option name="number" value="00046" />
-      <option name="presentableId" value="LOCAL-00046" />
-      <option name="project" value="LOCAL" />
-      <updated>1697691259988</updated>
-    </task>
-    <task id="LOCAL-00047" summary="qjs no time">
-      <option name="closed" value="true" />
-      <created>1697718971345</created>
-      <option name="number" value="00047" />
-      <option name="presentableId" value="LOCAL-00047" />
-      <option name="project" value="LOCAL" />
-      <updated>1697718971345</updated>
-    </task>
-    <option name="localTasksCounter" value="48" />
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
-  <component name="Vcs.Log.History.Properties">
-    <option name="COLUMN_ID_ORDER">
-      <list>
-        <option value="Default.Root" />
-        <option value="Default.Author" />
-        <option value="Default.Date" />
-        <option value="Default.Subject" />
-        <option value="Space.CommitStatus" />
-      </list>
-    </option>
-  </component>
-  <component name="Vcs.Log.Tabs.Properties">
-    <option name="TAB_STATES">
-      <map>
-        <entry key="MAIN">
-          <value>
-            <State />
-          </value>
-        </entry>
-      </map>
-    </option>
-  </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="clear" />
-    <MESSAGE value="sign enum" />
-    <MESSAGE value="release breakBlock" />
-    <MESSAGE value="command ts" />
-    <MESSAGE value="no arrow event" />
-    <MESSAGE value="v5" />
-    <MESSAGE value="commandName alias" />
-    <MESSAGE value="commandRegistry update, help.ts" />
-    <MESSAGE value="v6" />
-    <MESSAGE value="fix respawn" />
-    <MESSAGE value="update SIGN and task" />
-    <MESSAGE value="update manifest.json,add @minecraft/server-ui@1.2.0-beta" />
-    <MESSAGE value="v7" />
-    <MESSAGE value="before disconnect,turn res to player" />
-    <MESSAGE value="respawn command" />
-    <MESSAGE value="list  command" />
-    <MESSAGE value="fix auto fishing" />
-    <MESSAGE value="todo /" />
-    <MESSAGE value="before v8 amd fix spwan" />
-    <MESSAGE value="before v8 and fix ed spawn" />
-    <MESSAGE value="do do v8" />
-    <MESSAGE value="just do do clear" />
-    <MESSAGE value="rename" />
-    <MESSAGE value="update : add function rename" />
-    <MESSAGE value="qjs no time" />
-    <option name="LAST_COMMIT_MESSAGE" value="qjs no time" />
+    <MESSAGE value="add AUTO_trident_SIGN" />
+    <MESSAGE value="test gui" />
+    <MESSAGE value="fix entityDeadByHurt.ts" />
+    <MESSAGE value="dodo need" />
+    <MESSAGE value="// @ts-nocheck" />
+    <MESSAGE value="meow~" />
+    <MESSAGE value="#auto fishing" />
+    <MESSAGE value="#AUTO CHASE" />
+    <option name="LAST_COMMIT_MESSAGE" value="#AUTO CHASE" />
   </component>
 </project>

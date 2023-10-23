@@ -10,18 +10,19 @@ import type { SimulatedPlayer } from "@minecraft/server-gametest";
 //     system,
 //     TicksPerSecond
 // } from "@minecraft/server";
-import {
-    spawnSimulatedPlayer,
-    SimulatedPlayerList,
-    SimulatedPlayerList as 工具人们,
-    GetPID,
-    spawned as spawnedEvent,
-} from "../main";
+// import {
+//     spawnSimulatedPlayer,
+//     SimulatedPlayerList,
+//     SimulatedPlayerList as 工具人们,
+//     GetPID,
+//     spawned as spawnedEvent,
+// } from "../main";
 
 // import qrcode from "../../lib/qrcode-terminal/mod.js";
 
 // import {Location} from "../../lib/xboyPackage/The law of the ancestors is immutable";
 import SIGN from "../../lib/xboyPackage/YumeSignEnum";
+import {getSimPlayer} from "../../lib/xboyPackage/Util";
 //
 // import {BlockLocation} from "../../@types/globalThis";
 // class BlockLocation extends Location {
@@ -55,19 +56,18 @@ const yumeSimCmdHead = "假人";                      ;;" 命令头 ";;
 // const AUTO_CHASE_SIGN = "AUTO_CHASE_SIGN";
 // const AUTO_JUMP_SIGN = "AUTO_JUMP_SIGN";
 // const AUTO_RESPAWN_SIGN = "AUTO_RESPAWN_SIGN";
-
 // const 寻路标识符 = "寻路标识符";
 
 
-const 工具人们States:{SimulatedPlayer?:{'o'}} = {};
+// const 工具人们States:{SimulatedPlayer?:{'o'}} = {};
 
-function 获取眼前的假人实体(逻辑主体,距离){
-    const 最远距离 = {maxDistance:距离} //new EntityRaycastOptions();;;"距离";;
-
-    const 实体们 = 逻辑主体.getEntitiesFromViewDirection(最远距离);// ViewDirection
-
-    return 实体们.find(({entity:实体})=>实体.hasTag(SIGN.YUME_SIM_SIGN))?.entity;;"只返回一个假人";;
-};
+// function 获取眼前的假人实体(逻辑主体,距离){
+//     const 最远距离 = {maxDistance:距离} //new EntityRaycastOptions();;;"距离";;
+//
+//     const 实体们 = 逻辑主体.getEntitiesFromViewDirection(最远距离);// ViewDirection
+//
+//     return 实体们.find(({entity:实体})=>实体.hasTag(SIGN.YUME_SIM_SIGN))?.entity;;"只返回一个假人";;
+// };
 // function 获取眼前的实体(逻辑主体,距离){
 //     const 最远距离 = {maxDistance:距离}//new EntityRaycastOptions();;;"距离";;
 //     const 实体们 = 逻辑主体.getEntitiesFromViewDirection(最远距离);
@@ -126,122 +126,122 @@ function 获取眼前的假人实体(逻辑主体,距离){
 //     return new BlockLocation(x,y,z);;"不绝对咯";;
 // };
 
-let dev_ = flase;
-let 周期 = 0;
-world.events.tick.subscribe(() => {//我()了，这也是一种不（）
-    周期++;
-    // const 有人吗 = overworld.getPlayers();
-    ;;;"又不是不能用";;;
-    // if(!dev_ && 有人吗.length !== 0){
-    //     dev_ = !dev_;
-    //     有人吗[0].runCommandAsync("summon yumecraft:ceyk 30000000 128 0 0 0 事了浮尘去");
-    //     有人吗[0].runCommandAsync("execute positioned 30000000 128 0 run gametest run 我是云梦:假人");
-    //     有人吗[0].runCommandAsync("fill 29999997 0 5 30000002 319 -1 air replace");
-    // }
-
-    // while(生产队的驴.length!==0){
-    //     const {驴,location,dimension} = 生产队的驴.pop();
-    //
-    //     const x = (驴.location.x-0.5)>>0;
-    //     const y =  驴.location.y>>0;
-    //     const z = (驴.location.z-0.5)>>0; //for blockLocation
-    //     驴.addTag("#xyz#"+x+"#"+(y-2)+"#"+z);;
-    //     驴.teleport(location,{dimension});
-    //     location.dimension = dimension;
-    //     驴.setSpawnPoint(location);
-    //     驴.addTag(AUTO_RESPAWN_SIGN);
-    //     驴.addTag(yumeSign);
-    //     工具人们.push(驴);
-    // }
-
-    try {
-
-        if(周期<1)return;
-        周期=0;
-        for (const index in 工具人们) {
-
-            const 工具人:SimulatedPlayer = 工具人们[index]
-
-            //判假人是否存在
-            if(!工具人)return;
-            // try{
-            //     //判假人是否存活
-            //     //瞎几把乱改接口名--2023-07-21-02：02
-            //     if(工具人.getComponent("minecraft:health").currentValue<=0){
-            //         if(工具人.hasTag(AUTO_RESPAWN_SIGN))工具人.respawn();
-            //         return;
-            //     };
-            //
-            //     // 工具人.hasTag(攻击标识符)
-            //     // ;;"为什么说屎山代码呢，因为一些莫名其妙的代码增加，它们实现的功能你是完全不知道的，可能修改后会导致另外一个你根本无法察觉的功能报错";;
-            //     // ;;"可能是可控的，也可能是致命的";;
-            //     // ;;"就像这里增加的两个return一样，表面作用都是跳过遍历中的这一次";;
-            // }catch(e){
-            //     '?'
-            // };;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-            // if(!工具人)return;
-
-            // try{
-            //     if(工具人.hasTag(挖掘标识符))工具人.breakBlock(获取假人实体眼前的方块的相对坐标(工具人));
-            // }catch(e){  主世界.runCommandAsync(`me 挖掘标识符 ${e}`)
-            // };;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-            // try{
-            //     if(工具人.hasTag(攻击标识符))工具人.attackEntity(获取眼前的实体(工具人,4));
-            // }catch(e){};;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-            // try{
-            //     if(工具人.hasTag(自动攻击标识符))工具人.lookAtEntity(获取附近的非玩家实体(工具人,4,{})[0]);
-            // }catch(e){
-            // };;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-            try{
-                // if(工具人.hasTag(SIGN.AUTO_CHASE_SIGN)){
-                //     const 实体们 = 获取附近的非玩家实体(工具人,12,{families:["undead"]}).concat(获取附近的非玩家实体(工具人,12,{families:["monster"]})).concat(获取附近的玩家实体2(工具人,12,{}));
-                //
-                //     工具人们States[工具人]?0:(工具人们States[工具人]={});
-                //     工具人们States[工具人]["o"]?0:(工具人们States[工具人]["o"]=工具人.location);
-                //
-                //     const r = (x,_x,v)=>x-_x>v||x-_x<-v;
-                //     const r3 = (o,_o,v)=>o.x-_o.x>v||o.x-_o.x<-v || o.y-_o.y>v||o.y-_o.y<-v || o.z-_o.z>v||o.z-_o.z<-v;
-                //     const fix = (o)=>({x:o.x-30000000+1,y:o.y,z:o.z-3});
-                //     // && r3(工具人们States[工具人]["o"],工具人.location,16)
-                //     if(实体们.length>0 ){
-                //
-                //         let 挨打实体 = 实体们[0];
-                //         if( !r3(挨打实体.location,工具人.location,4) ){
-                //             // 30000000 128 0 {x:-30000000,y:-128,z:0}
-                //             工具人.moveToLocation(fix(挨打实体.location));
-                //             console.error(挨打实体.typeId,挨打实体.location.x,挨打实体.location.y,挨打实体.location.z)
-                //         }
-                //
-                //     }else{
-                //         console.error("back")
-                //         if( r3(工具人.location,工具人们States[工具人]["o"],1) )
-                //             工具人.moveToLocation( fix(工具人们States[工具人]["o"]) );
-                //         // 工具人.moveToLocation({x:-30000000,y:-128,z:0});
-                //
-                //     }
-                // };
-            }catch(e){
-            };;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-            // try{
-            //     if(工具人.hasTag(SIGN.AUTO_ATTACK_SIGN) && 获取眼前的实体(工具人,4).name!="")工具人.attackEntity(获取眼前的实体(工具人,4));
-            // }catch(e){};;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-            // try{
-            //     if(工具人.hasTag(SIGN.AUTO_JUMP_SIGN))工具人.jump();
-            // }catch(e){};;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-            // try{
-            //   // if(工具人.hasTag(寻路标识符))Array.from(工具人.navigateToEntity(获取附近的玩家实体(工具人,128)[1]).path).forEach(_=>工具人.runCommandAsync("me "+JSON.stringify(_.x)));
-            //   if(工具人.hasTag(寻路标识符))工具人.runCommandAsync("me "+Array.from(工具人.navigateToEntity(获取附近的玩家实体(工具人,128)[1]).path).length )
-            // }catch(e){
-            //   工具人.runCommandAsync("me "+e)
-            // };;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-        }
-
-
-    } catch (毛病) {
-        if(debug)
-            overworld.runCommandAsync(`me ${毛病}`)
-    }
-})
+// let dev_ = flase;
+// let 周期 = 0;
+// world.events.tick.subscribe(() => {//我()了，这也是一种不（）
+//     周期++;
+//     // const 有人吗 = overworld.getPlayers();
+//     ;;;"又不是不能用";;;
+//     // if(!dev_ && 有人吗.length !== 0){
+//     //     dev_ = !dev_;
+//     //     有人吗[0].runCommandAsync("summon yumecraft:ceyk 30000000 128 0 0 0 事了浮尘去");
+//     //     有人吗[0].runCommandAsync("execute positioned 30000000 128 0 run gametest run 我是云梦:假人");
+//     //     有人吗[0].runCommandAsync("fill 29999997 0 5 30000002 319 -1 air replace");
+//     // }
+//     //
+//     // while(生产队的驴.length!==0){
+//     //     const {驴,location,dimension} = 生产队的驴.pop();
+//     //
+//     //     const x = (驴.location.x-0.5)>>0;
+//     //     const y =  驴.location.y>>0;
+//     //     const z = (驴.location.z-0.5)>>0; //for blockLocation
+//     //     驴.addTag("#xyz#"+x+"#"+(y-2)+"#"+z);;
+//     //     驴.teleport(location,{dimension});
+//     //     location.dimension = dimension;
+//     //     驴.setSpawnPoint(location);
+//     //     驴.addTag(AUTO_RESPAWN_SIGN);
+//     //     驴.addTag(yumeSign);
+//     //     工具人们.push(驴);
+//     // }
+//
+//     try {
+//
+//         if(周期<1)return;
+//         周期=0;
+//         for (const index in 工具人们) {
+//
+//             const 工具人:SimulatedPlayer = 工具人们[index]
+//
+//             //判假人是否存在
+//             if(!工具人)return;
+//             // try{
+//             //     //判假人是否存活
+//             //     //瞎几把乱改接口名--2023-07-21-02：02
+//             //     if(工具人.getComponent("minecraft:health").currentValue<=0){
+//             //         if(工具人.hasTag(AUTO_RESPAWN_SIGN))工具人.respawn();
+//             //         return;
+//             //     };
+//             //
+//             //     // 工具人.hasTag(攻击标识符)
+//             //     // ;;"为什么说屎山代码呢，因为一些莫名其妙的代码增加，它们实现的功能你是完全不知道的，可能修改后会导致另外一个你根本无法察觉的功能报错";;
+//             //     // ;;"可能是可控的，也可能是致命的";;
+//             //     // ;;"就像这里增加的两个return一样，表面作用都是跳过遍历中的这一次";;
+//             // }catch(e){
+//             //     '?'
+//             // };;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+//             // if(!工具人)return;
+//             //
+//             // try{
+//             //     if(工具人.hasTag(挖掘标识符))工具人.breakBlock(获取假人实体眼前的方块的相对坐标(工具人));
+//             // }catch(e){  主世界.runCommandAsync(`me 挖掘标识符 ${e}`)
+//             // };;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+//             // try{
+//             //     if(工具人.hasTag(攻击标识符))工具人.attackEntity(获取眼前的实体(工具人,4));
+//             // }catch(e){};;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+//             // try{
+//             //     if(工具人.hasTag(自动攻击标识符))工具人.lookAtEntity(获取附近的非玩家实体(工具人,4,{})[0]);
+//             // }catch(e){
+//             // };;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+//             // try{
+//                 // if(工具人.hasTag(SIGN.AUTO_CHASE_SIGN)){
+//                 //     const 实体们 = 获取附近的非玩家实体(工具人,12,{families:["undead"]}).concat(获取附近的非玩家实体(工具人,12,{families:["monster"]})).concat(获取附近的玩家实体2(工具人,12,{}));
+//                 //
+//                 //     工具人们States[工具人]?0:(工具人们States[工具人]={});
+//                 //     工具人们States[工具人]["o"]?0:(工具人们States[工具人]["o"]=工具人.location);
+//                 //
+//                 //     const r = (x,_x,v)=>x-_x>v||x-_x<-v;
+//                 //     const r3 = (o,_o,v)=>o.x-_o.x>v||o.x-_o.x<-v || o.y-_o.y>v||o.y-_o.y<-v || o.z-_o.z>v||o.z-_o.z<-v;
+//                 //     const fix = (o)=>({x:o.x-30000000+1,y:o.y,z:o.z-3});
+//                 //     // && r3(工具人们States[工具人]["o"],工具人.location,16)
+//                 //     if(实体们.length>0 ){
+//                 //
+//                 //         let 挨打实体 = 实体们[0];
+//                 //         if( !r3(挨打实体.location,工具人.location,4) ){
+//                 //             // 30000000 128 0 {x:-30000000,y:-128,z:0}
+//                 //             工具人.moveToLocation(fix(挨打实体.location));
+//                 //             console.error(挨打实体.typeId,挨打实体.location.x,挨打实体.location.y,挨打实体.location.z)
+//                 //         }
+//                 //
+//                 //     }else{
+//                 //         console.error("back")
+//                 //         if( r3(工具人.location,工具人们States[工具人]["o"],1) )
+//                 //             工具人.moveToLocation( fix(工具人们States[工具人]["o"]) );
+//                 //         // 工具人.moveToLocation({x:-30000000,y:-128,z:0});
+//                 //
+//                 //     }
+//                 // };
+//             // }catch(e){
+//             // };;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+//             // try{
+//             //     if(工具人.hasTag(SIGN.AUTO_ATTACK_SIGN) && 获取眼前的实体(工具人,4).name!="")工具人.attackEntity(获取眼前的实体(工具人,4));
+//             // }catch(e){};;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+//             // try{
+//             //     if(工具人.hasTag(SIGN.AUTO_JUMP_SIGN))工具人.jump();
+//             // }catch(e){};;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+//             // try{
+//             //   // if(工具人.hasTag(寻路标识符))Array.from(工具人.navigateToEntity(获取附近的玩家实体(工具人,128)[1]).path).forEach(_=>工具人.runCommandAsync("me "+JSON.stringify(_.x)));
+//             //   if(工具人.hasTag(寻路标识符))工具人.runCommandAsync("me "+Array.from(工具人.navigateToEntity(获取附近的玩家实体(工具人,128)[1]).path).length )
+//             // }catch(e){
+//             //   工具人.runCommandAsync("me "+e)
+//             // };;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+//         }
+//
+//
+//     } catch (毛病) {
+//         if(debug)
+//             overworld.runCommandAsync(`me ${毛病}`)
+//     }
+// })
 
 //
 // world.events.fishingHookDespawned.subscribe(event=>{
@@ -278,7 +278,7 @@ world.afterEvents.chatSend.subscribe( event => {
             if (消息.startsWith(yumeSimCmdHead) === false) return "好shit,迟早给你干烂";
             消息 = 消息.replace(yumeSimCmdHead, '');
 
-            const 眼前的工具人 = 获取眼前的假人实体(发起者, 16);
+            const 眼前的工具人 = getSimPlayer.formView(发起者, 16);
             //懒改--2023-07-21--评
             const TagsManager = (xboy: string) => (minemc: Entity) => (need: string) => (add: string[]) => (remove: string[]) => xboy === need ? (add.length ? add.forEach(t => minemc.addTag(t)) : 0, remove.length ? remove.forEach(t => minemc.removeTag(t)) : 0) : 0;
             const xboy = TagsManager(消息)(眼前的工具人)
