@@ -15,7 +15,7 @@
 // } from "../main";
 // import qrcode from "../../lib/qrcode-terminal/mod.js";
 // import {Location} from "../../lib/xboyPackage/The law of the ancestors is immutable";
-import SIGN from "../../lib/xboyPackage/YumeSignEnum";
+import SIGN, { exeBehavior } from "../../lib/xboyPackage/YumeSignEnum";
 import { getSimPlayer } from "../../lib/xboyPackage/Util";
 //
 // import {BlockLocation} from "../../@types/globalThis";
@@ -346,36 +346,42 @@ world.afterEvents.chatSend.subscribe(event => {
         //     眼前的工具人.removeTag(自动攻击标识符);
         // }
         // ;
-        if (消息 == "扭头" || 消息 == "转向") {
-            眼前的工具人.lookAtEntity(发起者);
-        }
-        ;
-        if (消息 == "移动") {
-            !(眼前的工具人)
-                ? 发起者.sendMessage("§e§l-光标方向，15格内没找到相关实体")
-                : 眼前的工具人.teleport(发起者.location, { dimension: 眼前的工具人.dimension });
-            ;
-        }
-        ;
-        if (消息 == "使用") {
-            眼前的工具人.useItemInSlot(0) ? 眼前的工具人.stopUsingItem() : 0;
-        }
-        ;
-        if (消息 == "开始使用") {
-            眼前的工具人.useItemInSlot(0);
-        }
-        ;
-        if (消息 == "停止使用") {
-            眼前的工具人.stopUsingItem();
-        }
-        ;
-        if (消息 == "开始交互") {
-            眼前的工具人.interact();
-        }
-        ;
+        //
+        // move to behavior
+        //
+        // if (消息 == "扭头" || 消息 == "转向") {
+        //     眼前的工具人.lookAtEntity(发起者);
+        // }
+        // ;
+        // if (消息 == "移动") {
+        //     !(眼前的工具人)
+        //         ? 发起者.sendMessage("§e§l-光标方向，15格内没找到相关实体")
+        //         : 眼前的工具人.teleport(发起者.location, {dimension: 眼前的工具人.dimension});
+        //     ;
+        // }
+        // ;
+        // if (消息 == "使用") {
+        //     眼前的工具人.useItemInSlot(0) ? 眼前的工具人.stopUsingItem() : 0
+        // }
+        // ;
+        // if (消息 == "开始使用") {
+        //     眼前的工具人.useItemInSlot(0)
+        // }
+        // ;
+        // if (消息 == "停止使用") {
+        //     眼前的工具人.stopUsingItem()
+        // }
+        // ;
+        // if (消息 == "开始交互") {
+        //     眼前的工具人.interact()
+        // }
+        //
+        const behavior = 消息;
+        exeBehavior(behavior)(眼前的工具人, sender);
         ;
         "希望你对中文编程没意见，有也给我保留";
         ;
+        //
         // if (消息 == "重生") {
         //     ;
         //     ;"对准~";
