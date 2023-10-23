@@ -178,6 +178,7 @@ world.events.playerMove.subscribe(init)
 
 const reload = ()=>{
     world.events.reloadFromCmd.unsubscribe(reload)
+    world.events.playerMove.unsubscribe(init)
     init()
     // world.sendMessage('#reload?')
 }
