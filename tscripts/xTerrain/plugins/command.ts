@@ -84,31 +84,31 @@ function 获取眼前的假人实体(逻辑主体,距离){
 //     for(let 实体 of 实体们)实体组.push(实体);;;;;;;;;;;;
 //     return 实体组;;
 // };
-function 获取附近的非玩家实体(逻辑主体,距离,昊京牌过滤器){
-    let 吃个桃桃 = {}//new EntityQueryOptions();
-    吃个桃桃.maxDistance = 距离;                                                               ;;"距离";;
-    吃个桃桃.location    = 逻辑主体.location;  //new Location(逻辑主体.location.x,逻辑主体.location.y,逻辑主体.location.z);                                                  ;;"中心坐标-ri泥god";;
-    吃个桃桃.excludeTypes= ["minecraft:player","minecraft:arrow","minecraft:xp_orb","minecraft:item"];                                              ;;"排除掉的实体类型";;
-    吃个桃桃.closest   = 1;
-    Object.assign(吃个桃桃,昊京牌过滤器);;;;"”任何邪恶“";;;
-    let 实体们 = 逻辑主体.dimension.getEntities(吃个桃桃);
-    let 实体组 = [];
-    for(let 实体 of 实体们)实体组.push(实体);;;;;;;;;;;;
-    return 实体组;;
-};
-function 获取附近的玩家实体2(逻辑主体,距离,昊京牌过滤器){
-    let 吃个桃桃 = {}//new EntityQueryOptions();
-    吃个桃桃.maxDistance = 距离;                                                               ;;"距离";;
-    吃个桃桃.location    = 逻辑主体.location;  //new Location(逻辑主体.location.x,逻辑主体.location.y,逻辑主体.location.z);                                                  ;;"中心坐标-ri泥god";;
-    // 吃个桃桃.excludeTypes= ["minecraft:arrow","minecraft:xp_orb","minecraft:item"];                                              ;;"排除掉的实体类型";;
-    吃个桃桃.closest   = 1;
-    吃个桃桃.excludeTags = [SIGN.YUME_SIM_SIGN]
-    Object.assign(吃个桃桃,昊京牌过滤器);;;;"”任何邪恶“";;;
-    let 实体们 = 逻辑主体.dimension.getEntities(吃个桃桃);
-    let 实体组 = [];
-    for(let 实体 of 实体们)实体组.push(实体);;;;;;;;;;;;
-    return 实体组;;
-};
+// function 获取附近的非玩家实体(逻辑主体,距离,昊京牌过滤器){
+//     let 吃个桃桃 = {}//new EntityQueryOptions();
+//     吃个桃桃.maxDistance = 距离;                                                               ;;"距离";;
+//     吃个桃桃.location    = 逻辑主体.location;  //new Location(逻辑主体.location.x,逻辑主体.location.y,逻辑主体.location.z);                                                  ;;"中心坐标-ri泥god";;
+//     吃个桃桃.excludeTypes= ["minecraft:player","minecraft:arrow","minecraft:xp_orb","minecraft:item"];                                              ;;"排除掉的实体类型";;
+//     吃个桃桃.closest   = 1;
+//     Object.assign(吃个桃桃,昊京牌过滤器);;;;"”任何邪恶“";;;
+//     let 实体们 = 逻辑主体.dimension.getEntities(吃个桃桃);
+//     let 实体组 = [];
+//     for(let 实体 of 实体们)实体组.push(实体);;;;;;;;;;;;
+//     return 实体组;;
+// };
+// function 获取附近的玩家实体2(逻辑主体,距离,昊京牌过滤器){
+//     let 吃个桃桃 = {}//new EntityQueryOptions();
+//     吃个桃桃.maxDistance = 距离;                                                               ;;"距离";;
+//     吃个桃桃.location    = 逻辑主体.location;  //new Location(逻辑主体.location.x,逻辑主体.location.y,逻辑主体.location.z);                                                  ;;"中心坐标-ri泥god";;
+//     // 吃个桃桃.excludeTypes= ["minecraft:arrow","minecraft:xp_orb","minecraft:item"];                                              ;;"排除掉的实体类型";;
+//     吃个桃桃.closest   = 1;
+//     吃个桃桃.excludeTags = [SIGN.YUME_SIM_SIGN]
+//     Object.assign(吃个桃桃,昊京牌过滤器);;;;"”任何邪恶“";;;
+//     let 实体们 = 逻辑主体.dimension.getEntities(吃个桃桃);
+//     let 实体组 = [];
+//     for(let 实体 of 实体们)实体组.push(实体);;;;;;;;;;;;
+//     return 实体组;;
+// };
 // function 获取眼前的方块(逻辑主体,距离){
 //     let 最远距离 = {};
 //     最远距离.maxDistance = 距离;                                                              ;;"距离";;
@@ -193,33 +193,33 @@ world.events.tick.subscribe(() => {//我()了，这也是一种不（）
             // }catch(e){
             // };;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
             try{
-                if(工具人.hasTag(SIGN.AUTO_CHASE_SIGN)){
-                    const 实体们 = 获取附近的非玩家实体(工具人,12,{families:["undead"]}).concat(获取附近的非玩家实体(工具人,12,{families:["monster"]})).concat(获取附近的玩家实体2(工具人,12,{}));
-
-                    工具人们States[工具人]?0:(工具人们States[工具人]={});
-                    工具人们States[工具人]["o"]?0:(工具人们States[工具人]["o"]=工具人.location);
-
-                    const r = (x,_x,v)=>x-_x>v||x-_x<-v;
-                    const r3 = (o,_o,v)=>o.x-_o.x>v||o.x-_o.x<-v || o.y-_o.y>v||o.y-_o.y<-v || o.z-_o.z>v||o.z-_o.z<-v;
-                    const fix = (o)=>({x:o.x-30000000+1,y:o.y,z:o.z-3});
-                    // && r3(工具人们States[工具人]["o"],工具人.location,16)
-                    if(实体们.length>0 ){
-
-                        let 挨打实体 = 实体们[0];
-                        if( !r3(挨打实体.location,工具人.location,4) ){
-                            // 30000000 128 0 {x:-30000000,y:-128,z:0}
-                            工具人.moveToLocation(fix(挨打实体.location));
-                            console.error(挨打实体.typeId,挨打实体.location.x,挨打实体.location.y,挨打实体.location.z)
-                        }
-
-                    }else{
-                        console.error("back")
-                        if( r3(工具人.location,工具人们States[工具人]["o"],1) )
-                            工具人.moveToLocation( fix(工具人们States[工具人]["o"]) );
-                        // 工具人.moveToLocation({x:-30000000,y:-128,z:0});
-
-                    }
-                };
+                // if(工具人.hasTag(SIGN.AUTO_CHASE_SIGN)){
+                //     const 实体们 = 获取附近的非玩家实体(工具人,12,{families:["undead"]}).concat(获取附近的非玩家实体(工具人,12,{families:["monster"]})).concat(获取附近的玩家实体2(工具人,12,{}));
+                //
+                //     工具人们States[工具人]?0:(工具人们States[工具人]={});
+                //     工具人们States[工具人]["o"]?0:(工具人们States[工具人]["o"]=工具人.location);
+                //
+                //     const r = (x,_x,v)=>x-_x>v||x-_x<-v;
+                //     const r3 = (o,_o,v)=>o.x-_o.x>v||o.x-_o.x<-v || o.y-_o.y>v||o.y-_o.y<-v || o.z-_o.z>v||o.z-_o.z<-v;
+                //     const fix = (o)=>({x:o.x-30000000+1,y:o.y,z:o.z-3});
+                //     // && r3(工具人们States[工具人]["o"],工具人.location,16)
+                //     if(实体们.length>0 ){
+                //
+                //         let 挨打实体 = 实体们[0];
+                //         if( !r3(挨打实体.location,工具人.location,4) ){
+                //             // 30000000 128 0 {x:-30000000,y:-128,z:0}
+                //             工具人.moveToLocation(fix(挨打实体.location));
+                //             console.error(挨打实体.typeId,挨打实体.location.x,挨打实体.location.y,挨打实体.location.z)
+                //         }
+                //
+                //     }else{
+                //         console.error("back")
+                //         if( r3(工具人.location,工具人们States[工具人]["o"],1) )
+                //             工具人.moveToLocation( fix(工具人们States[工具人]["o"]) );
+                //         // 工具人.moveToLocation({x:-30000000,y:-128,z:0});
+                //
+                //     }
+                // };
             }catch(e){
             };;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
             // try{
@@ -243,20 +243,20 @@ world.events.tick.subscribe(() => {//我()了，这也是一种不（）
     }
 })
 
-
-world.events.fishingHookDespawned.subscribe(event=>{
-    if(debug)console.error("fishingHook Despawned")
-    if(debug)world.sendMessage("me ##鱼钩销毁\u000a鱼钩id=>"+event.HookId+"\u000a发起者id=>"+event.Fisher.id);
-    for (const index in SimulatedPlayerList) {
-        const _ = SimulatedPlayerList[index]
-
-        !_?0:_.id===event.Fisher.id?event.fishingHookDespawned_TickArray.push(()=>(_.useItemInSlot(0)?_.stopUsingItem():0)):0
-    }
-})
-world.events.fishingHookSpawned.subscribe(event=>{
-    if(debug)console.error("fishingHook Spawned")
-    if(debug)world.sendMessage("me ##鱼钩生成\u000a鱼钩id=>"+event.HookId+"\u000a发起者id=>"+event.Fisher.id);
-})
+//
+// world.events.fishingHookDespawned.subscribe(event=>{
+//     if(debug)console.error("fishingHook Despawned")
+//     if(debug)world.sendMessage("me ##鱼钩销毁\u000a鱼钩id=>"+event.HookId+"\u000a发起者id=>"+event.Fisher.id);
+//     for (const index in SimulatedPlayerList) {
+//         const _ = SimulatedPlayerList[index]
+//
+//         !_?0:_.id===event.Fisher.id?event.fishingHookDespawned_TickArray.push(()=>(_.useItemInSlot(0)?_.stopUsingItem():0)):0
+//     }
+// })
+// world.events.fishingHookSpawned.subscribe(event=>{
+//     if(debug)console.error("fishingHook Spawned")
+//     if(debug)world.sendMessage("me ##鱼钩生成\u000a鱼钩id=>"+event.HookId+"\u000a发起者id=>"+event.Fisher.id);
+// })
 
 
 //扭头 /
@@ -288,10 +288,10 @@ world.afterEvents.chatSend.subscribe( event => {
             xboy("结束跳跃")([])([SIGN.AUTO_JUMP_SIGN])
             // xboy("寻路")([寻路标识符])([])
             xboy("自动追击")([SIGN.AUTO_CHASE_SIGN, SIGN.AUTO_ATTACK_SIGN,SIGN.AUTO_JUMP_SIGN])([])
-            xboy("停止")([])([SIGN.ATTACK_SIGN, SIGN.AUTO_ATTACK_SIGN, SIGN.AUTO_JUMP_SIGN,SIGN.AUTO_trident_SIGN])
+            xboy("停止")([])([SIGN.ATTACK_SIGN, SIGN.AUTO_ATTACK_SIGN, SIGN.AUTO_JUMP_SIGN,SIGN.AUTO_TRIDENT_SIGN])
             xboy("开摆")([])([SIGN.ATTACK_SIGN, SIGN.AUTO_ATTACK_SIGN, SIGN.AUTO_JUMP_SIGN])
             xboy("自动重生")([SIGN.AUTO_RESPAWN_SIGN])([])
-            xboy("自动丢三叉戟")([SIGN.AUTO_trident_SIGN])([])
+            xboy("自动丢三叉戟")([SIGN.AUTO_TRIDENT_SIGN])([])
 
             // if (消息 == "列表") {
             //     for (let i in 工具人们) if (工具人们[i]) 发起者.sendMessage(`§e§l-序号：${i} ## 生成名称: ${工具人们[i].name}`);
