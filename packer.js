@@ -2,10 +2,10 @@
 // import archiver from 'archiver';
 const fs = require('fs');
 const archiver = require('archiver');
-const name = './bin/'+require('./manifest.json').header.name.replace(/§./g,'').replaceAll(/\./g,'-').trim()+'.mcpack'
+const name = './build/'+require('./manifest.json').header.name.replace(/§./g,'').replaceAll(/\./g,'-').trim()+'.mcpack';
 
-// make dir ./bin
-fs.existsSync('./bin')?0:fs.mkdirSync('bin')
+// make dir ./build
+fs.existsSync('./build')?0:fs.mkdirSync('build');
 
 
 // 创建一个输出流，将ZIP文件写入到指定的文件中

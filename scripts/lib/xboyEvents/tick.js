@@ -1,3 +1,4 @@
+// Deprecated
 /// <reference path="../../@types/globalThis.d.ts" />
 import { system } from "@minecraft/server";
 import EventSignal from "./EventSignal";

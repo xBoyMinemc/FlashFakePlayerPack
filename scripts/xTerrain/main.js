@@ -2,10 +2,11 @@ import { register } from '@minecraft/server-gametest';
 import verify from '../lib/xboyPackage/scoreBase/verifyDataBase';
 import ScoreBase from '../lib/xboyPackage/scoreBase/rw';
 import EventSignal from '../lib/xboyEvents/EventSignal';
-import { SIGN } from "../lib/xboyPackage/YumeSignEnum";
-import { system } from "@minecraft/server";
+import { SIGN } from '../lib/xboyPackage/YumeSignEnum';
+import { system } from '@minecraft/server';
 const overworld = world.getDimension('overworld');
 const tickWaitTimes = 20 * 60 * 60 * 24 * 365;
+// all of SimulatedPlayer List
 export const SimulatedPlayerList = {};
 let spawnSimulatedPlayer;
 let testWorldLocation;
@@ -18,9 +19,9 @@ const GetPID = () => {
 export const initialized = new EventSignal();
 export const spawned = new EventSignal();
 // spawned.subscribe(({spawnedSimulatedPlayer})=>{
-//         // SimulatedPlayerList.push(spawnedSimulatedPlayer)
+// add SimulatedPlayer to SimulatedPlayerList,by ues obj <key,value>
 // })
-register("我是云梦", "假人", (test) => {
+register('我是云梦', '假人', (test) => {
     testWorldLocation = test.worldLocation({ x: 0, y: 0, z: 0 });
     overworld.runCommand('gamerule domobspawning true');
     ;
@@ -44,23 +45,22 @@ register("我是云梦", "假人", (test) => {
     ;
     ;
     spawnSimulatedPlayer = (location, dimension, pid) => {
-        // const y2 = { x: 0, y: 2, z: 0 }
         // overworld.sendMessage('pid=>'+pid)
         // const dimensionLocation : DimensionLocation = {...location,dimension}
         const SimulatedPlayer = test.spawnSimulatedPlayer({ x: 0, y: 2, z: 0 }, `工具人-${pid}`);
         SimulatedPlayer.addTag('init');
         SimulatedPlayer.addTag(SIGN.YUME_SIM_SIGN);
         SimulatedPlayer.addTag(SIGN.AUTO_RESPAWN_SIGN);
-        // SimulatedPlayer.runCommand("tp @a @s")
+        // SimulatedPlayer.runCommand('tp @a @s')
         SimulatedPlayer.setSpawnPoint({ ...location, dimension });
         SimulatedPlayer.teleport(location, { dimension });
-        // SimulatedPlayerList.push(SimulatedPlayer)
+        //do not add SimulatedPlayer to SimulatedPlayerList here,just spawn and teleport
         return SimulatedPlayer;
     };
     console.error('[假人] init一次');
 })
     .maxTicks(tickWaitTimes)
-    .structureName("xboyMinemcSIM:void");
+    .structureName('xboyMinemcSIM:void');
 // .maxTicks(2)
 // .maxAttempts(tickWaitTimes)
 // .requiredSuccessfulAttempts(tickWaitTimes)
@@ -74,6 +74,8 @@ initialized.subscribe(() => [
     'youAreMine',
     'help',
     'task',
+    'gui',
+    'autoFishing',
 ].forEach(name => import('./plugins/' + name)
     .then(() => console.error('[模拟玩家] ' + name + '模块初始化结束'))
     .catch((reason) => console.error('[模拟玩家] ' + name + ' 模块初始化错误 ERROR:' + reason))));
@@ -83,6 +85,7 @@ let initCounter = 5;
 //  # 初始化 init
 // how about turn to world.afterEvents.playerSpawn
 function init() {
+    world.events.reloadFromCmd.unsubscribe(reload);
     // Limit the number of retries
     if (--initCounter < 0) {
         world.sendMessage('[模拟玩家] 初始化失败，尝试输入reload' + initCounter);
@@ -98,10 +101,7 @@ function init() {
     ceykTry.nameTag = 'try';
     system.run(() => {
         ceykTry.teleport({ x: 30000000, y: (overworld.heightRange.max - 1), z: 0 });
-        // .runCommandAsync('summon yumecraft:ceyk ~ 128 0 -1 -1 null try')
-        // .then(
-        //     (CommandResult) => {
-        console.error("[模拟玩家] 初始化检查开始");
+        console.error('[模拟玩家] 初始化检查开始');
         // -检测0号ceyk(tag:init)实体以及坐标
         const ceykList = overworld.getEntities({ type: 'yumecraft:ceyk', tags: ['init'] });
         // world.sendMessage('[模拟玩家] ceykList[init].length ==>'+overworld.getEntities({type:'yumecraft:ceyk',tags:['init']}).length)
@@ -138,46 +138,20 @@ function init() {
         // then initialized
         initialized.trigger(null);
         world.events.playerMove.unsubscribe(init);
-        console.error("[模拟玩家] 初始化检查完成");
+        console.error('[模拟玩家] 初始化检查完成');
     });
-    //     },
-    //     (reason) => {
-    //         console.error("[模拟玩家] 初始化错误 reason ERROR:" + reason)
-    //     }
-    // )
-    // .catch((reason) => {
-    //     console.error("[模拟玩家] 初始化错误catch ERROR:" + typeof  reason +' '+ JSON.stringify(reason))
-    //
-    //     // if(reason.name == 'LocationInUnloadedChunkError'){
-    //     //     console.error("[模拟玩家] 第一次初始化")
-    //     //     // init_RunSign = system.runInterval(init_,1)
-    //     //     // init message
-    //     //     world.sendMessage('[模拟玩家] 第一次初始化')
-    //     //     world.sendMessage('[模拟玩家] 直接输入“假人创建”或“假人帮助”')
-    //     // }
-    //
-    // })
-    // .finally(() => console.error("[模拟玩家] 初始化检查结束"))
 }
 // world.events.playerSpawn.subscribe(init)
 // init()
 world.events.playerMove.subscribe(init);
-//
-// const init_=()=>{
-//
-//     const players = world.getAllPlayers()
-//     if (players.length === 0) return;
-//
-//     const {dimension,location} = players[0]
-//
-//     // players[0].teleport({x: 30000000, y: 128, z: 0},{dimension:overworld})
-//     // system.runTimeout(()=>{
-//     //     init()
-//     //     // overworld.runCommandAsync('setblock 30000000 128 0 stone').then((cs)=>console.error(JSON.stringify(cs)),(reason)=>console.error(reason))
-//     //     players[0].teleport(location,{dimension})
-//     // },30)
-//
-//     system.clearRun(init_RunSign)
-// }
+const reload = () => {
+    // world.sendMessage('#reload?2')
+    init();
+    // world.sendMessage('#reload?1')
+    // world.events.playerMove.unsubscribe(init)
+    // world.sendMessage('#reload?3')
+    // world.events.reloadFromCmd.unsubscribe(reload)
+};
+world.events.reloadFromCmd.subscribe(() => reload());
 export function a() { console.error('a一次'); }
 //写一个100次的for循环

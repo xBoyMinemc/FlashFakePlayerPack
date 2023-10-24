@@ -1,18 +1,18 @@
 {
     "format_version": 2,
     "header": {
-        "description": "【云梦dev包】1.20.30 \u000a开启实验性游戏内容（测试版 API）-游戏内输入“假人帮助”或“假人创建”  ，当前版本充满了可能有的bug，还请凑活 无关QQ群：122957051:",
-        "name": "§t1.20.30 v8 §e§lFlash§fFakePlayerPack",
+        "description": "【云梦ui更新】1.20.30 \u000a开启实验性游戏内容（测试版 API）-游戏内输入“假人帮助”或“假人创建” 对着假人右键（蹲下或不蹲下） ，当前版本充满了可能有的bug，还请凑活 无关QQ群：122957051:",
+        "name": "§t1.20.30 v10 §e§lFlash§fFakePlayerPack",
         "uuid": "aa101e99-abb4-448d-b58f-71e9da43064e",
-        "version": [ 1,  20, 38 ],
+        "version": [ 1,  20, 310 ],
         "min_engine_version": [ 1, 20, 30 ]
     },
     "modules": [
         {
             "description": "§e§lFlash§fFakePlayerPack",
             "type": "script",
-            "uuid": "10101e99-abc1-5488-ba76-71e9da430058",
-            "version": [ 1,  20, 38 ],
+            "uuid": "10101e99-abc1-5488-ba76-71e9da431059",
+            "version": [ 1,  20, 310 ],
             "entry": "scripts/main/preload.js"
         }
     ],

@@ -1,8 +1,8 @@
-import { Entity, ItemUseAfterEvent } from "@minecraft/server"
-import EventSignal from "./EventSignal";
-import type { World, FishingHookDespawnedEvent, FishingHookDespawnedEventSignal, FishingHookSpawnedEvent, FishingHookSpawnedEventSignal } from "../../@types/globalThis";
+import { Entity, ItemUseAfterEvent } from '@minecraft/server'
+import EventSignal from './EventSignal'
+import type { World, FishingHookDespawnedEvent, FishingHookDespawnedEventSignal, FishingHookSpawnedEvent, FishingHookSpawnedEventSignal } from '../../@types/globalThis'
 
-declare const world: World;
+declare const world: World
 
 
 
@@ -10,20 +10,20 @@ const fishingHookSpawned: FishingHookSpawnedEventSignal = new EventSignal<Fishin
 const fishingHookDespawned: FishingHookDespawnedEventSignal = new EventSignal<FishingHookDespawnedEvent>();
 
 const queue = {
-  fishingHookDespawned_HookArray: new Map<Entity["id"], Entity>(),
+  fishingHookDespawned_HookArray: new Map<Entity['id'], Entity>(),
   fishingHookDespawned_TickArray: new Array<Function>(),
   playerFishingArray: new Array<Entity>(),
 };
 
-world.events.itemUse.subscribe((event: ItemUseAfterEvent) => {
+world.events.itemUse.subscribe((event: ItemUseAfterEvent) =>
   
-    event.itemStack.typeId === "minecraft:fishing_rod"
-    ?(
-      // world.getDimension("overworld").runCommandAsync("tell @a[tag=xboy] queue.playerFishingArray.push(event.source)=>"+queue.playerFishingArray.push(event.source)),
-      // world.getDimension("overworld").runCommandAsync("tell @a[tag=xboy] queue.fishingHookDespawned_HookArray=>"+queue.fishingHookDespawned_HookArray.size)
-      queue.playerFishingArray.push(event.source)
-     ):0
-})
+    event.itemStack.typeId === 'minecraft:fishing_rod' && queue.playerFishingArray.push(event.source)
+    // (
+    //   // world.getDimension("overworld").runCommandAsync("tell @a[tag=xboy] queue.playerFishingArray.push(event.source)=>"+queue.playerFishingArray.push(event.source)),
+    //   // world.getDimension("overworld").runCommandAsync("tell @a[tag=xboy] queue.fishingHookDespawned_HookArray=>"+queue.fishingHookDespawned_HookArray.size)
+    //   // queue.playerFishingArray.push(event.source)
+    // )
+)
 
 const around = (v:number, r:number) => v > -r && v < r;
 world.events.entitySpawn.subscribe(({entity: entity}) => {
@@ -31,15 +31,16 @@ world.events.entitySpawn.subscribe(({entity: entity}) => {
 
   // entity.runCommandAsync("me "+entity.typeId)
   // entity.runCommandAsync("tell @a[tag=xboy] length playerFishingArray "+queue.playerFishingArray.length)
-  let Fisher: Entity;
-  try {
+  let Fisher: Entity
+  // try {
       
-  entity?.typeId === "minecraft:fishing_hook"
-    ?
+  entity?.typeId === 'minecraft:fishing_hook'
+    &&
     (
       (
         Fisher = queue.playerFishingArray.find(
           playerFishing =>
+              // debug msg
   //         (
   // entity.runCommandAsync("tell @a[tag=xboy] length x "+(entity.location.x - playerFishing.location.x - playerFishing.getVelocity().x)),
   // entity.runCommandAsync("tell @a[tag=xboy] length y "+(entity.location.y - playerFishing.location.y - playerFishing.getVelocity().y)),
@@ -52,32 +53,28 @@ world.events.entitySpawn.subscribe(({entity: entity}) => {
             && around(entity.location.z - playerFishing.location.z - playerFishing.getVelocity().z, 6),
         )
       )
-        ?
+        &&
         (       // @ts-ignore
           queue.fishingHookDespawned_HookArray.set(entity.id, Fisher),
           fishingHookSpawned.trigger({ HookId: entity.id, Fisher: Fisher })
         )
-        :
-        0
     )
-    :
-    0
-  } catch (error) {
+  // } catch (error) {
   // world.getDimension("overworld").runCommandAsync("tell @a[tag=xboy] error"+error)
   // world.getDimension("overworld").runCommandAsync("tell @a[tag=xboy] lifetimeState"+entity.location)
   // world.getDimension("overworld").runCommandAsync("tell @a[tag=xboy] error"+entity.dimension.id)
-  }
+  // }
 })
 
 
 world.events.tick.subscribe(() => {
   //这里清空干嘛的
   // queue.playerFishingArray = [];
-  queue.fishingHookDespawned_TickArray.length ? queue.fishingHookDespawned_TickArray.pop()() : 0;
+  queue.fishingHookDespawned_TickArray.length && queue.fishingHookDespawned_TickArray.pop()();
   const fishingHookArray = Array.from(world.getDimension("overworld").getEntities({ type: "minecraft:fishing_hook" }))
   const HookIdArray = fishingHookArray.map(Hook => Hook.id)
   // queue.fishingHookDespawned_HookArray.forEach((Fisher,HookId)=>console.error(Fisher,HookId))  //TEST
-  queue.fishingHookDespawned_HookArray.forEach((Fisher, HookId) => HookIdArray.includes(HookId) ? 0 : (fishingHookDespawned.trigger({ HookId: HookId, Fisher: Fisher, fishingHookDespawned_TickArray: queue.fishingHookDespawned_TickArray }), queue.fishingHookDespawned_HookArray.delete(HookId)))
+  queue.fishingHookDespawned_HookArray.forEach((Fisher, HookId) => HookIdArray.includes(HookId) || (fishingHookDespawned.trigger({ HookId: HookId, Fisher: Fisher, fishingHookDespawned_TickArray: queue.fishingHookDespawned_TickArray }), queue.fishingHookDespawned_HookArray.delete(HookId)))
   //写完感觉效率逆天，但想了想，能够有几个钩子，这又不是海鲜市场，满池子钩子里没有一 滴水
 })
 

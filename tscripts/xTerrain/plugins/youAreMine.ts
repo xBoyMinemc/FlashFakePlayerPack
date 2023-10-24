@@ -3,8 +3,8 @@ import type { SimulatedPlayer } from "@minecraft/server-gametest";
 import type {Dimension, Entity, EntityInventoryComponent, Player, Vector3} from "@minecraft/server";
 import { getSimPlayer } from "../../lib/xboyPackage/Util";
 import { CommandRegistry, type commandInfo } from "../../lib/yumeCommand/CommandRegistry";
-import {Container, EntityEquippableComponent, EquipmentSlot} from "@minecraft/server";
-import {SimulatedPlayerList as 工具人们, SimulatedPlayerList} from "../main";
+import {Container, EntityEquippableComponent, EquipmentSlot, TicksPerSecond} from "@minecraft/server";
+import { SimulatedPlayerList } from "../main";
 
 declare const world: World
 
@@ -29,6 +29,7 @@ commandRegistry.registerCommand('假人背包交换', ({entity,isEntity}) => {
 
 })
 
+
 commandRegistry.registerCommand('假人装备交换', ({entity,isEntity}) => {
 
     const SimPlayer:SimulatedPlayer = getSimPlayer.formView(entity)
@@ -50,7 +51,6 @@ commandRegistry.registerCommand('假人装备交换', ({entity,isEntity}) => {
 const returnResWithoutArgs = ({entity,isEntity,sim}:commandInfo)=>{
     if(!isEntity) {
         console.error('error not isEntity')
-
         return
     }
 
@@ -96,7 +96,7 @@ commandRegistry.registerCommand('假人背包清空', returnResWithoutArgs)
 commandRegistry.registerAlias('假人资源回收','假人背包清空')
 
 
-
+// disconnect
 commandRegistry.registerCommand('假人销毁', ({entity,isEntity,args}) => {
 
     if(!isEntity) {
@@ -131,6 +131,7 @@ commandRegistry.registerCommand('假人销毁', ({entity,isEntity,args}) => {
 commandRegistry.registerAlias('假人移除','假人销毁')
 commandRegistry.registerAlias('假人清除','假人销毁')
 
+// respawn
 commandRegistry.registerCommand('假人重生', ({entity,isEntity,args}) => {
 
 
@@ -164,8 +165,45 @@ commandRegistry.registerCommand('假人重生', ({entity,isEntity,args}) => {
 
 
 })
-commandRegistry.registerCommand('假人列表', () => {
-    for (const index in SimulatedPlayerList) if (SimulatedPlayerList[index]) world.sendMessage(`§e§l-序号：${index} ## 生成名称: ${SimulatedPlayerList[index].name}`);
+
+// List
+commandRegistry.registerCommand('假人时区', ({entity}) => {
+    // entity.sendMessage(''+Intl.DateTimeFormat().resolvedOptions().timeZone)
+
+    const now = new Date();
+    const offsetMinutes = now.getTimezoneOffset();
+    const offsetHours = offsetMinutes / 60;
+
+    entity.sendMessage(`本地时间：${now}`);
+    entity.sendMessage(`UTC偏移量：${offsetMinutes} 分钟`);
+    entity.sendMessage(`UTC偏移量：${offsetHours} 小时`);
+    entity.sendMessage(`TicksPerSecond：${TicksPerSecond}`);
+})
+
+// List
+commandRegistry.registerCommand('假人列表', ({entity}) => {
+    if(Object.keys(SimulatedPlayerList).length===0) entity.sendMessage('列表空的')
+    for (const index in SimulatedPlayerList) if (SimulatedPlayerList[index]) entity.sendMessage(`§e§l-序号：${index} ## 生成名称: ${SimulatedPlayerList[index].name}${SimulatedPlayerList[index].name===SimulatedPlayerList[index].nameTag?'':' #当前名称: '+SimulatedPlayerList[index].nameTag}`);
+})
+
+// rename
+commandRegistry.registerCommand('假人改名', ({entity,isEntity,args})=> {
+
+    if(!isEntity && args.length===1) {
+        console.error('error not isEntity')
+        return
+    }
+
+    if(args.length===2){
+        ;
+        ;"对准~";
+        ;
+        const SimPlayer:SimulatedPlayer = getSimPlayer.formView(entity)
+        if(!SimPlayer)return entity.sendMessage("§e§l-你不要怀疑，10000%是你没对准，如果假人真躺了的话")  //entity.sendMessage("§e§l-面前不存在模拟玩家")
+        SimPlayer.nameTag = args[1]
+        entity.sendMessage("§e§l-改名成功")
+    }
+
 })
 
 

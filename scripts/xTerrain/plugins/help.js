@@ -1,4 +1,5 @@
 import qrcode from "../../lib/qrcode-terminal/mod";
+// import { spawnSimulatedPlayer, SimulatedPlayerList, spawned as spawnedEvent, GetPID } from '../main'
 import { CommandRegistry } from '../../lib/yumeCommand/CommandRegistry';
 const commandRegistry = new CommandRegistry();
 //
