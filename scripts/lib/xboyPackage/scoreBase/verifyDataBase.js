@@ -1,4 +1,4 @@
-import ScoreBase from './rw';
+﻿import ScoreBase from './rw';
 let ScoreBaseSnapshot = ScoreBase.GetObject();
 const checkScoreObjectExist = (ScoreObjectName) => !!Array.from(ScoreBaseSnapshot).find((ScoreObject) => { if (ScoreObjectName === ScoreObject.id)
     return true; });

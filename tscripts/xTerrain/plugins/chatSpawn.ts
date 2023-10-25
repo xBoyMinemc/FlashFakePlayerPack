@@ -11,6 +11,7 @@ declare const world: World
 const commandRegistry: CommandRegistry = new CommandRegistry()
 commandRegistry.registerCommand('假人生成')
 commandRegistry.registerAlias('假人创建','假人生成')
+commandRegistry.registerAlias('FFPP','假人生成')
 
 //
 const noArgs = ({args,entity,location,isEntity})=>{

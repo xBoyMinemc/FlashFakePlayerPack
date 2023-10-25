@@ -1,5 +1,5 @@
-import {Dimension, type Entity, Player, Vector3} from "@minecraft/server";
-import {SimulatedPlayer} from "@minecraft/server-gametest";
+import { Player, Vector3} from "@minecraft/server";
+import type { SimulatedPlayer } from "@minecraft/server-gametest";
 
 export type commandInfo = {args: string[], entity: Player, location?: Vector3, isEntity: boolean, sim?: SimulatedPlayer}
 // | Player | Dimension | Entity

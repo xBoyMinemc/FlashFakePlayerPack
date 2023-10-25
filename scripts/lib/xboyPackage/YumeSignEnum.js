@@ -1,7 +1,7 @@
-export var SIGN;
+﻿export var SIGN;
 (function (SIGN) {
     SIGN["AUTO_RESPAWN_SIGN"] = "AUTO_RESPAWN_SIGN";
-    SIGN["YUME_SIM_SIGN"] = "#yumeSimSign#";
+    SIGN["YUME_SIM_SIGN"] = "YUME_SIM_SIGN";
     SIGN["ATTACK_SIGN"] = "ATTACK_SIGN";
     SIGN["AUTO_ATTACK_SIGN"] = "AUTO_ATTACK_SIGN";
     SIGN["AUTO_CHASE_SIGN"] = "AUTO_CHASE_SIGN";
@@ -20,7 +20,6 @@ export var SIGN_ZH;
     SIGN_ZH["AUTO_JUMP_SIGN"] = "\u81EA\u52A8\u8DF3\u8DC3\u6807\u7B7E";
     SIGN_ZH["AUTO_TRIDENT_SIGN"] = "\u81EA\u52A8\u4E22\u4E09\u53C9\u621F\u6807\u7B7E";
 })(SIGN_ZH || (SIGN_ZH = {}));
-// SIGN for normal BEHAVIOR
 export var BEHAVIOR;
 (function (BEHAVIOR) {
     BEHAVIOR["lookAtEntity"] = "lookAtEntity";
