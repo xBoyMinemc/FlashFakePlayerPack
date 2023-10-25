@@ -1,3 +1,2 @@
-import { a } from '../main';
+﻿import { a } from '../main';
 a();
-// world.events.projectileHit.subscribe()

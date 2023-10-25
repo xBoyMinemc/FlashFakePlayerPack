@@ -1,4 +1,4 @@
-import EventSignal from "./EventSignal";
+﻿import EventSignal from "./EventSignal";
 class reloadFromCmdEvents extends EventSignal {
     constructor() {
         super(...arguments);
@@ -14,16 +14,9 @@ world.events.playerJoin.subscribe(event => reloadFromCmd.players.add(event.playe
 world.events.playerLeave.subscribe(event => reloadFromCmd.players.delete(event.playerId));
 world.events.tick.subscribe(() => {
     const onlinePlayers = world.getAllPlayers();
-    //
     if (reloadFromCmd.players.size !== onlinePlayers.length || !onlinePlayers.every((_) => reloadFromCmd.players.has(_.id))) {
         reloadFromCmd.trigger(null);
         reloadFromCmd.restart();
     }
 });
-/*
-
-world.events.reloadFromCmd.subscribe(()=>{
-       console.error("你没事reload干嘛呢？")
-})
-*/
 export default reloadFromCmd;

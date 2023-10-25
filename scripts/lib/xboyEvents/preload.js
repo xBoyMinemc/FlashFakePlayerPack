@@ -1,3 +1,2 @@
-import "./tick";
-// ################preload################
+﻿import "./tick";
 import("./index.js");

@@ -4,7 +4,7 @@ import {Player} from "@minecraft/server";
 
 export  enum  SIGN {
     AUTO_RESPAWN_SIGN = 'AUTO_RESPAWN_SIGN',
-    YUME_SIM_SIGN = '#yumeSimSign#',
+    YUME_SIM_SIGN = 'YUME_SIM_SIGN',    //'#yumeSimSign#',
     ATTACK_SIGN = 'ATTACK_SIGN',
     AUTO_ATTACK_SIGN = 'AUTO_ATTACK_SIGN',
     AUTO_CHASE_SIGN = 'AUTO_CHASE_SIGN',

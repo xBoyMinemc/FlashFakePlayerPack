@@ -1,8 +1,6 @@
-import qrcode from "../../lib/qrcode-terminal/mod";
-// import { spawnSimulatedPlayer, SimulatedPlayerList, spawned as spawnedEvent, GetPID } from '../main'
+﻿import qrcode from "../../lib/qrcode-terminal/mod";
 import { CommandRegistry } from '../../lib/yumeCommand/CommandRegistry';
 const commandRegistry = new CommandRegistry();
-//
 const helpNoArgs = ({ args, entity, isEntity }) => {
     if (args.length !== 1 || !isEntity)
         return;
@@ -45,4 +43,3 @@ world.afterEvents.chatSend.subscribe(({ message, sender }) => {
     if (commandRegistry.commandsList.has(args[0]))
         commandRegistry.executeCommand(args[0], { entity: sender, isEntity: true, args });
 });
-// console.error('[假人]内置插件help加载成功')

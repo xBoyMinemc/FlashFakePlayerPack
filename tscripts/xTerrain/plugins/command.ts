@@ -1,4 +1,5 @@
 // @ts-nocheck
+// No longer maintained
 import type { Entity } from "@minecraft/server";
 import type { World } from "../../@types/globalThis";
 import type { SimulatedPlayer } from "@minecraft/server-gametest";
@@ -265,7 +266,8 @@ const yumeSimCmdHead = "假人";                      ;;" 命令头 ";;
 //投掷三叉戟 /
 
 world.afterEvents.chatSend.subscribe( event => {
-        try {
+        // try
+        {
 
             const {message, sender} = event;
             const 发起者 = sender;
@@ -397,7 +399,7 @@ world.afterEvents.chatSend.subscribe( event => {
             //
 
             const behavior = 消息
-            exeBehavior(behavior)(眼前的工具人,sender)
+            exeBehavior(behavior)?.(眼前的工具人,sender)
             ;
             ;"希望你对中文编程没意见，有也给我保留";
             ;
@@ -526,10 +528,11 @@ world.afterEvents.chatSend.subscribe( event => {
             //     ].forEach((text) => 发起者.sendMessage(`§e§l-${text}`))
             // }
             // ;
-        }catch(e){
-            console.error('[假人]内置插件command error '+e)
-
         }
+        // catch(e){
+        //     console.error('[假人]内置插件command error '+e)
+        //
+        // }
 })
 
 

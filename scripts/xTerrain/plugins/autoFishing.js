@@ -1,4 +1,4 @@
-import { SimulatedPlayerList } from '../main';
+﻿import { SimulatedPlayerList } from '../main';
 const debug = false;
 world.events.fishingHookDespawned.subscribe(event => {
     if (debug)
