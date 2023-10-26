@@ -1,7 +1,7 @@
 ﻿import { getSimPlayer } from "../../lib/xboyPackage/Util";
 import { CommandRegistry } from "../../lib/yumeCommand/CommandRegistry";
 import { EquipmentSlot, TicksPerSecond } from "@minecraft/server";
-import { SimulatedPlayerList } from "../main";
+import { SimulatedPlayerEnum } from "../main";
 const commandRegistry = new CommandRegistry();
 commandRegistry.registerCommand('假人背包交换', ({ entity, isEntity }) => {
     if (!isEntity)
@@ -77,7 +77,7 @@ commandRegistry.registerCommand('假人销毁', ({ entity, isEntity, args }) => 
         const index = Number(args[1]);
         if (typeof index !== 'number')
             return entity?.sendMessage('[模拟玩家] 命令错误，期待数字却得到 ' + typeof Number(args[1]));
-        const SimPlayer = SimulatedPlayerList[index];
+        const SimPlayer = SimulatedPlayerEnum[index];
         if (!SimPlayer)
             return entity.sendMessage("§e§l-不存在模拟玩家" + index);
         commandRegistry.executeCommand('假人背包清空', { args: ['假人背包清空'], entity, isEntity, sim: SimPlayer });
@@ -110,7 +110,7 @@ commandRegistry.registerCommand('假人重生', ({ entity, isEntity, args }) => 
         const index = Number(args[1]);
         if (typeof index !== 'number')
             return entity?.sendMessage('[模拟玩家] 命令错误，期待数字却得到 ' + typeof Number(args[1]));
-        const SimPlayer = SimulatedPlayerList[index];
+        const SimPlayer = SimulatedPlayerEnum[index];
         if (!SimPlayer)
             return entity.sendMessage("§e§l-不存在模拟玩家" + index);
         SimPlayer.respawn();
@@ -126,11 +126,11 @@ commandRegistry.registerCommand('假人时区', ({ entity }) => {
     entity.sendMessage(`TicksPerSecond：${TicksPerSecond}`);
 });
 commandRegistry.registerCommand('假人列表', ({ entity }) => {
-    if (Object.keys(SimulatedPlayerList).length === 0)
+    if (Object.keys(SimulatedPlayerEnum).length === 0)
         entity.sendMessage('列表空的');
-    for (const index in SimulatedPlayerList)
-        if (SimulatedPlayerList[index])
-            entity.sendMessage(`§e§l-序号：${index} ## 生成名称: ${SimulatedPlayerList[index].name}${SimulatedPlayerList[index].name === SimulatedPlayerList[index].nameTag ? '' : ' #当前名称: ' + SimulatedPlayerList[index].nameTag}`);
+    for (const index in SimulatedPlayerEnum)
+        if (SimulatedPlayerEnum[index])
+            entity.sendMessage(`§e§l-序号：${index} ## 生成名称: ${SimulatedPlayerEnum[index].name}${SimulatedPlayerEnum[index].name === SimulatedPlayerEnum[index].nameTag ? '' : ' #当前名称: ' + SimulatedPlayerEnum[index].nameTag}`);
 });
 commandRegistry.registerCommand('假人改名', ({ entity, isEntity, args }) => {
     if (!isEntity && args.length === 1) {

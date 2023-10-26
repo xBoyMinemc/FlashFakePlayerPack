@@ -10,6 +10,7 @@ import SIGN, {
 import {ActionFormData} from "@minecraft/server-ui";
 import {SimulatedPlayer} from "@minecraft/server-gametest";
 import {getSimPlayer} from "../../lib/xboyPackage/Util";
+import {SimulatedPlayerEnum} from "../main";
 
 // world.afterEvents.entityHitEntity.subscribe(({damagingEntity,hitEntity})=>{
 //     if(!damagingEntity || !hitEntity)return;
@@ -20,10 +21,11 @@ import {getSimPlayer} from "../../lib/xboyPackage/Util";
 // })
 
 
-world.beforeEvents.itemUse.subscribe(e=>{
-    const {source:player} = e;
+world.beforeEvents.playerInteractWithEntity.subscribe(e=>{
+    const {player,target} = e;
     if(!player || player.typeId!=="minecraft:player")return;
-    const SimPlayer:SimulatedPlayer = getSimPlayer.formView(player)
+    if(!target || target.typeId!=="minecraft:player" || !SimulatedPlayerEnum[target])return;// world.sendMessage('meow~ target');
+    const SimPlayer = <SimulatedPlayer>target
     if(!SimPlayer)return;
     e.cancel=true;
 
@@ -40,7 +42,7 @@ world.beforeEvents.itemUse.subscribe(e=>{
             mng.show(player).then((response) => {
                 const tag = SIGN_TAG_LIST[response.selection]
                 SimPlayer.hasTag(tag)?SimPlayer.removeTag(tag):SimPlayer.addTag(tag)
-            });
+            },()=>0).catch(()=>0);
 
         })
         :
@@ -55,7 +57,7 @@ world.beforeEvents.itemUse.subscribe(e=>{
             mng.show(player).then((response) => {
                 const behavior = BEHAVIOR_LIST[response.selection]
                 exeBehavior(behavior)(SimPlayer,player)
-            });
+            },()=>0).catch(()=>0);
 
         })
 

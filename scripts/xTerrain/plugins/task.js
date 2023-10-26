@@ -1,14 +1,17 @@
-﻿import { SimulatedPlayerList, testWorldLocation } from '../main';
+﻿import { SimulatedPlayerEnum, testWorldLocation } from '../main';
 import SIGN from '../../lib/xboyPackage/YumeSignEnum';
 import { system, world, Vector } from '@minecraft/server';
 import { getEntitiesNear, getPlayerNear } from '../../lib/xboyPackage/Util';
 import { CommandRegistry } from '../../lib/yumeCommand/CommandRegistry';
 const SimulatedPlayerStates = {};
 const AUTO_BEHAVIOR = () => {
-    for (const index in SimulatedPlayerList) {
-        const SimPlayer = SimulatedPlayerList[index];
+    for (const index in SimulatedPlayerEnum) {
+        if (typeof index === "string" || typeof index === "number")
+            return;
+        const SimPlayer = SimulatedPlayerEnum[index];
         if (!SimPlayer || !SimPlayer.isValid()) {
-            SimulatedPlayerList[index] = null;
+            delete SimulatedPlayerEnum[SimulatedPlayerEnum[index]];
+            delete SimulatedPlayerEnum[index];
             continue;
         }
         if (SimPlayer.getComponent('minecraft:health').currentValue <= 0) {

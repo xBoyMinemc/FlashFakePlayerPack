@@ -18,13 +18,15 @@ import EventSignal from '../lib/xboyEvents/EventSignal'
 import { SIGN } from '../lib/xboyPackage/YumeSignEnum'
 import { system } from '@minecraft/server'
 
+import './plugins/noFlashDoor' //pig
+
 declare const world: World
 
 const overworld = world.getDimension('overworld')
 const tickWaitTimes = 20*60*60*24*365
 
 // all of SimulatedPlayer List
-export const SimulatedPlayerList  = {}
+export const SimulatedPlayerEnum  = {}
 let spawnSimulatedPlayer : (location:Vector3, dimension:Dimension, pid: number  )=>SimulatedPlayer
 let testWorldLocation : Vector3
 

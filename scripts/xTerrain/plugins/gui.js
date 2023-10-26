@@ -1,12 +1,14 @@
 ﻿import { system, world } from '@minecraft/server';
 import SIGN, { BEHAVIOR, BEHAVIOR_LIST, BEHAVIOR_ZH, exeBehavior, SIGN_TAG_LIST, SIGN_ZH } from "../../lib/xboyPackage/YumeSignEnum";
 import { ActionFormData } from "@minecraft/server-ui";
-import { getSimPlayer } from "../../lib/xboyPackage/Util";
-world.beforeEvents.itemUse.subscribe(e => {
-    const { source: player } = e;
+import { SimulatedPlayerEnum } from "../main";
+world.beforeEvents.playerInteractWithEntity.subscribe(e => {
+    const { player, target } = e;
     if (!player || player.typeId !== "minecraft:player")
         return;
-    const SimPlayer = getSimPlayer.formView(player);
+    if (!target || target.typeId !== "minecraft:player" || !SimulatedPlayerEnum[target])
+        return;
+    const SimPlayer = target;
     if (!SimPlayer)
         return;
     e.cancel = true;
@@ -21,7 +23,7 @@ world.beforeEvents.itemUse.subscribe(e => {
                 mng.show(player).then((response) => {
                     const tag = SIGN_TAG_LIST[response.selection];
                     SimPlayer.hasTag(tag) ? SimPlayer.removeTag(tag) : SimPlayer.addTag(tag);
-                });
+                }, () => 0).catch(() => 0);
             })
         :
             system.run(() => {
@@ -33,6 +35,6 @@ world.beforeEvents.itemUse.subscribe(e => {
                 mng.show(player).then((response) => {
                     const behavior = BEHAVIOR_LIST[response.selection];
                     exeBehavior(behavior)(SimPlayer, player);
-                });
+                }, () => 0).catch(() => 0);
             });
 });

@@ -2,7 +2,7 @@ import type { World } from '../../@types/globalThis'
 import type { SimulatedPlayer } from '@minecraft/server-gametest'
 
 import {
-    SimulatedPlayerList,
+    SimulatedPlayerEnum,
     testWorldLocation
 } from '../main'
 import { CommandRegistry } from '../../lib/yumeCommand/CommandRegistry'
@@ -26,8 +26,8 @@ const noArgs = ({args,entity,isEntity})=>{
     const SimPlayer:SimulatedPlayer = getSimPlayer.formView(entity)
     if(!SimPlayer)return
 
-    for(const i in SimulatedPlayerList)
-        if(SimulatedPlayerList[i]===SimPlayer)
+    for(const i in SimulatedPlayerEnum)
+        if(SimulatedPlayerEnum[i]===SimPlayer)
             BreakBlockSimulatedPlayerList.add(i)
 
     // console.error('[假人]内置插件'+'假人挖掘'+'执行成功')
@@ -57,9 +57,9 @@ const breaks = ()=>{
     //
     // }
     BreakBlockSimulatedPlayerList.forEach((simIndex)=> {
-        const blockLocation = SimulatedPlayerList[simIndex].getBlockFromViewDirection({maxDistance: 4})?.block?.location
+        const blockLocation = SimulatedPlayerEnum[simIndex].getBlockFromViewDirection({maxDistance: 4})?.block?.location
         if (blockLocation)
-            SimulatedPlayerList[simIndex].breakBlock(Vector.subtract(blockLocation, testWorldLocation))
+            SimulatedPlayerEnum[simIndex].breakBlock(Vector.subtract(blockLocation, testWorldLocation))
     })
 }
 system.runInterval(breaks,0)

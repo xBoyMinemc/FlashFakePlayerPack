@@ -1,5 +1,5 @@
 import type { SimulatedPlayer } from '@minecraft/server-gametest'
-import {SimulatedPlayerList, testWorldLocation} from '../main'
+import {SimulatedPlayerEnum, testWorldLocation} from '../main'
 import SIGN from '../../lib/xboyPackage/YumeSignEnum'
 import type {Block, Entity, EntityHealthComponent, EntityQueryOptions, Vector3} from '@minecraft/server'
 import { system, world, Vector } from '@minecraft/server'
@@ -12,13 +12,15 @@ const SimulatedPlayerStates : ({ "str-SimPlayer.id": { o: Vector3 }}) = {}
 // behavior
 const AUTO_BEHAVIOR = ()=>{
 
-    for (const index in SimulatedPlayerList) {
+    for (const index in SimulatedPlayerEnum) {
+        if(typeof index === "string" || typeof index === "number")return
 
-        const SimPlayer:SimulatedPlayer = SimulatedPlayerList[index]
+        const SimPlayer:SimulatedPlayer = SimulatedPlayerEnum[index]
 
         //判假人是否存在
         if(!SimPlayer || !SimPlayer.isValid()){
-            SimulatedPlayerList[index]=null
+            delete SimulatedPlayerEnum[SimulatedPlayerEnum[index]]
+            delete SimulatedPlayerEnum[index]
             continue
         }
         //判假人是否存活

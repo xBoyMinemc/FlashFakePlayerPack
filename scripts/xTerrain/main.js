@@ -4,9 +4,10 @@ import ScoreBase from '../lib/xboyPackage/scoreBase/rw';
 import EventSignal from '../lib/xboyEvents/EventSignal';
 import { SIGN } from '../lib/xboyPackage/YumeSignEnum';
 import { system } from '@minecraft/server';
+import './plugins/noFlashDoor';
 const overworld = world.getDimension('overworld');
 const tickWaitTimes = 20 * 60 * 60 * 24 * 365;
-export const SimulatedPlayerList = {};
+export const SimulatedPlayerEnum = {};
 let spawnSimulatedPlayer;
 let testWorldLocation;
 const GetPID = () => {

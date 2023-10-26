@@ -4,7 +4,7 @@ import type {Dimension, Entity, EntityInventoryComponent, Player, Vector3} from 
 import { getSimPlayer } from "../../lib/xboyPackage/Util";
 import { CommandRegistry, type commandInfo } from "../../lib/yumeCommand/CommandRegistry";
 import {Container, EntityEquippableComponent, EquipmentSlot, TicksPerSecond} from "@minecraft/server";
-import { SimulatedPlayerList } from "../main";
+import { SimulatedPlayerEnum } from "../main";
 
 declare const world: World
 
@@ -116,7 +116,7 @@ commandRegistry.registerCommand('假人销毁', ({entity,isEntity,args}) => {
 
         if(typeof index !== 'number')return  entity?.sendMessage('[模拟玩家] 命令错误，期待数字却得到 '+typeof Number(args[1]))
 
-        const SimPlayer:SimulatedPlayer = SimulatedPlayerList[index]
+        const SimPlayer:SimulatedPlayer = SimulatedPlayerEnum[index]
 
         if(!SimPlayer)return entity.sendMessage("§e§l-不存在模拟玩家"+index)
 
@@ -155,7 +155,7 @@ commandRegistry.registerCommand('假人重生', ({entity,isEntity,args}) => {
 
         if(typeof index !== 'number')return  entity?.sendMessage('[模拟玩家] 命令错误，期待数字却得到 '+typeof Number(args[1]))
 
-        const SimPlayer:SimulatedPlayer = SimulatedPlayerList[index]
+        const SimPlayer:SimulatedPlayer = SimulatedPlayerEnum[index]
 
         if(!SimPlayer)return entity.sendMessage("§e§l-不存在模拟玩家"+index)
 
@@ -182,8 +182,8 @@ commandRegistry.registerCommand('假人时区', ({entity}) => {
 
 // List
 commandRegistry.registerCommand('假人列表', ({entity}) => {
-    if(Object.keys(SimulatedPlayerList).length===0) entity.sendMessage('列表空的')
-    for (const index in SimulatedPlayerList) if (SimulatedPlayerList[index]) entity.sendMessage(`§e§l-序号：${index} ## 生成名称: ${SimulatedPlayerList[index].name}${SimulatedPlayerList[index].name===SimulatedPlayerList[index].nameTag?'':' #当前名称: '+SimulatedPlayerList[index].nameTag}`);
+    if(Object.keys(SimulatedPlayerEnum).length===0) entity.sendMessage('列表空的')
+    for (const index in SimulatedPlayerEnum) if (SimulatedPlayerEnum[index]) entity.sendMessage(`§e§l-序号：${index} ## 生成名称: ${SimulatedPlayerEnum[index].name}${SimulatedPlayerEnum[index].name===SimulatedPlayerEnum[index].nameTag?'':' #当前名称: '+SimulatedPlayerEnum[index].nameTag}`);
 })
 
 // rename
