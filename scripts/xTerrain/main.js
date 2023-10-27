@@ -86,35 +86,36 @@ function init() {
     ceykTry.nameTag = 'try';
     system.run(() => {
         ceykTry.teleport({ x: 30000000, y: (overworld.heightRange.max - 1), z: 0 });
-        console.error('[模拟玩家] 初始化检查开始');
-        const ceykList = overworld.getEntities({ type: 'yumecraft:ceyk', tags: ['init'] });
-        if (ceykList.length === 0) {
-            world.sendMessage('[模拟玩家] 第一次初始化');
-            world.sendMessage('[模拟玩家] 直接输入“假人创建”或“假人帮助”');
-            const ceyk = overworld.spawnEntity('yumecraft:ceyk', { x: 30000000, y: 128, z: 0 });
-            ceyk.addTag('init');
-            ceykList.push(ceyk);
-        }
-        else
-            while (ceykList.length > 1)
-                ceykList.pop().triggerEvent('yumecraft:despawn');
-        ceykList[0].teleport({ x: 30000000, y: 128, z: 0 }, { dimension: overworld });
-        overworld.getEntities({
-            type: 'yumecraft:ceyk',
-            excludeTags: ['init']
-        }).forEach(e => e.triggerEvent('yumecraft:despawn'));
-        verify();
-        verify();
-        overworld.runCommand('fill 29999997 0 5 30000002 ' + (overworld.heightRange.max - 1) + ' -1 air replace');
-        overworld.runCommand('execute positioned 30000000 128 0 run gametest run 我是云梦:假人');
-        initialized.trigger(null);
-        world.events.playerMove.unsubscribe(init);
-        console.error('[模拟玩家] 初始化检查完成');
+        system.run(() => {
+            console.error('[模拟玩家] 初始化检查开始');
+            const ceykList = overworld.getEntities({ type: 'yumecraft:ceyk', tags: ['init'] });
+            if (ceykList.length === 0) {
+                world.sendMessage('[模拟玩家] 第一次初始化');
+                world.sendMessage('[模拟玩家] 直接输入“假人创建”或“假人帮助”');
+                const ceyk = overworld.spawnEntity('yumecraft:ceyk', { x: 30000000, y: 128, z: 0 });
+                ceyk.addTag('init');
+                ceykList.push(ceyk);
+            }
+            else
+                while (ceykList.length > 1)
+                    ceykList.pop().triggerEvent('yumecraft:despawn');
+            ceykList[0].teleport({ x: 30000000, y: 128, z: 0 }, { dimension: overworld });
+            overworld.getEntities({
+                type: 'yumecraft:ceyk',
+                excludeTags: ['init']
+            }).forEach(e => e.triggerEvent('yumecraft:despawn'));
+            verify();
+            verify();
+            overworld.runCommand('fill 29999997 0 5 30000002 ' + (overworld.heightRange.max - 1) + ' -1 air replace');
+            overworld.runCommand('execute positioned 30000000 128 0 run gametest run 我是云梦:假人');
+            initialized.trigger(null);
+            world.events.playerMove.unsubscribe(init);
+            console.error('[模拟玩家] 初始化检查完成');
+        });
     });
 }
 world.events.playerMove.subscribe(init);
 const reload = () => {
     init();
 };
-world.events.reloadFromCmd.subscribe(() => reload());
 export function a() { console.error('a一次'); }

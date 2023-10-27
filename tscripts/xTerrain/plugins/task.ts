@@ -4,32 +4,34 @@ import SIGN from '../../lib/xboyPackage/YumeSignEnum'
 import type {Block, Entity, EntityHealthComponent, EntityQueryOptions, Vector3} from '@minecraft/server'
 import { system, world, Vector } from '@minecraft/server'
 import { getEntitiesNear, getPlayerNear} from '../../lib/xboyPackage/Util'
-import { CommandRegistry } from '../../lib/yumeCommand/CommandRegistry'
+// import { CommandRegistry } from '../../lib/yumeCommand/CommandRegistry'
 
 // @ts-ignore
 const SimulatedPlayerStates : ({ "str-SimPlayer.id": { o: Vector3 }}) = {}
 
 // behavior
-const AUTO_BEHAVIOR = ()=>{
+function AUTO_BEHAVIOR(){
 
+    let SimulatedPlayerCount = 0
+    const AllPlayerCount = world.getAllPlayers().length
     for (const index in SimulatedPlayerEnum) {
-        if(typeof index === "string" || typeof index === "number")return
+        if((Number(index)>0?Number(index):-Number(index))>1000)continue
 
-        const SimPlayer:SimulatedPlayer = SimulatedPlayerEnum[index]
-
+        const SimPlayer:SimulatedPlayer = <SimulatedPlayer>SimulatedPlayerEnum[index]
         //判假人是否存在
-        if(!SimPlayer || !SimPlayer.isValid()){
+        if(!SimPlayer || !SimPlayer?.isValid?.()){
             delete SimulatedPlayerEnum[SimulatedPlayerEnum[index]]
             delete SimulatedPlayerEnum[index]
             continue
         }
+        ++SimulatedPlayerCount
+        // world.sendMessage(SimPlayer.nameTag)
         //判假人是否存活
         //瞎糊乱改接口名--2023-07-21-02：02
         if((<EntityHealthComponent>SimPlayer.getComponent('minecraft:health')).currentValue<=0){
             if(SimPlayer.hasTag(SIGN.AUTO_RESPAWN_SIGN))SimPlayer.respawn()
             continue
         }
-
         if(SimPlayer.hasTag(SIGN.AUTO_JUMP_SIGN))SimPlayer.jump()
 
         const EntitiesFromView = SimPlayer.getEntitiesFromViewDirection({maxDistance:4})[0]?.entity
@@ -78,12 +80,14 @@ const AUTO_BEHAVIOR = ()=>{
         }
     }
 
+    // /gamerule playerssleepingpercentage 50%
+    SimulatedPlayerCount && world.getDimension('minecraft:overworld').runCommand('gamerule playerssleepingpercentage '+Math.floor(100*SimulatedPlayerCount/AllPlayerCount))
 }
 
 system.runInterval(AUTO_BEHAVIOR,0)
 
 
-const commandRegistry: CommandRegistry = new CommandRegistry('task')
+// const commandRegistry: CommandRegistry = new CommandRegistry('task')
 
 
 
@@ -100,9 +104,9 @@ const commandRegistry: CommandRegistry = new CommandRegistry('task')
 // })
 
 
-world.afterEvents.chatSend.subscribe(({message, sender})=> {
-    const args = CommandRegistry.parse(message)
-    if(commandRegistry.commandsList.has(args[0]))
-        commandRegistry.executeCommand(args[0],{isEntity:true,entity:sender,location:sender.location,args})
-})
+// world.afterEvents.chatSend.subscribe(({message, sender})=> {
+//     const args = CommandRegistry.parse(message)
+//     if(commandRegistry.commandsList.has(args[0]))
+//         commandRegistry.executeCommand(args[0],{isEntity:true,entity:sender,location:sender.location,args})
+// })
 

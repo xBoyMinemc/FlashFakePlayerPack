@@ -11,7 +11,8 @@ const noArgs = ({ args, entity, location, isEntity }) => {
         const PID = GetPID();
         const __FlashPlayer__ = world.scoreboard.getObjective('##FlashPlayer##');
         const SimulatedPlayer = spawnSimulatedPlayer(entity.location, entity.dimension, PID);
-        SimulatedPlayerEnum[SimulatedPlayerEnum[PID] = SimulatedPlayer] = PID;
+        SimulatedPlayerEnum[PID] = SimulatedPlayer;
+        SimulatedPlayerEnum[SimulatedPlayer.id] = PID;
         spawnedEvent.trigger({ spawnedSimulatedPlayer: SimulatedPlayer, PID });
         __FlashPlayer__.setScore(SimulatedPlayer.id, PID);
     }
@@ -19,7 +20,8 @@ const noArgs = ({ args, entity, location, isEntity }) => {
         const PID = GetPID();
         const __FlashPlayer__ = world.scoreboard.getObjective('##FlashPlayer##');
         const SimulatedPlayer = spawnSimulatedPlayer(location, entity, PID);
-        SimulatedPlayerEnum[SimulatedPlayerEnum[PID] = SimulatedPlayer] = PID;
+        SimulatedPlayerEnum[PID] = SimulatedPlayer;
+        SimulatedPlayerEnum[SimulatedPlayer.id] = PID;
         spawnedEvent.trigger({ spawnedSimulatedPlayer: SimulatedPlayer, PID });
         __FlashPlayer__.setScore(SimulatedPlayer.id, PID);
     }
@@ -36,7 +38,8 @@ const withArgs = ({ args, entity, location, isEntity }) => {
             const PID = GetPID();
             const __FlashPlayer__ = world.scoreboard.getObjective('##FlashPlayer##');
             const SimulatedPlayer = spawnSimulatedPlayer(entity.location, entity.dimension, PID);
-            SimulatedPlayerEnum[SimulatedPlayerEnum[PID] = SimulatedPlayer] = PID;
+            SimulatedPlayerEnum[PID] = SimulatedPlayer;
+            SimulatedPlayerEnum[SimulatedPlayer.id] = PID;
             spawnedEvent.trigger({ spawnedSimulatedPlayer: SimulatedPlayer, PID });
             __FlashPlayer__.setScore(SimulatedPlayer.id, PID);
         }
@@ -44,7 +47,8 @@ const withArgs = ({ args, entity, location, isEntity }) => {
             const PID = GetPID();
             const __FlashPlayer__ = world.scoreboard.getObjective('##FlashPlayer##');
             const SimulatedPlayer = spawnSimulatedPlayer(location, entity, PID);
-            SimulatedPlayerEnum[SimulatedPlayerEnum[PID] = SimulatedPlayer] = PID;
+            SimulatedPlayerEnum[PID] = SimulatedPlayer;
+            SimulatedPlayerEnum[SimulatedPlayer.id] = PID;
             spawnedEvent.trigger({ spawnedSimulatedPlayer: SimulatedPlayer, PID });
             __FlashPlayer__.setScore(SimulatedPlayer.id, PID);
         }

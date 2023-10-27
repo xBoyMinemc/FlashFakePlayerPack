@@ -23,7 +23,8 @@ const noArgs = ({args,entity,location,isEntity})=>{
         const __FlashPlayer__ = world.scoreboard.getObjective('##FlashPlayer##')
         const SimulatedPlayer :SimulatedPlayer = spawnSimulatedPlayer(entity.location,entity.dimension,PID)
 
-        SimulatedPlayerEnum[SimulatedPlayerEnum[PID]=SimulatedPlayer]=PID
+        SimulatedPlayerEnum[PID]=SimulatedPlayer
+        SimulatedPlayerEnum[SimulatedPlayer.id]=PID
 
         spawnedEvent.trigger({spawnedSimulatedPlayer:SimulatedPlayer,PID})
         // __FlashPlayer__.setScore(SimulatedPlayer,pid) //Score方案 因为无法为模拟玩家设置分数而放弃
@@ -38,7 +39,8 @@ const noArgs = ({args,entity,location,isEntity})=>{
         const __FlashPlayer__ = world.scoreboard.getObjective('##FlashPlayer##')
         const SimulatedPlayer :SimulatedPlayer= spawnSimulatedPlayer(location,entity,PID)
 
-        SimulatedPlayerEnum[SimulatedPlayerEnum[PID]=SimulatedPlayer]=PID
+        SimulatedPlayerEnum[PID]=SimulatedPlayer
+        SimulatedPlayerEnum[SimulatedPlayer.id]=PID
 
         spawnedEvent.trigger({spawnedSimulatedPlayer:SimulatedPlayer,PID})
         // __FlashPlayer__.setScore(SimulatedPlayer,pid) //Score方案 因为无法为模拟玩家设置分数而放弃
@@ -62,7 +64,8 @@ const withArgs = ({args,entity,location,isEntity})=>{
             const SimulatedPlayer :SimulatedPlayer = spawnSimulatedPlayer(entity.location,entity.dimension,PID)
 
             // add SimulatedPlayer to SimulatedPlayerList,by ues obj <key,value>
-            SimulatedPlayerEnum[SimulatedPlayerEnum[PID]=SimulatedPlayer]=PID
+            SimulatedPlayerEnum[PID]=SimulatedPlayer
+            SimulatedPlayerEnum[SimulatedPlayer.id]=PID
 
             spawnedEvent.trigger({spawnedSimulatedPlayer:SimulatedPlayer,PID})
             __FlashPlayer__.setScore(SimulatedPlayer.id,PID)
@@ -73,7 +76,8 @@ const withArgs = ({args,entity,location,isEntity})=>{
             const SimulatedPlayer :SimulatedPlayer= spawnSimulatedPlayer(location,entity,PID)
 
             // add SimulatedPlayer to SimulatedPlayerList,by ues obj <key,value>
-            SimulatedPlayerEnum[SimulatedPlayerEnum[PID]=SimulatedPlayer]=PID
+            SimulatedPlayerEnum[PID]=SimulatedPlayer
+            SimulatedPlayerEnum[SimulatedPlayer.id]=PID
 
             spawnedEvent.trigger({spawnedSimulatedPlayer:SimulatedPlayer,PID})
             __FlashPlayer__.setScore(SimulatedPlayer.id,PID)

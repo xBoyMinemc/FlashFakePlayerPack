@@ -2,18 +2,20 @@
 import SIGN from '../../lib/xboyPackage/YumeSignEnum';
 import { system, world, Vector } from '@minecraft/server';
 import { getEntitiesNear, getPlayerNear } from '../../lib/xboyPackage/Util';
-import { CommandRegistry } from '../../lib/yumeCommand/CommandRegistry';
 const SimulatedPlayerStates = {};
-const AUTO_BEHAVIOR = () => {
+function AUTO_BEHAVIOR() {
+    let SimulatedPlayerCount = 0;
+    const AllPlayerCount = world.getAllPlayers().length;
     for (const index in SimulatedPlayerEnum) {
-        if (typeof index === "string" || typeof index === "number")
-            return;
+        if ((Number(index) > 0 ? Number(index) : -Number(index)) > 1000)
+            continue;
         const SimPlayer = SimulatedPlayerEnum[index];
-        if (!SimPlayer || !SimPlayer.isValid()) {
+        if (!SimPlayer || !SimPlayer?.isValid?.()) {
             delete SimulatedPlayerEnum[SimulatedPlayerEnum[index]];
             delete SimulatedPlayerEnum[index];
             continue;
         }
+        ++SimulatedPlayerCount;
         if (SimPlayer.getComponent('minecraft:health').currentValue <= 0) {
             if (SimPlayer.hasTag(SIGN.AUTO_RESPAWN_SIGN))
                 SimPlayer.respawn();
@@ -54,11 +56,6 @@ const AUTO_BEHAVIOR = () => {
             }
         }
     }
-};
+    SimulatedPlayerCount && world.getDimension('minecraft:overworld').runCommand('gamerule playerssleepingpercentage ' + Math.floor(100 * SimulatedPlayerCount / AllPlayerCount));
+}
 system.runInterval(AUTO_BEHAVIOR, 0);
-const commandRegistry = new CommandRegistry('task');
-world.afterEvents.chatSend.subscribe(({ message, sender }) => {
-    const args = CommandRegistry.parse(message);
-    if (commandRegistry.commandsList.has(args[0]))
-        commandRegistry.executeCommand(args[0], { isEntity: true, entity: sender, location: sender.location, args });
-});

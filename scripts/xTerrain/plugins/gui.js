@@ -6,7 +6,7 @@ world.beforeEvents.playerInteractWithEntity.subscribe(e => {
     const { player, target } = e;
     if (!player || player.typeId !== "minecraft:player")
         return;
-    if (!target || target.typeId !== "minecraft:player" || !SimulatedPlayerEnum[target])
+    if (!target || target.typeId !== "minecraft:player" || !SimulatedPlayerEnum[target.id])
         return;
     const SimPlayer = target;
     if (!SimPlayer)
