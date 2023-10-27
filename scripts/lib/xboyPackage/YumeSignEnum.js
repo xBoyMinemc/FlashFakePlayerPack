@@ -9,7 +9,7 @@
     SIGN["AUTO_TRIDENT_SIGN"] = "AUTO_TRIDENT_SIGN";
 })(SIGN || (SIGN = {}));
 export default SIGN;
-export const SIGN_TAG_LIST = Object.values(SIGN);
+export const SIGN_TAG_LIST = Object.keys(SIGN);
 export var SIGN_ZH;
 (function (SIGN_ZH) {
     SIGN_ZH["AUTO_RESPAWN_SIGN"] = "\u81EA\u52A8\u91CD\u751F\u6807\u7B7E";
@@ -29,7 +29,7 @@ export var BEHAVIOR;
     BEHAVIOR["stopUsingItem"] = "stopUsingItem";
     BEHAVIOR["interact"] = "interact";
 })(BEHAVIOR || (BEHAVIOR = {}));
-export const BEHAVIOR_LIST = Object.values(BEHAVIOR);
+export const BEHAVIOR_LIST = Object.keys(BEHAVIOR);
 export var BEHAVIOR_ZH;
 (function (BEHAVIOR_ZH) {
     BEHAVIOR_ZH["lookAtEntity"] = "\u626D\u5934";

@@ -13,7 +13,7 @@ export  enum  SIGN {
 }
 export  default SIGN
 
-export const SIGN_TAG_LIST:string[]  = Object.values(SIGN)
+export const SIGN_TAG_LIST:string[]  = Object.keys(SIGN)
 export enum  SIGN_ZH {
     AUTO_RESPAWN_SIGN = '自动重生标签',
     YUME_SIM_SIGN = '云梦假人标签',
@@ -35,7 +35,7 @@ export enum  BEHAVIOR {
     interact = 'interact',
 }
 
-export const BEHAVIOR_LIST:string[] = Object.values(BEHAVIOR)
+export const BEHAVIOR_LIST:string[] = Object.keys(BEHAVIOR)
 export enum  BEHAVIOR_ZH {
     lookAtEntity = '扭头',
     teleport = '移动',
