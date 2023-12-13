@@ -1,8 +1,64 @@
-// import { createWriteStream, createReadStream } from 'fs';
-// import archiver from 'archiver';
-const fs = require('fs');
+ const fs = require('fs');
 const archiver = require('archiver');
-const name = './build/'+require('./manifest.json').header.name.replace(/§./g,'').replaceAll(/\./g,'-').trim()+'.mcpack';
+
+
+const pkNew = '适配1.20.50'
+const mcVersion = [1,20,50];
+const pkVersion = 14
+
+
+
+
+
+
+
+
+mcVersion.toString =  ()=>mcVersion.join('.')
+const pksVersion = [...mcVersion]
+      pksVersion[2]+= String(pkVersion)
+      pksVersion[2]= +pksVersion[2]
+// mcVersion.toString =  ()=>'['+mcVersion.join(',')+']'
+
+
+const manifest_json = {
+    "format_version": 2,
+    "header": {
+        "description": `【${pkNew}】${mcVersion} \u000a开启实验性游戏内容（测试版 API）-游戏内输入“假人帮助”或“假人创建” 对着假人右键（蹲或不蹲两个菜单） ，当前版本充满了可能有的bug，还请凑活 无关QQ群：122957051:`,
+        "name": `§t${mcVersion} v${pkVersion} §e§lFlash§fFakePlayerPack`,
+        "uuid": "aa101e99-abb4-448d-b58f-71e9da43064e",
+        "version": pksVersion,
+        "min_engine_version": mcVersion
+    },
+    "modules": [
+        {
+            "type": "script",
+            "uuid": "10101e99-abc1-5488-ba76-71e9da441300",
+            "description": "§e§lFlash§fFakePlayerPack",
+            "version": pksVersion,
+            "entry": "scripts/main/preload.js"
+        }
+    ],
+    "dependencies": [
+        {
+            "module_name": "@minecraft/server",
+            "version": "1.8.0-beta"
+        },
+        {
+            "module_name": "@minecraft/server-gametest",
+            "version": "1.0.0-beta"
+        },
+        {
+            "module_name": "@minecraft/server-ui",
+            "version": "1.2.0-beta"
+        }
+    ]
+}
+
+fs.writeFile('./manifest.json',JSON.stringify(manifest_json,null,'\t'),()=>{})
+
+
+
+const name = './build/'+manifest_json.header.name.replace(/§./g,'').replaceAll(/\./g,'-').trim()+'.mcpack';
 
 // make dir ./build
 fs.existsSync('./build')?0:fs.mkdirSync('build');

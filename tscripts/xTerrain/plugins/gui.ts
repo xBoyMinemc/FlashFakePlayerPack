@@ -44,8 +44,9 @@ world.beforeEvents.playerInteractWithEntity.subscribe(e=>{
     }
 
     const behavior = ()=>{
-        const mng = new ActionFormData().title('功能')
-        mng.body('#x#').body(SimPlayer.nameTag)
+        const mng = new ActionFormData()
+            .title('功能')
+            .body('#x#').body(SimPlayer.nameTag)
 
         for (const behavior of BEHAVIOR_LIST)
             mng.button((SimPlayer.hasTag(behavior)?'§l§e':'§l§1') + BEHAVIOR_ZH[BEHAVIOR[behavior]])

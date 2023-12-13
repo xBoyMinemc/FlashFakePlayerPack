@@ -4,9 +4,10 @@
     "build": "cd . && node packer.js"
   },
   "dependencies": {
-    "@minecraft/server": "^1.7.0-beta.1.20.40-stable",
-    "@minecraft/server-gametest": "^1.0.0-beta.1.20.40-stable",
-    "@minecraft/server-ui": "^1.2.0-beta.1.20.30-stable",
+    "@minecraft/common": "^1.1.0",
+    "@minecraft/server": "^1.8.0-beta.1.20.50-stable",
+    "@minecraft/server-gametest": "^1.0.0-beta.1.20.50-stable",
+    "@minecraft/server-ui": "^1.2.0-beta.1.20.50-stable",
     "archiver": "^6.0.1"
   }
 }

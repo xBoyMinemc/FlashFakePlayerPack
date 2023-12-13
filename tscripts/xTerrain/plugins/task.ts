@@ -1,10 +1,9 @@
 import type { SimulatedPlayer } from '@minecraft/server-gametest'
 import {SimulatedPlayerEnum, testWorldLocation} from '../main'
 import SIGN from '../../lib/xboyPackage/YumeSignEnum'
-import type {Block, Entity, EntityHealthComponent, EntityQueryOptions, Vector3} from '@minecraft/server'
+import type { EntityHealthComponent, Vector3} from '@minecraft/server'
 import { system, world, Vector } from '@minecraft/server'
 import { getEntitiesNear, getPlayerNear} from '../../lib/xboyPackage/Util'
-// import { CommandRegistry } from '../../lib/yumeCommand/CommandRegistry'
 
 // @ts-ignore
 const SimulatedPlayerStates : ({ "str-SimPlayer.id": { o: Vector3 }}) = {}

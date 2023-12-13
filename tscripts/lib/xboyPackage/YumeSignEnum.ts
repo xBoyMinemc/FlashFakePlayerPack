@@ -1,6 +1,7 @@
 // SIGN for AUTO_BEHAVIOR
-import {SimulatedPlayer} from "@minecraft/server-gametest";
-import {Player} from "@minecraft/server";
+import { SimulatedPlayer } from '@minecraft/server-gametest'
+import { Player } from '@minecraft/server'
+import { commandRegistry as urm } from '../../xTerrain/plugins/youAreMine'
 
 export  enum  SIGN {
     AUTO_RESPAWN_SIGN = 'AUTO_RESPAWN_SIGN',
@@ -33,6 +34,12 @@ export enum  BEHAVIOR {
     useItemInSlot = 'useItemInSlot',
     stopUsingItem = 'stopUsingItem',
     interact = 'interact',
+    swapMainhandItem = 'swapMainhandItem',
+    swapInventory = 'swapInventory',
+    swapEquipment = 'swapEquipment',
+    recycle = 'recycle', // item and exp
+    disconnect = 'disconnect',
+    // rename = 'rename',
 }
 
 export const BEHAVIOR_LIST:string[] = Object.keys(BEHAVIOR)
@@ -43,6 +50,12 @@ export enum  BEHAVIOR_ZH {
     useItemInSlot = '开始使用',
     stopUsingItem = '停止使用',
     interact = '开始交互',
+    swapMainhandItem = '互换主手物品',
+    swapInventory = '互换背包',
+    swapEquipment = '互换装备',
+    recycle = '回收', // item and exp
+    disconnect = '销毁',
+    // rename = '改名',
 }
 
 export const BEHAVIOR_FUNCTION = {
@@ -52,6 +65,12 @@ export const BEHAVIOR_FUNCTION = {
     useItemInSlot : (sim:SimulatedPlayer)=>sim.useItemInSlot(sim.selectedSlot),
     stopUsingItem : (sim:SimulatedPlayer)=>sim.stopUsingItem(),
     interact : (sim:SimulatedPlayer)=>sim.interact(),
+    swapMainhandItem : (sim:SimulatedPlayer,player:Player)=>urm.execute('假人主手物品交换',{entity:player,sim}),
+    swapInventory : (sim:SimulatedPlayer,player:Player)=>urm.execute('假人背包交换',{entity:player,sim}),
+    swapEquipment : (sim:SimulatedPlayer,player:Player)=>urm.execute('假人装备交换',{entity:player,sim}),
+    recycle : (sim:SimulatedPlayer,player:Player)=>urm.execute('假人资源回收',{entity:player,sim}), // item and exp
+    disconnect : (sim:SimulatedPlayer)=>urm.execute('假人销毁',{sim}),
+    // rename : (sim:SimulatedPlayer,player:Player)=>0,
 }
 export const exeBehavior = (behavior: string) => BEHAVIOR[behavior] && BEHAVIOR_FUNCTION[behavior]
 
