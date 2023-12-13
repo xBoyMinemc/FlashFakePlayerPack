@@ -5,24 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="94b2f331-3f65-498e-aa3b-c36686d080bf" name="更改" comment="just 1.20.50">
-      <change afterPath="$PROJECT_DIR$/tscripts/main/test.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/manifest.json" beforeDir="false" afterPath="$PROJECT_DIR$/manifest.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packer.js" beforeDir="false" afterPath="$PROJECT_DIR$/packer.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/lib/xboyPackage/YumeSignEnum.js" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/lib/xboyPackage/YumeSignEnum.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/xTerrain/plugins/gui.js" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/xTerrain/plugins/gui.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/xTerrain/plugins/help.js" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/xTerrain/plugins/help.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/main/test.js" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/main/test.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/scripts/xTerrain/plugins/youAreMine.js" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/xTerrain/plugins/youAreMine.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/tsconfig.json" beforeDir="false" afterPath="$PROJECT_DIR$/tsconfig.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tscripts/lib/xboyPackage/YumeSignEnum.ts" beforeDir="false" afterPath="$PROJECT_DIR$/tscripts/lib/xboyPackage/YumeSignEnum.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tscripts/lib/yumeCommand/CommandRegistry.ts" beforeDir="false" afterPath="$PROJECT_DIR$/tscripts/lib/yumeCommand/CommandRegistry.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tscripts/main/test.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/tscripts/xTerrain/plugins/gui.ts" beforeDir="false" afterPath="$PROJECT_DIR$/tscripts/xTerrain/plugins/gui.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tscripts/xTerrain/plugins/help.ts" beforeDir="false" afterPath="$PROJECT_DIR$/tscripts/xTerrain/plugins/help.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tscripts/xTerrain/plugins/task.ts" beforeDir="false" afterPath="$PROJECT_DIR$/tscripts/xTerrain/plugins/task.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tscripts/xTerrain/plugins/youAreMine.ts" beforeDir="false" afterPath="$PROJECT_DIR$/tscripts/xTerrain/plugins/youAreMine.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tscripts/main/test.ts" beforeDir="false" afterPath="$PROJECT_DIR$/tscripts/main/test.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -36,6 +23,7 @@
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="RESET_MODE" value="HARD" />
   </component>
   <component name="GitHubPullRequestSearchHistory">{
   &quot;lastFilter&quot;: {
@@ -87,6 +75,7 @@
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
     "npm.build.executor": "Run",
+    "npm.watch.executor": "Run",
     "settings.editor.selected.configurable": "preferences.pluginManager",
     "ts.external.directory.path": "D:\\WebStorm\\WebStorm 2023.1.2\\plugins\\javascript-impl\\jsLanguageServicesImpl\\external",
     "ts.rename.search.for.dynamic.occurrences": "true",
@@ -103,7 +92,7 @@
       </set>
     </option>
   </component>
-  <component name="RunManager" selected="npm.build">
+  <component name="RunManager">
     <configuration name="build" type="js.build_tools.npm" nameIsGenerated="true">
       <package-json value="$PROJECT_DIR$/package.json" />
       <command value="run" />
@@ -114,10 +103,6 @@
       <envs />
       <method v="2" />
     </configuration>
-    <list>
-      <item itemvalue="npm.build" />
-      <item itemvalue="npm.watch" />
-    </list>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="应用程序级" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">

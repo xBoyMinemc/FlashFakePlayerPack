@@ -13,6 +13,16 @@ commandRegistry.registerCommand('假人主手物品交换', ({ entity, sim }) =>
     s.setEquipment(i, __);
     p.setEquipment(i, _);
 });
+commandRegistry.registerCommand('假人副手物品交换', ({ entity, sim }) => {
+    const SimPlayer = sim || getSimPlayer.formView(entity);
+    const s = SimPlayer.getComponent("minecraft:equippable");
+    const p = entity.getComponent("minecraft:equippable");
+    const i = EquipmentSlot.Offhand;
+    const _ = s.getEquipment(i);
+    const __ = p.getEquipment(i);
+    s.setEquipment(i, __);
+    p.setEquipment(i, _);
+});
 commandRegistry.registerCommand('假人背包交换', ({ entity, isEntity, sim }) => {
     if (!isEntity && !sim)
         return;
