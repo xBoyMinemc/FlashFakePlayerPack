@@ -4,7 +4,7 @@ const archiver = require('archiver');
 
 const pkNew = '适配1.20.50'
 const mcVersion = [1,20,50];
-const pkVersion = 14
+const pkVersion = 15
 
 
 
@@ -31,10 +31,10 @@ const manifest_json = {
     },
     "modules": [
         {
+            "version": pksVersion,
             "type": "script",
             "uuid": "10101e99-abc1-5488-ba76-71e9da441300",
             "description": "§e§lFlash§fFakePlayerPack",
-            "version": pksVersion,
             "entry": "scripts/main/preload.js"
         }
     ],
