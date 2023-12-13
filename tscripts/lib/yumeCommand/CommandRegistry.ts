@@ -1,9 +1,9 @@
 import { Player, Vector3} from "@minecraft/server";
 import type { SimulatedPlayer } from "@minecraft/server-gametest";
 
-export type commandInfo = {args: string[], entity: Player, location?: Vector3, isEntity: boolean, sim?: SimulatedPlayer}
+export type commandInfo = {args: string[], entity?: Player, location?: Vector3, isEntity?: boolean, sim?: SimulatedPlayer}
 // | Player | Dimension | Entity
-export type commandInfoNoArgs = {entity: Player, location?: Vector3, isEntity: boolean, sim?: SimulatedPlayer}
+export type commandInfoNoArgs = {entity?: Player, location?: Vector3, isEntity?: boolean, sim?: SimulatedPlayer}
 // Parse command
 export function commandParse(command:string):string[] {
     const tokens = [];

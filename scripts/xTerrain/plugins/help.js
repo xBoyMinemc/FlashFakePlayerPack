@@ -30,9 +30,8 @@ const helpWithArgs = ({ args, entity, isEntity }) => {
         :
             entity.sendMessage("对不起，没有这种事情，做不到" + (Math.random() < 0.233 ? "给钱也做不到" : "真做不到"));
 };
-const githubMsg = ({ entity, isEntity }) => isEntity ?
-    qrcode.
-        generate(Math.random() > 0.5 ? 'github.com/xBoyMinemc' : 'vdse.bdstatic.com//192d9a98d782d9c74c96f09db9378d93.mp4', (str) => entity.sendMessage('§rhttps://github.com/xBoyMinemc 能不能扫上随缘\u000a' + str.replaceAll('#', '\u000a').replaceAll('0', '⬛').replaceAll('1', '  '))) : 0;
+const githubMsg = ({ entity }) => qrcode.
+    generate(Math.random() > 0.5 ? 'github.com/xBoyMinemc' : 'vdse.bdstatic.com//192d9a98d782d9c74c96f09db9378d93.mp4', (str) => entity.sendMessage('§rhttps://github.com/xBoyMinemc 能不能扫上随缘\u000a' + str.replaceAll('#', '\u000a').replaceAll('0', '⬛').replaceAll('1', '  ')));
 commandRegistry.registerCommand('假人帮助');
 commandRegistry.registerAlias('假人help', '假人帮助');
 commandRegistry.registerCommand('假人帮助', helpNoArgs);

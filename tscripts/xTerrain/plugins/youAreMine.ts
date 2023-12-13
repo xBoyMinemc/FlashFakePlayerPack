@@ -4,7 +4,7 @@ import type {Dimension, Entity, EntityInventoryComponent, Player, Vector3} from 
 import { getSimPlayer } from "../../lib/xboyPackage/Util";
 import { CommandRegistry, type commandInfo } from "../../lib/yumeCommand/CommandRegistry";
 import {Container, EntityEquippableComponent, EquipmentSlot, TicksPerSecond} from "@minecraft/server";
-import { SimulatedPlayerList } from "../main";
+import { SimulatedPlayerEnum } from "../main";
 
 declare const world: World
 
@@ -13,13 +13,46 @@ declare const world: World
 // const commandName2 = '假人装备交换'
 // const commandName3 = '假人背包清空'
 // 首先注册命令
-const commandRegistry: CommandRegistry = new CommandRegistry()
+export const commandRegistry: CommandRegistry = new CommandRegistry()
 // commandRegistry.registerCommand(commandName1)
 // commandRegistry.registerCommand(commandName2)
 // commandRegistry.registerCommand(commandName3)
-commandRegistry.registerCommand('假人背包交换', ({entity,isEntity}) => {
-    if(!isEntity)return
-    const SimPlayer:SimulatedPlayer = getSimPlayer.formView(entity)
+
+
+// swapMainhandItem
+// commandRegistry.registerAlias('swapInventory','假人主手物品交换')
+commandRegistry.registerCommand('假人主手物品交换', ({entity,sim}) => {
+
+    const SimPlayer:SimulatedPlayer = sim || getSimPlayer.formView(entity)
+    const s = <EntityEquippableComponent>SimPlayer.getComponent("minecraft:equippable")
+
+    const p = <EntityEquippableComponent>entity.getComponent("minecraft:equippable")
+    const i = EquipmentSlot.Mainhand
+    const _ = s.getEquipment(<EquipmentSlot>i)
+    const __ = p.getEquipment(<EquipmentSlot>i)
+    s.setEquipment(<EquipmentSlot>i, __)
+    p.setEquipment(<EquipmentSlot>i, _)
+})
+// swapOffhandItem
+// commandRegistry.registerAlias('swapInventory','假人副手物品交换')
+commandRegistry.registerCommand('假人副手物品交换', ({entity,sim}) => {
+
+    const SimPlayer:SimulatedPlayer = sim || getSimPlayer.formView(entity)
+    const s = <EntityEquippableComponent>SimPlayer.getComponent("minecraft:equippable")
+
+    const p = <EntityEquippableComponent>entity.getComponent("minecraft:equippable")
+    const i = EquipmentSlot.Offhand
+    const _ = s.getEquipment(<EquipmentSlot>i)
+    const __ = p.getEquipment(<EquipmentSlot>i)
+    s.setEquipment(<EquipmentSlot>i, __)
+    p.setEquipment(<EquipmentSlot>i, _)
+})
+
+// swapInventory
+// commandRegistry.registerAlias('swapInventory','假人背包交换')
+commandRegistry.registerCommand('假人背包交换', ({entity,isEntity,sim}) => {
+    if(!isEntity && !sim)return
+    const SimPlayer:SimulatedPlayer = sim || getSimPlayer.formView(entity)
     if(!SimPlayer)return
     const s = (<EntityInventoryComponent>SimPlayer.getComponent("minecraft:inventory")).container
 
@@ -28,17 +61,17 @@ commandRegistry.registerCommand('假人背包交换', ({entity,isEntity}) => {
     for (let i = p.size; i--; s.getItem(i) ? p.getItem(i) ? s.swapItems(i, i, p) : s.moveItem(i, i, p) : p.getItem(i) ? p.moveItem(i, i, s) : "这行代码，我再维护我是狗") ;
 
 })
+// swapEquipment
+// commandRegistry.registerAlias('swapEquipment','假人装备交换')
+commandRegistry.registerCommand('假人装备交换', ({entity,isEntity,sim}) => {
 
-
-commandRegistry.registerCommand('假人装备交换', ({entity,isEntity}) => {
-
-    const SimPlayer:SimulatedPlayer = getSimPlayer.formView(entity)
+    const SimPlayer:SimulatedPlayer = sim || getSimPlayer.formView(entity)
     const s = <EntityEquippableComponent>SimPlayer.getComponent("minecraft:equippable");
 
     const p = <EntityEquippableComponent>entity.getComponent("minecraft:equippable");
     for (const i in EquipmentSlot) {
         //跳过主手
-        if (i === "mainhand") continue;
+        if (i === "Mainhand" || i === "mainhand") continue;
         // console.error(i)
         const _ = s.getEquipment(<EquipmentSlot>i);
         const __ = p.getEquipment(<EquipmentSlot>i);
@@ -48,8 +81,9 @@ commandRegistry.registerCommand('假人装备交换', ({entity,isEntity}) => {
 })
 
 
+
 const returnResWithoutArgs = ({entity,isEntity,sim}:commandInfo)=>{
-    if(!isEntity) {
+    if(!isEntity && !sim) {
         console.error('error not isEntity')
         return
     }
@@ -92,12 +126,14 @@ const returnResWithoutArgs = ({entity,isEntity,sim}:commandInfo)=>{
     }
 }
 
-commandRegistry.registerCommand('假人背包清空', returnResWithoutArgs)
-commandRegistry.registerAlias('假人资源回收','假人背包清空')
+// recycle item and exp
+commandRegistry.registerCommand('假人资源回收', returnResWithoutArgs)
+commandRegistry.registerAlias('假人背包清空','假人背包清空')
 
 
 // disconnect
-commandRegistry.registerCommand('假人销毁', ({entity,isEntity,args}) => {
+commandRegistry.registerCommand('假人销毁', ({entity,isEntity,args,sim}) => {
+    if(sim)return sim.disconnect()
 
     if(!isEntity) {
         console.error('error not isEntity')
@@ -116,7 +152,7 @@ commandRegistry.registerCommand('假人销毁', ({entity,isEntity,args}) => {
 
         if(typeof index !== 'number')return  entity?.sendMessage('[模拟玩家] 命令错误，期待数字却得到 '+typeof Number(args[1]))
 
-        const SimPlayer:SimulatedPlayer = SimulatedPlayerList[index]
+        const SimPlayer:SimulatedPlayer = SimulatedPlayerEnum[index]
 
         if(!SimPlayer)return entity.sendMessage("§e§l-不存在模拟玩家"+index)
 
@@ -155,7 +191,7 @@ commandRegistry.registerCommand('假人重生', ({entity,isEntity,args}) => {
 
         if(typeof index !== 'number')return  entity?.sendMessage('[模拟玩家] 命令错误，期待数字却得到 '+typeof Number(args[1]))
 
-        const SimPlayer:SimulatedPlayer = SimulatedPlayerList[index]
+        const SimPlayer:SimulatedPlayer = SimulatedPlayerEnum[index]
 
         if(!SimPlayer)return entity.sendMessage("§e§l-不存在模拟玩家"+index)
 
@@ -163,10 +199,9 @@ commandRegistry.registerCommand('假人重生', ({entity,isEntity,args}) => {
 
     }
 
-
 })
 
-// List
+// time
 commandRegistry.registerCommand('假人时区', ({entity}) => {
     // entity.sendMessage(''+Intl.DateTimeFormat().resolvedOptions().timeZone)
 
@@ -182,8 +217,8 @@ commandRegistry.registerCommand('假人时区', ({entity}) => {
 
 // List
 commandRegistry.registerCommand('假人列表', ({entity}) => {
-    if(Object.keys(SimulatedPlayerList).length===0) entity.sendMessage('列表空的')
-    for (const index in SimulatedPlayerList) if (SimulatedPlayerList[index]) entity.sendMessage(`§e§l-序号：${index} ## 生成名称: ${SimulatedPlayerList[index].name}${SimulatedPlayerList[index].name===SimulatedPlayerList[index].nameTag?'':' #当前名称: '+SimulatedPlayerList[index].nameTag}`);
+    if(Object.keys(SimulatedPlayerEnum).length===0) entity.sendMessage('列表空的')
+    for (const index in SimulatedPlayerEnum) if (SimulatedPlayerEnum[index]) entity.sendMessage(`§e§l-序号：${index} ## 生成名称: ${SimulatedPlayerEnum[index].name}${SimulatedPlayerEnum[index].name===SimulatedPlayerEnum[index].nameTag?'':' #当前名称: '+SimulatedPlayerEnum[index].nameTag}`);
 })
 
 // rename

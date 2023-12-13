@@ -1,4 +1,4 @@
-﻿import { spawnSimulatedPlayer, SimulatedPlayerList, spawned as spawnedEvent, GetPID } from '../main';
+﻿import { spawnSimulatedPlayer, SimulatedPlayerEnum, spawned as spawnedEvent, GetPID } from '../main';
 import { CommandRegistry } from '../../lib/yumeCommand/CommandRegistry';
 const commandRegistry = new CommandRegistry();
 commandRegistry.registerCommand('假人生成');
@@ -11,7 +11,8 @@ const noArgs = ({ args, entity, location, isEntity }) => {
         const PID = GetPID();
         const __FlashPlayer__ = world.scoreboard.getObjective('##FlashPlayer##');
         const SimulatedPlayer = spawnSimulatedPlayer(entity.location, entity.dimension, PID);
-        SimulatedPlayerList[PID] = SimulatedPlayer;
+        SimulatedPlayerEnum[PID] = SimulatedPlayer;
+        SimulatedPlayerEnum[SimulatedPlayer.id] = PID;
         spawnedEvent.trigger({ spawnedSimulatedPlayer: SimulatedPlayer, PID });
         __FlashPlayer__.setScore(SimulatedPlayer.id, PID);
     }
@@ -19,7 +20,8 @@ const noArgs = ({ args, entity, location, isEntity }) => {
         const PID = GetPID();
         const __FlashPlayer__ = world.scoreboard.getObjective('##FlashPlayer##');
         const SimulatedPlayer = spawnSimulatedPlayer(location, entity, PID);
-        SimulatedPlayerList[PID] = SimulatedPlayer;
+        SimulatedPlayerEnum[PID] = SimulatedPlayer;
+        SimulatedPlayerEnum[SimulatedPlayer.id] = PID;
         spawnedEvent.trigger({ spawnedSimulatedPlayer: SimulatedPlayer, PID });
         __FlashPlayer__.setScore(SimulatedPlayer.id, PID);
     }
@@ -36,7 +38,8 @@ const withArgs = ({ args, entity, location, isEntity }) => {
             const PID = GetPID();
             const __FlashPlayer__ = world.scoreboard.getObjective('##FlashPlayer##');
             const SimulatedPlayer = spawnSimulatedPlayer(entity.location, entity.dimension, PID);
-            SimulatedPlayerList[PID] = SimulatedPlayer;
+            SimulatedPlayerEnum[PID] = SimulatedPlayer;
+            SimulatedPlayerEnum[SimulatedPlayer.id] = PID;
             spawnedEvent.trigger({ spawnedSimulatedPlayer: SimulatedPlayer, PID });
             __FlashPlayer__.setScore(SimulatedPlayer.id, PID);
         }
@@ -44,7 +47,8 @@ const withArgs = ({ args, entity, location, isEntity }) => {
             const PID = GetPID();
             const __FlashPlayer__ = world.scoreboard.getObjective('##FlashPlayer##');
             const SimulatedPlayer = spawnSimulatedPlayer(location, entity, PID);
-            SimulatedPlayerList[PID] = SimulatedPlayer;
+            SimulatedPlayerEnum[PID] = SimulatedPlayer;
+            SimulatedPlayerEnum[SimulatedPlayer.id] = PID;
             spawnedEvent.trigger({ spawnedSimulatedPlayer: SimulatedPlayer, PID });
             __FlashPlayer__.setScore(SimulatedPlayer.id, PID);
         }
