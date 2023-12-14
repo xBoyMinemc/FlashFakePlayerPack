@@ -23,8 +23,8 @@ const pksVersion = [...mcVersion]
 const manifest_json = {
     "format_version": 2,
     "header": {
-        "description": `【${pkNew}】${mcVersion} \u000a开启实验性游戏内容（测试版 API）-游戏内输入“假人帮助”或“假人创建” 对着假人右键（蹲或不蹲两个菜单） ，当前版本充满了可能有的bug，还请凑活 无关QQ群：122957051:`,
         "name": `§t${mcVersion} v${pkVersion} §e§lFlash§fFakePlayerPack`,
+        "description": `【${pkNew}】${mcVersion} \u000a开启实验性游戏内容（测试版 API）-游戏内输入“假人帮助”或“假人创建” 对着假人右键（蹲或不蹲两个菜单） ，当前版本充满了可能有的bug，还请凑活 无关QQ群：122957051:`,
         "uuid": "aa101e99-abb4-448d-b58f-71e9da43064e",
         "version": pksVersion,
         "min_engine_version": mcVersion
