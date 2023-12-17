@@ -1,9 +1,8 @@
 import type { World } from "../../@types/globalThis";
 import type { SimulatedPlayer } from "@minecraft/server-gametest";
-import type {Dimension, Entity, EntityInventoryComponent, Player, Vector3} from "@minecraft/server";
 import { getSimPlayer } from "../../lib/xboyPackage/Util";
 import { CommandRegistry, type commandInfo } from "../../lib/yumeCommand/CommandRegistry";
-import {Container, EntityEquippableComponent, EquipmentSlot, TicksPerSecond} from "@minecraft/server";
+import { EquipmentSlot, TicksPerSecond } from "@minecraft/server";
 import { SimulatedPlayerEnum } from "../main";
 
 declare const world: World
@@ -24,9 +23,9 @@ export const commandRegistry: CommandRegistry = new CommandRegistry()
 commandRegistry.registerCommand('假人主手物品交换', ({entity,sim}) => {
 
     const SimPlayer:SimulatedPlayer = sim || getSimPlayer.formView(entity)
-    const s = <EntityEquippableComponent>SimPlayer.getComponent("minecraft:equippable")
+    const s = SimPlayer.getComponent("minecraft:equippable")
 
-    const p = <EntityEquippableComponent>entity.getComponent("minecraft:equippable")
+    const p = entity.getComponent("minecraft:equippable")
     const i = EquipmentSlot.Mainhand
     const _ = s.getEquipment(<EquipmentSlot>i)
     const __ = p.getEquipment(<EquipmentSlot>i)
@@ -38,9 +37,9 @@ commandRegistry.registerCommand('假人主手物品交换', ({entity,sim}) => {
 commandRegistry.registerCommand('假人副手物品交换', ({entity,sim}) => {
 
     const SimPlayer:SimulatedPlayer = sim || getSimPlayer.formView(entity)
-    const s = <EntityEquippableComponent>SimPlayer.getComponent("minecraft:equippable")
+    const s = SimPlayer.getComponent("minecraft:equippable")
 
-    const p = <EntityEquippableComponent>entity.getComponent("minecraft:equippable")
+    const p = entity.getComponent("minecraft:equippable")
     const i = EquipmentSlot.Offhand
     const _ = s.getEquipment(<EquipmentSlot>i)
     const __ = p.getEquipment(<EquipmentSlot>i)
@@ -54,9 +53,9 @@ commandRegistry.registerCommand('假人背包交换', ({entity,isEntity,sim}) =>
     if(!isEntity && !sim)return
     const SimPlayer:SimulatedPlayer = sim || getSimPlayer.formView(entity)
     if(!SimPlayer)return
-    const s = (<EntityInventoryComponent>SimPlayer.getComponent("minecraft:inventory")).container
+    const s = SimPlayer.getComponent("minecraft:inventory").container
 
-    const p = (<EntityInventoryComponent>entity.getComponent("minecraft:inventory")).container
+    const p = entity.getComponent("minecraft:inventory").container
 
     for (let i = p.size; i--; s.getItem(i) ? p.getItem(i) ? s.swapItems(i, i, p) : s.moveItem(i, i, p) : p.getItem(i) ? p.moveItem(i, i, s) : "这行代码，我再维护我是狗") ;
 
@@ -66,10 +65,10 @@ commandRegistry.registerCommand('假人背包交换', ({entity,isEntity,sim}) =>
 commandRegistry.registerCommand('假人装备交换', ({entity,isEntity,sim}) => {
 
     const SimPlayer:SimulatedPlayer = sim || getSimPlayer.formView(entity)
-    const s = <EntityEquippableComponent>SimPlayer.getComponent("minecraft:equippable");
+    const s = SimPlayer.getComponent("minecraft:equippable");
 
-    const p = <EntityEquippableComponent>entity.getComponent("minecraft:equippable");
-    for (const i in EquipmentSlot) {
+    const p = entity.getComponent("minecraft:equippable");
+    for (const i in  EquipmentSlot) {
         //跳过主手
         if (i === "Mainhand" || i === "mainhand") continue;
         // console.error(i)
@@ -91,10 +90,10 @@ const returnResWithoutArgs = ({entity,isEntity,sim}:commandInfo)=>{
     const SimPlayer:SimulatedPlayer = sim ?? getSimPlayer.formView(entity)
     if(!SimPlayer)return
 
-    const _s = <EntityEquippableComponent>SimPlayer.getComponent("minecraft:equippable")
+    const _s = SimPlayer.getComponent("minecraft:equippable")
 
-    const l = <Vector3>entity.location
-    const d = <Dimension>entity.dimension
+    const l = entity.location
+    const d = entity.dimension
 
     for (const i in EquipmentSlot) {
         //跳过主手
@@ -108,7 +107,7 @@ const returnResWithoutArgs = ({entity,isEntity,sim}:commandInfo)=>{
         _s.setEquipment(<EquipmentSlot>i, undefined)
 
     }
-    const s = <Container>(<EntityInventoryComponent>SimPlayer.getComponent("minecraft:inventory")).container
+    const s =  SimPlayer.getComponent("minecraft:inventory").container
 
     for (
         let i = s.size;
@@ -119,8 +118,8 @@ const returnResWithoutArgs = ({entity,isEntity,sim}:commandInfo)=>{
     // SimPLayer's xp turn to player
     const total = SimPlayer.getTotalXp()
     if(total!==0){
-        (<Player>entity).sendMessage('xp +'+total),
-            (<Player>entity).addExperience(total),
+        entity.sendMessage('xp +'+total),
+            entity.addExperience(total),
             SimPlayer.resetLevel(),
             entity.playSound('random.levelup')
     }
