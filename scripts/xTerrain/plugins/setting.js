@@ -1,7 +1,11 @@
 ﻿import { CommandRegistry } from '../../lib/yumeCommand/CommandRegistry';
-import ScoreBase from "../../lib/xboyPackage/scoreBase/rw";
+import ScoreBase from '../../lib/xboyPackage/scoreBase/rw';
 const commandRegistry = new CommandRegistry();
-commandRegistry.registerCommand('假人重置序号', ({ entity, isEntity, sim }) => {
+commandRegistry.registerAlias('假人重置编号', '假人重置序号');
+commandRegistry.registerAlias('假人编号重置', '假人重置序号');
+commandRegistry.registerAlias('假人序号重置', '假人重置序号');
+commandRegistry.registerAlias('假人序号重置', '假人重置序号');
+commandRegistry.registerCommand('假人重置序号', ({ entity }) => {
     const SetPID = () => {
         const __FlashPlayer__ = ScoreBase.GetObject('##FlashPlayer##');
         const value = ScoreBase.GetPoints(__FlashPlayer__, '##currentPID');
@@ -16,7 +20,7 @@ world.afterEvents.chatSend.subscribe(({ message, sender }) => {
     const cmdArgs = CommandRegistry.parse(message);
     if (commandRegistry.commandsList.has(cmdArgs[0]))
         commandRegistry.executeCommand(cmdArgs[0], { entity: sender, isEntity: true, args: cmdArgs });
-    if (message == 'showshowway') {
+    if (message === 'showshowway') {
         sender.sendMessage(commandRegistry.showList().toString());
     }
 });

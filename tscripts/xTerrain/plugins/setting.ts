@@ -1,15 +1,18 @@
 import { CommandRegistry } from '../../lib/yumeCommand/CommandRegistry'
 import type { World } from '../../@types/globalThis'
-import type {SimulatedPlayer} from "@minecraft/server-gametest";
-import {getSimPlayer} from "../../lib/xboyPackage/Util";
-import {EquipmentSlot, type ScoreboardObjective} from "@minecraft/server";
-import ScoreBase from "../../lib/xboyPackage/scoreBase/rw";
+import { type ScoreboardObjective } from '@minecraft/server'
+import ScoreBase from '../../lib/xboyPackage/scoreBase/rw'
 
 declare const world: World
 
 const commandRegistry: CommandRegistry = new CommandRegistry()
 
-commandRegistry.registerCommand('假人重置序号', ({entity,isEntity,sim}) => {
+
+commandRegistry.registerAlias('假人重置编号','假人重置序号')
+commandRegistry.registerAlias('假人编号重置','假人重置序号')
+commandRegistry.registerAlias('假人序号重置','假人重置序号')
+commandRegistry.registerAlias('假人序号重置','假人重置序号')
+commandRegistry.registerCommand('假人重置序号', ({ entity }) => {
 
     const SetPID = ()=>{
         const __FlashPlayer__ = <ScoreboardObjective>ScoreBase.GetObject('##FlashPlayer##')
