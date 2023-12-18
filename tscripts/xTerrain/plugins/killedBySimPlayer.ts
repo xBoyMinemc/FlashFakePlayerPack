@@ -6,6 +6,11 @@ entityDeadByHurt.subscribe(({damageSource,hurtEntity})=>{
     // hurtEntity.runCommand('me ??')
     if(hurtEntity.typeId !== 'minecraft:player')return
 
+    if(SimulatedPlayerEnum[hurtEntity.id]){
+        damageSource.damagingEntity['sendMessage']('玩不起，就别玩')
+        return
+    }
+
     // hurtEntity.runCommand('me ??@@')
     const PID = SimulatedPlayerEnum[damageSource.damagingEntity.id]
     // hurtEntity.runCommand('me ??@@PID '+PID)
@@ -15,5 +20,5 @@ entityDeadByHurt.subscribe(({damageSource,hurtEntity})=>{
     const SimPlayer = <SimulatedPlayer>SimulatedPlayerEnum[PID]
     if(!SimPlayer)return
 
-    hurtEntity['sendMessage']('菜就多练')
+    hurtEntity['sendMessage']('菜，就多练')
 })
