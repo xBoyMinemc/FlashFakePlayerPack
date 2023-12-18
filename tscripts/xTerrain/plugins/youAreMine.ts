@@ -128,6 +128,7 @@ const returnResWithoutArgs = ({entity,isEntity,sim}:commandInfo)=>{
 // recycle item and exp
 commandRegistry.registerCommand('假人资源回收', returnResWithoutArgs)
 commandRegistry.registerAlias('假人背包清空','假人背包清空')
+commandRegistry.registerAlias('假人爆金币','假人背包清空')
 
 
 // disconnect
