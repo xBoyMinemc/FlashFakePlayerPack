@@ -2,9 +2,9 @@
 const archiver = require('archiver');
 
 
-const pkNew = '适配1.20.50'
+const pkNew = '增加重置功能，输入showshowway获得提示'
 const mcVersion = [1,20,50];
-const pkVersion = 15
+const pkVersion = 16
 
 
 
