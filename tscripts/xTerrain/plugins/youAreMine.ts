@@ -60,6 +60,9 @@ commandRegistry.registerCommand('假人背包交换', ({entity,isEntity,sim}) =>
     for (let i = p.size; i--; s.getItem(i) ? p.getItem(i) ? s.swapItems(i, i, p) : s.moveItem(i, i, p) : p.getItem(i) ? p.moveItem(i, i, s) : "这行代码，我再维护我是狗") ;
 
 })
+commandRegistry.registerAlias('假人交换背包','假人背包交换')
+
+
 // swapEquipment
 // commandRegistry.registerAlias('swapEquipment','假人装备交换')
 commandRegistry.registerCommand('假人装备交换', ({entity,isEntity,sim}) => {
@@ -78,7 +81,7 @@ commandRegistry.registerCommand('假人装备交换', ({entity,isEntity,sim}) =>
         p.setEquipment(<EquipmentSlot>i, _);
     }
 })
-
+commandRegistry.registerAlias('假人交换装备','假人装备交换')
 
 
 const returnResWithoutArgs = ({entity,isEntity,sim}:commandInfo)=>{
@@ -170,7 +173,6 @@ commandRegistry.registerAlias('假人清除','假人销毁')
 // respawn
 commandRegistry.registerCommand('假人重生', ({entity,isEntity,args}) => {
 
-
     if(!isEntity && args.length===1) {
         console.error('error not isEntity')
         return
@@ -200,6 +202,11 @@ commandRegistry.registerCommand('假人重生', ({entity,isEntity,args}) => {
     }
 
 })
+commandRegistry.registerAlias('假人复活','假人重生')
+commandRegistry.registerAlias('复活吧，我的爱人','假人重生')
+commandRegistry.registerAlias('复活吧！我的爱人','假人重生')
+commandRegistry.registerAlias('复活吧!我的爱人','假人重生')
+commandRegistry.registerAlias('复活吧我的爱人','假人重生')
 
 // time
 commandRegistry.registerCommand('假人时区', ({entity}) => {
@@ -241,6 +248,8 @@ commandRegistry.registerCommand('假人改名', ({entity,isEntity,args})=> {
 
 })
 
+commandRegistry.registerAlias('假人重命名','假人改名')
+commandRegistry.registerAlias('假人换名','假人改名')
 
 world.afterEvents.chatSend.subscribe(({message, sender})=> {
     const args = CommandRegistry.parse(message)

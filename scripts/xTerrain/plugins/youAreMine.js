@@ -34,6 +34,7 @@ commandRegistry.registerCommand('假人背包交换', ({ entity, isEntity, sim }
     for (let i = p.size; i--; s.getItem(i) ? p.getItem(i) ? s.swapItems(i, i, p) : s.moveItem(i, i, p) : p.getItem(i) ? p.moveItem(i, i, s) : "这行代码，我再维护我是狗")
         ;
 });
+commandRegistry.registerAlias('假人交换背包', '假人背包交换');
 commandRegistry.registerCommand('假人装备交换', ({ entity, isEntity, sim }) => {
     const SimPlayer = sim || getSimPlayer.formView(entity);
     const s = SimPlayer.getComponent("minecraft:equippable");
@@ -47,6 +48,7 @@ commandRegistry.registerCommand('假人装备交换', ({ entity, isEntity, sim }
         p.setEquipment(i, _);
     }
 });
+commandRegistry.registerAlias('假人交换装备', '假人装备交换');
 const returnResWithoutArgs = ({ entity, isEntity, sim }) => {
     if (!isEntity && !sim) {
         console.error('error not isEntity');
@@ -139,6 +141,11 @@ commandRegistry.registerCommand('假人重生', ({ entity, isEntity, args }) => 
         SimPlayer.respawn();
     }
 });
+commandRegistry.registerAlias('假人复活', '假人重生');
+commandRegistry.registerAlias('复活吧，我的爱人', '假人重生');
+commandRegistry.registerAlias('复活吧！我的爱人', '假人重生');
+commandRegistry.registerAlias('复活吧!我的爱人', '假人重生');
+commandRegistry.registerAlias('复活吧我的爱人', '假人重生');
 commandRegistry.registerCommand('假人时区', ({ entity }) => {
     const now = new Date();
     const offsetMinutes = now.getTimezoneOffset();
@@ -172,6 +179,8 @@ commandRegistry.registerCommand('假人改名', ({ entity, isEntity, args }) => 
         entity.sendMessage("§e§l-改名成功");
     }
 });
+commandRegistry.registerAlias('假人重命名', '假人改名');
+commandRegistry.registerAlias('假人换名', '假人改名');
 world.afterEvents.chatSend.subscribe(({ message, sender }) => {
     const args = CommandRegistry.parse(message);
     if (commandRegistry.commandsList.has(args[0]))

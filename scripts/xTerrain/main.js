@@ -56,7 +56,6 @@ register('我是云梦', '假人', (test) => {
     .structureName('xboyMinemcSIM:void');
 initialized.subscribe(() => console.error('[假人]初始化完毕，开始加载内置插件'));
 initialized.subscribe(() => [
-    'test',
     'chatSpawn',
     'command',
     'breakBlock',
@@ -72,7 +71,6 @@ export { spawnSimulatedPlayer, testWorldLocation, GetPID };
 export default spawnSimulatedPlayer;
 let initCounter = 5;
 function init() {
-    world.events.reloadFromCmd.unsubscribe(reload);
     if (--initCounter < 0) {
         world.sendMessage('[模拟玩家] 初始化失败，尝试输入reload' + initCounter);
     }
@@ -118,4 +116,3 @@ world.events.playerMove.subscribe(init);
 const reload = () => {
     init();
 };
-export function a() { console.error('a一次'); }

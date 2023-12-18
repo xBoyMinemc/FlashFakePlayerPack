@@ -84,7 +84,7 @@ register('我是云梦', '假人', (test:Test) => {
 
     initialized.subscribe(()=> console.error('[假人]初始化完毕，开始加载内置插件') );
     initialized.subscribe(()=>[
-        'test',
+        // 'test',
         'chatSpawn',
         'command',
         'breakBlock',
@@ -106,7 +106,7 @@ let initCounter = 5
 //  # 初始化 init
 // how about turn to world.afterEvents.playerSpawn
 function init() {
-    world.events.reloadFromCmd.unsubscribe(reload)
+    // world.events.reloadFromCmd.unsubscribe(reload)
         // Limit the number of retries
         if(--initCounter<0){
             world.sendMessage('[模拟玩家] 初始化失败，尝试输入reload'+initCounter)
@@ -191,5 +191,5 @@ const reload = ()=>{
     // world.events.reloadFromCmd.unsubscribe(reload)
 }
 // world.events.reloadFromCmd.subscribe(()=>reload())
-export function a(){console.error('a一次') }
+// export function a(){console.error('a一次') }
 //写一个100次的for循环
