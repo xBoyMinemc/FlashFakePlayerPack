@@ -13,7 +13,6 @@ entityDeadByHurt.subscribe(({damageSource,hurtEntity})=>{
     // hurtEntity.runCommand('me ??@@))) ')
 
     const SimPlayer = <SimulatedPlayer>SimulatedPlayerEnum[PID]
-    if(!SimPlayer)return
 
     hurtEntity['sendMessage']('菜就多练')
 })
