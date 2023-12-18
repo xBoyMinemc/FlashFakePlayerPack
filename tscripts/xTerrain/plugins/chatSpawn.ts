@@ -3,7 +3,6 @@ import type { SimulatedPlayer } from '@minecraft/server-gametest'
 
 import { spawnSimulatedPlayer, SimulatedPlayerEnum, spawned as spawnedEvent, GetPID } from '../main'
 import { CommandRegistry } from '../../lib/yumeCommand/CommandRegistry'
-import {Player} from "@minecraft/server";
 
 declare const world: World
 
@@ -89,6 +88,10 @@ world.afterEvents.chatSend.subscribe(({message, sender})=>{
     const cmdArgs = CommandRegistry.parse(message)
     if(commandRegistry.commandsList.has(cmdArgs[0]))
         commandRegistry.executeCommand(cmdArgs[0],{entity:sender,isEntity:true,args:cmdArgs})
+
+    if(message=='showshowway'){
+        sender.sendMessage(commandRegistry.showList().toString())
+    }
 })
 
 // console.error('[假人]内置插件chatSpawn加载成功')

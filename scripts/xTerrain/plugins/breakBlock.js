@@ -19,6 +19,9 @@ const noArgs = ({ args, entity, isEntity }) => {
 commandRegistry.registerCommand('假人挖掘', noArgs);
 world.afterEvents.chatSend.subscribe(({ message, sender }) => {
     commandRegistry.execute(message, { entity: sender, isEntity: true });
+    if (message == 'showshowway') {
+        sender.sendMessage(commandRegistry.showList().toString());
+    }
 });
 const breaks = () => {
     BreakBlockSimulatedPlayerList.forEach((simIndex) => {

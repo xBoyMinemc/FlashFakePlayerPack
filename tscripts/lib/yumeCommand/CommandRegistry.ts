@@ -10,6 +10,7 @@ export function commandParse(command:string):string[] {
     let currentToken = '';
     let insideQuotes = false;
 
+    //  又不是不能用
     for (let i = 0; i < command.length; i++) {
         const char = command[i];
 
@@ -74,6 +75,7 @@ export class CommandRegistry {
         this.commandsList.add(commandName)
         return this.commandsRegistryMap.get(commandName).add(callback);
     }
+
     // executeCommand
     executeCommand(commandName:string, cmdInfo:commandInfo) {
         this.commandsRegistryMap.get(
@@ -88,10 +90,12 @@ export class CommandRegistry {
         // else
         //     console.error(`Command "${commandName}" not found.`);
     }
+
     execute(commandText:string,cmdInfo:commandInfoNoArgs){
         const args = CommandRegistry.parse(commandText)
         this.executeCommand(args[0],{...cmdInfo,args})
     }
+
     // removeCommand
     removeCommand(commandName:string, callback:Function) {
         if(callback)
@@ -108,6 +112,12 @@ export class CommandRegistry {
         // else
         //     console.error(`Command "${commandName}" not found.`);
     }
+
+    showList() {
+        return Array.from(this.commandsList.keys())
+            .concat(Array.from(this.alias.keys())).join('\u000a')
+    }
+
 }
 // const {executeCommand, registerCommand, removeCommand} = new CommandRegistry();
 

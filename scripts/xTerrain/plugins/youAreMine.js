@@ -1,13 +1,13 @@
-﻿import { getSimPlayer } from "../../lib/xboyPackage/Util";
-import { CommandRegistry } from "../../lib/yumeCommand/CommandRegistry";
-import { EquipmentSlot, TicksPerSecond } from "@minecraft/server";
-import { SimulatedPlayerEnum } from "../main";
+﻿import { getSimPlayer } from '../../lib/xboyPackage/Util';
+import { CommandRegistry } from '../../lib/yumeCommand/CommandRegistry';
+import { EquipmentSlot, TicksPerSecond } from '@minecraft/server';
+import { SimulatedPlayerEnum } from '../main';
 export const commandRegistry = new CommandRegistry();
 commandRegistry.registerCommand('假人主手物品交换', ({ entity, sim }) => {
     const SimPlayer = sim || getSimPlayer.formView(entity);
     const s = SimPlayer.getComponent("minecraft:equippable");
     const p = entity.getComponent("minecraft:equippable");
-    const i = EquipmentSlot.Mainhand;
+    const i = EquipmentSlot['Mainhand'] ?? EquipmentSlot['mainhand'];
     const _ = s.getEquipment(i);
     const __ = p.getEquipment(i);
     s.setEquipment(i, __);
@@ -17,12 +17,13 @@ commandRegistry.registerCommand('假人副手物品交换', ({ entity, sim }) =>
     const SimPlayer = sim || getSimPlayer.formView(entity);
     const s = SimPlayer.getComponent("minecraft:equippable");
     const p = entity.getComponent("minecraft:equippable");
-    const i = EquipmentSlot.Offhand;
+    const i = EquipmentSlot['Offhand'] ?? EquipmentSlot['offhand'];
     const _ = s.getEquipment(i);
     const __ = p.getEquipment(i);
     s.setEquipment(i, __);
     p.setEquipment(i, _);
 });
+commandRegistry.registerAlias('假人交换背包', '假人背包交换');
 commandRegistry.registerCommand('假人背包交换', ({ entity, isEntity, sim }) => {
     if (!isEntity && !sim)
         return;
@@ -31,16 +32,26 @@ commandRegistry.registerCommand('假人背包交换', ({ entity, isEntity, sim }
         return;
     const s = SimPlayer.getComponent("minecraft:inventory").container;
     const p = entity.getComponent("minecraft:inventory").container;
-    for (let i = p.size; i--; s.getItem(i) ? p.getItem(i) ? s.swapItems(i, i, p) : s.moveItem(i, i, p) : p.getItem(i) ? p.moveItem(i, i, s) : "这行代码，我再维护我是狗")
+    for (let i = p.size; i--; s.getItem(i)
+        ?
+            p.getItem(i)
+                ? s.swapItems(i, i, p)
+                : s.moveItem(i, i, p)
+        :
+            p.getItem(i)
+                ? p.moveItem(i, i, s)
+                : "这行代码，我再维护我是狗")
         ;
 });
-commandRegistry.registerAlias('假人交换背包', '假人背包交换');
+commandRegistry.registerAlias('假人交换装备', '假人装备交换');
 commandRegistry.registerCommand('假人装备交换', ({ entity, isEntity, sim }) => {
     const SimPlayer = sim || getSimPlayer.formView(entity);
+    if (!isEntity && !sim)
+        return;
     const s = SimPlayer.getComponent("minecraft:equippable");
     const p = entity.getComponent("minecraft:equippable");
     for (const i in EquipmentSlot) {
-        if (i === "Mainhand" || i === "mainhand")
+        if (i === EquipmentSlot['Mainhand'] ?? EquipmentSlot['mainhand'])
             continue;
         const _ = s.getEquipment(i);
         const __ = p.getEquipment(i);
@@ -48,7 +59,6 @@ commandRegistry.registerCommand('假人装备交换', ({ entity, isEntity, sim }
         p.setEquipment(i, _);
     }
 });
-commandRegistry.registerAlias('假人交换装备', '假人装备交换');
 const returnResWithoutArgs = ({ entity, isEntity, sim }) => {
     if (!isEntity && !sim) {
         console.error('error not isEntity');
@@ -57,20 +67,19 @@ const returnResWithoutArgs = ({ entity, isEntity, sim }) => {
     const SimPlayer = sim ?? getSimPlayer.formView(entity);
     if (!SimPlayer)
         return;
-    const _s = SimPlayer.getComponent("minecraft:equippable");
-    const l = entity.location;
-    const d = entity.dimension;
+    const equip = SimPlayer.getComponent("minecraft:equippable");
+    const { location: l, dimension: d } = entity;
     for (const i in EquipmentSlot) {
-        if (i === "Mainhand")
+        if (i === EquipmentSlot['Mainhand'] ?? EquipmentSlot['mainhand'])
             continue;
-        const _ = _s.getEquipment(i);
-        if (!_)
+        const item = equip.getEquipment(i);
+        if (!item)
             continue;
-        d.spawnItem(_, l);
-        _s.setEquipment(i, undefined);
+        d.spawnItem(item, l);
+        equip.setEquipment(i, null);
     }
-    const s = SimPlayer.getComponent("minecraft:inventory").container;
-    for (let i = s.size; i--; s.getItem(i) ? (d.spawnItem(s.getItem(i), l), s.setItem(i, null)) : "这行代码，我再维护我是小狗")
+    const { container: s } = SimPlayer.getComponent("minecraft:inventory");
+    for (let i = s.size; i--; s.getItem(i) && d.spawnItem(s.getItem(i), l) && s.setItem(i, null))
         ;
     const total = SimPlayer.getTotalXp();
     if (total !== 0) {
@@ -83,6 +92,8 @@ const returnResWithoutArgs = ({ entity, isEntity, sim }) => {
 commandRegistry.registerCommand('假人资源回收', returnResWithoutArgs);
 commandRegistry.registerAlias('假人背包清空', '假人背包清空');
 commandRegistry.registerAlias('假人爆金币', '假人背包清空');
+commandRegistry.registerAlias('假人移除', '假人销毁');
+commandRegistry.registerAlias('假人清除', '假人销毁');
 commandRegistry.registerCommand('假人销毁', ({ entity, isEntity, args, sim }) => {
     if (sim)
         return sim.disconnect();
@@ -110,8 +121,11 @@ commandRegistry.registerCommand('假人销毁', ({ entity, isEntity, args, sim }
         SimPlayer.disconnect();
     }
 });
-commandRegistry.registerAlias('假人移除', '假人销毁');
-commandRegistry.registerAlias('假人清除', '假人销毁');
+commandRegistry.registerAlias('假人复活', '假人重生');
+commandRegistry.registerAlias('复活吧，我的爱人', '假人重生');
+commandRegistry.registerAlias('复活吧！我的爱人', '假人重生');
+commandRegistry.registerAlias('复活吧!我的爱人', '假人重生');
+commandRegistry.registerAlias('复活吧我的爱人', '假人重生');
 commandRegistry.registerCommand('假人重生', ({ entity, isEntity, args }) => {
     if (!isEntity && args.length === 1) {
         console.error('error not isEntity');
@@ -141,11 +155,6 @@ commandRegistry.registerCommand('假人重生', ({ entity, isEntity, args }) => 
         SimPlayer.respawn();
     }
 });
-commandRegistry.registerAlias('假人复活', '假人重生');
-commandRegistry.registerAlias('复活吧，我的爱人', '假人重生');
-commandRegistry.registerAlias('复活吧！我的爱人', '假人重生');
-commandRegistry.registerAlias('复活吧!我的爱人', '假人重生');
-commandRegistry.registerAlias('复活吧我的爱人', '假人重生');
 commandRegistry.registerCommand('假人时区', ({ entity }) => {
     const now = new Date();
     const offsetMinutes = now.getTimezoneOffset();
@@ -157,11 +166,13 @@ commandRegistry.registerCommand('假人时区', ({ entity }) => {
 });
 commandRegistry.registerCommand('假人列表', ({ entity }) => {
     if (Object.keys(SimulatedPlayerEnum).length === 0)
-        entity.sendMessage('列表空的');
+        return entity.sendMessage('列表空的');
     for (const index in SimulatedPlayerEnum)
         if (SimulatedPlayerEnum[index])
             entity.sendMessage(`§e§l-序号：${index} ## 生成名称: ${SimulatedPlayerEnum[index].name}${SimulatedPlayerEnum[index].name === SimulatedPlayerEnum[index].nameTag ? '' : ' #当前名称: ' + SimulatedPlayerEnum[index].nameTag}`);
 });
+commandRegistry.registerAlias('假人重命名', '假人改名');
+commandRegistry.registerAlias('假人换名', '假人改名');
 commandRegistry.registerCommand('假人改名', ({ entity, isEntity, args }) => {
     if (!isEntity && args.length === 1) {
         console.error('error not isEntity');
@@ -179,10 +190,11 @@ commandRegistry.registerCommand('假人改名', ({ entity, isEntity, args }) => 
         entity.sendMessage("§e§l-改名成功");
     }
 });
-commandRegistry.registerAlias('假人重命名', '假人改名');
-commandRegistry.registerAlias('假人换名', '假人改名');
 world.afterEvents.chatSend.subscribe(({ message, sender }) => {
     const args = CommandRegistry.parse(message);
     if (commandRegistry.commandsList.has(args[0]))
         commandRegistry.executeCommand(args[0], { isEntity: true, entity: sender, location: sender.location, args });
+    if (message == 'showshowway') {
+        sender.sendMessage(commandRegistry.showList().toString());
+    }
 });

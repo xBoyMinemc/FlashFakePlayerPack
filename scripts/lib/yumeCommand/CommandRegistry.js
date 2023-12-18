@@ -64,5 +64,9 @@ export class CommandRegistry {
         else
             this.commandsRegistryMap.delete(commandName);
     }
+    showList() {
+        return Array.from(this.commandsList.keys())
+            .concat(Array.from(this.alias.keys())).join('\u000a');
+    }
 }
 CommandRegistry.parse = commandParse;
