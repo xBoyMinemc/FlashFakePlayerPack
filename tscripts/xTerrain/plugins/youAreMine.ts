@@ -210,7 +210,7 @@ commandRegistry.registerCommand('假人重生', ({entity,isEntity,args}) => {
         ;
         const index = Number(args[1])
 
-        if(typeof index !== 'number')return  entity?.sendMessage('[模拟玩家] 命令错误，期待数字却得到 '+typeof Number(args[1]))
+        if(typeof index !== 'number')return entity?.sendMessage('[模拟玩家] 命令错误，期待数字却得到 '+typeof Number(args[1]))
 
         const SimPlayer:SimulatedPlayer = SimulatedPlayerEnum[index]
 
