@@ -81,7 +81,7 @@ archive.append(fs.createReadStream('manifest.json'), { name: 'manifest.json' });
 ['structures','entities','scripts'].forEach(_=>archive.directory(_, true)); // 第二个参数设置为false表示不包含目录本身
 
 // 当所有文件都添加完毕后，调用finalize方法来完成ZIP文件的创建
-archive.finalize();
+archive.finalize().then(r => 0);
 
 // 监听archive的'drain'事件，以确保数据被写入输出流
 output1.on('close', () => {
