@@ -71,7 +71,7 @@ world.afterEvents.chatSend.subscribe(({message, sender})=>{
     if(commandRegistry.commandsList.has(args[0]))
         commandRegistry.executeCommand(args[0], { entity:sender,isEntity:true,args })
 
-    if(message=='showshowway'){
+    if(message==='showshowway'){
         sender.sendMessage(commandRegistry.showList().toString())
     }
 })

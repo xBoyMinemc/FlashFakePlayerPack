@@ -41,7 +41,7 @@ world.afterEvents.chatSend.subscribe(({ message, sender }) => {
     const args = CommandRegistry.parse(message);
     if (commandRegistry.commandsList.has(args[0]))
         commandRegistry.executeCommand(args[0], { entity: sender, isEntity: true, args });
-    if (message == 'showshowway') {
+    if (message === 'showshowway') {
         sender.sendMessage(commandRegistry.showList().toString());
     }
 });
