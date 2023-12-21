@@ -1,7 +1,7 @@
 // @ts-nocheck
 // No longer maintained
-import type { Entity } from "@minecraft/server";
-import type { World } from "../../@types/globalThis";
+import type { Entity } from '@minecraft/server'
+import type { World } from '../../@types/globalThis'
 // import {
 //     Container,
 //     EntityEquippableComponent,
