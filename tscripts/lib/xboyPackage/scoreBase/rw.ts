@@ -15,7 +15,10 @@ const overworld : Dimension = world.getDimension("overworld");
 
 
 const GetScoreBoard    : Scoreboard = world.scoreboard;
-const GetScoreObject    = (...args: string[]) : ScoreboardObjective|ScoreboardObjective[] =>args.length === 0 ? GetScoreBoard.getObjectives() : GetScoreBoard.getObjective(args[0]);
+//@ts-ignore
+const GetScoreObject    = ( Objective?:ScoreboardObjective | String) : ScoreboardObjective | ScoreboardObjective[] => Objective ? typeof Objective === "string" ?  GetScoreBoard.getObjective(Objective) : Objective : GetScoreBoard.getObjectives()
+
+
 const GetScorePartic    = (args: Entity & ScoreboardObjective ) : Entity|ScoreboardIdentity[]=>{return  args ? (args.dimension?Array.from(GetScoreBoard.getParticipants()).find(Participant=>Participant.getEntity()==args):args[0].getParticipants()) : GetScoreBoard.getParticipants()};
 // @ts-ignore
 const GetScorePoints    = (object : ScoreboardObjective|string,partic: string) : number => {return  Array.from(((typeof object == "string" ) ? GetScoreObject(object) : object).getScores()).find((_)=>_.participant.displayName == partic).score}
@@ -23,7 +26,8 @@ const GetScorePoints    = (object : ScoreboardObjective|string,partic: string) :
 // @ts-ignore
 const AssScoreObject    = (ObjName: string) : ScoreboardObjective|undefined=>{return  GetScoreObject().find((scoreboard : { id: string; })=>{if(scoreboard .id === ObjName)return true})};
 // @ts-ignore
-const AssScorePartic    = (...args: any[])=>{return args.length === 2 ? args[1].getParticipants().find((participant: { displayName: string; })=>{if(participant.displayName === args[0])return true}) : GetScorePartic().find((participant: { displayName: string; })=>{if(participant.displayName === args[0])return true})};
+// const AssScorePartic    = (...args: any[])=>{return args.length === 2 ? args[1].getParticipants().find((participant: { displayName: string;id: number; })=>{if(participant.displayName === args[0])return true}) : GetScorePartic().find((participant: { displayName: string; })=>{if(participant.displayName === args[0])return true})};
+const AssScorePartic    = (participant: Entity | ScoreboardIdentity | string, ScoreObject:ScoreboardObjective)=> ScoreObject.hasParticipant(participant) ;
 
 
 ///scoreboard objectives remove testObjectName

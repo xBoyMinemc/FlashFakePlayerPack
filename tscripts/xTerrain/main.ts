@@ -1,4 +1,4 @@
-import type {SimulatedPlayer, Test} from '@minecraft/server-gametest'
+import type { SimulatedPlayer, Test } from '@minecraft/server-gametest'
 import type {
     initializedEvent,
     initializedEventSignal,
@@ -6,7 +6,7 @@ import type {
     spawnedEventSignal,
     World
 } from '../@types/globalThis'
-import type {Dimension, ScoreboardObjective, Vector3} from '@minecraft/server'
+import type { Dimension, ScoreboardObjective, Vector3 } from '@minecraft/server'
 
 import { register } from '@minecraft/server-gametest'
 
@@ -18,7 +18,9 @@ import EventSignal from '../lib/xboyEvents/EventSignal'
 import { SIGN } from '../lib/xboyPackage/YumeSignEnum'
 import { system } from '@minecraft/server'
 
-import './plugins/noFlashDoor' //pig
+import './plugins/noFlashDoor' // pig
+// import './plugins/鱼肉 ‭‭‭⁧⁧⁧~咕噜咕噜' // 鱼肉咕噜咕噜
+import './plugins/test'
 
 declare const world: World
 
@@ -96,6 +98,7 @@ register('我是云梦', '假人', (test:Test) => {
         'killedBySimPlayer',
         'setting',
         'Deja Vu Yan Returns',
+        '鱼肉 ‭‭‭⁧⁧⁧~咕噜咕噜',
     ].forEach(
         name=> import('./plugins/'+name)
             .then(()=>console.error('[模拟玩家] '+name+'模块初始化结束'))

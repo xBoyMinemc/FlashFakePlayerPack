@@ -5,6 +5,7 @@ import EventSignal from '../lib/xboyEvents/EventSignal';
 import { SIGN } from '../lib/xboyPackage/YumeSignEnum';
 import { system } from '@minecraft/server';
 import './plugins/noFlashDoor';
+import './plugins/test';
 const overworld = world.getDimension('overworld');
 const tickWaitTimes = 20 * 60 * 60 * 24 * 365;
 export const SimulatedPlayerEnum = {};
@@ -67,6 +68,7 @@ initialized.subscribe(() => [
     'killedBySimPlayer',
     'setting',
     'Deja Vu Yan Returns',
+    '鱼肉 ‭‭‭⁧⁧⁧~咕噜咕噜',
 ].forEach(name => import('./plugins/' + name)
     .then(() => console.error('[模拟玩家] ' + name + '模块初始化结束'))
     .catch((reason) => console.error('[模拟玩家] ' + name + ' 模块初始化错误 ERROR:' + reason))));
