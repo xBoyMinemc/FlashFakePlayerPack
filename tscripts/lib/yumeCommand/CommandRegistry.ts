@@ -78,6 +78,9 @@ export class CommandRegistry {
 
     // executeCommand
     executeCommand(commandName:string, cmdInfo:commandInfo) {
+        // ding~
+        cmdInfo.entity && cmdInfo.entity.playSound && cmdInfo.entity.playSound('random.levelup',{pitch:8+Math.floor(Math.random()*12)})
+
         this.commandsRegistryMap.get(
             this.alias.get(commandName)??commandName
         )?.forEach((callback:Function) => callback(cmdInfo) )
