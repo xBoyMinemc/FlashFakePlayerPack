@@ -6,7 +6,7 @@ import type {
     spawnedEventSignal,
     World
 } from '../@types/globalThis'
-import type { Dimension, ScoreboardObjective, Vector3 } from '@minecraft/server'
+import type { Dimension, Vector3 } from '@minecraft/server'
 
 import { register } from '@minecraft/server-gametest'
 
@@ -191,14 +191,14 @@ function init() {
 // init()
 world.events.playerMove.subscribe(init)
 
-const reload = ()=>{
-    // world.sendMessage('#reload?2')
-    init()
-    // world.sendMessage('#reload?1')
-    // world.events.playerMove.unsubscribe(init)
-    // world.sendMessage('#reload?3')
-    // world.events.reloadFromCmd.unsubscribe(reload)
-}
+// const reload = ()=>{
+//     // world.sendMessage('#reload?2')
+//     init()
+//     // world.sendMessage('#reload?1')
+//     // world.events.playerMove.unsubscribe(init)
+//     // world.sendMessage('#reload?3')
+//     // world.events.reloadFromCmd.unsubscribe(reload)
+// }
 // world.events.reloadFromCmd.subscribe(()=>reload())
 // export function a(){console.error('a一次') }
 //写一个100次的for循环

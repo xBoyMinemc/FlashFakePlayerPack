@@ -31,7 +31,7 @@ const GetScoreObject    = ( Objective:ScoreboardObjective | String=undefined) : 
 // @ts-ignore
 const GetScorePartic    = (args: Entity | ScoreboardObjective ) : Entity|ScoreboardIdentity[]=>  args ? (args.dimension?Array.from(GetScoreBoard.getParticipants()).find(Participant=>Participant.getEntity()==args):args[0].getParticipants()) : GetScoreBoard.getParticipants();
 // @ts-ignore
-const GetScorePoints    = (object : ScoreboardObjective|string,partic: Entity | ScoreboardIdentity | string) : number =>  (<ScoreboardObjective>GetScoreObject(object)).getScore(participant);
+const GetScorePoints    = (object : ScoreboardObjective|string,partic: Entity | ScoreboardIdentity | string) : number =>  (<ScoreboardObjective>GetScoreObject(object)).getScore(partic);
 
 // @ts-ignore
 const AssScoreObject    = (ObjName: string) : ScoreboardObjective|undefined=> GetScoreObject().find((scoreboard : { id: string; })=>{if(scoreboard .id === ObjName)return true});

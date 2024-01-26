@@ -113,6 +113,3 @@ function init() {
     });
 }
 world.events.playerMove.subscribe(init);
-const reload = () => {
-    init();
-};

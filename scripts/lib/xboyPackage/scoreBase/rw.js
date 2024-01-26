@@ -2,7 +2,7 @@
 const GetScoreBoard = world.scoreboard;
 const GetScoreObject = (Objective = undefined) => typeof Objective === "undefined" ? GetScoreBoard.getObjectives() : typeof Objective === "string" ? GetScoreBoard.getObjective(Objective) : Objective;
 const GetScorePartic = (args) => args ? (args.dimension ? Array.from(GetScoreBoard.getParticipants()).find(Participant => Participant.getEntity() == args) : args[0].getParticipants()) : GetScoreBoard.getParticipants();
-const GetScorePoints = (object, partic) => GetScoreObject(object).getScore(participant);
+const GetScorePoints = (object, partic) => GetScoreObject(object).getScore(partic);
 const AssScoreObject = (ObjName) => GetScoreObject().find((scoreboard) => { if (scoreboard.id === ObjName)
     return true; });
 const AssScorePartic = (participant, ScoreObject) => ScoreObject.hasParticipant(participant);
