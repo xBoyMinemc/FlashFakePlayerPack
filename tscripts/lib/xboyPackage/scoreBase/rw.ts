@@ -66,7 +66,7 @@ const DisScoreObject    = (displaySlotId:DisplaySlotId, objective: ScoreboardObj
 
 
 // 不再被推荐和维护
-const AddScorePoints    = (ScoreObject:ScoreboardObjective,  participant: Entity | ScoreboardIdentity | string,  scoreToAdd: number )=> ScoreObject.addScore(participant,scoreToAdd);
+const AddScorePoints    = (ScoreObject:ScoreboardObjective,  participant: Entity | ScoreboardIdentity | string,  scoreToAdd: number )=> GetScoreObject(ScoreObject).addScore(participant,scoreToAdd);
 
 
 
