@@ -1,5 +1,6 @@
 import {
-        Dimension, DisplaySlotId,
+        // Dimension,
+        DisplaySlotId,
         Entity,
         ObjectiveSortOrder,
         Scoreboard,
@@ -8,7 +9,7 @@ import {
         world
 } from "@minecraft/server";
 
-const overworld : Dimension = world.getDimension("overworld");
+// const overworld : Dimension = world.getDimension("overworld");
 // let xboy;
 
 // xboy = world.scoreboard.getObjective("testObjectName")
@@ -24,14 +25,14 @@ const overworld : Dimension = world.getDimension("overworld");
 
 const GetScoreBoard    : Scoreboard = world.scoreboard;
 //@ts-ignore
-const GetScoreObject    = ( Objective?:ScoreboardObjective | String) : ScoreboardObjective | ScoreboardObjective[] => Objective ? typeof Objective === "string" ?  GetScoreBoard.getObjective(Objective) : Objective : GetScoreBoard.getObjectives();
+const GetScoreObject    = ( Objective:ScoreboardObjective | String=undefined) : ScoreboardObjective|ScoreboardObjective[] => typeof Objective === "undefined" ? GetScoreBoard.getObjectives() : typeof Objective === "string" ?  GetScoreBoard.getObjective(Objective) : Objective ;
 
 // 这是什么玩意
 // @ts-ignore
 const GetScorePartic    = (args: Entity | ScoreboardObjective ) : Entity|ScoreboardIdentity[]=>  args ? (args.dimension?Array.from(GetScoreBoard.getParticipants()).find(Participant=>Participant.getEntity()==args):args[0].getParticipants()) : GetScoreBoard.getParticipants();
 // @ts-ignore
 const GetScorePoints    = (object : ScoreboardObjective|string,partic: string) : number => Array.from( ((typeof object == "string" ) ? GetScoreObject(object) : object).getScores()).find(_=>_.participant.displayName === partic ).score;
-GetScorePoints('s','a')
+
 // @ts-ignore
 const AssScoreObject    = (ObjName: string) : ScoreboardObjective|undefined=> GetScoreObject().find((scoreboard : { id: string; })=>{if(scoreboard .id === ObjName)return true});
 
@@ -66,16 +67,16 @@ const DisScoreObject    = (displaySlotId:DisplaySlotId, objective: ScoreboardObj
 
 
 // 不再被推荐和维护
-const AddScorePoints    = (ScoreObject:ScoreboardObjective,  participant: Entity | ScoreboardIdentity | string,  scoreToAdd: number )=> GetScoreObject(ScoreObject).addScore(participant,scoreToAdd);
+const AddScorePoints    = (ScoreObject:ScoreboardObjective|string,  participant: Entity | ScoreboardIdentity | string,  scoreToAdd: number )=> GetScoreObject(ScoreObject).addScore(participant,scoreToAdd);
 
 
 
-// @ts-ignore
 // const SetScorePoints_    = (...args: string[])=>{overworld.runCommand(`scoreboard players set ${args[0].name ? ('"'+ args[0].name +'"') : (args[0].includes('"') ? args[0] : ('"'+args[0]+'"'))} ${(typeof args[1] === typeof "Xboy minemc")?args[1]:('"'+args[1].id+'"')} ${args[2]}`)};
 
 // No longer recommended and maintained
 // 不再被推荐和维护
-const SetScorePoints     = (ScoreObject:ScoreboardObjective,  participant: Entity | ScoreboardIdentity | string, score: number)=>ScoreObject.setScore(participant,score);
+// @ts-ignore
+const SetScorePoints     = (ScoreObject:ScoreboardObjective|string,  participant: Entity | ScoreboardIdentity | string, score: number): void=>GetScoreObject(ScoreObject).setScore(participant,score);
 
 const ScoreBase = {
         GetObject : GetScoreObject,
