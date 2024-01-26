@@ -32,16 +32,17 @@ export const SimulatedPlayerEnum  = {}
 let spawnSimulatedPlayer : (location:Vector3, dimension:Dimension, pid: number  )=>SimulatedPlayer
 let testWorldLocation : Vector3
 
-const GetPID = ()=>{
-    const __FlashPlayer__ = <ScoreboardObjective>ScoreBase.GetObject('##FlashPlayer##')
-
-    const value = __FlashPlayer__.getScore('##currentPID')
-
-    // __FlashPlayer__.setScore('##currentPID',value+1)
-    __FlashPlayer__.addScore('##currentPID',1)
-
-    return value
-}
+const GetPID = ()=> world.scoreboard.getObjective('##FlashPlayer##').addScore('##currentPID',1)
+// {
+//     const __FlashPlayer__ = <ScoreboardObjective>ScoreBase.GetObject('##FlashPlayer##')
+//
+//     const value = __FlashPlayer__.getScore('##currentPID')
+//
+//     // __FlashPlayer__.setScore('##currentPID',value+1)
+//     __FlashPlayer__.addScore('##currentPID',1)
+//
+//     return value
+// }
 
 export const initialized : initializedEventSignal = new EventSignal<initializedEvent>()
 export const spawned : spawnedEventSignal = new EventSignal<spawnedEvent>()

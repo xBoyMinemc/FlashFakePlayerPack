@@ -1,6 +1,5 @@
 ﻿import { register } from '@minecraft/server-gametest';
 import verify from '../lib/xboyPackage/scoreBase/verifyDataBase';
-import ScoreBase from '../lib/xboyPackage/scoreBase/rw';
 import EventSignal from '../lib/xboyEvents/EventSignal';
 import { SIGN } from '../lib/xboyPackage/YumeSignEnum';
 import { system } from '@minecraft/server';
@@ -11,12 +10,7 @@ const tickWaitTimes = 20 * 60 * 60 * 24 * 365;
 export const SimulatedPlayerEnum = {};
 let spawnSimulatedPlayer;
 let testWorldLocation;
-const GetPID = () => {
-    const __FlashPlayer__ = ScoreBase.GetObject('##FlashPlayer##');
-    const value = __FlashPlayer__.getScore('##currentPID');
-    __FlashPlayer__.addScore('##currentPID', 1);
-    return value;
-};
+const GetPID = () => world.scoreboard.getObjective('##FlashPlayer##').addScore('##currentPID', 1);
 export const initialized = new EventSignal();
 export const spawned = new EventSignal();
 register('我是云梦', '假人', (test) => {
