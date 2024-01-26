@@ -13,8 +13,8 @@ let spawnSimulatedPlayer;
 let testWorldLocation;
 const GetPID = () => {
     const __FlashPlayer__ = ScoreBase.GetObject('##FlashPlayer##');
-    const value = ScoreBase.GetPoints(__FlashPlayer__, '##currentPID');
-    __FlashPlayer__.setScore('##currentPID', value + 1);
+    const value = __FlashPlayer__.getScore('##currentPID');
+    __FlashPlayer__.addScore('##currentPID', 1);
     return value;
 };
 export const initialized = new EventSignal();
@@ -77,11 +77,12 @@ export default spawnSimulatedPlayer;
 let initCounter = 5;
 function init() {
     if (--initCounter < 0) {
-        world.sendMessage('[模拟玩家] 初始化失败，尝试输入reload' + initCounter);
+        world.sendMessage('[模拟玩家] 初始化失败' + initCounter + '次，尝试在控制台输入/reload');
+        console.error('[模拟玩家] 初始化失败' + initCounter + '次，尝试在控制台输入/reload');
     }
     const players = world.getAllPlayers();
     if (players.length === 0)
-        return;
+        return '略略略';
     const player = players[0];
     const { x, y, z } = player.location;
     const dimension = player.dimension;

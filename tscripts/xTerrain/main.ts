@@ -35,9 +35,10 @@ let testWorldLocation : Vector3
 const GetPID = ()=>{
     const __FlashPlayer__ = <ScoreboardObjective>ScoreBase.GetObject('##FlashPlayer##')
 
-    const value = ScoreBase.GetPoints(__FlashPlayer__,'##currentPID')
+    const value = __FlashPlayer__.getScore('##currentPID')
 
-    __FlashPlayer__.setScore('##currentPID',value+1)
+    // __FlashPlayer__.setScore('##currentPID',value+1)
+    __FlashPlayer__.addScore('##currentPID',1)
 
     return value
 }
@@ -115,11 +116,12 @@ function init() {
     // world.events.reloadFromCmd.unsubscribe(reload)
         // Limit the number of retries
         if(--initCounter<0){
-            world.sendMessage('[模拟玩家] 初始化失败，尝试输入reload'+initCounter)
+            world.sendMessage('[模拟玩家] 初始化失败'+initCounter+'次，尝试在控制台输入/reload')
+            console.error('[模拟玩家] 初始化失败'+initCounter+'次，尝试在控制台输入/reload')
         }
 
     const players = world.getAllPlayers()
-    if (players.length === 0) return;
+    if (players.length === 0) return '略略略';
     const player = players[0]
     const {x,y,z} = player.location
     const dimension = player.dimension
