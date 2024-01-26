@@ -1,4 +1,12 @@
-import { Dimension, Entity, Scoreboard, ScoreboardIdentity, ScoreboardObjective, world } from "@minecraft/server";
+import {
+        Dimension, DisplaySlotId,
+        Entity,
+        ObjectiveSortOrder,
+        Scoreboard,
+        ScoreboardIdentity,
+        ScoreboardObjective,
+        world
+} from "@minecraft/server";
 
 const overworld : Dimension = world.getDimension("overworld");
 // let xboy;
@@ -16,16 +24,17 @@ const overworld : Dimension = world.getDimension("overworld");
 
 const GetScoreBoard    : Scoreboard = world.scoreboard;
 //@ts-ignore
-const GetScoreObject    = ( Objective?:ScoreboardObjective | String) : ScoreboardObjective | ScoreboardObjective[] => Objective ? typeof Objective === "string" ?  GetScoreBoard.getObjective(Objective) : Objective : GetScoreBoard.getObjectives()
+const GetScoreObject    = ( Objective?:ScoreboardObjective | String) : ScoreboardObjective | ScoreboardObjective[] => Objective ? typeof Objective === "string" ?  GetScoreBoard.getObjective(Objective) : Objective : GetScoreBoard.getObjectives();
 
+// 这是什么玩意
+// @ts-ignore
+const GetScorePartic    = (args: Entity | ScoreboardObjective ) : Entity|ScoreboardIdentity[]=>  args ? (args.dimension?Array.from(GetScoreBoard.getParticipants()).find(Participant=>Participant.getEntity()==args):args[0].getParticipants()) : GetScoreBoard.getParticipants();
+// @ts-ignore
+const GetScorePoints    = (object : ScoreboardObjective|string,partic: string) : number => Array.from( ((typeof object == "string" ) ? GetScoreObject(object) : object).getScores()).find(_=>_.participant.displayName === partic ).score;
+GetScorePoints('s','a')
+// @ts-ignore
+const AssScoreObject    = (ObjName: string) : ScoreboardObjective|undefined=> GetScoreObject().find((scoreboard : { id: string; })=>{if(scoreboard .id === ObjName)return true});
 
-const GetScorePartic    = (args: Entity & ScoreboardObjective ) : Entity|ScoreboardIdentity[]=>{return  args ? (args.dimension?Array.from(GetScoreBoard.getParticipants()).find(Participant=>Participant.getEntity()==args):args[0].getParticipants()) : GetScoreBoard.getParticipants()};
-// @ts-ignore
-const GetScorePoints    = (object : ScoreboardObjective|string,partic: string) : number => {return  Array.from(((typeof object == "string" ) ? GetScoreObject(object) : object).getScores()).find((_)=>_.participant.displayName == partic).score}
-
-// @ts-ignore
-const AssScoreObject    = (ObjName: string) : ScoreboardObjective|undefined=>{return  GetScoreObject().find((scoreboard : { id: string; })=>{if(scoreboard .id === ObjName)return true})};
-// @ts-ignore
 // const AssScorePartic    = (...args: any[])=>{return args.length === 2 ? args[1].getParticipants().find((participant: { displayName: string;id: number; })=>{if(participant.displayName === args[0])return true}) : GetScorePartic().find((participant: { displayName: string; })=>{if(participant.displayName === args[0])return true})};
 const AssScorePartic    = (participant: Entity | ScoreboardIdentity | string, ScoreObject:ScoreboardObjective)=> ScoreObject.hasParticipant(participant) ;
 
@@ -33,27 +42,40 @@ const AssScorePartic    = (participant: Entity | ScoreboardIdentity | string, Sc
 ///scoreboard objectives remove testObjectName
 ///scoreboard objectives add testObjectName dummy ss
 // const DelScoreObjectAsync    = (ObjName: string | ScoreboardObjective)=>{return overworld.runCommand(`scoreboard objectives remove ${(typeof ObjName === typeof "xBoyMinemc") ? ObjName : ObjName.id}`)};
-// const NewScoreObjectAsync    = (...args: string[])=>{return overworld.runCommand(`scoreboard objectives addx'x'x'x'x'x'x'x'x'x'x'x'x'x'x'x'x'x'x ${args[0]} ${args[2]||"dummy"} ${args[1]}`)};
-
-// @ts-ignore
-const DelScoreObject    = (ObjName: string | ScoreboardObjective)=>{overworld.runCommand(`scoreboard objectives remove ${(typeof ObjName === typeof "xBoyMinemc") ? ObjName : ObjName.id}`)};
-const NewScoreObject    = (...args: string[])=>{overworld.runCommand(`scoreboard objectives add ${args[0]} ${args[2]||"dummy"} ${args[1]}`)};
-///scoreboard objectives setdisplay list ScoreName ascending
-// @ts-ignore
-const DisScoreObject    = (...args: string[])=>{overworld.runCommand(`scoreboard objectives setdisplay ${(typeof args[0] === typeof 520) ? ['list','sidebar','belowname'][args[0]] : args[0]} ${((typeof args[1] === typeof "云梦") ? args[1] : args[1].id)+(args[2]?(" "+(typeof args[2] === "string" ? args[2] : ['ascending','descending'][args[2]])):"")}`)};
+// const NewScoreObjectAsync    = (...args: string[])=>{return overworld.runCommand(`scoreboard objectives add x'x'x'x'x'x'x'x'x'x'x'x'x'x'x'x'x'x'x ${args[0]} ${args[2]||"dummy"} ${args[1]}`)};
 
 
+
+// const DelScoreObject_    = (ObjName: string & ScoreboardObjective)=> overworld.runCommand(`scoreboard objectives remove `+ (ObjName?.id || ObjName) );
+
+const DelScoreObject    = (objectiveId: ScoreboardObjective | string)=> world.scoreboard.removeObjective(objectiveId);
+
+// const NewScoreObject_    = (ObjName: string,DisplayName:string,dummy:string='dummy')=> overworld.runCommand(`scoreboard objectives add ${ObjName} ${dummy} ${DisplayName}`);
+
+const NewScoreObject    = (objectiveId: string, displayName: string=objectiveId)=> GetScoreBoard.addObjective(objectiveId, displayName);
+//scoreboard objectives setDisplay list ScoreName ascending
+const DisScoreObject    = (displaySlotId:DisplaySlotId, objective: ScoreboardObjective=undefined, sortOrder: ObjectiveSortOrder=('ascending'&&0))=> objective ? world.scoreboard.setObjectiveAtDisplaySlot(displaySlotId,  {objective,sortOrder}) : world.scoreboard.clearObjectiveAtDisplaySlot(displaySlotId);
+// scoreBase
 
 ///scoreboard players add "Xboy minemc" testObjectName 3
 // const AddScorePointsAsync    = (...args: (string & Entity)[])=>{overworld.runCommand(`scoreboard players add ${args[0].name ? ('"'+ args[0].name +'"') : (args[0].includes('"') ? args[0] : ('"'+args[0]+'"'))} ${(typeof args[1] === typeof "Xboy minemc")?args[1]:('"'+args[1].id+'"')} ${args[2]}`)};
 // const SetScorePointsAsync    = (...args: string[])=>{overworld.runCommand(`scoreboard players set ${args[0].name ? ('"'+ args[0].name +'"') : (args[0].includes('"') ? args[0] : ('"'+args[0]+'"'))} ${(typeof args[1] === typeof "Xboy minemc")?args[1]:('"'+args[1].id+'"')} ${args[2]}`)};
 
 // @ts-ignore
-const AddScorePoints    = (...args: string[])=>{overworld.runCommand(`scoreboard players add ${args[0].name ? ('"'+ args[0].name +'"') : (args[0].includes('"') ? args[0] : ('"'+args[0]+'"'))} ${(typeof args[1] === typeof "Xboy minemc")?args[1]:('"'+args[1].id+'"')} ${args[2]}`)};
+// const AddScorePoints_    = (...args: string[])=> overworld.runCommand(`scoreboard players add ${args[0].name ? ('"'+ args[0].name +'"') : (args[0].includes('"') ? args[0] : ('"'+args[0]+'"'))} ${(typeof args[1] === typeof "Xboy minemc")?args[1]:('"'+args[1].id+'"')} ${args[2]}`);
+
+
+// 不再被推荐和维护
+const AddScorePoints    = (ScoreObject:ScoreboardObjective,  participant: Entity | ScoreboardIdentity | string,  scoreToAdd: number )=> ScoreObject.addScore(participant,scoreToAdd);
+
+
+
 // @ts-ignore
-const SetScorePoints    = (...args: string[])=>{overworld.runCommand(`scoreboard players set ${args[0].name ? ('"'+ args[0].name +'"') : (args[0].includes('"') ? args[0] : ('"'+args[0]+'"'))} ${(typeof args[1] === typeof "Xboy minemc")?args[1]:('"'+args[1].id+'"')} ${args[2]}`)};
+// const SetScorePoints_    = (...args: string[])=>{overworld.runCommand(`scoreboard players set ${args[0].name ? ('"'+ args[0].name +'"') : (args[0].includes('"') ? args[0] : ('"'+args[0]+'"'))} ${(typeof args[1] === typeof "Xboy minemc")?args[1]:('"'+args[1].id+'"')} ${args[2]}`)};
 
-
+// No longer recommended and maintained
+// 不再被推荐和维护
+const SetScorePoints     = (ScoreObject:ScoreboardObjective,  participant: Entity | ScoreboardIdentity | string, score: number)=>ScoreObject.setScore(participant,score);
 
 const ScoreBase = {
         GetObject : GetScoreObject,
