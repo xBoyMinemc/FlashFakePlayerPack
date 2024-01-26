@@ -55,7 +55,7 @@ register('我是云梦', '假人', (test) => {
 })
     .maxTicks(tickWaitTimes)
     .structureName('xboyMinemcSIM:void');
-initialized.subscribe(() => console.error('[假人]初始化完毕，开始加载内置插件'));
+initialized.subscribe(() => console.error('[模拟玩家]初始化完毕，开始加载内置插件'));
 initialized.subscribe(() => [
     'chatSpawn',
     'command',
