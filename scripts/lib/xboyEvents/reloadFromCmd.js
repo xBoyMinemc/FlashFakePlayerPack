@@ -1,4 +1,5 @@
-﻿import EventSignal from "./EventSignal";
+﻿import { system } from "@minecraft/server";
+import EventSignal from "./EventSignal";
 class reloadFromCmdEvents extends EventSignal {
     constructor() {
         super(...arguments);
@@ -12,7 +13,7 @@ class reloadFromCmdEvents extends EventSignal {
 const reloadFromCmd = new reloadFromCmdEvents();
 world.events.playerJoin.subscribe(event => reloadFromCmd.players.add(event.playerId));
 world.events.playerLeave.subscribe(event => reloadFromCmd.players.delete(event.playerId));
-world.events.tick.subscribe(() => {
+system.runInterval(() => {
     const onlinePlayers = world.getAllPlayers();
     if (reloadFromCmd.players.size !== onlinePlayers.length || !onlinePlayers.every((_) => reloadFromCmd.players.has(_.id))) {
         reloadFromCmd.trigger(null);

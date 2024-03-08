@@ -1,4 +1,5 @@
-﻿import SIGN, { exeBehavior } from "../../lib/xboyPackage/YumeSignEnum";
+﻿import { world } from '@minecraft/server';
+import SIGN, { exeBehavior } from "../../lib/xboyPackage/YumeSignEnum";
 import { getSimPlayer } from "../../lib/xboyPackage/Util";
 const overworld = world.getDimension("overworld");
 const ture = true;

@@ -1,14 +1,12 @@
 import qrcode from '../../lib/qrcode-terminal/mod'
 
 
-import type { World } from '../../@types/globalThis'
 
 
 // import { spawnSimulatedPlayer, SimulatedPlayerList, spawned as spawnedEvent, GetPID } from '../main'
 import { CommandRegistry } from '../../lib/yumeCommand/CommandRegistry'
-import {Player} from "@minecraft/server";
+import { world , Player} from "@minecraft/server";
 
-declare const world: World
 
 
 const commandRegistry: CommandRegistry = new CommandRegistry()

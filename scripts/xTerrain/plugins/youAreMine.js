@@ -1,6 +1,6 @@
 ﻿import { getSimPlayer } from '../../lib/xboyPackage/Util';
 import { CommandRegistry } from '../../lib/yumeCommand/CommandRegistry';
-import { EquipmentSlot, TicksPerSecond } from '@minecraft/server';
+import { world, EquipmentSlot, TicksPerSecond } from '@minecraft/server';
 import { SimulatedPlayerEnum } from '../main';
 export const commandRegistry = new CommandRegistry();
 commandRegistry.registerCommand('假人主手物品交换', ({ entity, sim }) => {

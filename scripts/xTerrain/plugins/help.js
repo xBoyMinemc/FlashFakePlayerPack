@@ -1,5 +1,6 @@
 ﻿import qrcode from '../../lib/qrcode-terminal/mod';
 import { CommandRegistry } from '../../lib/yumeCommand/CommandRegistry';
+import { world } from "@minecraft/server";
 const commandRegistry = new CommandRegistry();
 const helpNoArgs = ({ args, entity, isEntity }) => {
     if (args.length !== 1 || !isEntity)

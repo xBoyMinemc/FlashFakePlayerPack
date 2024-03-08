@@ -1,10 +1,8 @@
-import type { World } from '../../@types/globalThis'
 import type { SimulatedPlayer } from '@minecraft/server-gametest'
 
 import { spawnSimulatedPlayer, SimulatedPlayerEnum, spawned as spawnedEvent, GetPID } from '../main'
 import { CommandRegistry } from '../../lib/yumeCommand/CommandRegistry'
-
-declare const world: World
+import { world } from '@minecraft/server'
 
 
 const commandRegistry: CommandRegistry = new CommandRegistry()

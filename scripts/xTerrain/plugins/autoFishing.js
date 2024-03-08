@@ -1,6 +1,8 @@
 ﻿import { SimulatedPlayerEnum } from '../main';
+import { world } from "@minecraft/server";
+import { fishingHookDespawned, fishingHookSpawned } from "../../lib/xboyEvents/fishingHookSpawned";
 const debug = false;
-world.events.fishingHookDespawned.subscribe(event => {
+fishingHookDespawned.subscribe(event => {
     if (debug)
         console.error('fishingHook Despawned');
     if (debug)
@@ -10,7 +12,7 @@ world.events.fishingHookDespawned.subscribe(event => {
         !_ || _.id === event.Fisher.id ? event.fishingHookDespawned_TickArray.push(() => (_.useItemInSlot(0) ? _.stopUsingItem() : 0)) : 0;
     }
 });
-world.events.fishingHookSpawned.subscribe(event => {
+fishingHookSpawned.subscribe(event => {
     if (debug)
         console.error('fishingHook Spawned');
     if (debug)

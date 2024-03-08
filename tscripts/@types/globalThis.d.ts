@@ -10,7 +10,7 @@ import {
     ItemDefinitionBeforeEventSignal,
     ItemUseBeforeEventSignal,
     ItemUseOnBeforeEventSignal,
-    PistonActivateBeforeEventSignal,
+    // PistonActivateBeforeEventSignal,
     WorldAfterEvents,
     PlayerBreakBlockAfterEventSignal,
     BlockExplodeAfterEventSignal,
@@ -124,7 +124,7 @@ export class _WorldBeforeEvents {
     readonly beforeItemDefinitionEvent: ItemDefinitionBeforeEventSignal;
     readonly beforeItemUse: ItemUseBeforeEventSignal;
     readonly beforeItemUseOn: ItemUseOnBeforeEventSignal;
-    readonly beforePistonActivate: PistonActivateBeforeEventSignal;
+    // readonly beforePistonActivate: PistonActivateBeforeEventSignal;
     readonly beforeEntityRemoved : EntityRemoveBeforeEventSignal;
 }
 export class _WorldAfterEvents {

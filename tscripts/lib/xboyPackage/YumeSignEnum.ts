@@ -61,8 +61,8 @@ export enum  BEHAVIOR_ZH {
 export const BEHAVIOR_FUNCTION = {
     lookAtEntity : (sim:SimulatedPlayer,player:Player)=>sim.lookAtEntity(player),
     teleport : (sim:SimulatedPlayer,player:Player)=>sim.teleport(player.location),
-    useAndStopUsingItem : (sim:SimulatedPlayer)=>sim.useItemInSlot(sim.selectedSlot) && sim.stopUsingItem(),
-    useItemInSlot : (sim:SimulatedPlayer)=>sim.useItemInSlot(sim.selectedSlot),
+    useAndStopUsingItem : (sim:SimulatedPlayer&Player)=>sim.useItemInSlot(sim.selectedSlot) && sim.stopUsingItem(),
+    useItemInSlot : (sim:SimulatedPlayer&Player)=>sim.useItemInSlot(sim.selectedSlot),
     stopUsingItem : (sim:SimulatedPlayer)=>sim.stopUsingItem(),
     interact : (sim:SimulatedPlayer)=>sim.interact(),
     swapMainhandItem : (sim:SimulatedPlayer,player:Player)=>urm.execute('假人主手物品交换',{entity:player,sim}),

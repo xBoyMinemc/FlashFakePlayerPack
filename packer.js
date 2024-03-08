@@ -1,10 +1,10 @@
- const fs = require('fs');
+const fs = require('fs');
 const archiver = require('archiver');
 
 
-const pkNew = '增加重置功能，输入showshowway获得提示'
-const mcVersion = [1,20,50];
-const pkVersion = 16
+const pkNew = '万人血书版'
+const mcVersion = [1,20,60];
+const pkVersion = 1
 
 
 
@@ -41,7 +41,7 @@ const manifest_json = {
     "dependencies": [
         {
             "module_name": "@minecraft/server",
-            "version": "1.8.0-beta"
+            "version": "1.9.0-beta"
         },
         {
             "module_name": "@minecraft/server-gametest",

@@ -1,4 +1,3 @@
-import type { World } from '../../@types/globalThis'
 import type { SimulatedPlayer } from '@minecraft/server-gametest'
 
 import {
@@ -7,9 +6,8 @@ import {
 } from '../main'
 import { CommandRegistry } from '../../lib/yumeCommand/CommandRegistry'
 import { getSimPlayer } from '../../lib/xboyPackage/Util'
-import { system, Vector } from "@minecraft/server"
+import { world, system, Vector } from "@minecraft/server"
 
-declare const world: World
 
 export const BreakBlockSimulatedPlayerList:Set<string> = new Set()
 

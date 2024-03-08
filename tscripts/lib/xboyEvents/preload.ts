@@ -1,5 +1,5 @@
-import "./tick"
+// import "./tick"
 
 // ################preload################
 
-import("./index.js")
+import "./index.js"

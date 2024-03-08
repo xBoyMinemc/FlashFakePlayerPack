@@ -1,5 +1,6 @@
 // @ts-nocheck
 // No longer maintained
+import { world } from '@minecraft/server'
 import type { Entity } from '@minecraft/server'
 import type { World } from '../../@types/globalThis'
 // import {
@@ -37,7 +38,6 @@ import {getSimPlayer} from "../../lib/xboyPackage/Util";
 // }
 const overworld   = world.getDimension("overworld");
 
-declare const world: World
 
 const ture = true;
 const flase = false;

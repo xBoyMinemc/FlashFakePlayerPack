@@ -1,11 +1,16 @@
-import type { World } from '../../@types/globalThis'
 import type { SimulatedPlayer } from '@minecraft/server-gametest'
 import { getSimPlayer } from '../../lib/xboyPackage/Util'
 import { CommandRegistry, type commandInfo } from '../../lib/yumeCommand/CommandRegistry'
-import { EquipmentSlot, TicksPerSecond } from '@minecraft/server'
+import {
+    world,
+    EntityComponent,
+    EntityEquippableComponent,
+    EntityInventoryComponent,
+    EquipmentSlot,
+    TicksPerSecond
+} from '@minecraft/server'
 import { SimulatedPlayerEnum } from '../main'
 
-declare const world: World
 
 // 后面还要重构一遍
 // const commandName1 = '假人背包交换'
@@ -23,7 +28,7 @@ export const commandRegistry: CommandRegistry = new CommandRegistry()
 commandRegistry.registerCommand('假人主手物品交换', ({entity,sim}) => {
 
     const SimPlayer:SimulatedPlayer = sim || getSimPlayer.formView(entity)
-    const s = SimPlayer.getComponent("minecraft:equippable")
+    const s = <EntityEquippableComponent>SimPlayer.getComponent("minecraft:equippable")
 
     const p = entity.getComponent("minecraft:equippable")
     const i = EquipmentSlot['Mainhand'] ?? EquipmentSlot['mainhand']
@@ -39,7 +44,7 @@ commandRegistry.registerCommand('假人主手物品交换', ({entity,sim}) => {
 commandRegistry.registerCommand('假人副手物品交换', ({entity,sim}) => {
 
     const SimPlayer:SimulatedPlayer = sim || getSimPlayer.formView(entity)
-    const s = SimPlayer.getComponent("minecraft:equippable")
+    const s = <EntityEquippableComponent>SimPlayer.getComponent("minecraft:equippable")
 
     const p = entity.getComponent("minecraft:equippable")
     const i = EquipmentSlot['Offhand'] ?? EquipmentSlot['offhand']
@@ -57,7 +62,7 @@ commandRegistry.registerCommand('假人背包交换', ({entity,isEntity,sim}) =>
     if(!isEntity && !sim)return
     const SimPlayer:SimulatedPlayer = sim || getSimPlayer.formView(entity)
     if(!SimPlayer)return
-    const s = SimPlayer.getComponent("minecraft:inventory").container
+    const s = (<EntityInventoryComponent>SimPlayer.getComponent("minecraft:inventory")).container
 
     const p = entity.getComponent("minecraft:inventory").container
 
@@ -87,7 +92,7 @@ commandRegistry.registerCommand('假人装备交换', ({entity,isEntity,sim}) =>
     const SimPlayer:SimulatedPlayer = sim || getSimPlayer.formView(entity)
     if(!isEntity && !sim)return
 
-    const s = SimPlayer.getComponent("minecraft:equippable") // SimPlayer
+    const s = <EntityEquippableComponent>SimPlayer.getComponent("minecraft:equippable") // SimPlayer
 
     const p = entity.getComponent("minecraft:equippable") // player
     for (const i in  EquipmentSlot) {
@@ -111,7 +116,7 @@ const returnResWithoutArgs = ({entity,isEntity,sim}:commandInfo)=>{
     const SimPlayer:SimulatedPlayer = sim ?? getSimPlayer.formView(entity)
     if(!SimPlayer)return
 
-    const equip = SimPlayer.getComponent("minecraft:equippable")
+    const equip = <EntityEquippableComponent>SimPlayer.getComponent("minecraft:equippable")
 
     const { location:l, dimension:d } = entity
 
@@ -126,7 +131,7 @@ const returnResWithoutArgs = ({entity,isEntity,sim}:commandInfo)=>{
         // 置空
         equip.setEquipment(<EquipmentSlot>i, null) //undefined? new ItemStack('air')?
     }
-    const { container:s } =  SimPlayer.getComponent("minecraft:inventory")
+    const { container:s } =  <EntityInventoryComponent>SimPlayer.getComponent("minecraft:inventory")
 
     for (
         let i = s.size;

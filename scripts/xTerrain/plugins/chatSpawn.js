@@ -1,5 +1,6 @@
 ﻿import { spawnSimulatedPlayer, SimulatedPlayerEnum, spawned as spawnedEvent, GetPID } from '../main';
 import { CommandRegistry } from '../../lib/yumeCommand/CommandRegistry';
+import { world } from '@minecraft/server';
 const commandRegistry = new CommandRegistry();
 commandRegistry.registerCommand('假人生成');
 commandRegistry.registerAlias('假人创建', '假人生成');

@@ -1,18 +1,18 @@
 {
 	"format_version": 2,
 	"header": {
-		"name": "§t1.20.50 v16 §e§lFlash§fFakePlayerPack",
-		"description": "【增加重置功能，输入showshowway获得提示】1.20.50 \n开启实验性游戏内容（测试版 API）-游戏内输入“假人帮助”或“假人创建” 对着假人右键（蹲或不蹲两个菜单） ，当前版本充满了可能有的bug，还请凑活 无关QQ群：122957051:",
+		"name": "§t1.20.60 v1 §e§lFlash§fFakePlayerPack",
+		"description": "【凑合也能用】1.20.60 \n开启实验性游戏内容（测试版 API）-游戏内输入“假人帮助”或“假人创建” 对着假人右键（蹲或不蹲两个菜单） ，当前版本充满了可能有的bug，还请凑活 无关QQ群：122957051:",
 		"uuid": "aa101e99-abb4-448d-b58f-71e9da43064e",
 		"version": [
 			1,
 			20,
-			5016
+			601
 		],
 		"min_engine_version": [
 			1,
 			20,
-			50
+			60
 		]
 	},
 	"modules": [
@@ -20,7 +20,7 @@
 			"version": [
 				1,
 				20,
-				5016
+				601
 			],
 			"type": "script",
 			"uuid": "10101e99-abc1-5488-ba76-71e9da441300",
@@ -31,7 +31,7 @@
 	"dependencies": [
 		{
 			"module_name": "@minecraft/server",
-			"version": "1.8.0-beta"
+			"version": "1.9.0-beta"
 		},
 		{
 			"module_name": "@minecraft/server-gametest",

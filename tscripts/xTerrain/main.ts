@@ -16,13 +16,22 @@ import ScoreBase from '../lib/xboyPackage/scoreBase/rw'
 import EventSignal from '../lib/xboyEvents/EventSignal'
 
 import { SIGN } from '../lib/xboyPackage/YumeSignEnum'
-import { system } from '@minecraft/server'
+import { world, system } from '@minecraft/server'
 
 import './plugins/noFlashDoor' // pig
-// import './plugins/鱼肉 ‭‭‭⁧⁧⁧~咕噜咕噜' // 鱼肉咕噜咕噜
-import './plugins/test'
 
-declare const world: World
+import './plugins/chatSpawn'
+import './plugins/command'
+import './plugins/breakBlock'
+import './plugins/youAreMine'
+import './plugins/help'
+import './plugins/task'
+import './plugins/gui'
+import './plugins/autoFishing'
+import './plugins/killedBySimPlayer'
+import './plugins/setting'
+import {playerMove} from "../lib/xboyEvents/move";
+
 
 const overworld = world.getDimension('overworld')
 const tickWaitTimes = 20*60*60*24*365
@@ -87,25 +96,27 @@ register('我是云梦', '假人', (test:Test) => {
 // .padding(0)
 
     initialized.subscribe(()=> console.error('[模拟玩家]初始化完毕，开始加载内置插件') );
-    initialized.subscribe(()=>[
-        // 'test',
-        'chatSpawn',
-        'command',
-        'breakBlock',
-        'youAreMine',
-        'help',
-        'task',
-        'gui',
-        'autoFishing',
-        'killedBySimPlayer',
-        'setting',
-        'Deja Vu Yan Returns',
-        '鱼肉 ‭‭‭⁧⁧⁧~咕噜咕噜',
-    ].forEach(
-        name=> import('./plugins/'+name)
-            .then(()=>console.error('[模拟玩家] '+name+'模块初始化结束'))
-            .catch((reason) => console.error('[模拟玩家] '+name+' 模块初始化错误 ERROR:' + reason))
-    ))
+    // initialized.subscribe(()=>
+    //     [
+    //     // 'test',
+    //     'chatSpawn',
+    //     'command',
+    //     'breakBlock',
+    //     'youAreMine',
+    //     'help',
+    //     'task',
+    //     'gui',
+    //     'autoFishing',
+    //     'killedBySimPlayer',
+    //     'setting',
+    //     // 'Deja Vu Yan Returns',
+    //     // '鱼肉 ‭‭‭⁧⁧⁧~咕噜咕噜',
+    // ].forEach(
+    //     name=> import('./plugins/'+name)
+    //         .then(()=>console.error('[模拟玩家] '+name+'模块初始化结束'))
+    //         .catch((reason) => console.error('[模拟玩家] '+name+' 模块初始化错误 ERROR:' + reason))
+    // )
+    // )
 
 export { spawnSimulatedPlayer,testWorldLocation,GetPID }
 export default spawnSimulatedPlayer
@@ -179,7 +190,7 @@ function init() {
             // then initialized
             initialized.trigger(null)
 
-            world.events.playerMove.unsubscribe(init)
+            playerMove.unsubscribe(init)
             console.error('[模拟玩家] 初始化检查完成')
         })
     })
@@ -189,7 +200,7 @@ function init() {
 
 // world.events.playerSpawn.subscribe(init)
 // init()
-world.events.playerMove.subscribe(init)
+playerMove.subscribe(init)
 
 // const reload = ()=>{
 //     // world.sendMessage('#reload?2')
