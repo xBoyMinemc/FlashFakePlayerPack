@@ -1,8 +1,8 @@
 // @ts-nocheck
 // No longer maintained
-import type { Entity } from "@minecraft/server";
-import type { World } from "../../@types/globalThis";
-import type { SimulatedPlayer } from "@minecraft/server-gametest";
+import { world } from '@minecraft/server'
+import type { Entity } from '@minecraft/server'
+import type { World } from '../../@types/globalThis'
 // import {
 //     Container,
 //     EntityEquippableComponent,
@@ -22,7 +22,7 @@ import type { SimulatedPlayer } from "@minecraft/server-gametest";
 // import qrcode from "../../lib/qrcode-terminal/mod.js";
 
 // import {Location} from "../../lib/xboyPackage/The law of the ancestors is immutable";
-import SIGN, {BEHAVIOR_LIST, exeBehavior} from "../../lib/xboyPackage/YumeSignEnum";
+import SIGN, { exeBehavior } from "../../lib/xboyPackage/YumeSignEnum";
 import {getSimPlayer} from "../../lib/xboyPackage/Util";
 //
 // import {BlockLocation} from "../../@types/globalThis";
@@ -38,7 +38,6 @@ import {getSimPlayer} from "../../lib/xboyPackage/Util";
 // }
 const overworld   = world.getDimension("overworld");
 
-declare const world: World
 
 const ture = true;
 const flase = false;
@@ -282,18 +281,19 @@ world.afterEvents.chatSend.subscribe( event => {
 
             const 眼前的工具人 = getSimPlayer.formView(发起者, 16);
             //懒改--2023-07-21--评
-            const TagsManager = (xboy: string) => (minemc: Entity) => (need: string) => (add: string[]) => (remove: string[]) => xboy === need ? (add.length ? add.forEach(t => minemc.addTag(t)) : 0, remove.length ? remove.forEach(t => minemc.removeTag(t)) : 0) : 0;
+            const TagsManager = (xboy: string) => (minemc: Entity) => (need: string) => (add:String[]=[]) => (remove: string[]=[]) => xboy === need ? (add.length ? add.forEach(t => minemc.addTag(t)) : 0, remove.length ? remove.forEach(t => minemc.removeTag(t)) : 0) : 0;
             const xboy = TagsManager(消息)(眼前的工具人)
             xboy("攻击")([SIGN.ATTACK_SIGN])([SIGN.AUTO_ATTACK_SIGN])
             xboy("自动攻击")([SIGN.AUTO_ATTACK_SIGN])([SIGN.ATTACK_SIGN])
-            xboy("开始跳跃")([SIGN.AUTO_JUMP_SIGN])([])
-            xboy("结束跳跃")([])([SIGN.AUTO_JUMP_SIGN])
+            xboy("开始跳跃")([SIGN.AUTO_JUMP_SIGN])()
+            xboy("结束跳跃")()([SIGN.AUTO_JUMP_SIGN])
             // xboy("寻路")([寻路标识符])([])
-            xboy("自动追击")([SIGN.AUTO_CHASE_SIGN, SIGN.AUTO_ATTACK_SIGN,SIGN.AUTO_JUMP_SIGN])([])
-            xboy("停止")([])([SIGN.ATTACK_SIGN, SIGN.AUTO_ATTACK_SIGN, SIGN.AUTO_JUMP_SIGN,SIGN.AUTO_TRIDENT_SIGN])
-            xboy("开摆")([])([SIGN.ATTACK_SIGN, SIGN.AUTO_ATTACK_SIGN, SIGN.AUTO_JUMP_SIGN])
-            xboy("自动重生")([SIGN.AUTO_RESPAWN_SIGN])([])
-            xboy("自动丢三叉戟")([SIGN.AUTO_TRIDENT_SIGN])([])
+            xboy("自动追击")([SIGN.AUTO_CHASE_SIGN, SIGN.AUTO_ATTACK_SIGN,SIGN.AUTO_JUMP_SIGN])()
+            xboy("停止")()([SIGN.ATTACK_SIGN, SIGN.AUTO_ATTACK_SIGN, SIGN.AUTO_JUMP_SIGN,SIGN.AUTO_TRIDENT_SIGN])
+            xboy("开摆")()([SIGN.ATTACK_SIGN, SIGN.AUTO_ATTACK_SIGN, SIGN.AUTO_JUMP_SIGN])
+            xboy("自动重生")([SIGN.AUTO_RESPAWN_SIGN])()
+            xboy("自动丢三叉戟")([SIGN.AUTO_TRIDENT_SIGN])()
+            // 并不认为参数默认值在这里是什么好主意--2023-12-14
 
             // if (消息 == "列表") {
             //     for (let i in 工具人们) if (工具人们[i]) 发起者.sendMessage(`§e§l-序号：${i} ## 生成名称: ${工具人们[i].name}`);
@@ -398,7 +398,7 @@ world.afterEvents.chatSend.subscribe( event => {
             // }
             //
 
-            const behavior = 消息
+            const behavior = 消息 // 坏了，重新审阅代码发现命令行为真是这里控制的，怎么这么重要的东西和shit放在一起--2023-12-14
             exeBehavior(behavior)?.(眼前的工具人,sender)
             ;
             ;"希望你对中文编程没意见，有也给我保留";

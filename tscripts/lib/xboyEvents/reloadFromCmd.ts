@@ -1,4 +1,4 @@
-import { Player } from "@minecraft/server"
+import {Player, system} from "@minecraft/server"
 import EventSignal from "./EventSignal"
 import type { World,reloadFromCmdEvent } from "../../@types/globalThis";
 
@@ -23,7 +23,7 @@ world.events.playerLeave.subscribe(
     event=>reloadFromCmd.players.delete(event.playerId)
 )
 
-world.events.tick.subscribe(()=>{
+system.runInterval(()=>{
     const onlinePlayers = world.getAllPlayers()
     //
     if(reloadFromCmd.players.size !== onlinePlayers.length || !onlinePlayers.every((_:Player)=>reloadFromCmd.players.has(_.id))){

@@ -87,7 +87,7 @@ world.events.entitySpawn.subscribe(({entity: entity}) => {
 })
 
 
-world.events.tick.subscribe((t) => {
+system.runInterval(() => {
     //这里清空干嘛的
     // queue.playerFishingArray = [];
     queue.fishingHookDespawned_TickArray.length ? queue.fishingHookDespawned_TickArray.pop()() : 0;

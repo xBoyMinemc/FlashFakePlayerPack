@@ -1,8 +1,6 @@
-import { Entity, ItemUseAfterEvent } from '@minecraft/server'
+import { world, Entity, ItemUseAfterEvent, system} from '@minecraft/server'
 import EventSignal from './EventSignal'
-import type { World, FishingHookDespawnedEvent, FishingHookDespawnedEventSignal, FishingHookSpawnedEvent, FishingHookSpawnedEventSignal } from '../../@types/globalThis'
-
-declare const world: World
+import type { FishingHookDespawnedEvent, FishingHookDespawnedEventSignal, FishingHookSpawnedEvent, FishingHookSpawnedEventSignal } from '../../@types/globalThis'
 
 
 
@@ -15,7 +13,7 @@ const queue = {
   playerFishingArray: new Array<Entity>(),
 };
 
-world.events.itemUse.subscribe((event: ItemUseAfterEvent) =>
+world.afterEvents.itemUse.subscribe((event: ItemUseAfterEvent) =>
   
     event.itemStack.typeId === 'minecraft:fishing_rod' && queue.playerFishingArray.push(event.source)
     // (
@@ -26,7 +24,7 @@ world.events.itemUse.subscribe((event: ItemUseAfterEvent) =>
 )
 
 const around = (v:number, r:number) => v > -r && v < r;
-world.events.entitySpawn.subscribe(({entity: entity}) => {
+world.afterEvents.entitySpawn.subscribe(({entity: entity}) => {
   // world.getDimension("overworld").runCommandAsync("tell @a[tag=xboy] size fishingHookDespawned_HookArray=>"+queue.fishingHookDespawned_HookArray.size)
 
   // entity.runCommandAsync("me "+entity.typeId)
@@ -67,7 +65,7 @@ world.events.entitySpawn.subscribe(({entity: entity}) => {
 })
 
 
-world.events.tick.subscribe(() => {
+system.runInterval(() => {
   //这里清空干嘛的
   // queue.playerFishingArray = [];
   queue.fishingHookDespawned_TickArray.length && queue.fishingHookDespawned_TickArray.pop()();

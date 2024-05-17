@@ -1,10 +1,10 @@
- const fs = require('fs');
+const fs = require('fs');
 const archiver = require('archiver');
 
 
-const pkNew = '适配1.20.50'
-const mcVersion = [1,20,50];
-const pkVersion = 15
+const pkNew = '万人血书版'
+const mcVersion = [1,20,60];
+const pkVersion = 1
 
 
 
@@ -41,7 +41,7 @@ const manifest_json = {
     "dependencies": [
         {
             "module_name": "@minecraft/server",
-            "version": "1.8.0-beta"
+            "version": "1.9.0-beta"
         },
         {
             "module_name": "@minecraft/server-gametest",
@@ -65,8 +65,10 @@ fs.existsSync('./build')?0:fs.mkdirSync('build');
 
 
 // 创建一个输出流，将ZIP文件写入到指定的文件中
-const output1 = fs.createWriteStream(  name ?? 'example.zip');
-const output2 = fs.createWriteStream(  name.replace('FlashFakePlayerPack','假人测试版') ?? 'example.zip');
+ const name1 = name ?? 'example1.zip'
+ const name2 =  name.replace('FlashFakePlayerPack','假人测试版') ?? 'example2.zip'
+const output1 = fs.createWriteStream(name1);
+const output2 = fs.createWriteStream(name2);
 
 // 创建一个Archiver实例，将输出流传递给它
 const archive = archiver('zip', {
@@ -79,14 +81,14 @@ archive.append(fs.createReadStream('manifest.json'), { name: 'manifest.json' });
 ['structures','entities','scripts'].forEach(_=>archive.directory(_, true)); // 第二个参数设置为false表示不包含目录本身
 
 // 当所有文件都添加完毕后，调用finalize方法来完成ZIP文件的创建
-archive.finalize();
+archive.finalize().then(r => 0);
 
 // 监听archive的'drain'事件，以确保数据被写入输出流
 output1.on('close', () => {
-    console.log(`ZIP文件已成功创建，共包含 ${archive.pointer()} 字节`);
+    console.log(`${name1} 文件已成功创建，共包含 ${archive.pointer()} 字节`);
   });
 output2.on('close', () => {
-    console.log(`ZIP文件已成功创建，共包含 ${archive.pointer()} 字节`);
+    console.log(`${name2} 文件已成功创建，共包含 ${archive.pointer()} 字节`);
   });
 
 // 监听archive的'error'事件，以处理任何错误

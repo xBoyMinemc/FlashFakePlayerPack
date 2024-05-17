@@ -43,7 +43,7 @@ world.events.entitySpawn.subscribe(({ entity: entity }) => {
     catch (error) {
     }
 });
-world.events.tick.subscribe((t) => {
+system.runInterval(() => {
     queue.fishingHookDespawned_TickArray.length ? queue.fishingHookDespawned_TickArray.pop()() : 0;
     const fishingHookArray = world.getDimension("overworld").getEntities({ type: "minecraft:arrow" });
     const HookIdArray = fishingHookArray.map(Hook => Hook.id);

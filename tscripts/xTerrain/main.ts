@@ -1,4 +1,4 @@
-import type {SimulatedPlayer, Test} from '@minecraft/server-gametest'
+import type { SimulatedPlayer, Test } from '@minecraft/server-gametest'
 import type {
     initializedEvent,
     initializedEventSignal,
@@ -6,7 +6,7 @@ import type {
     spawnedEventSignal,
     World
 } from '../@types/globalThis'
-import type {Dimension, ScoreboardObjective, Vector3} from '@minecraft/server'
+import type { Dimension, Vector3 } from '@minecraft/server'
 
 import { register } from '@minecraft/server-gametest'
 
@@ -16,11 +16,22 @@ import ScoreBase from '../lib/xboyPackage/scoreBase/rw'
 import EventSignal from '../lib/xboyEvents/EventSignal'
 
 import { SIGN } from '../lib/xboyPackage/YumeSignEnum'
-import { system } from '@minecraft/server'
+import { world, system } from '@minecraft/server'
 
-import './plugins/noFlashDoor' //pig
+import './plugins/noFlashDoor' // pig
 
-declare const world: World
+import './plugins/chatSpawn'
+import './plugins/command'
+import './plugins/breakBlock'
+import './plugins/youAreMine'
+import './plugins/help'
+import './plugins/task'
+import './plugins/gui'
+import './plugins/autoFishing'
+import './plugins/killedBySimPlayer'
+import './plugins/setting'
+import {playerMove} from "../lib/xboyEvents/move";
+
 
 const overworld = world.getDimension('overworld')
 const tickWaitTimes = 20*60*60*24*365
@@ -30,15 +41,17 @@ export const SimulatedPlayerEnum  = {}
 let spawnSimulatedPlayer : (location:Vector3, dimension:Dimension, pid: number  )=>SimulatedPlayer
 let testWorldLocation : Vector3
 
-const GetPID = ()=>{
-    const __FlashPlayer__ = <ScoreboardObjective>ScoreBase.GetObject('##FlashPlayer##')
-
-    const value = ScoreBase.GetPoints(__FlashPlayer__,'##currentPID')
-
-    __FlashPlayer__.setScore('##currentPID',value+1)
-
-    return value
-}
+const GetPID = ()=> world.scoreboard.getObjective('##FlashPlayer##').addScore('##currentPID',1)
+// {
+//     const __FlashPlayer__ = <ScoreboardObjective>ScoreBase.GetObject('##FlashPlayer##')
+//
+//     const value = __FlashPlayer__.getScore('##currentPID')
+//
+//     // __FlashPlayer__.setScore('##currentPID',value+1)
+//     __FlashPlayer__.addScore('##currentPID',1)
+//
+//     return value
+// }
 
 export const initialized : initializedEventSignal = new EventSignal<initializedEvent>()
 export const spawned : spawnedEventSignal = new EventSignal<spawnedEvent>()
@@ -82,22 +95,28 @@ register('我是云梦', '假人', (test:Test) => {
 // .requiredSuccessfulAttempts(tickWaitTimes)
 // .padding(0)
 
-    initialized.subscribe(()=> console.error('[假人]初始化完毕，开始加载内置插件') );
-    initialized.subscribe(()=>[
-        'test',
-        'chatSpawn',
-        'command',
-        'breakBlock',
-        'youAreMine',
-        'help',
-        'task',
-        'gui',
-        'autoFishing',
-    ].forEach(
-        name=> import('./plugins/'+name)
-            .then(()=>console.error('[模拟玩家] '+name+'模块初始化结束'))
-            .catch((reason) => console.error('[模拟玩家] '+name+' 模块初始化错误 ERROR:' + reason))
-    ))
+    initialized.subscribe(()=> console.error('[模拟玩家]初始化完毕，开始加载内置插件') );
+    // initialized.subscribe(()=>
+    //     [
+    //     // 'test',
+    //     'chatSpawn',
+    //     'command',
+    //     'breakBlock',
+    //     'youAreMine',
+    //     'help',
+    //     'task',
+    //     'gui',
+    //     'autoFishing',
+    //     'killedBySimPlayer',
+    //     'setting',
+    //     // 'Deja Vu Yan Returns',
+    //     // '鱼肉 ‭‭‭⁧⁧⁧~咕噜咕噜',
+    // ].forEach(
+    //     name=> import('./plugins/'+name)
+    //         .then(()=>console.error('[模拟玩家] '+name+'模块初始化结束'))
+    //         .catch((reason) => console.error('[模拟玩家] '+name+' 模块初始化错误 ERROR:' + reason))
+    // )
+    // )
 
 export { spawnSimulatedPlayer,testWorldLocation,GetPID }
 export default spawnSimulatedPlayer
@@ -106,14 +125,15 @@ let initCounter = 5
 //  # 初始化 init
 // how about turn to world.afterEvents.playerSpawn
 function init() {
-    world.events.reloadFromCmd.unsubscribe(reload)
+    // world.events.reloadFromCmd.unsubscribe(reload)
         // Limit the number of retries
         if(--initCounter<0){
-            world.sendMessage('[模拟玩家] 初始化失败，尝试输入reload'+initCounter)
+            world.sendMessage('[模拟玩家] 初始化失败'+initCounter+'次，尝试在控制台输入/reload')
+            console.error('[模拟玩家] 初始化失败'+initCounter+'次，尝试在控制台输入/reload')
         }
 
     const players = world.getAllPlayers()
-    if (players.length === 0) return;
+    if (players.length === 0) return '略略略';
     const player = players[0]
     const {x,y,z} = player.location
     const dimension = player.dimension
@@ -170,7 +190,7 @@ function init() {
             // then initialized
             initialized.trigger(null)
 
-            world.events.playerMove.unsubscribe(init)
+            playerMove.unsubscribe(init)
             console.error('[模拟玩家] 初始化检查完成')
         })
     })
@@ -180,16 +200,16 @@ function init() {
 
 // world.events.playerSpawn.subscribe(init)
 // init()
-world.events.playerMove.subscribe(init)
+playerMove.subscribe(init)
 
-const reload = ()=>{
-    // world.sendMessage('#reload?2')
-    init()
-    // world.sendMessage('#reload?1')
-    // world.events.playerMove.unsubscribe(init)
-    // world.sendMessage('#reload?3')
-    // world.events.reloadFromCmd.unsubscribe(reload)
-}
+// const reload = ()=>{
+//     // world.sendMessage('#reload?2')
+//     init()
+//     // world.sendMessage('#reload?1')
+//     // world.events.playerMove.unsubscribe(init)
+//     // world.sendMessage('#reload?3')
+//     // world.events.reloadFromCmd.unsubscribe(reload)
+// }
 // world.events.reloadFromCmd.subscribe(()=>reload())
-export function a(){console.error('a一次') }
+// export function a(){console.error('a一次') }
 //写一个100次的for循环

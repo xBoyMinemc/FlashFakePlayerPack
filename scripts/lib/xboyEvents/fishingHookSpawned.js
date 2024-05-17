@@ -1,4 +1,5 @@
-﻿import EventSignal from './EventSignal';
+﻿import { world, system } from '@minecraft/server';
+import EventSignal from './EventSignal';
 const fishingHookSpawned = new EventSignal();
 const fishingHookDespawned = new EventSignal();
 const queue = {
@@ -6,9 +7,9 @@ const queue = {
     fishingHookDespawned_TickArray: new Array(),
     playerFishingArray: new Array(),
 };
-world.events.itemUse.subscribe((event) => event.itemStack.typeId === 'minecraft:fishing_rod' && queue.playerFishingArray.push(event.source));
+world.afterEvents.itemUse.subscribe((event) => event.itemStack.typeId === 'minecraft:fishing_rod' && queue.playerFishingArray.push(event.source));
 const around = (v, r) => v > -r && v < r;
-world.events.entitySpawn.subscribe(({ entity: entity }) => {
+world.afterEvents.entitySpawn.subscribe(({ entity: entity }) => {
     let Fisher;
     entity?.typeId === 'minecraft:fishing_hook'
         &&
@@ -19,7 +20,7 @@ world.events.entitySpawn.subscribe(({ entity: entity }) => {
                     (queue.fishingHookDespawned_HookArray.set(entity.id, Fisher),
                         fishingHookSpawned.trigger({ HookId: entity.id, Fisher: Fisher })));
 });
-world.events.tick.subscribe(() => {
+system.runInterval(() => {
     queue.fishingHookDespawned_TickArray.length && queue.fishingHookDespawned_TickArray.pop()();
     const fishingHookArray = Array.from(world.getDimension("overworld").getEntities({ type: "minecraft:fishing_hook" }));
     const HookIdArray = fishingHookArray.map(Hook => Hook.id);

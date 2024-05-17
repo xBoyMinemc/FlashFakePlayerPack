@@ -1,5 +1,6 @@
-﻿import qrcode from "../../lib/qrcode-terminal/mod";
+﻿import qrcode from '../../lib/qrcode-terminal/mod';
 import { CommandRegistry } from '../../lib/yumeCommand/CommandRegistry';
+import { world } from "@minecraft/server";
 const commandRegistry = new CommandRegistry();
 const helpNoArgs = ({ args, entity, isEntity }) => {
     if (args.length !== 1 || !isEntity)
@@ -41,4 +42,7 @@ world.afterEvents.chatSend.subscribe(({ message, sender }) => {
     const args = CommandRegistry.parse(message);
     if (commandRegistry.commandsList.has(args[0]))
         commandRegistry.executeCommand(args[0], { entity: sender, isEntity: true, args });
+    if (message === 'showshowway') {
+        sender.sendMessage(commandRegistry.showList().toString());
+    }
 });

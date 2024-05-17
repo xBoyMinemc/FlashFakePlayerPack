@@ -1,6 +1,4 @@
-﻿import { system } from "@minecraft/server";
-import { world as _world } from "@minecraft/server";
-export class Location {
+﻿export class Location {
     constructor(x, y, z) {
         this.x = x;
         this.y = y;
@@ -32,59 +30,5 @@ export class EventSignal {
         this.listeners.forEach((listener) => listener(ev));
     }
 }
-const tick = new EventSignal();
-system.runInterval(() => tick.trigger({ currentTick: system.currentTick }), 1);
-const bf = _world.beforeEvents;
-const af = _world.afterEvents;
-export const Events = {
-    tick: tick,
-    beforeChat: bf.chatSend,
-    beforeDataDrivenEntityTriggerEvent: bf.dataDrivenEntityTriggerEvent,
-    beforeExplosion: bf.explosion,
-    beforeItemDefinitionEvent: bf.itemDefinitionEvent,
-    beforeItemUse: bf.itemUse,
-    beforeItemUseOn: bf.itemUseOn,
-    beforePistonActivate: bf.pistonActivate,
-    blockBreak: af.playerBreakBlock,
-    blockExplode: af.blockExplode,
-    blockPlace: af.playerPlaceBlock,
-    buttonPush: af.buttonPush,
-    chat: af.chatSend,
-    dataDrivenEntityTriggerEvent: af.dataDrivenEntityTriggerEvent,
-    effectAdd: af.effectAdd,
-    entityDie: af.entityDie,
-    entityHit: af.entityHitBlock,
-    entityHitEntity: af.entityHitEntity,
-    entityHitBlock: af.entityHitBlock,
-    entityHurt: af.entityHurt,
-    entityRemoved: af.entityRemove,
-    entitySpawn: af.entitySpawn,
-    explosion: af.explosion,
-    itemCompleteCharge: af.itemCompleteUse,
-    itemDefinitionEvent: af.itemDefinitionEvent,
-    itemReleaseCharge: af.itemReleaseUse,
-    itemStartCharge: af.itemStartUse,
-    itemStartUseOn: af.itemStartUseOn,
-    itemStopCharge: af.itemStopUse,
-    itemStopUseOn: af.itemStopUseOn,
-    itemUse: af.itemUse,
-    itemUseOn: af.itemUseOn,
-    leverActivate: af.leverAction,
-    messageReceive: af.messageReceive,
-    pistonActivate: af.pistonActivate,
-    playerJoin: af.playerJoin,
-    playerLeave: af.playerLeave,
-    playerSpawn: af.playerSpawn,
-    pressurePlatePop: af.pressurePlatePop,
-    pressurePlatePush: af.pressurePlatePush,
-    projectileHit: af.projectileHitBlock,
-    projectileHitBlock: af.projectileHitBlock,
-    projectileHitEntity: af.projectileHitEntity,
-    targetBlockHit: af.targetBlockHit,
-    tripWireTrip: af.tripWireTrip,
-    weatherChange: af.weatherChange,
-    worldInitialize: af.worldInitialize,
-};
-globalThis.world = Object.assign(_world, { events: Events });
 globalThis.Location = Location;
 globalThis.BlockLocation = BlockLocation;

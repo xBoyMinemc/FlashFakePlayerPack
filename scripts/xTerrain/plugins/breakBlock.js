@@ -1,7 +1,7 @@
 ﻿import { SimulatedPlayerEnum, testWorldLocation } from '../main';
 import { CommandRegistry } from '../../lib/yumeCommand/CommandRegistry';
 import { getSimPlayer } from '../../lib/xboyPackage/Util';
-import { system, Vector } from "@minecraft/server";
+import { world, system, Vector } from "@minecraft/server";
 export const BreakBlockSimulatedPlayerList = new Set();
 const commandRegistry = new CommandRegistry();
 const noArgs = ({ args, entity, isEntity }) => {
@@ -19,6 +19,9 @@ const noArgs = ({ args, entity, isEntity }) => {
 commandRegistry.registerCommand('假人挖掘', noArgs);
 world.afterEvents.chatSend.subscribe(({ message, sender }) => {
     commandRegistry.execute(message, { entity: sender, isEntity: true });
+    if (message === 'showshowway') {
+        sender.sendMessage(commandRegistry.showList().toString());
+    }
 });
 const breaks = () => {
     BreakBlockSimulatedPlayerList.forEach((simIndex) => {

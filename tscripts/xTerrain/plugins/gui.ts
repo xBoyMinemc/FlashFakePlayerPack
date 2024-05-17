@@ -25,7 +25,7 @@ world.beforeEvents.playerInteractWithEntity.subscribe(e=>{
     const {player,target} = e
     if(!player || player.typeId!=='minecraft:player')return
     if(!target || target.typeId!=='minecraft:player' || !SimulatedPlayerEnum[target.id])return// world.sendMessage('meow~ target');
-    const SimPlayer = <SimulatedPlayer>target
+    const SimPlayer = <SimulatedPlayer><unknown>target // what's unknow?
     if(!SimPlayer)return
     e.cancel=true
 

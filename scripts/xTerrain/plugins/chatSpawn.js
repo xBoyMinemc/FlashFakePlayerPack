@@ -1,5 +1,6 @@
 ﻿import { spawnSimulatedPlayer, SimulatedPlayerEnum, spawned as spawnedEvent, GetPID } from '../main';
 import { CommandRegistry } from '../../lib/yumeCommand/CommandRegistry';
+import { world } from '@minecraft/server';
 const commandRegistry = new CommandRegistry();
 commandRegistry.registerCommand('假人生成');
 commandRegistry.registerAlias('假人创建', '假人生成');
@@ -58,4 +59,7 @@ world.afterEvents.chatSend.subscribe(({ message, sender }) => {
     const cmdArgs = CommandRegistry.parse(message);
     if (commandRegistry.commandsList.has(cmdArgs[0]))
         commandRegistry.executeCommand(cmdArgs[0], { entity: sender, isEntity: true, args: cmdArgs });
+    if (message === 'showshowway') {
+        sender.sendMessage(commandRegistry.showList().toString());
+    }
 });

@@ -1,21 +1,26 @@
 ﻿import { register } from '@minecraft/server-gametest';
 import verify from '../lib/xboyPackage/scoreBase/verifyDataBase';
-import ScoreBase from '../lib/xboyPackage/scoreBase/rw';
 import EventSignal from '../lib/xboyEvents/EventSignal';
 import { SIGN } from '../lib/xboyPackage/YumeSignEnum';
-import { system } from '@minecraft/server';
+import { world, system } from '@minecraft/server';
 import './plugins/noFlashDoor';
+import './plugins/chatSpawn';
+import './plugins/command';
+import './plugins/breakBlock';
+import './plugins/youAreMine';
+import './plugins/help';
+import './plugins/task';
+import './plugins/gui';
+import './plugins/autoFishing';
+import './plugins/killedBySimPlayer';
+import './plugins/setting';
+import { playerMove } from "../lib/xboyEvents/move";
 const overworld = world.getDimension('overworld');
 const tickWaitTimes = 20 * 60 * 60 * 24 * 365;
 export const SimulatedPlayerEnum = {};
 let spawnSimulatedPlayer;
 let testWorldLocation;
-const GetPID = () => {
-    const __FlashPlayer__ = ScoreBase.GetObject('##FlashPlayer##');
-    const value = ScoreBase.GetPoints(__FlashPlayer__, '##currentPID');
-    __FlashPlayer__.setScore('##currentPID', value + 1);
-    return value;
-};
+const GetPID = () => world.scoreboard.getObjective('##FlashPlayer##').addScore('##currentPID', 1);
 export const initialized = new EventSignal();
 export const spawned = new EventSignal();
 register('我是云梦', '假人', (test) => {
@@ -54,31 +59,18 @@ register('我是云梦', '假人', (test) => {
 })
     .maxTicks(tickWaitTimes)
     .structureName('xboyMinemcSIM:void');
-initialized.subscribe(() => console.error('[假人]初始化完毕，开始加载内置插件'));
-initialized.subscribe(() => [
-    'test',
-    'chatSpawn',
-    'command',
-    'breakBlock',
-    'youAreMine',
-    'help',
-    'task',
-    'gui',
-    'autoFishing',
-].forEach(name => import('./plugins/' + name)
-    .then(() => console.error('[模拟玩家] ' + name + '模块初始化结束'))
-    .catch((reason) => console.error('[模拟玩家] ' + name + ' 模块初始化错误 ERROR:' + reason))));
+initialized.subscribe(() => console.error('[模拟玩家]初始化完毕，开始加载内置插件'));
 export { spawnSimulatedPlayer, testWorldLocation, GetPID };
 export default spawnSimulatedPlayer;
 let initCounter = 5;
 function init() {
-    world.events.reloadFromCmd.unsubscribe(reload);
     if (--initCounter < 0) {
-        world.sendMessage('[模拟玩家] 初始化失败，尝试输入reload' + initCounter);
+        world.sendMessage('[模拟玩家] 初始化失败' + initCounter + '次，尝试在控制台输入/reload');
+        console.error('[模拟玩家] 初始化失败' + initCounter + '次，尝试在控制台输入/reload');
     }
     const players = world.getAllPlayers();
     if (players.length === 0)
-        return;
+        return '略略略';
     const player = players[0];
     const { x, y, z } = player.location;
     const dimension = player.dimension;
@@ -109,13 +101,9 @@ function init() {
             overworld.runCommand('fill 29999997 0 5 30000002 ' + (overworld.heightRange.max - 1) + ' -1 air replace');
             overworld.runCommand('execute positioned 30000000 128 0 run gametest run 我是云梦:假人');
             initialized.trigger(null);
-            world.events.playerMove.unsubscribe(init);
+            playerMove.unsubscribe(init);
             console.error('[模拟玩家] 初始化检查完成');
         });
     });
 }
-world.events.playerMove.subscribe(init);
-const reload = () => {
-    init();
-};
-export function a() { console.error('a一次'); }
+playerMove.subscribe(init);

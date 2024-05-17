@@ -6,3 +6,4 @@ package-lock.json
 workspace.xml
 .vscode
 .github
+/build/

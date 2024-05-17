@@ -1,45 +1,19 @@
-  /// <reference path="../@types/globalThis.d.ts" />
-  //  本文件将world,GameTest.register挂到全局
-  //  再把过往版本存在的Location实现
-import { world as _world,World } from "@minecraft/server";
-
 import { register } from "@minecraft/server-gametest";
 
-import type { Events as all_Events,_WorldBeforeEvents,_WorldAfterEvents } from  "../@types/globalThis"
 
-import { Location,BlockLocation, Events } from "../lib/xboyPackage/The law of the ancestors is immutable";
+import { Location,BlockLocation } from "../lib/xboyPackage/The law of the ancestors is immutable";
 declare const globalThis: GlobalThis;
-declare const world: World & {events:_WorldBeforeEvents&_WorldAfterEvents} ;
 
-//不会写
-// @ts-ignore
-globalThis.world = Object.assign(_world,{events:Events});
+
 globalThis.GameTest = {"register":register};
 globalThis.Location = Location;
 globalThis.BlockLocation = BlockLocation;
-  // world.events.
-import("../lib/xboyEvents/preload.js")
 
-.then(
-    () => {
-    console.error("[模拟玩家] full 加载成功")
-    import("./main.js");
-    },
-    (rej) => {
-    console.error("[模拟玩家] rejected 报错了",rej)
-    // import("./main.ts");
-    }
-)
+import "../lib/xboyEvents/preload.js"
 
-.finally(() => {
-    console.error("[模拟玩家] finally 加载完毕")
-    // import("./main.ts");
-})
+import "./main.js"
 
-.catch(_=>{
-    console.error("catch","error"+_)
-})
-;
+console.log("我尽力了")
 
 
 // ################preload################
@@ -49,3 +23,5 @@ import("../lib/xboyEvents/preload.js")
 // ############### 2023-05-29 ###############
 // 是真烂（捏鼻子
 // ############### 2023-05-29 ###############
+// 是真烂（捏鼻子
+// ############### 2024-03-08 ###############

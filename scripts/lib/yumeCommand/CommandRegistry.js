@@ -52,6 +52,7 @@ export class CommandRegistry {
         return this.commandsRegistryMap.get(commandName).add(callback);
     }
     executeCommand(commandName, cmdInfo) {
+        cmdInfo.entity && cmdInfo.entity.playSound && cmdInfo.entity.playSound('random.levelup', { pitch: 8 + Math.floor(Math.random() * 12) });
         this.commandsRegistryMap.get(this.alias.get(commandName) ?? commandName)?.forEach((callback) => callback(cmdInfo));
     }
     execute(commandText, cmdInfo) {
@@ -63,6 +64,10 @@ export class CommandRegistry {
             this.commandsRegistryMap.get(commandName)?.delete(callback);
         else
             this.commandsRegistryMap.delete(commandName);
+    }
+    showList() {
+        return Array.from(this.commandsList.keys())
+            .concat(Array.from(this.alias.keys())).join('\u000a');
     }
 }
 CommandRegistry.parse = commandParse;
