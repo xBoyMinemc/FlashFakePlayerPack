@@ -4,7 +4,6 @@ import type {
     initializedEventSignal,
     spawnedEvent,
     spawnedEventSignal,
-    World
 } from '../@types/globalThis'
 import type { Dimension, Vector3 } from '@minecraft/server'
 
@@ -12,7 +11,6 @@ import { register } from '@minecraft/server-gametest'
 
 
 import verify from '../lib/xboyPackage/scoreBase/verifyDataBase'
-import ScoreBase from '../lib/xboyPackage/scoreBase/rw'
 import EventSignal from '../lib/xboyEvents/EventSignal'
 
 import { SIGN } from '../lib/xboyPackage/YumeSignEnum'
@@ -30,7 +28,7 @@ import './plugins/gui'
 import './plugins/autoFishing'
 import './plugins/killedBySimPlayer'
 import './plugins/setting'
-import {playerMove} from "../lib/xboyEvents/move";
+import { playerMove } from "../lib/xboyEvents/move";
 
 
 const overworld = world.getDimension('overworld')
@@ -212,4 +210,3 @@ playerMove.subscribe(init)
 // }
 // world.events.reloadFromCmd.subscribe(()=>reload())
 // export function a(){console.error('a一次') }
-//写一个100次的for循环

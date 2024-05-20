@@ -1,7 +1,7 @@
 ﻿import { SimulatedPlayerEnum, testWorldLocation } from '../main';
 import { CommandRegistry } from '../../lib/yumeCommand/CommandRegistry';
 import { getSimPlayer } from '../../lib/xboyPackage/Util';
-import { world, system, Vector } from "@minecraft/server";
+import { world, system } from "@minecraft/server";
 export const BreakBlockSimulatedPlayerList = new Set();
 const commandRegistry = new CommandRegistry();
 const noArgs = ({ args, entity, isEntity }) => {
@@ -23,11 +23,12 @@ world.afterEvents.chatSend.subscribe(({ message, sender }) => {
         sender.sendMessage(commandRegistry.showList().toString());
     }
 });
+const Vector_subtract = ({ x, y, z }, { x: u, y: v, z: w }) => ({ x: x - u, y: y - v, z: z - w });
 const breaks = () => {
     BreakBlockSimulatedPlayerList.forEach((simIndex) => {
         const blockLocation = SimulatedPlayerEnum[simIndex].getBlockFromViewDirection({ maxDistance: 4 })?.block?.location;
         if (blockLocation)
-            SimulatedPlayerEnum[simIndex].breakBlock(Vector.subtract(blockLocation, testWorldLocation));
+            SimulatedPlayerEnum[simIndex].breakBlock(Vector_subtract(blockLocation, testWorldLocation));
     });
 };
 system.runInterval(breaks, 0);

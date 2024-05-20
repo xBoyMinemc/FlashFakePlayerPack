@@ -3,12 +3,13 @@ import type { SimulatedPlayer } from '@minecraft/server-gametest'
 import {SimulatedPlayerEnum, testWorldLocation} from '../main'
 import SIGN from '../../lib/xboyPackage/YumeSignEnum'
 import type { EntityHealthComponent, Vector3 } from '@minecraft/server'
-import { system, world, Vector } from '@minecraft/server'
+import { system, world } from '@minecraft/server'
 import { getEntitiesNear, getPlayerNear } from '../../lib/xboyPackage/Util'
 
 // @ts-ignore
 const SimulatedPlayerStates : ({ "str-SimPlayer.id": { o: Vector3 }}) = {}
 
+const Vector_subtract = ({x,y,z}:Vector3, {x:u,y:v,z:w}:Vector3)=>({x:x-u,y:y-v,z:z-w})
 // behavior
 function AUTO_BEHAVIOR(){
 
@@ -58,7 +59,7 @@ function AUTO_BEHAVIOR(){
             const r = (x:number,_x:number,v:number)=>x-_x>v||x-_x<-v
             const r3 = (o:Vector3,_o:Vector3,v:number)=>o.x-_o.x>v||o.x-_o.x<-v || o.y-_o.y>v||o.y-_o.y<-v || o.z-_o.z>v||o.z-_o.z<-v
             // const fix = (o:Vector3)=>({x:o.x-30000000+1,y:o.y,z:o.z-3})
-            const fix = (location:Vector3)=>Vector.subtract(location, testWorldLocation)
+            const fix = (location:Vector3)=>Vector_subtract(location, testWorldLocation)
             // && r3(SimulatedPlayerStates[SimPlayer]["o"],SimPlayer.location,16)
             if(entities.length>0 ){
 
@@ -81,7 +82,7 @@ function AUTO_BEHAVIOR(){
     }
 
     // /gamerule playerssleepingpercentage 50%
-    SimulatedPlayerCount && world.getDimension('minecraft:overworld').runCommand('gamerule playerssleepingpercentage '+Math.floor(100*SimulatedPlayerCount/AllPlayerCount))
+    // SimulatedPlayerCount && world.getDimension('minecraft:overworld').runCommand('gamerule playerssleepingpercentage '+Math.floor(100*SimulatedPlayerCount/AllPlayerCount))
 }
 
 system.runInterval(AUTO_BEHAVIOR,0)

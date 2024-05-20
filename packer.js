@@ -2,8 +2,8 @@ const fs = require('fs');
 const archiver = require('archiver');
 
 
-const pkNew = '万人血书版'
-const mcVersion = [1,20,60];
+const pkNew = '适配'
+const mcVersion = [1,20,80];
 const pkVersion = 1
 
 
@@ -41,7 +41,7 @@ const manifest_json = {
     "dependencies": [
         {
             "module_name": "@minecraft/server",
-            "version": "1.9.0-beta"
+            "version": "1.11.0-beta"
         },
         {
             "module_name": "@minecraft/server-gametest",
