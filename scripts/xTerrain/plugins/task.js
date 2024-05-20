@@ -1,8 +1,9 @@
 ﻿import { SimulatedPlayerEnum, testWorldLocation } from '../main';
 import SIGN from '../../lib/xboyPackage/YumeSignEnum';
-import { system, world, Vector } from '@minecraft/server';
+import { system, world } from '@minecraft/server';
 import { getEntitiesNear, getPlayerNear } from '../../lib/xboyPackage/Util';
 const SimulatedPlayerStates = {};
+const Vector_subtract = ({ x, y, z }, { x: u, y: v, z: w }) => ({ x: x - u, y: y - v, z: z - w });
 function AUTO_BEHAVIOR() {
     let SimulatedPlayerCount = 0;
     const AllPlayerCount = world.getAllPlayers().length;
@@ -41,7 +42,7 @@ function AUTO_BEHAVIOR() {
             SimulatedPlayerStates[SimPlayer.id]["o"] || (SimulatedPlayerStates[SimPlayer.id]["o"] = SimPlayer.location);
             const r = (x, _x, v) => x - _x > v || x - _x < -v;
             const r3 = (o, _o, v) => o.x - _o.x > v || o.x - _o.x < -v || o.y - _o.y > v || o.y - _o.y < -v || o.z - _o.z > v || o.z - _o.z < -v;
-            const fix = (location) => Vector.subtract(location, testWorldLocation);
+            const fix = (location) => Vector_subtract(location, testWorldLocation);
             if (entities.length > 0) {
                 const target = entities[0];
                 if (!r3(target.location, SimPlayer.location, 4)) {
@@ -56,6 +57,5 @@ function AUTO_BEHAVIOR() {
             }
         }
     }
-    SimulatedPlayerCount && world.getDimension('minecraft:overworld').runCommand('gamerule playerssleepingpercentage ' + Math.floor(100 * SimulatedPlayerCount / AllPlayerCount));
 }
 system.runInterval(AUTO_BEHAVIOR, 0);
