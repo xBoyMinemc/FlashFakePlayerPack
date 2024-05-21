@@ -76,7 +76,8 @@ const archive = archiver('zip', {
 });
 
 // 如果你想要在ZIP文件中添加多个文件，可以多次调用append方法
-archive.append(fs.createReadStream('manifest.json'), { name: 'manifest.json' }); 
+archive.append(fs.createReadStream('manifest.json'), { name: 'manifest.json' });
+archive.append(fs.createReadStream('pack_icon.png'), { name: 'pack_icon.png' });
 // 使用directory方法添加整个目录到ZIP文件中
 ['structures','entities','scripts'].forEach(_=>archive.directory(_, true)); // 第二个参数设置为false表示不包含目录本身
 
