@@ -5,7 +5,7 @@ import type {
     spawnedEvent,
     spawnedEventSignal,
 } from '../@types/globalThis'
-import type { Dimension, Vector3 } from '@minecraft/server'
+import { Dimension, Vector3 } from '@minecraft/server'
 
 import { register } from '@minecraft/server-gametest'
 
@@ -78,7 +78,9 @@ register('我是云梦', '假人', (test:Test) => {
         SimulatedPlayer.addTag(SIGN.AUTO_RESPAWN_SIGN)
 
         // SimulatedPlayer.runCommand('tp @a @s')
-        SimulatedPlayer.setSpawnPoint({...location,dimension})
+        // @ts-ignore
+        SimulatedPlayer.setSpawnPoint({...location,"dimension":overworld})
+        // @ts-ignore
         SimulatedPlayer.teleport(location, { dimension })
         //do not add SimulatedPlayer to SimulatedPlayerList here,just spawn and teleport
         return SimulatedPlayer
