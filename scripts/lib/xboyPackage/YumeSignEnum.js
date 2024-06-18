@@ -53,8 +53,8 @@ export var BEHAVIOR_ZH;
 export const BEHAVIOR_FUNCTION = {
     lookAtEntity: (sim, player) => sim.lookAtEntity(player),
     teleport: (sim, player) => sim.teleport(player.location),
-    useAndStopUsingItem: (sim) => sim.useItemInSlot(sim.selectedSlot) && sim.stopUsingItem(),
-    useItemInSlot: (sim) => sim.useItemInSlot(sim.selectedSlot),
+    useAndStopUsingItem: (sim) => sim.useItemInSlot(sim.selectedSlotIndex) && sim.stopUsingItem(),
+    useItemInSlot: (sim) => sim.useItemInSlot(sim.selectedSlotIndex),
     stopUsingItem: (sim) => sim.stopUsingItem(),
     interact: (sim) => sim.interact(),
     swapMainhandItem: (sim, player) => urm.execute('假人主手物品交换', { entity: player, sim }),

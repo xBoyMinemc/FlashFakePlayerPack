@@ -51,7 +51,7 @@ register('我是云梦', '假人', (test) => {
         SimulatedPlayer.addTag('init');
         SimulatedPlayer.addTag(SIGN.YUME_SIM_SIGN);
         SimulatedPlayer.addTag(SIGN.AUTO_RESPAWN_SIGN);
-        SimulatedPlayer.setSpawnPoint({ ...location, dimension });
+        SimulatedPlayer.setSpawnPoint({ ...location, "dimension": overworld });
         SimulatedPlayer.teleport(location, { dimension });
         return SimulatedPlayer;
     };

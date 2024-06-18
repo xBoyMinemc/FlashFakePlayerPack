@@ -3,7 +3,7 @@ const archiver = require('archiver');
 
 
 const pkNew = '适配'
-const mcVersion = [1,20,80];
+const mcVersion = [1,21,0];
 const pkVersion = 1
 
 
@@ -15,8 +15,7 @@ const pkVersion = 1
 
 mcVersion.toString =  ()=>mcVersion.join('.')
 const pksVersion = [...mcVersion]
-      pksVersion[2]+= String(pkVersion)
-      pksVersion[2]= +pksVersion[2]
+      pksVersion[2] = pksVersion[2]*10 + pkVersion
 // mcVersion.toString =  ()=>'['+mcVersion.join(',')+']'
 
 
@@ -24,7 +23,7 @@ const manifest_json = {
     "format_version": 2,
     "header": {
         "name": `§t${mcVersion} v${pkVersion} §e§lFlash§fFakePlayerPack`,
-        "description": `【${pkNew}】${mcVersion} \u000a开启实验性游戏内容（测试版 API）-游戏内输入“假人帮助”或“假人创建” 对着假人右键（蹲或不蹲两个菜单） ，当前版本充满了可能有的bug，还请凑活 无关QQ群：122957051:`,
+        "description": `【${pkNew}】${mcVersion} \u000a开启实验性游戏内容（测试版 API）-游戏内输入“假人帮助”或“假人创建” 对着假人右键（蹲或不蹲是两个不同的菜单） 无关QQ群：122957051:`,
         "uuid": "aa101e99-abb4-448d-b58f-71e9da43064e",
         "version": pksVersion,
         "min_engine_version": mcVersion
@@ -41,7 +40,7 @@ const manifest_json = {
     "dependencies": [
         {
             "module_name": "@minecraft/server",
-            "version": "1.11.0-beta"
+            "version": "1.12.0-beta"
         },
         {
             "module_name": "@minecraft/server-gametest",
@@ -58,7 +57,11 @@ fs.writeFile('./manifest.json',JSON.stringify(manifest_json,null,'\t'),()=>{})
 
 
 
-const name = './build/'+manifest_json.header.name.replace(/§./g,'').replaceAll(/\./g,'-').trim()+'.mcpack';
+const name = './build/'+manifest_json.header.name
+    .replace(/§./g,'')
+    .replaceAll(/\./g,'-')
+    .replaceAll(' ','-')
+    .trim()+'.mcpack';
 
 // make dir ./build
 fs.existsSync('./build')?0:fs.mkdirSync('build');

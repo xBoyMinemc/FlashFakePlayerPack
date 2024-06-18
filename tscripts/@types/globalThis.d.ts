@@ -5,9 +5,9 @@ import {
     Entity,
     EntityHurtAfterEvent,
     ChatSendBeforeEventSignal,
-    DataDrivenEntityTriggerBeforeEventSignal,
+    // DataDrivenEntityTriggerBeforeEventSignal,
     ExplosionBeforeEventSignal,
-    ItemDefinitionBeforeEventSignal,
+    // ItemDefinitionBeforeEventSignal,
     ItemUseBeforeEventSignal,
     ItemUseOnBeforeEventSignal,
     // PistonActivateBeforeEventSignal,
@@ -30,7 +30,7 @@ import {
     EntitySpawnAfterEventSignal,
     ExplosionAfterEventSignal,
     ItemCompleteUseAfterEventSignal,
-    ItemDefinitionAfterEventSignal,
+    // ItemDefinitionAfterEventSignal, // removed?
     ItemReleaseUseAfterEventSignal,
     ItemStartUseAfterEventSignal,
     ItemStartUseOnAfterEventSignal,
@@ -119,9 +119,9 @@ export class _Events {
 }
 export class _WorldBeforeEvents {
     readonly beforeChat: ChatSendBeforeEventSignal;
-    readonly beforeDataDrivenEntityTriggerEvent: DataDrivenEntityTriggerBeforeEventSignal;
+    // readonly beforeDataDrivenEntityTriggerEvent: DataDrivenEntityTriggerBeforeEventSignal;
     readonly beforeExplosion: ExplosionBeforeEventSignal;
-    readonly beforeItemDefinitionEvent: ItemDefinitionBeforeEventSignal;
+    // readonly beforeItemDefinitionEvent: ItemDefinitionBeforeEventSignal;
     readonly beforeItemUse: ItemUseBeforeEventSignal;
     readonly beforeItemUseOn: ItemUseOnBeforeEventSignal;
     // readonly beforePistonActivate: PistonActivateBeforeEventSignal;
@@ -145,7 +145,7 @@ export class _WorldAfterEvents {
     readonly entitySpawn: EntitySpawnAfterEventSignal;
     readonly explosion: ExplosionAfterEventSignal;
     readonly itemCompleteCharge: ItemCompleteUseAfterEventSignal;
-    readonly itemDefinitionEvent: ItemDefinitionAfterEventSignal;
+    // readonly itemDefinitionEvent: ItemDefinitionAfterEventSignal;
     readonly itemReleaseCharge: ItemReleaseUseAfterEventSignal;
     readonly itemStartCharge: ItemStartUseAfterEventSignal;
     readonly itemStartUseOn: ItemStartUseOnAfterEventSignal;

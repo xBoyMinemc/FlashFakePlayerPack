@@ -1,4 +1,4 @@
-import { system, world } from '@minecraft/server'
+import { Player, system, world } from '@minecraft/server'
 import SIGN, {
     BEHAVIOR,
     BEHAVIOR_LIST,
@@ -37,7 +37,8 @@ world.beforeEvents.playerInteractWithEntity.subscribe(e=>{
             mng.button((SimPlayer.hasTag(signKey)?'§l§e':'§l§1') + SIGN_ZH[SIGN[signKey]])
             // world.sendMessage('#tag=>'+signKey);
         }
-        mng.show(player).then((response) => {
+        // @ts-ignore
+        mng.show(<Player>player).then((response) => {
             const tag = SIGN_TAG_LIST[response.selection]
             SimPlayer.hasTag(tag)?SimPlayer.removeTag(tag):SimPlayer.addTag(tag)
         },()=>0).catch(()=>0)
@@ -51,7 +52,8 @@ world.beforeEvents.playerInteractWithEntity.subscribe(e=>{
         for (const behavior of BEHAVIOR_LIST)
             mng.button((SimPlayer.hasTag(behavior)?'§l§e':'§l§1') + BEHAVIOR_ZH[BEHAVIOR[behavior]])
 
-        mng.show(player).then((response) => {
+        // @ts-ignore
+        mng.show(<Player>player).then((response) => {
             const behavior = BEHAVIOR_LIST[response.selection]
             exeBehavior(behavior)(SimPlayer,player)
         },()=>0).catch(()=>0)
