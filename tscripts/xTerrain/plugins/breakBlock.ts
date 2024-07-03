@@ -50,7 +50,8 @@ world.afterEvents.chatSend.subscribe(({message, sender})=>{
 })
 
 const Vector_subtract = ({x,y,z}:Vector3, {x:u,y:v,z:w}:Vector3)=>({x:x-u,y:y-v,z:z-w})
-const Vector_add = ({x,y,z}:Vector3, {x:u,y:v,z:w}:Vector3)=>({x:x+u,y:y+v,z:z+w})
+const Vector_addition = ({x,y,z}:Vector3, {x:u,y:v,z:w}:Vector3)=>({x:x+u,y:y+v,z:z+w})
+const Vector_multiplication = ({x,y,z}:Vector3, {x:u,y:v,z:w}:Vector3)=>({x:x*u,y:y*v,z:z*w})
 
 type awa = 'awa'
 
@@ -64,7 +65,7 @@ const breaks = (awa:awa='awa')=>
         const man = <SimulatedPlayer>SimPlayer
         const viewDirection = man.getViewDirection()
         const headLocation = man.getHeadLocation()
-        const whatCanISee =  Vector_add(headLocation, viewDirection)
+        const whatCanISee =  Vector_addition(headLocation, viewDirection)
         const dimension = <Dimension>man.dimension
         dimension.spawnParticle('minecraft:endrod',whatCanISee)
         // dimension.spawnParticle('minecraft:endrod',headLocation)
@@ -75,6 +76,6 @@ const breaks = (awa:awa='awa')=>
             man.breakBlock(Vector_subtract(blockLocation, testWorldLocation))
     })
 
-system.runInterval(breaks,0)
+system.runInterval(breaks,20) // 2 + 0 = 20
 
 // console.error('[假人]内置插件'+commandName+'加载成功')

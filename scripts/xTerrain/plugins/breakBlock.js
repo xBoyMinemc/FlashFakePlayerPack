@@ -26,16 +26,17 @@ world.afterEvents.chatSend.subscribe(({ message, sender }) => {
     }
 });
 const Vector_subtract = ({ x, y, z }, { x: u, y: v, z: w }) => ({ x: x - u, y: y - v, z: z - w });
-const Vector_add = ({ x, y, z }, { x: u, y: v, z: w }) => ({ x: x + u, y: y + v, z: z + w });
+const Vector_addition = ({ x, y, z }, { x: u, y: v, z: w }) => ({ x: x + u, y: y + v, z: z + w });
+const Vector_multiplication = ({ x, y, z }, { x: u, y: v, z: w }) => ({ x: x * u, y: y * v, z: z * w });
 const breaks = (awa = 'awa') => world.getPlayers({ tags: [SIGN.AUTO_BREAKBLOCK_SIGN] }).forEach(async (SimPlayer) => {
     const man = SimPlayer;
     const viewDirection = man.getViewDirection();
     const headLocation = man.getHeadLocation();
-    const whatCanISee = Vector_add(headLocation, viewDirection);
+    const whatCanISee = Vector_addition(headLocation, viewDirection);
     const dimension = man.dimension;
     dimension.spawnParticle('minecraft:endrod', whatCanISee);
     const blockLocation = man.getBlockFromViewDirection({ maxDistance: 4 })?.block?.location;
     if (blockLocation)
         man.breakBlock(Vector_subtract(blockLocation, testWorldLocation));
 });
-system.runInterval(breaks, 0);
+system.runInterval(breaks, 20);
