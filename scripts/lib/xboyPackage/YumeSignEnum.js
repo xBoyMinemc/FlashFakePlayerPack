@@ -1,25 +1,28 @@
-﻿import { commandRegistry as urm } from '../../xTerrain/plugins/youAreMine';
+﻿import { LookDuration } from '@minecraft/server-gametest';
+import { commandRegistry as urm } from '../../xTerrain/plugins/youAreMine';
 export var SIGN;
 (function (SIGN) {
-    SIGN["AUTO_RESPAWN_SIGN"] = "AUTO_RESPAWN_SIGN";
-    SIGN["YUME_SIM_SIGN"] = "YUME_SIM_SIGN";
+    SIGN["AUTO_BREAKBLOCK_SIGN"] = "AUTO_BREAKBLOCK_SIGN";
     SIGN["ATTACK_SIGN"] = "ATTACK_SIGN";
     SIGN["AUTO_ATTACK_SIGN"] = "AUTO_ATTACK_SIGN";
     SIGN["AUTO_CHASE_SIGN"] = "AUTO_CHASE_SIGN";
     SIGN["AUTO_JUMP_SIGN"] = "AUTO_JUMP_SIGN";
     SIGN["AUTO_TRIDENT_SIGN"] = "AUTO_TRIDENT_SIGN";
+    SIGN["AUTO_RESPAWN_SIGN"] = "AUTO_RESPAWN_SIGN";
+    SIGN["YUME_SIM_SIGN"] = "YUME_SIM_SIGN";
 })(SIGN || (SIGN = {}));
 export default SIGN;
 export const SIGN_TAG_LIST = Object.keys(SIGN);
 export var SIGN_ZH;
 (function (SIGN_ZH) {
-    SIGN_ZH["AUTO_RESPAWN_SIGN"] = "\u81EA\u52A8\u91CD\u751F\u6807\u7B7E";
-    SIGN_ZH["YUME_SIM_SIGN"] = "\u4E91\u68A6\u5047\u4EBA\u6807\u7B7E";
+    SIGN_ZH["AUTO_BREAKBLOCK_SIGN"] = "\u81EA\u52A8\u6316\u6398\u6807\u7B7E";
     SIGN_ZH["ATTACK_SIGN"] = "\u653B\u51FB\u6807\u7B7E";
     SIGN_ZH["AUTO_ATTACK_SIGN"] = "\u81EA\u52A8\u653B\u51FB\u6807\u7B7E";
     SIGN_ZH["AUTO_CHASE_SIGN"] = "\u81EA\u52A8\u8FFD\u53CA\u6807\u7B7E";
     SIGN_ZH["AUTO_JUMP_SIGN"] = "\u81EA\u52A8\u8DF3\u8DC3\u6807\u7B7E";
     SIGN_ZH["AUTO_TRIDENT_SIGN"] = "\u81EA\u52A8\u4E22\u4E09\u53C9\u621F\u6807\u7B7E";
+    SIGN_ZH["AUTO_RESPAWN_SIGN"] = "\u81EA\u52A8\u91CD\u751F\u6807\u7B7E";
+    SIGN_ZH["YUME_SIM_SIGN"] = "\u4E91\u68A6\u5047\u4EBA\u6807\u7B7E";
 })(SIGN_ZH || (SIGN_ZH = {}));
 export var BEHAVIOR;
 (function (BEHAVIOR) {
@@ -51,7 +54,7 @@ export var BEHAVIOR_ZH;
     BEHAVIOR_ZH["disconnect"] = "\u9500\u6BC1";
 })(BEHAVIOR_ZH || (BEHAVIOR_ZH = {}));
 export const BEHAVIOR_FUNCTION = {
-    lookAtEntity: (sim, player) => sim.lookAtEntity(player),
+    lookAtEntity: (sim, player) => sim.lookAtEntity(player, LookDuration.Instant),
     teleport: (sim, player) => sim.teleport(player.location),
     useAndStopUsingItem: (sim) => sim.useItemInSlot(sim.selectedSlotIndex) && sim.stopUsingItem(),
     useItemInSlot: (sim) => sim.useItemInSlot(sim.selectedSlotIndex),

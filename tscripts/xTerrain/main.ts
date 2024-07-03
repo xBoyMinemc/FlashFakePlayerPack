@@ -36,6 +36,11 @@ const tickWaitTimes = 20*60*60*24*365
 
 // all of SimulatedPlayer List
 export const SimulatedPlayerEnum  = {}
+
+let randomTickSpeed = 1
+let doDayLightCycle = true
+let doMobSpawning = true
+
 let spawnSimulatedPlayer : (location:Vector3, dimension:Dimension, pid: number  )=>SimulatedPlayer
 let testWorldLocation : Vector3
 
@@ -63,16 +68,20 @@ export const spawned : spawnedEventSignal = new EventSignal<spawnedEvent>()
 
 
 register('我是云梦', '假人', (test:Test) => {
-    testWorldLocation = test.worldLocation({ x:0, y:0, z:0 })
+    testWorldLocation = test.worldBlockLocation({ x:0, y:0, z:0 })
+    testWorldLocation["worldBlockLocation"] = (v3:Vector3)=>{
+        return test.worldBlockLocation(v3)
+    }
 
-    overworld.runCommand('gamerule domobspawning true');;;; "凑活解决生物生成被禁用的问题";;;
-    overworld.runCommand('gamerule dodaylightcycle true');;;; "凑活解决游戏内时间停止问题";;;
-    overworld.runCommand('gamerule randomtickspeed 1');;;; "凑活解决tick因为gametest而设定为0的问题";;;
+
+    world.gameRules.randomTickSpeed = randomTickSpeed
+    world.gameRules.doDayLightCycle = doDayLightCycle
+    world.gameRules.doMobSpawning = doMobSpawning
 
     spawnSimulatedPlayer = (location:Vector3, dimension:Dimension, pid: number ):SimulatedPlayer=>{
         // overworld.sendMessage('pid=>'+pid)
         // const dimensionLocation : DimensionLocation = {...location,dimension}
-        const SimulatedPlayer = test.spawnSimulatedPlayer({ x:0, y:2, z:0 }, `工具人-${pid}`)
+        const SimulatedPlayer = test.spawnSimulatedPlayer({ x:0, y:8, z:0 }, `工具人-${pid}`)
         SimulatedPlayer.addTag('init')
         SimulatedPlayer.addTag(SIGN.YUME_SIM_SIGN)
         SimulatedPlayer.addTag(SIGN.AUTO_RESPAWN_SIGN)
@@ -179,6 +188,10 @@ function init() {
             // 记分板PID初始化 写的烂 执行两次
             verify()
             verify()
+
+            randomTickSpeed = world.gameRules.randomTickSpeed
+            doDayLightCycle = world.gameRules.doDayLightCycle
+            doMobSpawning   = world.gameRules.doMobSpawning
 
             // -使用fill完成区域清理 (29999997 0 5 30000002 319 -1)
             // * 待商榷改用getBlock

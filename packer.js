@@ -2,9 +2,9 @@ const fs = require('fs');
 const archiver = require('archiver');
 
 
-const pkNew = '适配'
+const pkNew = '自动挖掘提示'
 const mcVersion = [1,21,0];
-const pkVersion = 1
+const pkVersion = 2
 
 
 
