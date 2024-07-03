@@ -12,6 +12,7 @@ const noArgs = ({ args, entity, location, isEntity }) => {
         const PID = GetPID();
         const __FlashPlayer__ = world.scoreboard.getObjective('##FlashPlayer##');
         const SimulatedPlayer = spawnSimulatedPlayer(entity.location, entity.dimension, PID);
+        SimulatedPlayer.applyDamage(1);
         SimulatedPlayerEnum[PID] = SimulatedPlayer;
         SimulatedPlayerEnum[SimulatedPlayer.id] = PID;
         spawnedEvent.trigger({ spawnedSimulatedPlayer: SimulatedPlayer, PID });
@@ -21,6 +22,7 @@ const noArgs = ({ args, entity, location, isEntity }) => {
         const PID = GetPID();
         const __FlashPlayer__ = world.scoreboard.getObjective('##FlashPlayer##');
         const SimulatedPlayer = spawnSimulatedPlayer(location, entity, PID);
+        SimulatedPlayer.applyDamage(1);
         SimulatedPlayerEnum[PID] = SimulatedPlayer;
         SimulatedPlayerEnum[SimulatedPlayer.id] = PID;
         spawnedEvent.trigger({ spawnedSimulatedPlayer: SimulatedPlayer, PID });
@@ -39,6 +41,7 @@ const withArgs = ({ args, entity, location, isEntity }) => {
             const PID = GetPID();
             const __FlashPlayer__ = world.scoreboard.getObjective('##FlashPlayer##');
             const SimulatedPlayer = spawnSimulatedPlayer(entity.location, entity.dimension, PID);
+            SimulatedPlayer.applyDamage(1);
             SimulatedPlayerEnum[PID] = SimulatedPlayer;
             SimulatedPlayerEnum[SimulatedPlayer.id] = PID;
             spawnedEvent.trigger({ spawnedSimulatedPlayer: SimulatedPlayer, PID });
@@ -48,6 +51,7 @@ const withArgs = ({ args, entity, location, isEntity }) => {
             const PID = GetPID();
             const __FlashPlayer__ = world.scoreboard.getObjective('##FlashPlayer##');
             const SimulatedPlayer = spawnSimulatedPlayer(location, entity, PID);
+            SimulatedPlayer.applyDamage(1);
             SimulatedPlayerEnum[PID] = SimulatedPlayer;
             SimulatedPlayerEnum[SimulatedPlayer.id] = PID;
             spawnedEvent.trigger({ spawnedSimulatedPlayer: SimulatedPlayer, PID });

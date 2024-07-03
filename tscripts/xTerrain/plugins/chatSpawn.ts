@@ -20,6 +20,8 @@ const noArgs = ({args,entity,location,isEntity})=>{
         const __FlashPlayer__ = world.scoreboard.getObjective('##FlashPlayer##')
         const SimulatedPlayer :SimulatedPlayer = spawnSimulatedPlayer(entity.location,entity.dimension,PID)
 
+        SimulatedPlayer.applyDamage(1) // 出生了，打一下屁股
+
         SimulatedPlayerEnum[PID]=SimulatedPlayer
         SimulatedPlayerEnum[SimulatedPlayer.id]=PID
 
@@ -35,6 +37,8 @@ const noArgs = ({args,entity,location,isEntity})=>{
         const PID = GetPID()
         const __FlashPlayer__ = world.scoreboard.getObjective('##FlashPlayer##')
         const SimulatedPlayer :SimulatedPlayer= spawnSimulatedPlayer(location,entity,PID)
+
+        SimulatedPlayer.applyDamage(1) // 出生了，打一下屁股
 
         SimulatedPlayerEnum[PID]=SimulatedPlayer
         SimulatedPlayerEnum[SimulatedPlayer.id]=PID
@@ -60,6 +64,8 @@ const withArgs = ({args,entity,location,isEntity})=>{
             const __FlashPlayer__ = world.scoreboard.getObjective('##FlashPlayer##')
             const SimulatedPlayer :SimulatedPlayer = spawnSimulatedPlayer(entity.location,entity.dimension,PID)
 
+            SimulatedPlayer.applyDamage(1) // 出生了，打一下屁股
+
             // add SimulatedPlayer to SimulatedPlayerList,by ues obj <key,value>
             SimulatedPlayerEnum[PID]=SimulatedPlayer
             SimulatedPlayerEnum[SimulatedPlayer.id]=PID
@@ -71,6 +77,8 @@ const withArgs = ({args,entity,location,isEntity})=>{
             const PID = GetPID()
             const __FlashPlayer__ = world.scoreboard.getObjective('##FlashPlayer##')
             const SimulatedPlayer :SimulatedPlayer= spawnSimulatedPlayer(location,entity,PID)
+
+            SimulatedPlayer.applyDamage(1) // 出生了，打一下屁股
 
             // add SimulatedPlayer to SimulatedPlayerList,by ues obj <key,value>
             SimulatedPlayerEnum[PID]=SimulatedPlayer

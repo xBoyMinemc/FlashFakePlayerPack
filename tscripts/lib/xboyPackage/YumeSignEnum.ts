@@ -1,5 +1,5 @@
 // SIGN for AUTO_BEHAVIOR
-import { SimulatedPlayer } from '@minecraft/server-gametest'
+import { SimulatedPlayer, LookDuration } from '@minecraft/server-gametest'
 import { Player } from '@minecraft/server'
 import { commandRegistry as urm } from '../../xTerrain/plugins/youAreMine'
 
@@ -10,7 +10,8 @@ export  enum  SIGN {
     AUTO_ATTACK_SIGN = 'AUTO_ATTACK_SIGN',
     AUTO_CHASE_SIGN = 'AUTO_CHASE_SIGN',
     AUTO_JUMP_SIGN = 'AUTO_JUMP_SIGN',
-    AUTO_TRIDENT_SIGN = 'AUTO_TRIDENT_SIGN'
+    AUTO_TRIDENT_SIGN = 'AUTO_TRIDENT_SIGN',
+    AUTO_BREAKBLOCK_SIGN = 'AUTO_BREAKBLOCK_SIGN',
 }
 export  default SIGN
 
@@ -22,7 +23,8 @@ export enum  SIGN_ZH {
     AUTO_ATTACK_SIGN = '自动攻击标签',
     AUTO_CHASE_SIGN = '自动追及标签',
     AUTO_JUMP_SIGN = '自动跳跃标签',
-    AUTO_TRIDENT_SIGN = '自动丢三叉戟标签'
+    AUTO_TRIDENT_SIGN = '自动丢三叉戟标签',
+    AUTO_BREAKBLOCK_SIGN = '自动挖掘标签',
 }
 
 
@@ -60,7 +62,7 @@ export enum  BEHAVIOR_ZH {
 
 export const BEHAVIOR_FUNCTION = {
     // @ts-ignore
-    lookAtEntity : (sim:SimulatedPlayer,player:Player)=>sim.lookAtEntity(player),
+    lookAtEntity : (sim:SimulatedPlayer,player:Player)=>sim.lookAtEntity(player,LookDuration.Instant),
     teleport : (sim:SimulatedPlayer,player:Player)=>sim.teleport(player.location),
     useAndStopUsingItem : (sim:SimulatedPlayer&Player)=>sim.useItemInSlot(sim.selectedSlotIndex) && sim.stopUsingItem(),
     useItemInSlot : (sim:SimulatedPlayer&Player)=>sim.useItemInSlot(sim.selectedSlotIndex),

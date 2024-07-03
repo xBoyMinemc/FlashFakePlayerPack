@@ -36,6 +36,11 @@ const tickWaitTimes = 20*60*60*24*365
 
 // all of SimulatedPlayer List
 export const SimulatedPlayerEnum  = {}
+
+let randomTickSpeed = 1
+let doDayLightCycle = true
+let doMobSpawning = true
+
 let spawnSimulatedPlayer : (location:Vector3, dimension:Dimension, pid: number  )=>SimulatedPlayer
 let testWorldLocation : Vector3
 
@@ -64,10 +69,11 @@ export const spawned : spawnedEventSignal = new EventSignal<spawnedEvent>()
 
 register('我是云梦', '假人', (test:Test) => {
     testWorldLocation = test.worldLocation({ x:0, y:0, z:0 })
+    testWorldLocation.x-=0.1
 
-    overworld.runCommand('gamerule domobspawning true');;;; "凑活解决生物生成被禁用的问题";;;
-    overworld.runCommand('gamerule dodaylightcycle true');;;; "凑活解决游戏内时间停止问题";;;
-    overworld.runCommand('gamerule randomtickspeed 1');;;; "凑活解决tick因为gametest而设定为0的问题";;;
+    world.gameRules.randomTickSpeed = randomTickSpeed
+    world.gameRules.doDayLightCycle = doDayLightCycle
+    world.gameRules.doMobSpawning = doMobSpawning
 
     spawnSimulatedPlayer = (location:Vector3, dimension:Dimension, pid: number ):SimulatedPlayer=>{
         // overworld.sendMessage('pid=>'+pid)
@@ -179,6 +185,10 @@ function init() {
             // 记分板PID初始化 写的烂 执行两次
             verify()
             verify()
+
+            randomTickSpeed = world.gameRules.randomTickSpeed
+            doDayLightCycle = world.gameRules.doDayLightCycle
+            doMobSpawning   = world.gameRules.doMobSpawning
 
             // -使用fill完成区域清理 (29999997 0 5 30000002 319 -1)
             // * 待商榷改用getBlock
