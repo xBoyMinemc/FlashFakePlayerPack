@@ -27,12 +27,15 @@ const GetPID = () => world.scoreboard.getObjective('##FlashPlayer##').addScore('
 export const initialized = new EventSignal();
 export const spawned = new EventSignal();
 register('我是云梦', '假人', (test) => {
-    testWorldLocation = test.worldLocation({ x: 0, y: 0, z: 0 });
+    testWorldLocation = test.worldBlockLocation({ x: 0, y: 0, z: 0 });
+    testWorldLocation["worldBlockLocation"] = (v3) => {
+        return test.worldBlockLocation(v3);
+    };
     world.gameRules.randomTickSpeed = randomTickSpeed;
     world.gameRules.doDayLightCycle = doDayLightCycle;
     world.gameRules.doMobSpawning = doMobSpawning;
     spawnSimulatedPlayer = (location, dimension, pid) => {
-        const SimulatedPlayer = test.spawnSimulatedPlayer({ x: 0, y: 2, z: 0 }, `工具人-${pid}`);
+        const SimulatedPlayer = test.spawnSimulatedPlayer({ x: 0, y: 8, z: 0 }, `工具人-${pid}`);
         SimulatedPlayer.addTag('init');
         SimulatedPlayer.addTag(SIGN.YUME_SIM_SIGN);
         SimulatedPlayer.addTag(SIGN.AUTO_RESPAWN_SIGN);

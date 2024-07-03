@@ -68,7 +68,11 @@ export const spawned : spawnedEventSignal = new EventSignal<spawnedEvent>()
 
 
 register('我是云梦', '假人', (test:Test) => {
-    testWorldLocation = test.worldLocation({ x:0, y:0, z:0 })
+    testWorldLocation = test.worldBlockLocation({ x:0, y:0, z:0 })
+    testWorldLocation["worldBlockLocation"] = (v3:Vector3)=>{
+        return test.worldBlockLocation(v3)
+    }
+
 
     world.gameRules.randomTickSpeed = randomTickSpeed
     world.gameRules.doDayLightCycle = doDayLightCycle
@@ -77,7 +81,7 @@ register('我是云梦', '假人', (test:Test) => {
     spawnSimulatedPlayer = (location:Vector3, dimension:Dimension, pid: number ):SimulatedPlayer=>{
         // overworld.sendMessage('pid=>'+pid)
         // const dimensionLocation : DimensionLocation = {...location,dimension}
-        const SimulatedPlayer = test.spawnSimulatedPlayer({ x:0, y:2, z:0 }, `工具人-${pid}`)
+        const SimulatedPlayer = test.spawnSimulatedPlayer({ x:0, y:8, z:0 }, `工具人-${pid}`)
         SimulatedPlayer.addTag('init')
         SimulatedPlayer.addTag(SIGN.YUME_SIM_SIGN)
         SimulatedPlayer.addTag(SIGN.AUTO_RESPAWN_SIGN)

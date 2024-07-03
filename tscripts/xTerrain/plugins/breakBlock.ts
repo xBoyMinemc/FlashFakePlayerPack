@@ -68,13 +68,16 @@ const breaks = (awa:awa='awa')=>
         const time =  times.get(man.id) ?? 0
         const whatCanISee =  Vector_addition(headLocation, Vector_multiplication_dot(viewDirection,time % 3 + 1))
         const dimension = <Dimension>man.dimension
-        dimension.spawnParticle('minecraft:endrod',whatCanISee)
         // dimension.spawnParticle('minecraft:endrod',headLocation)
 
 
-        const block = dimension.getBlock(whatCanISee)
+        const block = dimension.getBlock(testWorldLocation["worldBlockLocation"](Vector_subtract(whatCanISee, testWorldLocation)))
+
+        dimension.spawnParticle('minecraft:endrod',Vector_addition(block.location, {x:0.5,y:0.5,z:0.5}))
+        // world.sendMessage("block.?==> "+block.isValid()+" " + block.isLiquid +" "+ block.isAir+" "+block.typeId+" "+block.x)
         if (block.isValid() && !block.isLiquid && !block.isAir){
-            man.breakBlock(Vector_subtract(block.location, testWorldLocation))
+            // world.sendMessage("# block.! ")
+            man.breakBlock(Vector_subtract(whatCanISee, testWorldLocation))
         } else {
             times.set(man.id,time+1)
         }
