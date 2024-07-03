@@ -27,16 +27,22 @@ world.afterEvents.chatSend.subscribe(({ message, sender }) => {
 });
 const Vector_subtract = ({ x, y, z }, { x: u, y: v, z: w }) => ({ x: x - u, y: y - v, z: z - w });
 const Vector_addition = ({ x, y, z }, { x: u, y: v, z: w }) => ({ x: x + u, y: y + v, z: z + w });
-const Vector_multiplication = ({ x, y, z }, { x: u, y: v, z: w }) => ({ x: x * u, y: y * v, z: z * w });
+const Vector_multiplication_dot = ({ x, y, z }, u) => ({ x: x * u, y: y * u, z: z * u });
 const breaks = (awa = 'awa') => world.getPlayers({ tags: [SIGN.AUTO_BREAKBLOCK_SIGN] }).forEach(async (SimPlayer) => {
     const man = SimPlayer;
     const viewDirection = man.getViewDirection();
     const headLocation = man.getHeadLocation();
-    const whatCanISee = Vector_addition(headLocation, viewDirection);
+    const time = times.get(man.id) ?? 0;
+    const whatCanISee = Vector_addition(headLocation, Vector_multiplication_dot(viewDirection, time % 3 + 1));
     const dimension = man.dimension;
     dimension.spawnParticle('minecraft:endrod', whatCanISee);
-    const blockLocation = man.getBlockFromViewDirection({ maxDistance: 4 })?.block?.location;
-    if (blockLocation)
-        man.breakBlock(Vector_subtract(blockLocation, testWorldLocation));
+    const block = dimension.getBlock(whatCanISee);
+    if (block.isValid() && !block.isLiquid && !block.isAir) {
+        man.breakBlock(Vector_subtract(block.location, testWorldLocation));
+    }
+    else {
+        times.set(man.id, time + 1);
+    }
 });
+const times = new Map();
 system.runInterval(breaks, 20);

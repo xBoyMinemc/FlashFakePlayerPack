@@ -1,5 +1,5 @@
 import type { SimulatedPlayer } from '@minecraft/server-gametest'
-import type {Dimension, Vector3} from '@minecraft/server'
+import {Dimension, Player, Vector3} from '@minecraft/server'
 
 import {
     SimulatedPlayerEnum,
@@ -51,7 +51,7 @@ world.afterEvents.chatSend.subscribe(({message, sender})=>{
 
 const Vector_subtract = ({x,y,z}:Vector3, {x:u,y:v,z:w}:Vector3)=>({x:x-u,y:y-v,z:z-w})
 const Vector_addition = ({x,y,z}:Vector3, {x:u,y:v,z:w}:Vector3)=>({x:x+u,y:y+v,z:z+w})
-const Vector_multiplication = ({x,y,z}:Vector3, {x:u,y:v,z:w}:Vector3)=>({x:x*u,y:y*v,z:z*w})
+const Vector_multiplication_dot = ({x,y,z}:Vector3, u:number)=>({x:x*u,y:y*u,z:z*u})
 
 type awa = 'awa'
 
@@ -65,17 +65,23 @@ const breaks = (awa:awa='awa')=>
         const man = <SimulatedPlayer>SimPlayer
         const viewDirection = man.getViewDirection()
         const headLocation = man.getHeadLocation()
-        const whatCanISee =  Vector_addition(headLocation, viewDirection)
+        const time =  times.get(man.id) ?? 0
+        const whatCanISee =  Vector_addition(headLocation, Vector_multiplication_dot(viewDirection,time % 3 + 1))
         const dimension = <Dimension>man.dimension
         dimension.spawnParticle('minecraft:endrod',whatCanISee)
         // dimension.spawnParticle('minecraft:endrod',headLocation)
 
 
-        const blockLocation = man.getBlockFromViewDirection({maxDistance: 4})?.block?.location
-        if (blockLocation)
-            man.breakBlock(Vector_subtract(blockLocation, testWorldLocation))
+        const block = dimension.getBlock(whatCanISee)
+        if (block.isValid() && !block.isLiquid && !block.isAir){
+            man.breakBlock(Vector_subtract(block.location, testWorldLocation))
+        } else {
+            times.set(man.id,time+1)
+        }
     })
 
+
+const times = new Map<Player["id"],number>()
 system.runInterval(breaks,20) // 2 + 0 = 20
 
 // console.error('[假人]内置插件'+commandName+'加载成功')

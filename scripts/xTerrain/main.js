@@ -28,7 +28,6 @@ export const initialized = new EventSignal();
 export const spawned = new EventSignal();
 register('我是云梦', '假人', (test) => {
     testWorldLocation = test.worldLocation({ x: 0, y: 0, z: 0 });
-    testWorldLocation.x -= 0.1;
     world.gameRules.randomTickSpeed = randomTickSpeed;
     world.gameRules.doDayLightCycle = doDayLightCycle;
     world.gameRules.doMobSpawning = doMobSpawning;

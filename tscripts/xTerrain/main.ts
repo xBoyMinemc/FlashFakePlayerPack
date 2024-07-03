@@ -69,7 +69,6 @@ export const spawned : spawnedEventSignal = new EventSignal<spawnedEvent>()
 
 register('我是云梦', '假人', (test:Test) => {
     testWorldLocation = test.worldLocation({ x:0, y:0, z:0 })
-    testWorldLocation.x-=0.1
 
     world.gameRules.randomTickSpeed = randomTickSpeed
     world.gameRules.doDayLightCycle = doDayLightCycle
