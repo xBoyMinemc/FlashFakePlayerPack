@@ -43,7 +43,7 @@ register('我是云梦', '假人', (test) => {
         SimulatedPlayer.teleport(location, { dimension });
         return SimulatedPlayer;
     };
-    console.error('[假人] init一次');
+    console.warn('[假人] init一次');
 })
     .maxTicks(tickWaitTimes)
     .structureName('xboyMinemcSIM:void');

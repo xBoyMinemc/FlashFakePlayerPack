@@ -95,7 +95,7 @@ register('我是云梦', '假人', (test:Test) => {
         return SimulatedPlayer
     }
 
-    console.error('[假人] init一次')
+    console.warn('[假人] init一次')
 })
 .maxTicks(tickWaitTimes)
 .structureName('xboyMinemcSIM:void')
@@ -211,17 +211,4 @@ function init() {
 
 }
 
-// world.events.playerSpawn.subscribe(init)
-// init()
 playerMove.subscribe(init)
-
-// const reload = ()=>{
-//     // world.sendMessage('#reload?2')
-//     init()
-//     // world.sendMessage('#reload?1')
-//     // world.events.playerMove.unsubscribe(init)
-//     // world.sendMessage('#reload?3')
-//     // world.events.reloadFromCmd.unsubscribe(reload)
-// }
-// world.events.reloadFromCmd.subscribe(()=>reload())
-// export function a(){console.error('a一次') }
