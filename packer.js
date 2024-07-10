@@ -2,9 +2,9 @@ const fs = require('fs');
 const archiver = require('archiver');
 
 
-const pkNew = '自动挖掘提示'
+const pkNew = '重写加载逻辑，修复地狱级卡死问题'
 const mcVersion = [1,21,0];
-const pkVersion = 2
+const pkVersion = 3
 
 
 
@@ -40,7 +40,7 @@ const manifest_json = {
     "dependencies": [
         {
             "module_name": "@minecraft/server",
-            "version": "1.12.0-beta"
+            "version": "1.12.0-beta.1.21.1-stable"
         },
         {
             "module_name": "@minecraft/server-gametest",

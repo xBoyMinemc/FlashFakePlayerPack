@@ -28,7 +28,7 @@ const update = ()=>{
 
               if(lastInfo.flash==flash)
                   // nothing
-                  return  void flash
+                  return void flash
 
               // update to Map && Event-trigger
               playerInfo.set(player,{location,viewDirection,flash})

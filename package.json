@@ -1,14 +1,12 @@
 {
   "scripts": {
     "dev": "cd . && tsc -w",
-    "watch": "cd . && tsc -w",
-    "build": "cd . && tsc",
-    "pack": "(cd . && tsc && 0) || node packer.js"
+    "build": "(cd . && tsc && 0) || node packer.js"
   },
   "dependencies": {
     "@minecraft/common": "^1.1.0",
-    "@minecraft/server": "^1.12.0-beta.1.21.0-stable",
-    "@minecraft/server-gametest": "^1.0.0-beta.1.21.0-stable",
+    "@minecraft/server": "^1.12.0-beta.1.21.1-stable",
+    "@minecraft/server-gametest": "^1.0.0-beta.1.21.1-stable",
     "@minecraft/server-ui": "^1.2.0-beta.1.21.0-stable",
     "@minecraft/vanilla-data": "^1.20.80",
     "archiver": "^6.0.1"
