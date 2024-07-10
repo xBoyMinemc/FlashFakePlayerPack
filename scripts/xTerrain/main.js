@@ -32,7 +32,8 @@ register('我是云梦', '假人', (test) => {
     };
     initialized.trigger(null);
     playerMove.unsubscribe(init);
-    console.warn('[模拟玩家] 初始化完成');
+    console.warn('[模拟玩家] 初始化完成，输入“假人创建”或“ffpp”');
+    world.sendMessage('[模拟玩家] 初始化完成，输入“假人创建”或“ffpp”');
 })
     .maxTicks(tickWaitTimes)
     .structureName('xboyMinemcSIM:void');
@@ -53,7 +54,7 @@ initialized.subscribe(() => [
     .catch((reason) => console.error('[模拟玩家] ' + name + ' 模块初始化错误 ERROR:' + reason))));
 export { spawnSimulatedPlayer, testWorldLocation, GetPID };
 let initCounter = 100;
-function init() {
+async function init() {
     if (--initCounter % 20 !== 0)
         return;
     if (initCounter < 0) {
@@ -66,6 +67,6 @@ function init() {
     doDayLightCycle = world.gameRules.doDayLightCycle;
     doMobSpawning = world.gameRules.doMobSpawning;
     const z = Math.floor(Math.random() * 114514);
-    overworld.runCommand('execute positioned 30000000 128 ' + z + ' run gametest run 我是云梦:假人');
+    overworld.runCommandAsync('execute positioned 30000000 128 ' + z + ' run gametest run 我是云梦:假人').catch(() => 0);
 }
 playerMove.subscribe(init);

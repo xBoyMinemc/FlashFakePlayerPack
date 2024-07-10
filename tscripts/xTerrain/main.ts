@@ -75,7 +75,8 @@ register('我是云梦', '假人', (test:Test) => {
     initialized.trigger(null)
 
     playerMove.unsubscribe(init)
-    console.warn('[模拟玩家] 初始化完成')
+    console.warn('[模拟玩家] 初始化完成，输入“假人创建”或“ffpp”')
+    world.sendMessage('[模拟玩家] 初始化完成，输入“假人创建”或“ffpp”')
 })
 .maxTicks(tickWaitTimes)
 .structureName('xboyMinemcSIM:void')
@@ -112,7 +113,7 @@ export { spawnSimulatedPlayer,testWorldLocation,GetPID }
 let initCounter = 100
 //  # 初始化 init
 // how about turn to world.afterEvents.playerSpawn
-function init() {
+async function init() {
     if(--initCounter%20 !== 0)return;
 
     if(initCounter<0){
@@ -127,9 +128,9 @@ function init() {
     doDayLightCycle = world.gameRules.doDayLightCycle
     doMobSpawning   = world.gameRules.doMobSpawning
 
-    const z = Math.floor(Math.random() * 114514 );
+    const z = Math.floor(Math.random() * 114514 )
 
-    overworld.runCommand('execute positioned 30000000 128 '+z+' run gametest run 我是云梦:假人')
+    overworld.runCommandAsync('execute positioned 30000000 128 '+z+' run gametest run 我是云梦:假人').catch(()=>0)
 
     // TODO 唤醒 从ceyk[init] 重新生成模拟玩家并配置背包与经验值
     // then initialized
