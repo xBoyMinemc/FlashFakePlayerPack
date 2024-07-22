@@ -8,7 +8,7 @@
     "@minecraft/server": "^1.12.0-beta.1.21.1-stable",
     "@minecraft/server-gametest": "^1.0.0-beta.1.21.1-stable",
     "@minecraft/server-ui": "^1.2.0-beta.1.21.0-stable",
-    "@minecraft/vanilla-data": "^1.20.80",
+    "@minecraft/vanilla-data": "^1.20.0",
     "archiver": "^6.0.1"
   }
 }

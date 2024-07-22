@@ -1,4 +1,5 @@
-﻿import { register } from '@minecraft/server-gametest';
+﻿import { system } from '@minecraft/server';
+import { register } from '@minecraft/server-gametest';
 import verify from '../lib/xboyPackage/scoreBase/verifyDataBase';
 import EventSignal from '../lib/xboyEvents/EventSignal';
 import { SIGN } from '../lib/xboyPackage/YumeSignEnum';
@@ -67,6 +68,8 @@ async function init() {
     doDayLightCycle = world.gameRules.doDayLightCycle;
     doMobSpawning = world.gameRules.doMobSpawning;
     const z = Math.floor(Math.random() * 114514);
-    overworld.runCommandAsync('execute positioned 30000000 128 ' + z + ' run gametest run 我是云梦:假人').catch(() => 0);
+    system.run(() => {
+        overworld.runCommandAsync('execute positioned 30000000 128 ' + z + ' run gametest run 我是云梦:假人').catch(() => 0);
+    });
 }
 playerMove.subscribe(init);

@@ -5,7 +5,7 @@ import type {
     spawnedEvent,
     spawnedEventSignal,
 } from '../@types/globalThis'
-import { Dimension, Vector3 } from '@minecraft/server'
+import {Dimension, system, Vector3} from '@minecraft/server'
 
 import { register } from '@minecraft/server-gametest'
 
@@ -129,8 +129,9 @@ async function init() {
     doMobSpawning   = world.gameRules.doMobSpawning
 
     const z = Math.floor(Math.random() * 114514 )
-
-    overworld.runCommandAsync('execute positioned 30000000 128 '+z+' run gametest run 我是云梦:假人').catch(()=>0)
+    system.run(()=>{
+        overworld.runCommandAsync('execute positioned 30000000 128 '+z+' run gametest run 我是云梦:假人').catch(()=>0)
+    })
 
     // TODO 唤醒 从ceyk[init] 重新生成模拟玩家并配置背包与经验值
     // then initialized
