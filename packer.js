@@ -2,9 +2,9 @@ const fs = require('fs');
 const archiver = require('archiver');
 
 
-const pkNew = '重写加载逻辑，修复地狱级卡死问题'
-const mcVersion = [1,21,0];
-const pkVersion = 4
+const pkNew = '开摆，等着天上来的天才重构整个项目吧'
+const mcVersion = [1,21,20];
+const pkVersion = 1
 
 
 
