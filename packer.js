@@ -64,7 +64,7 @@ const name = './build/'+manifest_json.header.name
     .trim()+'.mcpack';
 
 // make dir ./build
-fs.existsSync('./build') && fs.mkdirSync('build');
+!fs.existsSync('./build') && fs.mkdirSync('build');
 
 
 // 创建一个输出流，将ZIP文件写入到指定的文件中
