@@ -59,8 +59,8 @@ async function init() {
     if (--initCounter % 20 !== 0)
         return;
     if (initCounter < 0) {
-        world.sendMessage('[模拟玩家] 初始化失败' + initCounter + '次，尝试在控制台输入/reload');
-        console.error('[模拟玩家] 初始化失败' + initCounter + '次，尝试在控制台输入/reload');
+        world.sendMessage('[模拟玩家] 初始化失败' + initCounter / 20 + '次，尝试在控制台输入/reload');
+        console.error('[模拟玩家] 初始化失败' + initCounter / 20 + '次，尝试在控制台输入/reload');
     }
     verify();
     verify();

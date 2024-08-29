@@ -8,10 +8,4 @@ Minecraft: Bedrock Edition 是一款备受欢迎的开放世界游戏，然而�
 
 关键词：Minecraft: Bedrock Edition，FakePlayer，面向对象，行为模拟，图形用户界面，增删改查
 
-
-#  TODO 
-先判测试结构存在
-然后生成
-之后传送到指定位置
-生成点也设置到指定位置
-
+ 
