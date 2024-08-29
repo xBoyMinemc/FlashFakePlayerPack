@@ -40,7 +40,7 @@ const manifest_json = {
     "dependencies": [
         {
             "module_name": "@minecraft/server",
-            "version": "1.12.0-beta"
+            "version": "1.14.0-beta"
         },
         {
             "module_name": "@minecraft/server-gametest",
@@ -48,7 +48,7 @@ const manifest_json = {
         },
         {
             "module_name": "@minecraft/server-ui",
-            "version": "1.2.0-beta"
+            "version": "1.3.0-beta"
         }
     ]
 }
