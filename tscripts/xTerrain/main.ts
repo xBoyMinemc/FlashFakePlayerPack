@@ -20,9 +20,6 @@ import { world } from '@minecraft/server'
 
 import { playerMove } from "../lib/xboyEvents/move";
 
-if(!world.structureManager.get('xboyMinemcSIM:void'))
-    world.structureManager.createEmpty('xboyMinemcSIM:void', { x:1, y:1, z:1 }).saveToWorld()
-
 const overworld = world.getDimension('overworld')
 const tickWaitTimes = 20*60*60*24*365
 
@@ -115,6 +112,7 @@ async function init() {
     // 记分板PID初始化 写的烂 执行两次
     verify()
     verify()
+    world.structureManager.get('xboyMinemcSIM:void') ?? world.structureManager.createEmpty('xboyMinemcSIM:void', { x:1, y:1, z:1 }).saveToWorld();
 
     randomTickSpeed = world.gameRules.randomTickSpeed
     doDayLightCycle = world.gameRules.doDayLightCycle
