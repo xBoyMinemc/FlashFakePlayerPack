@@ -36,7 +36,7 @@ const breaks = (awa = 'awa') => world.getPlayers({ tags: [SIGN.AUTO_BREAKBLOCK_S
     const whatCanISee = Vector_addition(headLocation, Vector_multiplication_dot(viewDirection, time % 3 + 1));
     const dimension = man.dimension;
     const block = dimension.getBlock(testWorldLocation["worldBlockLocation"](Vector_subtract(whatCanISee, testWorldLocation)));
-    dimension.spawnParticle('minecraft:endrod', Vector_addition(block.location, { x: 0.5, y: 0.5, z: 0.5 }));
+    time < 600 && dimension.spawnParticle('minecraft:endrod', Vector_addition(block.location, { x: 0.5, y: 0.5, z: 0.5 }));
     if (block.isValid() && !block.isLiquid && !block.isAir) {
         man.breakBlock(Vector_subtract(whatCanISee, testWorldLocation));
     }
@@ -45,4 +45,4 @@ const breaks = (awa = 'awa') => world.getPlayers({ tags: [SIGN.AUTO_BREAKBLOCK_S
     }
 });
 const times = new Map();
-system.runInterval(breaks, 20);
+system.runInterval(breaks, 0);

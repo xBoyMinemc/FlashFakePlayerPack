@@ -18,18 +18,7 @@ import { world } from '@minecraft/server'
 
 // import './plugins/noFlashDoor' // pig
 
-// import './plugins/chatSpawn'
-// import './plugins/command'
-// import './plugins/breakBlock'
-// import './plugins/youAreMine'
-// import './plugins/help'
-// import './plugins/task'
-// import './plugins/gui'
-// import './plugins/autoFishing'
-// import './plugins/killedBySimPlayer'
-// import './plugins/setting'
 import { playerMove } from "../lib/xboyEvents/move";
-
 
 const overworld = world.getDimension('overworld')
 const tickWaitTimes = 20*60*60*24*365
@@ -79,7 +68,7 @@ register('我是云梦', '假人', (test:Test) => {
     world.sendMessage('[模拟玩家] 初始化完成，输入“假人创建”或“ffpp”')
 })
 .maxTicks(tickWaitTimes)
-.structureName('xboyMinemcSIM:void')
+.structureName('xboyMinemcSIM:void');
 // .maxTicks(2)
 // .maxAttempts(tickWaitTimes)
 // .requiredSuccessfulAttempts(tickWaitTimes)
@@ -117,12 +106,13 @@ async function init() {
     if(--initCounter%20 !== 0)return;
 
     if(initCounter<0){
-        world.sendMessage('[模拟玩家] 初始化失败'+initCounter+'次，尝试在控制台输入/reload')
-        console.error('[模拟玩家] 初始化失败'+initCounter+'次，尝试在控制台输入/reload')
+        world.sendMessage('[模拟玩家] 初始化失败'+ initCounter/20 +'次，尝试在控制台输入/reload')
+        console.error('[模拟玩家] 初始化失败'+ initCounter/20 +'次，尝试在控制台输入/reload')
     }
     // 记分板PID初始化 写的烂 执行两次
     verify()
     verify()
+    world.structureManager.get('xboyMinemcSIM:void') ?? world.structureManager.createEmpty('xboyMinemcSIM:void', { x:1, y:1, z:1 }).saveToWorld();
 
     randomTickSpeed = world.gameRules.randomTickSpeed
     doDayLightCycle = world.gameRules.doDayLightCycle

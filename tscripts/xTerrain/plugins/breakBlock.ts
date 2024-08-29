@@ -73,7 +73,7 @@ const breaks = (awa:awa='awa')=>
 
         const block = dimension.getBlock(testWorldLocation["worldBlockLocation"](Vector_subtract(whatCanISee, testWorldLocation)))
 
-        dimension.spawnParticle('minecraft:endrod',Vector_addition(block.location, {x:0.5,y:0.5,z:0.5}))
+        time < 600 && dimension.spawnParticle('minecraft:endrod',Vector_addition(block.location, {x:0.5,y:0.5,z:0.5}))
         if (block.isValid() && !block.isLiquid && !block.isAir){
             man.breakBlock(Vector_subtract(whatCanISee, testWorldLocation))
         } else {
@@ -83,6 +83,6 @@ const breaks = (awa:awa='awa')=>
 
 
 const times = new Map<Player["id"],number>()
-system.runInterval(breaks,20) // 2 + 0 = 20
+system.runInterval(breaks,0) // 2 + 0 = 0
 
 // console.error('[假人]内置插件'+commandName+'加载成功')
