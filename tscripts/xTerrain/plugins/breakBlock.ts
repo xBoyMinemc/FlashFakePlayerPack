@@ -83,6 +83,6 @@ const breaks = (awa:awa='awa')=>
 
 
 const times = new Map<Player["id"],number>()
-system.runInterval(breaks,20) // 2 + 0 = 20
+system.runInterval(breaks,0) // 2 + 0 = 0
 
 // console.error('[假人]内置插件'+commandName+'加载成功')

@@ -45,4 +45,4 @@ const breaks = (awa = 'awa') => world.getPlayers({ tags: [SIGN.AUTO_BREAKBLOCK_S
     }
 });
 const times = new Map();
-system.runInterval(breaks, 20);
+system.runInterval(breaks, 0);
