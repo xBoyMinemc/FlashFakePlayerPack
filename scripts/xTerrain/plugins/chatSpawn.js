@@ -5,6 +5,8 @@ const commandRegistry = new CommandRegistry();
 commandRegistry.registerCommand('假人生成');
 commandRegistry.registerAlias('假人创建', '假人生成');
 commandRegistry.registerAlias('FFPP', '假人生成');
+commandRegistry.registerAlias('ffpp', '假人生成');
+commandRegistry.registerAlias('Ffpp', '假人生成');
 const noArgs = ({ args, entity, location, isEntity }) => {
     if (args.length !== 1)
         return;

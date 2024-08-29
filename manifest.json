@@ -1,18 +1,18 @@
 {
 	"format_version": 2,
 	"header": {
-		"name": "§t1.21.0 v2 §e§lFlash§fFakePlayerPack",
-		"description": "【自动挖掘提示】1.21.0 \n开启实验性游戏内容（测试版 API）-游戏内输入“假人帮助”或“假人创建” 对着假人右键（蹲或不蹲是两个不同的菜单） 无关QQ群：122957051:",
+		"name": "§t1.21.20 v1 §e§lFlash§fFakePlayerPack",
+		"description": "【开摆，等着天上来的天才重构整个项目吧】1.21.20 \n开启实验性游戏内容（测试版 API）-游戏内输入“假人帮助”或“假人创建” 对着假人右键（蹲或不蹲是两个不同的菜单） 无关QQ群：122957051:",
 		"uuid": "aa101e99-abb4-448d-b58f-71e9da43064e",
 		"version": [
 			1,
 			21,
-			2
+			201
 		],
 		"min_engine_version": [
 			1,
 			21,
-			0
+			20
 		]
 	},
 	"modules": [
@@ -20,7 +20,7 @@
 			"version": [
 				1,
 				21,
-				2
+				201
 			],
 			"type": "script",
 			"uuid": "10101e99-abc1-5488-ba76-71e9da441300",
@@ -31,7 +31,7 @@
 	"dependencies": [
 		{
 			"module_name": "@minecraft/server",
-			"version": "1.12.0-beta"
+			"version": "1.14.0-beta"
 		},
 		{
 			"module_name": "@minecraft/server-gametest",
@@ -39,7 +39,7 @@
 		},
 		{
 			"module_name": "@minecraft/server-ui",
-			"version": "1.2.0-beta"
+			"version": "1.3.0-beta"
 		}
 	]
 }

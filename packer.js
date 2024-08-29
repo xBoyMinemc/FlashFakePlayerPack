@@ -2,9 +2,9 @@ const fs = require('fs');
 const archiver = require('archiver');
 
 
-const pkNew = '自动挖掘提示'
-const mcVersion = [1,21,0];
-const pkVersion = 2
+const pkNew = '开摆，等着天上来的天才重构整个项目吧'
+const mcVersion = [1,21,20];
+const pkVersion = 1
 
 
 
@@ -40,7 +40,7 @@ const manifest_json = {
     "dependencies": [
         {
             "module_name": "@minecraft/server",
-            "version": "1.12.0-beta"
+            "version": "1.14.0-beta"
         },
         {
             "module_name": "@minecraft/server-gametest",
@@ -48,7 +48,7 @@ const manifest_json = {
         },
         {
             "module_name": "@minecraft/server-ui",
-            "version": "1.2.0-beta"
+            "version": "1.3.0-beta"
         }
     ]
 }
@@ -64,7 +64,7 @@ const name = './build/'+manifest_json.header.name
     .trim()+'.mcpack';
 
 // make dir ./build
-fs.existsSync('./build')?0:fs.mkdirSync('build');
+!fs.existsSync('./build') && fs.mkdirSync('build');
 
 
 // 创建一个输出流，将ZIP文件写入到指定的文件中
@@ -85,7 +85,7 @@ archive.append(fs.createReadStream('pack_icon.png'), { name: 'pack_icon.png' });
 ['structures','entities','scripts'].forEach(_=>archive.directory(_, true)); // 第二个参数设置为false表示不包含目录本身
 
 // 当所有文件都添加完毕后，调用finalize方法来完成ZIP文件的创建
-archive.finalize().then(r => 0);
+archive.finalize().then(() => 0);
 
 // 监听archive的'drain'事件，以确保数据被写入输出流
 output1.on('close', () => {
