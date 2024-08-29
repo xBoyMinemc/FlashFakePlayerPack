@@ -18,16 +18,6 @@ import { world } from '@minecraft/server'
 
 // import './plugins/noFlashDoor' // pig
 
-// import './plugins/chatSpawn'
-// import './plugins/command'
-// import './plugins/breakBlock'
-// import './plugins/youAreMine'
-// import './plugins/help'
-// import './plugins/task'
-// import './plugins/gui'
-// import './plugins/autoFishing'
-// import './plugins/killedBySimPlayer'
-// import './plugins/setting'
 import { playerMove } from "../lib/xboyEvents/move";
 
 if(!world.structureManager.get('xboyMinemcSIM:void'))
