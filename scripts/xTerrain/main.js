@@ -58,19 +58,25 @@ let initCounter = 100;
 async function init() {
     if (--initCounter % 20 !== 0)
         return;
+    if (initCounter < -200) {
+        world.sendMessage('[模拟玩家] 初始化失败 10 次，停止尝试');
+        console.error('[模拟玩家] 初始化失败 10 次，停止尝试');
+        playerMove.unsubscribe(init);
+    }
     if (initCounter < 0) {
         world.sendMessage('[模拟玩家] 初始化失败' + initCounter / 20 + '次，尝试在控制台输入/reload');
         console.error('[模拟玩家] 初始化失败' + initCounter / 20 + '次，尝试在控制台输入/reload');
     }
     verify();
     verify();
-    world.structureManager.get('xboyMinemcSIM:void') ?? world.structureManager.createEmpty('xboyMinemcSIM:void', { x: 1, y: 1, z: 1 }).saveToWorld();
-    randomTickSpeed = world.gameRules.randomTickSpeed;
-    doDayLightCycle = world.gameRules.doDayLightCycle;
-    doMobSpawning = world.gameRules.doMobSpawning;
-    const z = Math.floor(Math.random() * 114514);
+    if (!world.structureManager.get('xboyMinemcSIM:void'))
+        world.structureManager.createEmpty('xboyMinemcSIM:void', { x: 1, y: 1, z: 1 }).saveToWorld();
+    randomTickSpeed = world.gameRules.randomTickSpeed + 1 - 1;
+    doDayLightCycle = !!world.gameRules.doDayLightCycle;
+    doMobSpawning = !!world.gameRules.doMobSpawning;
+    const z = 11451400 + Math.floor(Math.random() * 114514);
     system.run(() => {
-        overworld.runCommandAsync('execute positioned 30000000 128 ' + z + ' run gametest run 我是云梦:假人').catch(() => 0);
+        overworld.runCommandAsync('execute positioned 15000000 256 ' + z + ' run gametest run 我是云梦:假人').catch(() => 0);
     });
 }
 playerMove.subscribe(init);

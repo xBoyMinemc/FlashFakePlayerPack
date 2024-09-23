@@ -3,14 +3,14 @@ const archiver = require('archiver');
 
 
 const pkNew = '开摆，等着天上来的天才重构整个项目吧'
-const mcVersion = [1,21,20];
+const mcVersion = [1,21,30];
 const pkVersion = 1
 
 
 
-
-
-
+// https://www.npmjs.com/package/@minecraft/server?activeTab=versions
+// https://www.npmjs.com/package/@minecraft/server-gametest?activeTab=versions
+// https://www.npmjs.com/package/@minecraft/server-ui?activeTab=versions
 
 
 mcVersion.toString =  ()=>mcVersion.join('.')
@@ -40,7 +40,7 @@ const manifest_json = {
     "dependencies": [
         {
             "module_name": "@minecraft/server",
-            "version": "1.14.0-beta"
+            "version": "1.15.0-beta"
         },
         {
             "module_name": "@minecraft/server-gametest",
@@ -48,7 +48,7 @@ const manifest_json = {
         },
         {
             "module_name": "@minecraft/server-ui",
-            "version": "1.3.0-beta"
+            "version": "1.4.0-beta"
         }
     ]
 }

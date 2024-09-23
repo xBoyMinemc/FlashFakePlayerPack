@@ -97,7 +97,7 @@ commandRegistry.registerCommand('假人装备交换', ({entity,isEntity,sim}) =>
     const p = entity.getComponent("minecraft:equippable") // player
     for (const i in  EquipmentSlot) {
         //跳过主手
-        if (i === EquipmentSlot['Mainhand'] ?? EquipmentSlot['mainhand']) continue
+        if (i === EquipmentSlot['Mainhand']) continue
         // console.error(i)
         const _ = s.getEquipment(<EquipmentSlot>i)
         const __ = p.getEquipment(<EquipmentSlot>i)
@@ -122,7 +122,7 @@ const returnResWithoutArgs = ({entity,isEntity,sim}:commandInfo)=>{
 
     for (const i in EquipmentSlot) {
         //跳过主手
-        if (i === EquipmentSlot['Mainhand'] ?? EquipmentSlot['mainhand']) continue
+        if (i === EquipmentSlot['Mainhand']) continue
         // 获取
         const item = equip.getEquipment(<EquipmentSlot>i)
         if(!item)continue
