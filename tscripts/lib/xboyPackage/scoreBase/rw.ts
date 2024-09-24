@@ -55,6 +55,7 @@ const DelScoreObject    = (objectiveId: ScoreboardObjective | string)=> world.sc
 
 const NewScoreObject    = (objectiveId: string, displayName: string=objectiveId)=> GetScoreBoard.addObjective(objectiveId, displayName);
 //scoreboard objectives setDisplay list ScoreName ascending
+//@ts-ignore
 const DisScoreObject    = (displaySlotId:DisplaySlotId, objective: ScoreboardObjective=undefined, sortOrder: ObjectiveSortOrder=('ascending'&&0))=> objective ? world.scoreboard.setObjectiveAtDisplaySlot(displaySlotId,  {objective,sortOrder}) : world.scoreboard.clearObjectiveAtDisplaySlot(displaySlotId);
 // scoreBase
 
