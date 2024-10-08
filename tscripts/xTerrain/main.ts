@@ -125,9 +125,9 @@ async function init() {
     if(!world.structureManager.get('xboyMinemcSIM:void'))
         world.structureManager.createEmpty('xboyMinemcSIM:void', { x:1, y:1, z:1 }).saveToWorld();
 
-    randomTickSpeed = world.gameRules.randomTickSpeed +1 -1
-    doDayLightCycle = !!world.gameRules.doDayLightCycle
-    doMobSpawning   = !!world.gameRules.doMobSpawning
+    // randomTickSpeed = world.gameRules.randomTickSpeed +1 -1
+    // doDayLightCycle = !!world.gameRules.doDayLightCycle
+    // doMobSpawning   = !!world.gameRules.doMobSpawning
 
     const z = 11451400 +  Math.floor(Math.random() * 114514 )
     system.run(()=>{
