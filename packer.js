@@ -2,9 +2,9 @@ const fs = require('fs');
 const archiver = require('archiver');
 
 
-const pkNew = '开摆，等着天上来的天才重构整个项目吧'
+const pkNew = '暴力修复生物生存-随机刻-时间'
 const mcVersion = [1,21,30];
-const pkVersion = 1
+const pkVersion = 2
 
 
 
