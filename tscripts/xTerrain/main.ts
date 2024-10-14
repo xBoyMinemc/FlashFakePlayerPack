@@ -7,7 +7,7 @@ import type {
 } from '../@types/globalThis'
 import {Dimension, system, Vector3} from '@minecraft/server'
 
-import { register,Test as ttt } from '@minecraft/server-gametest'
+import { register } from '@minecraft/server-gametest'
 
 import verify from '../lib/xboyPackage/scoreBase/verifyDataBase'
 import EventSignal from '../lib/xboyEvents/EventSignal'
