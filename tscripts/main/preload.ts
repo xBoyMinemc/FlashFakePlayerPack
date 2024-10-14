@@ -13,7 +13,6 @@ import "../lib/xboyEvents/preload.js"
 
 import "./main.js"
 
-console.log("我尽力了")
 
 
 // ################preload################
