@@ -1,11 +1,8 @@
 import { CommandRegistry } from '../../lib/yumeCommand/CommandRegistry'
 import { world , Player} from "@minecraft/server";
 
-
-
 const commandRegistry: CommandRegistry = new CommandRegistry()
 
-//
 const helpNoArgs = ({args,entity,isEntity})=>{
     if(args.length!==1 || !isEntity)return;
 
