@@ -7,3 +7,4 @@ workspace.xml
 .vscode
 .github
 /build/
+/dist/
