@@ -92,7 +92,7 @@ const qrcodeTextRoll = `⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛�
 ⬛⬜⬛⬛⬛⬛⬛⬜⬛⬜⬜⬛⬜⬛⬛⬜⬛⬜⬛⬛⬛⬜⬜⬜⬜⬛⬛⬛⬜⬛⬜⬜⬛⬛⬛
 ⬛⬜⬜⬜⬜⬜⬜⬜⬛⬜⬜⬛⬜⬛⬛⬛⬛⬛⬜⬜⬛⬜⬛⬛⬛⬜⬜⬛⬛⬛⬜⬛⬜⬛⬛
 ⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛`;
-const githubMsg = ({ entity }) => entity.sendMessage('§rhttps://github.com/xBoyMinemc 能不能扫上随缘\u000a' + (Math.random() > 0.5 ? qrcodeTextGithub : qrcodeTextRoll));
+const githubMsg = ({ entity }) => entity.sendMessage('§rhttps://github.com/xBoyMinemc 能不能扫上随缘\u000a' + (Math.random() > 0.5 ? qrcodeTextGithub : qrcodeTextRoll).replaceAll('\u2B1C', '  '));
 commandRegistry.registerCommand('假人帮助');
 commandRegistry.registerAlias('假人help', '假人帮助');
 commandRegistry.registerCommand('假人帮助', helpNoArgs);
