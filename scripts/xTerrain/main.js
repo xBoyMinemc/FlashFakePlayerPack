@@ -13,9 +13,12 @@ let doDayLightCycle = true;
 let doMobSpawning = true;
 let spawnSimulatedPlayer;
 let testWorldLocation;
+if (!world.structureManager.get('xboyMinemcSIM:void'))
+    world.structureManager.createEmpty('xboyMinemcSIM:void', { x: 1, y: 1, z: 1 }).saveToWorld();
 const GetPID = () => world.scoreboard.getObjective('##FlashPlayer##').addScore('##currentPID', 1);
 export const initialized = new EventSignal();
 export const spawned = new EventSignal();
+world.sendMessage("脚本加载完毕");
 register('我是云梦', '假人', (test) => {
     testWorldLocation = test.worldBlockLocation({ x: 0, y: 0, z: 0 });
     testWorldLocation["worldBlockLocation"] = (v3) => test.worldBlockLocation(v3);
@@ -69,11 +72,11 @@ async function init() {
     }
     verify();
     verify();
-    if (!world.structureManager.get('xboyMinemcSIM:void'))
-        world.structureManager.createEmpty('xboyMinemcSIM:void', { x: 1, y: 1, z: 1 }).saveToWorld();
     const z = 11451400 + Math.floor(Math.random() * 114514);
     system.run(() => {
-        overworld.runCommandAsync('execute positioned 15000000 256 ' + z + ' run gametest run 我是云梦:假人').catch(() => 0);
+        overworld.runCommandAsync('execute positioned 15000000 256 ' + z + ' run gametest run 我是云梦:假人')
+            .catch((e) => world.sendMessage('[模拟玩家] 报错了，我也不知道为什么' + e))
+            .finally(() => world.sendMessage('[模拟玩家] 完成一次命令执行尝试'));
     });
 }
 playerMove.subscribe(init);
