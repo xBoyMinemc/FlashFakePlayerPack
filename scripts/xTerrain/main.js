@@ -5,6 +5,16 @@ import EventSignal from '../lib/xboyEvents/EventSignal';
 import { SIGN } from '../lib/xboyPackage/YumeSignEnum';
 import { world } from '@minecraft/server';
 import { playerMove } from "../lib/xboyEvents/move";
+import './plugins/help';
+import './plugins/chatSpawn';
+import './plugins/command';
+import './plugins/breakBlock';
+import './plugins/youAreMine';
+import './plugins/task';
+import './plugins/gui';
+import './plugins/autoFishing';
+import './plugins/killedBySimPlayer';
+import './plugins/setting';
 const overworld = world.getDimension('overworld');
 const tickWaitTimes = 20 * 60 * 60 * 24 * 365;
 export const SimulatedPlayerEnum = {};
@@ -46,19 +56,7 @@ register('我是云梦', '假人', (test) => {
 })
     .maxTicks(tickWaitTimes)
     .structureName('xboyMinemcSIM:void');
-import('./plugins/help');
 initialized.subscribe(() => console.error('[模拟玩家]初始化完毕，加载内置插件'));
-initialized.subscribe(() => {
-    import('./plugins/chatSpawn');
-    import('./plugins/command');
-    import('./plugins/breakBlock');
-    import('./plugins/youAreMine');
-    import('./plugins/task');
-    import('./plugins/gui');
-    import('./plugins/autoFishing');
-    import('./plugins/killedBySimPlayer');
-    import('./plugins/setting');
-});
 export { spawnSimulatedPlayer, testWorldLocation, GetPID };
 let initCounter = 100;
 let initLock = false;

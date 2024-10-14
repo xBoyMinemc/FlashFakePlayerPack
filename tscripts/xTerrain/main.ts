@@ -19,6 +19,19 @@ import { world } from '@minecraft/server'
 
 import { playerMove } from "../lib/xboyEvents/move"
 
+
+import './plugins/help'
+
+import './plugins/chatSpawn'
+import './plugins/command'
+import './plugins/breakBlock'
+import './plugins/youAreMine'
+import './plugins/task'
+import './plugins/gui'
+import './plugins/autoFishing'
+import './plugins/killedBySimPlayer'
+import './plugins/setting'
+
 const overworld = world.getDimension('overworld')
 const tickWaitTimes = 20*60*60*24*365
 
@@ -87,37 +100,26 @@ register('我是云梦', '假人', (test:Test) => {
 // .requiredSuccessfulAttempts(tickWaitTimes)
 // .padding(0)
 
-import('./plugins/help')
-
 
     initialized.subscribe(()=> console.error('[模拟玩家]初始化完毕，加载内置插件') )
-    initialized.subscribe(()=>
-    {
-        import('./plugins/chatSpawn')
-        import('./plugins/command')
-        import('./plugins/breakBlock')
-        import('./plugins/youAreMine')
-        import('./plugins/task')
-        import('./plugins/gui')
-        import('./plugins/autoFishing')
-        import('./plugins/killedBySimPlayer')
-        import('./plugins/setting')
-    }
-        // 'test',
-        // 'chatSpawn',
-        // 'command',
-        // 'breakBlock',
-        // 'youAreMine',
-        // 'help',
-        // 'task',
-        // 'gui',
-        // 'autoFishing',
-        // 'killedBySimPlayer',
-        // 'setting',
-        // 'Deja Vu Yan Returns',
-        // '鱼肉 ‭‭‭⁧⁧⁧~咕噜咕噜',
-
-    )
+    // initialized.subscribe(()=>
+    // {
+    // }
+    //     // 'test',
+    //     // 'chatSpawn',
+    //     // 'command',
+    //     // 'breakBlock',
+    //     // 'youAreMine',
+    //     // 'help',
+    //     // 'task',
+    //     // 'gui',
+    //     // 'autoFishing',
+    //     // 'killedBySimPlayer',
+    //     // 'setting',
+    //     // 'Deja Vu Yan Returns',
+    //     // '鱼肉 ‭‭‭⁧⁧⁧~咕噜咕噜',
+    //
+    // )
 
 export { spawnSimulatedPlayer,testWorldLocation,GetPID }
 
