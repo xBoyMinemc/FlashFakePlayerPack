@@ -87,27 +87,36 @@ register('我是云梦', '假人', (test:Test) => {
 // .requiredSuccessfulAttempts(tickWaitTimes)
 // .padding(0)
 
+import('./plugins/help')
+
+
     initialized.subscribe(()=> console.error('[模拟玩家]初始化完毕，加载内置插件') )
     initialized.subscribe(()=>
-        [
+    {
+        import('./plugins/chatSpawn')
+        import('./plugins/command')
+        import('./plugins/breakBlock')
+        import('./plugins/youAreMine')
+        import('./plugins/task')
+        import('./plugins/gui')
+        import('./plugins/autoFishing')
+        import('./plugins/killedBySimPlayer')
+        import('./plugins/setting')
+    }
         // 'test',
-        'chatSpawn',
-        'command',
-        'breakBlock',
-        'youAreMine',
-        'help',
-        'task',
-        'gui',
-        'autoFishing',
-        'killedBySimPlayer',
-        'setting',
+        // 'chatSpawn',
+        // 'command',
+        // 'breakBlock',
+        // 'youAreMine',
+        // 'help',
+        // 'task',
+        // 'gui',
+        // 'autoFishing',
+        // 'killedBySimPlayer',
+        // 'setting',
         // 'Deja Vu Yan Returns',
         // '鱼肉 ‭‭‭⁧⁧⁧~咕噜咕噜',
-    ].forEach(
-        name=> import('./plugins/'+name)
-            // .then(()=>console.error('[模拟玩家] '+name+'模块初始化结束'))
-            .catch((reason) => console.error('[模拟玩家] '+name+' 模块初始化错误 ERROR:' + reason))
-    )
+
     )
 
 export { spawnSimulatedPlayer,testWorldLocation,GetPID }

@@ -46,20 +46,19 @@ register('我是云梦', '假人', (test) => {
 })
     .maxTicks(tickWaitTimes)
     .structureName('xboyMinemcSIM:void');
+import('./plugins/help');
 initialized.subscribe(() => console.error('[模拟玩家]初始化完毕，加载内置插件'));
-initialized.subscribe(() => [
-    'chatSpawn',
-    'command',
-    'breakBlock',
-    'youAreMine',
-    'help',
-    'task',
-    'gui',
-    'autoFishing',
-    'killedBySimPlayer',
-    'setting',
-].forEach(name => import('./plugins/' + name)
-    .catch((reason) => console.error('[模拟玩家] ' + name + ' 模块初始化错误 ERROR:' + reason))));
+initialized.subscribe(() => {
+    import('./plugins/chatSpawn');
+    import('./plugins/command');
+    import('./plugins/breakBlock');
+    import('./plugins/youAreMine');
+    import('./plugins/task');
+    import('./plugins/gui');
+    import('./plugins/autoFishing');
+    import('./plugins/killedBySimPlayer');
+    import('./plugins/setting');
+});
 export { spawnSimulatedPlayer, testWorldLocation, GetPID };
 let initCounter = 100;
 let initLock = false;
