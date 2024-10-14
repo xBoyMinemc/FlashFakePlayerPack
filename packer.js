@@ -2,9 +2,9 @@ const fs = require('fs');
 const archiver = require('archiver');
 
 
-const pkNew = '暴力修复生物生成-随机刻-时间'
+const pkNew = '柔和修复生物生成-随机刻-时间'
 const mcVersion = [1,21,30];
-const pkVersion = 2
+const pkVersion = 3
 
 
 
