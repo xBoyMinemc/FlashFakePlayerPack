@@ -1,5 +1,6 @@
 ﻿import { system } from '@minecraft/server';
 import { register } from '@minecraft/server-gametest';
+globalThis.a = 114;
 import verify from '../lib/xboyPackage/scoreBase/verifyDataBase';
 import EventSignal from '../lib/xboyEvents/EventSignal';
 import { SIGN } from '../lib/xboyPackage/YumeSignEnum';
@@ -11,6 +12,12 @@ export const SimulatedPlayerEnum = {};
 let randomTickSpeed = 1;
 let doDayLightCycle = true;
 let doMobSpawning = true;
+{
+    randomTickSpeed = world.gameRules.randomTickSpeed;
+    doDayLightCycle = world.gameRules.doDayLightCycle;
+    doMobSpawning = world.gameRules.doMobSpawning;
+    world.sendMessage('[模拟玩家] 随机刻->' + randomTickSpeed + '时间->' + doDayLightCycle + '生物生成->' + doMobSpawning);
+}
 let spawnSimulatedPlayer;
 let testWorldLocation;
 if (!world.structureManager.get('xboyMinemcSIM:void'))
@@ -18,7 +25,6 @@ if (!world.structureManager.get('xboyMinemcSIM:void'))
 const GetPID = () => world.scoreboard.getObjective('##FlashPlayer##').addScore('##currentPID', 1);
 export const initialized = new EventSignal();
 export const spawned = new EventSignal();
-world.sendMessage("脚本加载完毕");
 register('我是云梦', '假人', (test) => {
     testWorldLocation = test.worldBlockLocation({ x: 0, y: 0, z: 0 });
     testWorldLocation["worldBlockLocation"] = (v3) => test.worldBlockLocation(v3);
@@ -54,13 +60,14 @@ initialized.subscribe(() => [
     'killedBySimPlayer',
     'setting',
 ].forEach(name => import('./plugins/' + name)
-    .then(() => console.error('[模拟玩家] ' + name + '模块初始化结束'))
     .catch((reason) => console.error('[模拟玩家] ' + name + ' 模块初始化错误 ERROR:' + reason))));
 export { spawnSimulatedPlayer, testWorldLocation, GetPID };
 let initCounter = 100;
+let initLock = false;
 async function init() {
-    if (--initCounter % 20 !== 0)
+    if (initLock || --initCounter % 20 !== 0)
         return;
+    initLock = true;
     if (initCounter < -200) {
         world.sendMessage('[模拟玩家] 初始化失败 10 次，停止尝试');
         console.error('[模拟玩家] 初始化失败 10 次，停止尝试');
@@ -76,7 +83,9 @@ async function init() {
     system.run(() => {
         overworld.runCommandAsync('execute positioned 15000000 256 ' + z + ' run gametest run 我是云梦:假人')
             .catch((e) => world.sendMessage('[模拟玩家] 报错了，我也不知道为什么' + e))
-            .finally(() => world.sendMessage('[模拟玩家] 完成一次命令执行尝试'));
+            .finally(() => {
+            initLock = false;
+        });
     });
 }
 playerMove.subscribe(init);

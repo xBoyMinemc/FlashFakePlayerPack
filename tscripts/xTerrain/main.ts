@@ -8,7 +8,7 @@ import type {
 import {Dimension, system, Vector3} from '@minecraft/server'
 
 import { register } from '@minecraft/server-gametest'
-
+globalThis.a = 114
 
 import verify from '../lib/xboyPackage/scoreBase/verifyDataBase'
 import EventSignal from '../lib/xboyEvents/EventSignal'
@@ -30,6 +30,16 @@ let randomTickSpeed = 1
 let doDayLightCycle = true
 let doMobSpawning = true
 
+{
+
+    randomTickSpeed = world.gameRules.randomTickSpeed
+    doDayLightCycle = world.gameRules.doDayLightCycle
+    doMobSpawning   = world.gameRules.doMobSpawning
+
+    world.sendMessage('[模拟玩家] 随机刻->'+randomTickSpeed+'时间->'+doDayLightCycle+'生物生成->'+doMobSpawning)
+}
+//  ?
+
 let spawnSimulatedPlayer : (location:Vector3, dimension:Dimension, pid: number  )=>SimulatedPlayer
 let testWorldLocation : Vector3
 
@@ -42,7 +52,7 @@ const GetPID = ()=> world.scoreboard.getObjective('##FlashPlayer##').addScore('#
 
 export const initialized : initializedEventSignal = new EventSignal<initializedEvent>()
 export const spawned : spawnedEventSignal = new EventSignal<spawnedEvent>()
-world.sendMessage("脚本加载完毕")
+
 register('我是云梦', '假人', (test:Test) => {
     testWorldLocation = test.worldBlockLocation({ x:0, y:0, z:0 })
     testWorldLocation["worldBlockLocation"] = (v3:Vector3)=> test.worldBlockLocation(v3)
@@ -53,7 +63,7 @@ register('我是云梦', '假人', (test:Test) => {
     world.gameRules.doMobSpawning = doMobSpawning
 
     spawnSimulatedPlayer = (location:Vector3, dimension:Dimension, pid: number ):SimulatedPlayer=>{
-        // overworld.sendMessage('pid=>'+pid)
+
         const SimulatedPlayer = test.spawnSimulatedPlayer({ x:0, y:8, z:0 }, `工具人-${pid}`)
         SimulatedPlayer.addTag('init')
         SimulatedPlayer.addTag(SIGN.YUME_SIM_SIGN)
@@ -96,7 +106,7 @@ register('我是云梦', '假人', (test:Test) => {
         // '鱼肉 ‭‭‭⁧⁧⁧~咕噜咕噜',
     ].forEach(
         name=> import('./plugins/'+name)
-            .then(()=>console.error('[模拟玩家] '+name+'模块初始化结束'))
+            // .then(()=>console.error('[模拟玩家] '+name+'模块初始化结束'))
             .catch((reason) => console.error('[模拟玩家] '+name+' 模块初始化错误 ERROR:' + reason))
     )
     )
@@ -104,10 +114,10 @@ register('我是云梦', '假人', (test:Test) => {
 export { spawnSimulatedPlayer,testWorldLocation,GetPID }
 
 let initCounter = 100
-//  # 初始化 init
-// how about turn to world.afterEvents.playerSpawn
+let initLock = false
 async function init() {
-    if(--initCounter%20 !== 0)return;
+    if(initLock || --initCounter%20 !== 0)return;
+    initLock = true
 
     if(initCounter<-200){
 
@@ -127,15 +137,14 @@ async function init() {
     verify()
 
 
-    // randomTickSpeed = world.gameRules.randomTickSpeed +1 -1
-    // doDayLightCycle = !!world.gameRules.doDayLightCycle
-    // doMobSpawning   = !!world.gameRules.doMobSpawning
-
     const z = 11451400 +  Math.floor(Math.random() * 114514 )
     system.run(()=>{
         overworld.runCommandAsync('execute positioned 15000000 256 '+z+' run gametest run 我是云梦:假人')
             .catch((e) => world.sendMessage('[模拟玩家] 报错了，我也不知道为什么'+e))
-            .finally(()=> world.sendMessage('[模拟玩家] 完成一次命令执行尝试'))
+            .finally(()=> {
+                // world.sendMessage('[模拟玩家] 完成一次命令执行尝试')
+                initLock = false
+            })
     })
 
     // TODO 唤醒 从ceyk[init] 重新生成模拟玩家并配置背包与经验值
