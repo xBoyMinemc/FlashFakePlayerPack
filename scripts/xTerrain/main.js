@@ -1,6 +1,5 @@
 ﻿import { system } from '@minecraft/server';
 import { register } from '@minecraft/server-gametest';
-globalThis.a = 114;
 import verify from '../lib/xboyPackage/scoreBase/verifyDataBase';
 import EventSignal from '../lib/xboyEvents/EventSignal';
 import { SIGN } from '../lib/xboyPackage/YumeSignEnum';
