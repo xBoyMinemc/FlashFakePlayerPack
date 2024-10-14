@@ -46,7 +46,7 @@ register('我是云梦', '假人', (test) => {
 })
     .maxTicks(tickWaitTimes)
     .structureName('xboyMinemcSIM:void');
-initialized.subscribe(() => console.error('[模拟玩家]初始化完毕，开始加载内置插件'));
+initialized.subscribe(() => console.error('[模拟玩家]初始化完毕，加载内置插件'));
 initialized.subscribe(() => [
     'chatSpawn',
     'command',
@@ -64,7 +64,8 @@ export { spawnSimulatedPlayer, testWorldLocation, GetPID };
 let initCounter = 100;
 let initLock = false;
 async function init() {
-    if (initLock || --initCounter % 20 !== 0)
+    initCounter -= 0.5;
+    if (initLock || initCounter % 20 !== 0)
         return;
     initLock = true;
     if (initCounter < -200) {
@@ -78,7 +79,7 @@ async function init() {
     }
     verify();
     verify();
-    const z = 11451400 + Math.floor(Math.random() * 114514);
+    const z = 11451400 + Math.floor(Math.random() * 114514 * 19);
     system.run(() => {
         overworld.runCommandAsync('execute positioned 15000000 256 ' + z + ' run gametest run 我是云梦:假人')
             .catch((e) => world.sendMessage('[模拟玩家] 报错了，我也不知道为什么' + e))
