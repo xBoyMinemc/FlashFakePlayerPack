@@ -8,3 +8,4 @@ workspace.xml
 .github
 /build/
 /dist/
+/scripts/
