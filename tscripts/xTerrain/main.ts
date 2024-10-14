@@ -17,7 +17,7 @@ import { world } from '@minecraft/server'
 
 // import './plugins/noFlashDoor' // pig
 
-import { playerMove } from "../lib/xboyEvents/move";
+import { playerMove } from "../lib/xboyEvents/move"
 
 const overworld = world.getDimension('overworld')
 const tickWaitTimes = 20*60*60*24*365
@@ -44,7 +44,7 @@ let testWorldLocation : Vector3
 
 
 if(!world.structureManager.get('xboyMinemcSIM:void'))
-    world.structureManager.createEmpty('xboyMinemcSIM:void', { x:1, y:1, z:1 }).saveToWorld();
+    world.structureManager.createEmpty('xboyMinemcSIM:void', { x:1, y:1, z:1 }).saveToWorld()
 
 const GetPID = ()=> world.scoreboard.getObjective('##FlashPlayer##').addScore('##currentPID',1)
 
@@ -81,13 +81,13 @@ register('我是云梦', '假人', (test:Test) => {
     world.sendMessage('[模拟玩家] 初始化完成，输入“假人创建”或“ffpp”')
 })
 .maxTicks(tickWaitTimes)
-.structureName('xboyMinemcSIM:void');
+.structureName('xboyMinemcSIM:void')
 // .maxTicks(2)
 // .maxAttempts(tickWaitTimes)
 // .requiredSuccessfulAttempts(tickWaitTimes)
 // .padding(0)
 
-    initialized.subscribe(()=> console.error('[模拟玩家]初始化完毕，开始加载内置插件') );
+    initialized.subscribe(()=> console.error('[模拟玩家]初始化完毕，开始加载内置插件') )
     initialized.subscribe(()=>
         [
         // 'test',
@@ -115,7 +115,7 @@ export { spawnSimulatedPlayer,testWorldLocation,GetPID }
 let initCounter = 100
 let initLock = false
 async function init() {
-    if(initLock || --initCounter%20 !== 0)return;
+    if(initLock || --initCounter%20 !== 0)return
     initLock = true
 
     if(initCounter<-200){
