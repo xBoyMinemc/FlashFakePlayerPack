@@ -1,3 +1,5 @@
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+
 module.exports = {
     entry: './scripts/main/preload.js', // 入口文件
     output: {
@@ -9,10 +11,13 @@ module.exports = {
     experiments : {
         outputModule:true
     },
-  externalsType: 'module',
+    externalsType: 'module',
     externals: {
         '@minecraft/server': 'module @minecraft/server',
         '@minecraft/server-ui': 'module @minecraft/server-ui',
         '@minecraft/server-gametest': 'module @minecraft/server-gametest',
-    }
+    },
+    plugins: [
+        new CleanWebpackPlugin()
+    ]
 };
