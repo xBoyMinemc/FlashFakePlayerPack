@@ -5,7 +5,7 @@ import type {
     spawnedEvent,
     spawnedEventSignal,
 } from '../@types/globalThis'
-import {Dimension, EquipmentSlot, system, Vector3} from '@minecraft/server'
+import {Dimension, system, Vector3} from '@minecraft/server'
 
 import { register } from '@minecraft/server-gametest'
 
