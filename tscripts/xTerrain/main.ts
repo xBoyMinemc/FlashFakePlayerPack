@@ -95,7 +95,7 @@ register('我是云梦', '假人', (test:Test) => {
     world.sendMessage('[模拟玩家] 初始化完成，输入“假人创建”或“ffpp”')
 })
 .maxTicks(tickWaitTimes)
-.structureName((console.error('[模拟玩家] gametest注册成功'),'xboyMinemcSIM:void'))
+.structureName('xboyMinemcSIM:void')
 // .maxTicks(2)
 // .maxAttempts(tickWaitTimes)
 // .requiredSuccessfulAttempts(tickWaitTimes)

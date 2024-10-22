@@ -1,7 +1,6 @@
 import entityDeadByHurt from '../../lib/xboyEvents/entityDeadByHurt'
 import {SimulatedPlayerEnum} from '../main'
 import {SimulatedPlayer} from '@minecraft/server-gametest'
-import {world} from "@minecraft/server";
 
 entityDeadByHurt.subscribe(({damageSource,hurtEntity})=>{
     if(hurtEntity.typeId !== 'minecraft:player')return
