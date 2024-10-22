@@ -11,7 +11,7 @@ globalThis.BlockLocation = BlockLocation;
 
 import "../lib/xboyEvents/preload.js"
 
-import "./main.js"
+import ("./main.js")
 
 
 
