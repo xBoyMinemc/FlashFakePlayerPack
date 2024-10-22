@@ -95,13 +95,13 @@ register('我是云梦', '假人', (test:Test) => {
     world.sendMessage('[模拟玩家] 初始化完成，输入“假人创建”或“ffpp”')
 })
 .maxTicks(tickWaitTimes)
-.structureName('xboyMinemcSIM:void')
+.structureName('xboyMinemcSIM:void');
 // .maxTicks(2)
 // .maxAttempts(tickWaitTimes)
 // .requiredSuccessfulAttempts(tickWaitTimes)
 // .padding(0)
 
-world.afterEvents.worldInitialize.subscribe(()=>{
+    (world.afterEvents.worldInitialize ?? world.afterEvents.worldLoad).subscribe(()=>{
     console.log('[模拟玩家] afterEvents.worldInitialize')
 
     // 记分板PID初始化 写的烂 执行两次
