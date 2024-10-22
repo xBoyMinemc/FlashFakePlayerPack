@@ -17,7 +17,6 @@ import { world } from '@minecraft/server'
 
 // import './plugins/noFlashDoor' // pig
 
-import { playerMove } from "../lib/xboyEvents/move"
 
 
 import './plugins/help'
@@ -37,6 +36,9 @@ const tickWaitTimes = 20*60*60*24*365
 
 // all of SimulatedPlayer List
 export const SimulatedPlayerEnum  = {}
+
+export let initSucceed = false
+
 
 let randomTickSpeed = 1
 let doDayLightCycle = true
@@ -88,7 +90,7 @@ register('我是云梦', '假人', (test:Test) => {
     }
 
     initialized.trigger(null)
-
+    initSucceed = true
     console.warn('[模拟玩家] 初始化完成，输入“假人创建”或“ffpp”')
     world.sendMessage('[模拟玩家] 初始化完成，输入“假人创建”或“ffpp”')
 })
@@ -117,7 +119,7 @@ world.afterEvents.worldInitialize.subscribe(()=>{
     })
 })
 
-    initialized.subscribe(()=> console.error('[模拟玩家]初始化完毕，加载内置插件') )
+    // initialized.subscribe(()=> console.error('[模拟玩家]初始化完毕，加载内置插件') )
     // initialized.subscribe(()=>
     // {
     // }
