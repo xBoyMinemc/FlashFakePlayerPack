@@ -1,6 +1,6 @@
 import type { SimulatedPlayer } from '@minecraft/server-gametest'
 
-import { spawnSimulatedPlayer, SimulatedPlayerEnum, spawned as spawnedEvent, GetPID } from '../main'
+import {spawnSimulatedPlayer, SimulatedPlayerEnum, spawned as spawnedEvent, GetPID, initSucceed} from '../main'
 import { CommandRegistry } from '../../lib/yumeCommand/CommandRegistry'
 import { world } from '@minecraft/server'
 
@@ -12,8 +12,11 @@ commandRegistry.registerAlias('FFPP','假人生成')
 commandRegistry.registerAlias('ffpp','假人生成')
 commandRegistry.registerAlias('Ffpp','假人生成')
 
-//
+
+
 const noArgs = ({args,entity,location,isEntity})=>{
+    if(!initSucceed)
+        return entity?.sendMessage('[假人] 插件未初始化完成，请重试')
     if(args.length!==1)return;
     // TEST with pid input
 
