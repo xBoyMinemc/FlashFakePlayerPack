@@ -85,7 +85,7 @@ function AUTO_BEHAVIOR(){
     // SimulatedPlayerCount && world.getDimension('minecraft:overworld').runCommand('gamerule playerssleepingpercentage '+Math.floor(100*SimulatedPlayerCount/AllPlayerCount))
 }
 
-system.runInterval(AUTO_BEHAVIOR,0)
+system.runInterval(AUTO_BEHAVIOR,20)
 
 
 // const commandRegistry: CommandRegistry = new CommandRegistry('task')

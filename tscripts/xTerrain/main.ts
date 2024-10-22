@@ -5,7 +5,7 @@ import type {
     spawnedEvent,
     spawnedEventSignal,
 } from '../@types/globalThis'
-import {Dimension, system, Vector3} from '@minecraft/server'
+import { Dimension, system, Vector3 } from '@minecraft/server'
 
 import { register } from '@minecraft/server-gametest'
 
@@ -17,7 +17,6 @@ import { world } from '@minecraft/server'
 
 // import './plugins/noFlashDoor' // pig
 
-import { playerMove } from "../lib/xboyEvents/move"
 
 
 import './plugins/help'
@@ -37,6 +36,9 @@ const tickWaitTimes = 20*60*60*24*365
 
 // all of SimulatedPlayer List
 export const SimulatedPlayerEnum  = {}
+
+export let initSucceed = false
+
 
 let randomTickSpeed = 1
 let doDayLightCycle = true
@@ -88,8 +90,7 @@ register('我是云梦', '假人', (test:Test) => {
     }
 
     initialized.trigger(null)
-
-    playerMove.unsubscribe(init)
+    initSucceed = true
     console.warn('[模拟玩家] 初始化完成，输入“假人创建”或“ffpp”')
     world.sendMessage('[模拟玩家] 初始化完成，输入“假人创建”或“ffpp”')
 })
@@ -100,8 +101,25 @@ register('我是云梦', '假人', (test:Test) => {
 // .requiredSuccessfulAttempts(tickWaitTimes)
 // .padding(0)
 
+world.afterEvents.worldInitialize.subscribe(()=>{
+    console.log('[模拟玩家] afterEvents.worldInitialize')
 
-    initialized.subscribe(()=> console.error('[模拟玩家]初始化完毕，加载内置插件') )
+    // 记分板PID初始化 写的烂 执行两次
+    verify()
+    verify()
+
+    const z = 11451400 +  Math.floor(Math.random() * 114514 * 19 )
+    system.run(()=>{
+        overworld.runCommandAsync('execute positioned 15000000 256 '+z+' run gametest run 我是云梦:假人')
+            .catch((e) => world.sendMessage('[模拟玩家] 报错了，我也不知道为什么'+e))
+            .finally(()=> {
+                // world.sendMessage('[模拟玩家] 完成一次命令执行尝试')
+
+            })
+    })
+})
+
+    // initialized.subscribe(()=> console.error('[模拟玩家]初始化完毕，加载内置插件') )
     // initialized.subscribe(()=>
     // {
     // }
@@ -123,43 +141,3 @@ register('我是云梦', '假人', (test:Test) => {
 
 export { spawnSimulatedPlayer,testWorldLocation,GetPID }
 
-let initCounter = 100
-let initLock = false
-async function init() {
-    initCounter -= 0.5
-    if(initLock || initCounter%20 !== 0)return
-    initLock = true
-
-    if(initCounter<-200){
-
-        world.sendMessage('[模拟玩家] 初始化失败 10 次，停止尝试')
-        console.error('[模拟玩家] 初始化失败 10 次，停止尝试')
-
-        playerMove.unsubscribe(init)
-    }
-
-
-    if(initCounter<0){
-        world.sendMessage('[模拟玩家] 初始化失败'+ initCounter/20 +'次，尝试在控制台输入/reload')
-        console.error('[模拟玩家] 初始化失败'+ initCounter/20 +'次，尝试在控制台输入/reload')
-    }
-    // 记分板PID初始化 写的烂 执行两次
-    verify()
-    verify()
-
-
-    const z = 11451400 +  Math.floor(Math.random() * 114514 * 19 )
-    system.run(()=>{
-        overworld.runCommandAsync('execute positioned 15000000 256 '+z+' run gametest run 我是云梦:假人')
-            .catch((e) => world.sendMessage('[模拟玩家] 报错了，我也不知道为什么'+e))
-            .finally(()=> {
-                // world.sendMessage('[模拟玩家] 完成一次命令执行尝试')
-                initLock = false
-            })
-    })
-
-    // TODO 唤醒 从ceyk[init] 重新生成模拟玩家并配置背包与经验值
-    // then initialized
-}
-
-playerMove.subscribe(init)

@@ -2,8 +2,8 @@
 FFPP-假人闪闪云梦版
 
 # 术语解释
-假人 - Fake*Player
-模拟玩家 - Simulated*Player
+假人 - Fake*Player  
+模拟玩家 - Simulated*Player  
 
 # TODO
 测试用例-我们要做一个好孩子  
@@ -21,6 +21,7 @@ i18n -- 我觉得外国人也有权利被我的屎山震惊
 
 # ChangeLog
 
+1.21.31使用alpha的api版本-尝试多版本使用一个行为包文件
 
 1.21.30更改图标-优化挖掘粒子与速率
 

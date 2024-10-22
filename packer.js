@@ -2,9 +2,9 @@ const fs = require('fs');
 const archiver = require('archiver');
 
 
-const pkNew = '柔和修复生物生成-随机刻-时间'
-const mcVersion = [1,21,30];
-const pkVersion = 4
+const pkNew = '多版本通配测试-构建于1.21.30-支持1.21.2x-可能支持更新版本'
+const mcVersion = [1,21,20];
+const pkVersion = 10
 
 
 
@@ -16,7 +16,6 @@ const pkVersion = 4
 mcVersion.toString =  ()=>mcVersion.join('.')
 const pksVersion = [...mcVersion]
       pksVersion[2] = pksVersion[2]*10 + pkVersion
-// mcVersion.toString =  ()=>'['+mcVersion.join(',')+']'
 
 
 const manifest_json = {
@@ -40,38 +39,21 @@ const manifest_json = {
     "dependencies": [
         {
             "module_name": "@minecraft/server",
-            "version": "1.15.0-beta"
+            "version": "2.0.0-alpha"
         },
         {
             "module_name": "@minecraft/server-gametest",
-            "version": "1.0.0-beta"
+            "version": "2.0.0-alpha"
         },
         {
             "module_name": "@minecraft/server-ui",
-            "version": "1.4.0-beta"
+            "version": "2.0.0-alpha"
         }
     ]
 }
 
 fs.writeFile('./manifest.json',JSON.stringify(manifest_json,null,'\t'),()=>{})
 
-
-
-const name = './build/'+manifest_json.header.name
-    .replace(/§./g,'')
-    .replaceAll(/\./g,'-')
-    .replaceAll(' ','-')
-    .trim()+'.mcpack';
-
-// make dir ./build
-!fs.existsSync('./build') && fs.mkdirSync('build');
-
-
-// 创建一个输出流，将ZIP文件写入到指定的文件中
- const name1 = name ?? 'example1.zip'
- const name2 =  name.replace('FlashFakePlayerPack','假人测试版') ?? 'example2.zip'
-const output1 = fs.createWriteStream(name1);
-const output2 = fs.createWriteStream(name2);
 
 // 创建一个Archiver实例，将输出流传递给它
 const archive = archiver('zip', {
@@ -88,19 +70,48 @@ archive.append(fs.createReadStream('pack_icon.png'), { name: 'pack_icon.png' });
 // 当所有文件都添加完毕后，调用finalize方法来完成ZIP文件的创建
 archive.finalize().then(() => 0);
 
-// 监听archive的'drain'事件，以确保数据被写入输出流
-output1.on('close', () => {
-    console.log(`${name1} 文件已成功创建，共包含 ${archive.pointer()} 字节`);
-  });
-output2.on('close', () => {
-    console.log(`${name2} 文件已成功创建，共包含 ${archive.pointer()} 字节`);
-  });
+
+// make dir ./build
+!fs.existsSync('./build') && fs.mkdirSync('build');
+const name = './build/'+manifest_json.header.name
+    .replace(/§./g,'')
+    .replaceAll(/\./g,'-')
+    .replaceAll(' ','-')
+    .trim()+'.mcpack';
+
+
 
 // 监听archive的'error'事件，以处理任何错误
 archive.on('error', (err) => {
   throw err;
 });
 
+// 创建一个输出流，将ZIP文件写入到指定的文件中
+const name1 = name ?? 'example1.zip'
+const name2 =  name.replace('FlashFakePlayerPack','假人测试版') ?? 'example2.zip'
+const output1 = fs.createWriteStream(name1);
+const output2 = fs.createWriteStream(name2);
+
+// 监听archive的'drain'事件，以确保数据被写入输出流
+output1.on('close', () => console.log(`${name1} 文件已成功创建，共包含 ${archive.pointer()} 字节`));
+output2.on('close', () => console.log(`${name2} 文件已成功创建，共包含 ${archive.pointer()} 字节`));
+
 // 将ZIP文件写入到输出流
 archive.pipe(output1);
 archive.pipe(output2);
+
+// 如果存在e:/temp路径就往那里放一份
+
+const tempPath = 'e:/temp'
+if(fs.existsSync(tempPath)){
+    !fs.existsSync(tempPath+'/build') && fs.mkdirSync(tempPath+'/build');
+
+    const tempName = tempPath+'/'+name
+    const tempName2 = tempPath+'/'+name2
+    const output3 = fs.createWriteStream(tempName);
+    const output4 = fs.createWriteStream(tempName2);
+    output3.on('close', () => console.log(`${tempName} 文件已成功创建，共包含 ${archive.pointer()} 字节`));
+    output4.on('close', () => console.log(`${tempName2} 文件已成功创建，共包含 ${archive.pointer()} 字节`));
+    archive.pipe(output3);
+    archive.pipe(output4);
+}
