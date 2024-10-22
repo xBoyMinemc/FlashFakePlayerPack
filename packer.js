@@ -2,9 +2,9 @@ const fs = require('fs');
 const archiver = require('archiver');
 
 
-const pkNew = '柔和修复生物生成-随机刻-时间'
-const mcVersion = [1,21,31];
-const pkVersion = 1
+const pkNew = '多版本通配测试-构建于1.21.30-支持1.21.2x-可能支持更新版本'
+const mcVersion = [1,21,20];
+const pkVersion = 10
 
 
 
