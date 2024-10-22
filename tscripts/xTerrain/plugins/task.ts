@@ -68,7 +68,7 @@ function AUTO_BEHAVIOR(){
                 if( !r3(target.location,SimPlayer.location,4) ){
 
                     SimPlayer.moveToLocation(fix(target.location))
-                    console.error(target.typeId,target.location.x,target.location.y,target.location.z)
+                    // console.error(target.typeId,target.location.x,target.location.y,target.location.z)
                 }
 
             }else{
