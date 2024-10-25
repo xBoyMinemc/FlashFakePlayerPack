@@ -30,6 +30,7 @@ import './plugins/gui'
 import './plugins/autoFishing'
 import './plugins/killedBySimPlayer'
 import './plugins/setting'
+import {playerMove} from "../lib/xboyEvents/move";
 
 const overworld = world.getDimension('overworld')
 const tickWaitTimes = 20*60*60*24*365
@@ -92,7 +93,6 @@ register('我是云梦', '假人', (test:Test) => {
     initialized.trigger(null)
     initSucceed = true
     console.warn('[模拟玩家] 初始化完成，输入“假人创建”或“ffpp”')
-    world.sendMessage('[模拟玩家] 初始化完成，输入“假人创建”或“ffpp”')
 })
 .maxTicks(tickWaitTimes)
 .structureName('xboyMinemcSIM:void');
@@ -117,6 +117,13 @@ register('我是云梦', '假人', (test:Test) => {
 
             })
     })
+})
+
+let say = false
+playerMove.subscribe(()=>{
+    if (say) return
+    say = true
+    world.sendMessage('[模拟玩家] 初始化完成，输入“假人创建”或“ffpp”')
 })
 
     // initialized.subscribe(()=> console.error('[模拟玩家]初始化完毕，加载内置插件') )
