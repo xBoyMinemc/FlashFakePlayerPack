@@ -4,7 +4,7 @@ const archiver = require('archiver');
 
 const pkNew = '多版本通配测试-构建于1.21.30-支持1.21.2x-1.21.5x'
 const mcVersion = [1,21,20];
-const pkVersion = 12
+const pkVersion = 13
 
 
 

@@ -6,7 +6,7 @@ module.exports = {
         filename: 'preload.js', // 输出文件名
         path: __dirname + '/dist/scripts/main', // 输出路径
     },
- 
+    target: 'es2020', // 指定目标环境为Node.js
     mode: 'production', 
     experiments : {
         outputModule:true
