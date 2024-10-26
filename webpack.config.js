@@ -1,10 +1,10 @@
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 module.exports = {
-    entry: './scripts/main/preload.js', // 入口文件
+    entry: './scripts_yeah/main/preload.js', // 入口文件
     output: {
         filename: 'preload.js', // 输出文件名
-        path: __dirname + '/dist/scripts/main', // 输出路径
+        path: __dirname + '/scripts/main', // 输出路径
     },
     target: 'es2020', // 指定目标环境为Node.js
     mode: 'production', 

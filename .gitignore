@@ -7,5 +7,5 @@ workspace.xml
 .vscode
 .github
 /build/
-/dist/
+/scripts_yeah/
 /scripts/
