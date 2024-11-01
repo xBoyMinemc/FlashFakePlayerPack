@@ -2,10 +2,9 @@ const fs = require('fs');
 const archiver = require('archiver');
 
 
-const pkNew = '多版本通配测试-构建于1.21.30-支持1.21.2x-1.21.5x'
+const pkNew = '多版本通配测试-指定生成坐标-构建于1.21.30-支持1.21.2x-1.21.5x'
 const mcVersion = [1,21,20];
-const pkVersion = 13
-
+const pkVersion = 14
 
 
 // https://www.npmjs.com/package/@minecraft/server?activeTab=versions
@@ -64,8 +63,7 @@ const archive = archiver('zip', {
 archive.append(fs.createReadStream('manifest.json'), { name: 'manifest.json' });
 archive.append(fs.createReadStream('pack_icon.png'), { name: 'pack_icon.png' });
 // 使用directory方法添加整个目录到ZIP文件中
-['structures','entities'].forEach(_=>archive.directory(_, true)); // 第二个参数设置为false表示不包含目录本身
-['dist'].forEach(_=>archive.directory(_, false));
+['structures','entities','scripts'].forEach(_=>archive.directory(_, true)); // 第二个参数设置为false表示不包含目录本身
 
 // 当所有文件都添加完毕后，调用finalize方法来完成ZIP文件的创建
 archive.finalize().then(() => 0);
