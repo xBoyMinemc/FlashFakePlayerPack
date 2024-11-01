@@ -102,7 +102,6 @@ register('我是云梦', '假人', (test:Test) => {
 // .padding(0)
 
     (world.afterEvents.worldInitialize ?? world.afterEvents['worldLoad']).subscribe(()=>{
-    console.log('[模拟玩家] afterEvents.worldInitialize')
 
     // 记分板PID初始化 写的烂 执行两次
     verify()
