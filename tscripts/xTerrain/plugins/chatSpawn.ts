@@ -101,7 +101,7 @@ commandRegistry.registerCommand('假人生成',withArgs)
 const withArgs_xyz_name = ({args,entity}:commandInfo)=>{
     let location: Vector3 = null
     let nameTag : string = null
-    if(args[1]==='批量')return
+    if (args[1] === '批量' || args.length < 2) return
 
     // xyz
     if(args.length>=2 && args.length<=3)
