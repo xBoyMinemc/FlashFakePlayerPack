@@ -2,33 +2,33 @@ const fs = require('fs');
 const archiver = require('archiver');
 
 
-const pkNew = '多版本通配测试-指定生成坐标-构建于1.21.30-支持1.21.2x-1.21.5x'
-const mcVersion = [1,21,20];
-const pkVersion = 14
-
+const pack_name = '指定生成坐标-构建于1.21.30-支持1.21.2x-1.21.5x'
+const pack_version = [1,21,30];
+const fix_pack_version = 15
+const min_engine_version = [1,21,20]
 
 // https://www.npmjs.com/package/@minecraft/server?activeTab=versions
 // https://www.npmjs.com/package/@minecraft/server-gametest?activeTab=versions
 // https://www.npmjs.com/package/@minecraft/server-ui?activeTab=versions
 
 
-mcVersion.toString =  ()=>mcVersion.join('.')
-const pksVersion = [...mcVersion]
-      pksVersion[2] = pksVersion[2]*10 + pkVersion
+pack_version.toString =  ()=>pack_version.join('.')
+const full_pack_version = [...pack_version]
+      full_pack_version[2] = full_pack_version[2]*10 + fix_pack_version
 
 
 const manifest_json = {
     "format_version": 2,
     "header": {
-        "name": `§t${mcVersion} v${pkVersion} §e§lFlash§fFakePlayerPack`,
-        "description": `【${pkNew}】${mcVersion} \u000a开启实验性游戏内容（测试版 API）-游戏内输入“假人帮助”或“假人创建” 对着假人右键（蹲或不蹲是两个不同的菜单） 无关QQ群：122957051:`,
+        "name": `§t${pack_version} v${fix_pack_version} §e§lFlash§fFakePlayerPack`,
+        "description": `【${pack_name}】${pack_version} \u000a开启实验性游戏内容（测试版 API）-游戏内输入“假人帮助”或“假人创建” 对着假人右键（蹲或不蹲是两个不同的菜单） 无关QQ群：122957051:`,
         "uuid": "aa101e99-abb4-448d-b58f-71e9da43064e",
-        "version": pksVersion,
-        "min_engine_version": mcVersion
+        "version": full_pack_version,
+        "min_engine_version": min_engine_version
     },
     "modules": [
         {
-            "version": pksVersion,
+            "version": full_pack_version,
             "type": "script",
             "uuid": "10101e99-abc1-5488-ba76-71e9da441300",
             "description": "§e§lFlash§fFakePlayerPack",
