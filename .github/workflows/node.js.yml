@@ -19,7 +19,7 @@ jobs:
         node-version: '16'  # 根据需要设置 Node.js 的版本
 
     - name: Install dependencies
-      run: npm ci
+      run: npm i
 
     - name: Build project
       run: npm run build
@@ -27,6 +27,6 @@ jobs:
     - name: Release
       uses: softprops/action-gh-release@v1
       with:
-        files: build/*  # 假设你的构建输出在 dist 目录下
+        files: build/*  
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # 使用 GitHub 提供的 token 进行发布
