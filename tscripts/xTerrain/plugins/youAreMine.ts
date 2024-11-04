@@ -280,6 +280,33 @@ world.afterEvents.chatSend.subscribe(({message, sender})=> {
         sender.sendMessage(commandRegistry.showList().toString())
     }
 })
+
+// location
+commandRegistry.registerAlias('假人坐标', '假人位置');
+commandRegistry.registerCommand('假人位置', ({ entity, isEntity, args }) => {
+    if (!isEntity && args.length === 1) {
+        console.error('error not isEntity');
+        return;
+    }
+    let SimPlayer: SimulatedPlayer;
+    if (args.length === 1) {
+        ;
+        ; "对准~";
+        ;
+        SimPlayer = getSimPlayer.formView(entity);
+        if (!SimPlayer) return entity.sendMessage("§e§l-面前不存在模拟玩家");
+    } else if (args.length === 2) {
+        const index = Number(args[1]);
+        if (typeof index !== 'number') return entity.sendMessage('[模拟玩家] 命令错误，期待数字却得到 ' + typeof Number(args[1]));
+
+        SimPlayer = SimulatedPlayerEnum[index];
+
+        if (!SimPlayer) return entity.sendMessage("§e§l-不存在模拟玩家" + index);
+    }
+
+    const { x, y, z } = SimPlayer.location;
+    entity.sendMessage(`§e§l${SimPlayer.name}位于 (${x.toFixed(2)}, ${y.toFixed(2)}, ${z.toFixed(2)}) 维度: ${SimPlayer.dimension.id}`);
+});
 // 你懂的~
 // youAreMine
 // ~
