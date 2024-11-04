@@ -1,8 +1,7 @@
-import {Player, system} from "@minecraft/server"
+import { Player, system, world } from "@minecraft/server"
 import EventSignal from "./EventSignal"
-import type { World,reloadFromCmdEvent } from "../../@types/globalThis";
+import type { reloadFromCmdEvent } from "../../@types/globalThis";
 
-declare const world: World;
 
 class reloadFromCmdEvents extends EventSignal<reloadFromCmdEvent> {
     players = new Set<Player["id"]>();
@@ -14,12 +13,12 @@ class reloadFromCmdEvents extends EventSignal<reloadFromCmdEvent> {
 
 const reloadFromCmd = new reloadFromCmdEvents()
 
-world.events.playerJoin.subscribe(
+world.afterEvents.playerJoin.subscribe(
     event=>reloadFromCmd.players.add(event.playerId)
 )
 
 
-world.events.playerLeave.subscribe(
+world.afterEvents.playerLeave.subscribe(
     event=>reloadFromCmd.players.delete(event.playerId)
 )
 

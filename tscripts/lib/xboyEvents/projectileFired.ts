@@ -1,10 +1,9 @@
-import type { Entity, ItemUseAfterEvent, Player, Vector3 } from "@minecraft/server";
+import { world, Entity, ItemUseAfterEvent, Vector3} from "@minecraft/server";
 import EventSignal from "./EventSignal";
-import type { World,projectileFiredEvent, projectileFiredEventSignal } from "../../@types/globalThis";
+import type { projectileFiredEvent, projectileFiredEventSignal } from "../../@types/globalThis";
 import type { FishingHookDespawnedEvent, FishingHookDespawnedEventSignal } from "../../@types/globalThis";
 import {MolangVariableMap, system} from "@minecraft/server";
 
-declare const world: World;
 
 
 
@@ -19,7 +18,7 @@ const queue = {
 };
 
 const pos = {}
-world.events.itemUse.subscribe((event: ItemUseAfterEvent) => {
+world.afterEvents.itemUse.subscribe((event: ItemUseAfterEvent) => {
 
     event.itemStack.typeId === "minecraft:bow"
         ?(
@@ -42,7 +41,7 @@ const yu = ({x,y,z},{x:a,y:b,z:c})=>((x-a)**2+(y-b)**2+(z-c)**2)
 const me = ({x,y,z},{x:a,y:b,z:c},m:number)=>({x:x-a*m,y:y-b*m,z:z-c*m})
 const yume = ({x,y,z},{x:a,y:b,z:c})=>Math.sqrt((x-a)**2+(y-b)**2+(z-c)**2)
 const r3 = (o:Vector3,_o:Vector3,v:number):boolean=>o.x-_o.x<-v ||o.x-_o.x>v||  o.y-_o.y>v||o.y-_o.y<-v || o.z-_o.z>v||o.z-_o.z<-v;
-world.events.entitySpawn.subscribe(({entity: entity}) => {
+world.afterEvents.entitySpawn.subscribe(({entity: entity}) => {
     // world.getDimension("overworld").runCommandAsync("tell @a[tag=xboy] size fishingHookDespawned_HookArray=>"+queue.fishingHookDespawned_HookArray.size)
 
     // entity.runCommandAsync("me "+entity.typeId)

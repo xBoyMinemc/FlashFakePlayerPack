@@ -1,17 +1,6 @@
-import { register } from "@minecraft/server-gametest";
-
-
-import { Location,BlockLocation } from "../lib/xboyPackage/The law of the ancestors is immutable";
-declare const globalThis: GlobalThis;
-
-
-globalThis.GameTest = {"register":register};
-globalThis.Location = Location;
-globalThis.BlockLocation = BlockLocation;
-
 import "../lib/xboyEvents/preload.js"
 
-import ("./main.js")
+import ("./main.js") //这里是为了解决一个莫名其妙的1.21.50触发的bug，当包加载的时候，加载world的部分方法会崩。而异步可以解决
 
 
 
@@ -24,3 +13,5 @@ import ("./main.js")
 // ############### 2023-05-29 ###############
 // 是真烂（捏鼻子
 // ############### 2024-03-08 ###############
+// 是真烂（捏鼻子
+// ############### 2024-11-04 ###############
