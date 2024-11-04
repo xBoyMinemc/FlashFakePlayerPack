@@ -1,0 +1,32 @@
+name: Build and Release
+
+on:
+  push:
+    branches:
+      - main  
+
+jobs:
+  build-and-release:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '16'  # 根据需要设置 Node.js 的版本
+
+    - name: Install dependencies
+      run: npm i
+
+    - name: Build project
+      run: npm run build
+
+    - name: Release
+      uses: softprops/action-gh-release@v1
+      with:
+        files: build/*  
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # 使用 GitHub 提供的 token 进行发布
