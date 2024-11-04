@@ -83,8 +83,9 @@ register('我是云梦', '假人', (test:Test) => {
         SimulatedPlayer.addTag('init')
         SimulatedPlayer.addTag(SIGN.YUME_SIM_SIGN)
         SimulatedPlayer.addTag(SIGN.AUTO_RESPAWN_SIGN)
-
+        //@ts-ignore
         SimulatedPlayer.setSpawnPoint({...location,dimension})
+        //@ts-ignore
         SimulatedPlayer.teleport(location, { dimension })
 
         return SimulatedPlayer
