@@ -21,6 +21,18 @@ jobs:
     - name: Install dependencies
       run: npm i
 
+    - name: Remove nested node_modules directory
+      run: |
+        # Check if the directory exists and remove it
+        if [ -d "node_modules/@minecraft/server-gametest/node_modules" ]; then
+          rm -rf node_modules/@minecraft/server-gametest/node_modules
+        fi
+        
+        if [ -d "node_modules/@minecraft/server-ui/node_modules" ]; then
+          rm -rf node_modules/@minecraft/server-ui/node_modules
+        fi
+         
+
     - name: Build project
       run: npm run build
 
