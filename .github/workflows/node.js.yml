@@ -28,11 +28,13 @@ jobs:
         echo "EOF" >> $GITHUB_ENV
         
     - name: Set up Node.js
+      if: startsWith(env.latest_commit_message, 'v')
       uses: actions/setup-node@v3
       with:
         node-version: '22'
         
     - name: Install dependencies
+      if: startsWith(env.latest_commit_message, 'v')
       run: npm i
       
     - name: npm run build
