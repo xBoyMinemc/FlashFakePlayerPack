@@ -56,6 +56,7 @@ let doMobSpawning = true
 //  ?
 
 let spawnSimulatedPlayer : (location:Vector3, dimension:Dimension, pid: number  )=>SimulatedPlayer
+let spawnSimulatedPlayerByNameTag : (location:Vector3, dimension:Dimension, nameTag: string  )=>SimulatedPlayer
 let testWorldLocation : Vector3
 
 
@@ -78,8 +79,11 @@ register('我是云梦', '假人', (test:Test) => {
     world.gameRules.doMobSpawning = doMobSpawning
 
     spawnSimulatedPlayer = (location:Vector3, dimension:Dimension, pid: number ):SimulatedPlayer=>{
+        return spawnSimulatedPlayerByNameTag(location, dimension, `工具人-${pid}`)
+    }
+    spawnSimulatedPlayerByNameTag = (location:Vector3, dimension:Dimension, nameTag: string ):SimulatedPlayer=>{
 
-        const SimulatedPlayer = test.spawnSimulatedPlayer({ x:0, y:8, z:0 }, `工具人-${pid}`)
+        const SimulatedPlayer = test.spawnSimulatedPlayer({ x:0, y:8, z:0 }, nameTag)
         SimulatedPlayer.addTag('init')
         SimulatedPlayer.addTag(SIGN.YUME_SIM_SIGN)
         SimulatedPlayer.addTag(SIGN.AUTO_RESPAWN_SIGN)
@@ -146,5 +150,5 @@ playerMove.subscribe(()=>{
     //
     // )
 
-export { spawnSimulatedPlayer,testWorldLocation,GetPID }
+export { spawnSimulatedPlayer,spawnSimulatedPlayerByNameTag,testWorldLocation,GetPID }
 

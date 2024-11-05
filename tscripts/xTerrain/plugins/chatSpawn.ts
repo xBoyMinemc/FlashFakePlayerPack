@@ -1,6 +1,13 @@
 import type { SimulatedPlayer } from '@minecraft/server-gametest'
 
-import { spawnSimulatedPlayer, SimulatedPlayerEnum, spawned as spawnedEvent, GetPID, initSucceed } from '../main'
+import {
+    spawnSimulatedPlayer,
+    spawnSimulatedPlayerByNameTag,
+    SimulatedPlayerEnum,
+    spawned as spawnedEvent,
+    GetPID,
+    initSucceed
+} from '../main'
 import { commandInfo, CommandRegistry } from '../../lib/yumeCommand/CommandRegistry'
 import { Dimension, Vector3, world } from '@minecraft/server'
 const overworld = world.getDimension("overworld");
@@ -134,7 +141,7 @@ const withArgs_xyz_name = ({args,entity}:commandInfo)=>{
 
     const PID = GetPID()
     const __FlashPlayer__ = world.scoreboard.getObjective('##FlashPlayer##')
-    const SimulatedPlayer :SimulatedPlayer = spawnSimulatedPlayer(location,dimension ?? entity?.dimension ?? overworld,PID)
+    const SimulatedPlayer :SimulatedPlayer = spawnSimulatedPlayerByNameTag(location,dimension ?? entity?.dimension ?? overworld,nameTag)
 
     SimulatedPlayerEnum[PID]=SimulatedPlayer
     SimulatedPlayerEnum[SimulatedPlayer.id]=PID
