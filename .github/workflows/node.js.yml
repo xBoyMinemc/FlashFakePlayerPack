@@ -16,14 +16,16 @@ jobs:
     - name: Set up Node.js
       uses: actions/setup-node@v3
       with:
-        node-version: '16'  # 根据需要设置 Node.js 的版本
+        node-version: 'latest'
 
+    - name: Install TypeScript
+      run: npm install typescript@latest
+      
     - name: Install dependencies
       run: npm i
- 
 
     - name: tsc build
-      run: tsc --skipLibCheck
+      run: tsc
 
     - name: webpack build
       run: webpack
