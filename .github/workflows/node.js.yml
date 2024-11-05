@@ -46,7 +46,7 @@ jobs:
       # Check if commit message starts with 'v'
       if: startsWith(env.latest_commit_message, 'v')
       with:
-        tag_name: ${{ github.ref }}
+        tag_name: ${{ github.latest_commit_message }}
         name: Release  ${{ env.latest_commit_message }}
         body: ${{ env.CHANGELOG }}
         draft: false
