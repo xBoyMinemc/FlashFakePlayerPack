@@ -3,7 +3,7 @@ name: Build and Release
 on:
   push:
     branches:
-      - main  
+      - main
 
 jobs:
   build-and-release:
@@ -13,29 +13,42 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v3
 
+    - name: Get the latest commit message
+      id: get_latest_commit
+      run: |
+        latest_commit=$(git log -1 --pretty=format:%s)
+        echo "latest_commit_message=$latest_commit" >> $GITHUB_ENV
+        
+    - name: Read changelog
+      id: read_changelog
+      run: |
+        changelog=$(< CHANGELOG.md)
+        echo "CHANGELOG<<EOF" >> $GITHUB_ENV
+        echo "$changelog" >> $GITHUB_ENV
+        echo "EOF" >> $GITHUB_ENV
+        
     - name: Set up Node.js
       uses: actions/setup-node@v3
       with:
-        node-version: 'latest'
-
-    - name: Install TypeScript
-      run: npm install typescript@latest
-      
+        node-version: '22'
+        
     - name: Install dependencies
       run: npm i
-
-    - name: tsc build
-      run: tsc
-
-    - name: webpack build
-      run: webpack
-
-    - name: Build project
-      run: node packer.js
+      
+    - name: npm run build
+      if: startsWith(env.latest_commit_message, 'v')
+      run: npm run build
 
     - name: Release
       uses: softprops/action-gh-release@v1
+      # Check if commit message starts with 'v'
+      if: startsWith(env.latest_commit_message, 'v')
       with:
+        tag_name: ${{ github.ref }}
+        name: Release  ${{ env.latest_commit_message }}
+        body: ${{ env.CHANGELOG }}
+        draft: false
+        prerelease: false
         files: build/*  
       env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # 使用 GitHub 提供的 token 进行发布
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
