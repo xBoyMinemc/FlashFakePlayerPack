@@ -1,15 +1,12 @@
 {
   "scripts": {
     "dev": "cd . && tsc -w",
-    "build": "cd . && tsc && webpack && node packer.js",
-    "postinstall": "rimraf ./node_modules/@minecraft/server-ui/node_modules && rimraf ./node_modules/@minecraft/server-gametest/node_modules"
+    "build": "cd . && tsc && webpack && node packer.js"
   },
   "dependencies": {
-    "@minecraft/common": "1.0.0-rc.1.20.40-preview.24",
     "@minecraft/server": "1.16.0-beta.1.21.40-preview.25",
     "@minecraft/server-gametest": "1.0.0-beta.1.21.40-preview.25",
     "@minecraft/server-ui": "1.3.0-beta.1.21.20-preview.24",
-    "@minecraft/vanilla-data": "1.20.0-preview.25",
     "archiver": "^6.0.1",
     "rimraf": "^6.0.1"
   },
