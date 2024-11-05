@@ -141,15 +141,14 @@ const withArgs_xyz_name = ({args,entity}:commandInfo)=>{
 
     const PID = GetPID()
     const __FlashPlayer__ = world.scoreboard.getObjective('##FlashPlayer##')
-    const SimulatedPlayer :SimulatedPlayer = spawnSimulatedPlayerByNameTag(location,dimension ?? entity?.dimension ?? overworld,nameTag)
+
+    const SimulatedPlayer :SimulatedPlayer = nameTag ? spawnSimulatedPlayerByNameTag(location,dimension ?? entity?.dimension ?? overworld,nameTag) : spawnSimulatedPlayer(location,dimension ?? entity?.dimension ?? overworld,PID)
 
     SimulatedPlayerEnum[PID]=SimulatedPlayer
     SimulatedPlayerEnum[SimulatedPlayer.id]=PID
 
     spawnedEvent.trigger({spawnedSimulatedPlayer:SimulatedPlayer,PID})
     __FlashPlayer__.setScore(SimulatedPlayer.id,PID)
-    if(nameTag)
-        SimulatedPlayer.nameTag = nameTag
 }
 commandRegistry.registerCommand('假人生成',withArgs_xyz_name)
 
