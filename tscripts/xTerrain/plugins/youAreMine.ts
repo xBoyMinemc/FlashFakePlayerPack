@@ -245,7 +245,7 @@ commandRegistry.registerCommand('假人时区', ({entity}) => {
 // List
 commandRegistry.registerCommand('假人列表', ({entity}) => {
     if(Object.keys(SimulatedPlayerEnum).length===0) return entity.sendMessage('列表空的')
-    for (const index in SimulatedPlayerEnum) if (SimulatedPlayerEnum[index])
+    for (const index in SimulatedPlayerEnum) if (SimulatedPlayerEnum[index] && Number(index)>=0)
         entity.sendMessage(`§e§l-序号：${index} ## 生成名称: ${SimulatedPlayerEnum[index].name}${SimulatedPlayerEnum[index].name===SimulatedPlayerEnum[index].nameTag?'':' #当前名称: '+SimulatedPlayerEnum[index].nameTag}`)
 })
 
