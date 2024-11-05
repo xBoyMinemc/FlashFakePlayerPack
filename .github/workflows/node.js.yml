@@ -42,11 +42,10 @@ jobs:
       run: npm run build
 
     - name: Release
-      uses: softprops/action-gh-release@v1
-      # Check if commit message starts with 'v'
       if: startsWith(env.latest_commit_message, 'v')
+      uses: softprops/action-gh-release@v1
       with:
-        tag_name: ${{ github.latest_commit_message }}
+        tag_name: v1.21.50
         name: Release  ${{ env.latest_commit_message }}
         body: ${{ env.CHANGELOG }}
         draft: false
