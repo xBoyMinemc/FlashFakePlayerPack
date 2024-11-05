@@ -1,7 +1,6 @@
 {
   "include": [
-    "./tscripts/**/*",
-    "tscripts/lib/PureEval.es.curry.min.ts"
+    "./tscripts/**/*"
   ],
 //  "exclude": ["./tscripts/xTerrain/main.js"],
   "compilerOptions": {

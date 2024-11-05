@@ -1,6 +1,7 @@
 {
   "scripts": {
-    "dev": "cd . && tsc -w",
+    "dev": "cd . && tsc -w -outDir ./scripts/",
+    "webpackTest" : "cd . && tsc && webpack",
     "build": "cd . && tsc && webpack && node packer.js"
   },
   "dependencies": {
