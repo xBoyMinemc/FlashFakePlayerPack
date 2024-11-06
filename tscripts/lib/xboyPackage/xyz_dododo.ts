@@ -8,16 +8,13 @@ ops['+'] = '+'
 ops['-'] = '-'
 
 export function xyz_dododo(xyz:string[],playerLocation=[0,0,0]) : number[] {
-    // 初始化x, y, z
-    let new_xyz = [0,0,0]
-
     // 遍历分割后的数组
-    xyz.forEach((part, index) => {
+    return xyz.map((part, index) => {
         // 否则直接解析为数字
         if (!part.startsWith('~')) {
             const data = Number(part);
             if (Number.isFinite(data))
-                return new_xyz[index] = data;
+                return data;
             throw new Error(['x', 'y', 'z'][index] + ' not a number');
         }
 
@@ -40,10 +37,8 @@ export function xyz_dododo(xyz:string[],playerLocation=[0,0,0]) : number[] {
         if(op === '-')
             data -= playerLocation[index]
 
-        new_xyz[index] = data
+        return data
     });
-
-    return new_xyz;
 }
 
 function xyz_dododo_test() {
