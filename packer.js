@@ -96,7 +96,7 @@ output2.on('close', () => console.log(`${name2} 文件已成功创建，共包�
 
 // 将ZIP文件写入到输出流
 archive.pipe(output1);
-archive.pipe(output2);
+// archive.pipe(output2);
 
 // 如果存在e:/temp路径就往那里放一份
 
