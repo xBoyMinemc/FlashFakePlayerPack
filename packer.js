@@ -4,7 +4,7 @@ const archiver = require('archiver');
 
 const pack_name = '指定生成坐标-构建于1.21.30-支持1.21.2x-1.21.5x'
 const pack_version = [1,21,30];
-const fix_pack_version = 16
+const fix_pack_version = 17
 const min_engine_version = [1,21,20]
 
 // https://www.npmjs.com/package/@minecraft/server?activeTab=versions
