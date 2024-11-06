@@ -14,8 +14,12 @@ export function xyz_dododo(xyz:string[],playerLocation=[0,0,0]) : number[] {
     // 遍历分割后的数组
     xyz.forEach((part, index) => {
         // 否则直接解析为数字
-        if (!part.startsWith('~'))
-            return new_xyz[index] = Number(part);
+        if (!part.startsWith('~')) {
+            const data = Number(part);
+            if (Number.isFinite(data))
+                return new_xyz[index] = data;
+            throw new Error(['x', 'y', 'z'][index] + ' not a number');
+        }
 
         let data: number|string = part.slice(1) // 去掉~
         let op = ops[data[0]] // 存在风险
@@ -27,7 +31,7 @@ export function xyz_dododo(xyz:string[],playerLocation=[0,0,0]) : number[] {
         }
 
         data = Number(data)
-        if(isNaN(data))
+        if(!Number.isFinite(data))
             throw new Error(['x','y','z'][index] + ' not a number')
 
 
