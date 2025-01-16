@@ -21,8 +21,7 @@ commandRegistry.registerAlias('FFPP','假人生成')
 commandRegistry.registerAlias('ffpp','假人生成')
 commandRegistry.registerAlias('Ffpp','假人生成')
 
-
-
+// 假人生成函数(?)
 const noArgs = ({args,entity,location,isEntity})=>{
     if(!initSucceed)
         return entity?.sendMessage('[假人] 插件未初始化完成，请重试')

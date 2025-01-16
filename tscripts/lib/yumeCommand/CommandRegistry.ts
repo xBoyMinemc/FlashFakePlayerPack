@@ -1,9 +1,20 @@
-import { Player, Vector3} from "@minecraft/server";
+import { system, Player, Vector3, ScriptEventCommandMessageAfterEvent } from "@minecraft/server";
 import type { SimulatedPlayer } from "@minecraft/server-gametest";
 
-export type commandInfo = {args: string[], entity?: Player, location?: Vector3, isEntity?: boolean, sim?: SimulatedPlayer}
-// | Player | Dimension | Entity
-export type commandInfoNoArgs = {entity?: Player, location?: Vector3, isEntity?: boolean, sim?: SimulatedPlayer}
+export interface commandInfo {
+    args: string[],
+    entity?: Player,
+    location?: Vector3,
+    isEntity?: boolean,
+    sim?: SimulatedPlayer
+} // | Player | Dimension | Entity
+export interface commandInfoNoArgs {
+    entity?: Player,
+    location?: Vector3,
+    isEntity?: boolean,
+    sim?: SimulatedPlayer
+}
+
 // Parse command
 export function commandParse(command:string):string[] {
     const tokens = [];
@@ -44,17 +55,49 @@ export function commandParse(command:string):string[] {
 // console.log(tokens);
 // tokens => [ 'cmdHead', 'arg1', 'arg2', 'arg3', '_arg4', '7', '8', '~-5' ]
 
+export const internalExceptionWaringText = '[模拟玩家] 出现内部异常，已尝试处理，请在GitHub进行反馈以免再次出现问题';
+type ScriptEventHandler = (event:ScriptEventCommandMessageAfterEvent) => void;
+type ScriptEventID = `flash_fake_player:${string}`;
+
 export class CommandRegistry {
     private commandsRegistryMap :Map<string,Set<Function>> = new Map();
     public commandsList = new Set<string>()
     public commandRegistrySign :string;
     static parse = commandParse;
     private  alias = new Map<string,string>();
+    public scriptEventsIDList = new Set<string>();
+    private scriptEventsHandlers: ({
+        id: ScriptEventID;
+        handler: ScriptEventHandler;
+    })[] = [];
 
 
-    constructor(commandRegistrySign:string='funny') {
+    constructor(commandRegistrySign='funny') {
         this.commandRegistrySign  = commandRegistrySign;
         this.commandsRegistryMap  = new Map();
+
+        // 全局/scriptevent监听初始化
+        system.afterEvents.scriptEventReceive.subscribe(e => {
+            if (this.scriptEventsIDList.size === 0 && !this.scriptEventsIDList.has(e.id)) {
+                return;
+            }
+
+            const handlers = this.scriptEventsHandlers.filter(
+                v => {
+                    if (!this.scriptEventsIDList.has(v.id)) {
+                        // 感觉这样的提示有点太高估用户了，所以就改成了下面这种
+                        // console.warn('[模拟玩家] 正在遍历的scriptEventsHandlers项的id属性在scriptEventsIDList中不存在');
+                        console.warn(internalExceptionWaringText);
+
+                        return false;
+                    }
+
+                    return e.id === v.id;
+                }
+            ).map(v => v.handler);
+
+            handlers.forEach(handler => handler(e));
+        }, { namespaces: ['flash_fake_player'] });
     }
 
     // registerAlias
@@ -76,6 +119,12 @@ export class CommandRegistry {
         return this.commandsRegistryMap.get(commandName).add(callback);
     }
 
+    registerScriptEventCommand(id:ScriptEventID, callback?:ScriptEventHandler) {
+        this.scriptEventsIDList.add(id);
+        // 别误解了，这样做是可以实现一个id多个handler
+        this.scriptEventsHandlers.push({id, handler: callback});
+    }
+
     // executeCommand
     executeCommand(commandName:string, cmdInfo:commandInfo) {
         // ding~
@@ -83,8 +132,9 @@ export class CommandRegistry {
 
         this.commandsRegistryMap.get(
             this.alias.get(commandName)??commandName
-        )?.forEach((callback:Function) => callback(cmdInfo) )
+        )?.forEach?.((callback:Function) => callback(cmdInfo) )
         // 感谢 .?  我不需要为判空做try-catch
+        // ↑e你确定这里不需要俩?.
 
         // if (this.commands.has(commandName)){
         //     const callbacks = this.commands.get(commandName);
