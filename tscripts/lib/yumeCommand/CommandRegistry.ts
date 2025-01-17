@@ -60,25 +60,23 @@ type ScriptEventHandler = (event:ScriptEventCommandMessageAfterEvent) => void;
 type ScriptEventID = `flash_fake_player:${string}`;
 
 export class CommandRegistry {
-    private commandsRegistryMap :Map<string,Set<Function>> = new Map();
-    public commandsList = new Set<string>()
+    private commandsRegistryMap = new Map<string,Set<Function>>();
+    public get commandsList() {
+        return new Set(this.commandsRegistryMap.keys());
+    }
     public commandRegistrySign :string;
     static parse = commandParse;
     private  alias = new Map<string,string>();
-    public scriptEventsIDList = new Set<string>();
-    private scriptEventsHandlers: ({
-        id: ScriptEventID;
-        handler: ScriptEventHandler;
-    })[] = [];
+    private scriptEventsMap = new Map<ScriptEventID,Set<Function>>();
 
 
     constructor(commandRegistrySign='funny') {
         this.commandRegistrySign  = commandRegistrySign;
-        this.commandsRegistryMap  = new Map();
 
         // 全局/scriptevent监听初始化
         system.afterEvents.scriptEventReceive.subscribe(e => {
-            if (this.scriptEventsIDList.size === 0 && !this.scriptEventsIDList.has(e.id)) {
+            // @ts-ignore 我在运行时判断有没有你给我编译时抛错误无敌了
+            if (this.scriptEventsMap.size === 0 || !this.scriptEventsMap.has(e.id)) {
                 return;
             }
 
