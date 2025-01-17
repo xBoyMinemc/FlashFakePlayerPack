@@ -132,9 +132,8 @@ export class CommandRegistry {
 
         this.commandsRegistryMap.get(
             this.alias.get(commandName)??commandName
-        )?.forEach?.((callback:Function) => callback(cmdInfo) )
+        )?.forEach((callback:Function) => callback(cmdInfo) )
         // 感谢 .?  我不需要为判空做try-catch
-        // ↑e你确定这里不需要俩?.
 
         // if (this.commands.has(commandName)){
         //     const callbacks = this.commands.get(commandName);
