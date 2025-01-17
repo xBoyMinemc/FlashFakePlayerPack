@@ -1,19 +1,14 @@
-import { system, Player, Vector3, ScriptEventCommandMessageAfterEvent } from "@minecraft/server";
-import type { SimulatedPlayer } from "@minecraft/server-gametest";
+import {Player, Vector3} from "@minecraft/server";
+import type {SimulatedPlayer} from "@minecraft/server-gametest";
 
-export interface commandInfo {
+export interface CommandInfo {
     args: string[],
     entity?: Player,
     location?: Vector3,
     isEntity?: boolean,
     sim?: SimulatedPlayer
 } // | Player | Dimension | Entity
-export interface commandInfoNoArgs {
-    entity?: Player,
-    location?: Vector3,
-    isEntity?: boolean,
-    sim?: SimulatedPlayer
-}
+export type CommandInfoNoArgs = Omit<CommandInfo, "args">;
 
 // Parse command
 export function commandParse(command:string):string[] {
@@ -56,8 +51,6 @@ export function commandParse(command:string):string[] {
 // tokens => [ 'cmdHead', 'arg1', 'arg2', 'arg3', '_arg4', '7', '8', '~-5' ]
 
 export const internalExceptionWaringText = '[模拟玩家] 出现内部异常，已尝试处理，请在GitHub进行反馈以免再次出现问题';
-type ScriptEventHandler = (event:ScriptEventCommandMessageAfterEvent) => void;
-type ScriptEventID = `flash_fake_player:${string}`;
 
 export class CommandRegistry {
     private commandsRegistryMap = new Map<string,Set<Function>>();
@@ -67,35 +60,10 @@ export class CommandRegistry {
     public commandRegistrySign :string;
     static parse = commandParse;
     private  alias = new Map<string,string>();
-    private scriptEventsMap = new Map<ScriptEventID,Set<Function>>();
 
 
     constructor(commandRegistrySign='funny') {
         this.commandRegistrySign  = commandRegistrySign;
-
-        // 全局/scriptevent监听初始化
-        system.afterEvents.scriptEventReceive.subscribe(e => {
-            // @ts-ignore 我在运行时判断有没有你给我编译时抛错误无敌了
-            if (this.scriptEventsMap.size === 0 || !this.scriptEventsMap.has(e.id)) {
-                return;
-            }
-
-            const handlers = this.scriptEventsHandlers.filter(
-                v => {
-                    if (!this.scriptEventsIDList.has(v.id)) {
-                        // 感觉这样的提示有点太高估用户了，所以就改成了下面这种
-                        // console.warn('[模拟玩家] 正在遍历的scriptEventsHandlers项的id属性在scriptEventsIDList中不存在');
-                        console.warn(internalExceptionWaringText);
-
-                        return false;
-                    }
-
-                    return e.id === v.id;
-                }
-            ).map(v => v.handler);
-
-            handlers.forEach(handler => handler(e));
-        }, { namespaces: ['flash_fake_player'] });
     }
 
     // registerAlias
@@ -105,28 +73,26 @@ export class CommandRegistry {
     }
 
     // registerCommand
-    registerCommand(commandName:string, callback?:(commandInfoObject:commandInfo)=>void) {
-        if(!callback)
-            return this.commandsRegistryMap.set(commandName,new Set());
+    registerCommand(commandName:string, callback?:(commandInfoObject:CommandInfo)=>void) {
+        if(!callback) {
+            this.commandsRegistryMap.set(commandName, new Set());
+            return;
+        }
         if(this.alias.has(commandName))
             this.alias.delete(commandName)
         if (!this.commandsRegistryMap.has(commandName))
             this.commandsRegistryMap.set(commandName,new Set());
 
         this.commandsList.add(commandName)
-        return this.commandsRegistryMap.get(commandName).add(callback);
-    }
-
-    registerScriptEventCommand(id:ScriptEventID, callback?:ScriptEventHandler) {
-        this.scriptEventsIDList.add(id);
-        // 别误解了，这样做是可以实现一个id多个handler
-        this.scriptEventsHandlers.push({id, handler: callback});
+        this.commandsRegistryMap.get(commandName).add(callback);
+        return;
     }
 
     // executeCommand
-    executeCommand(commandName:string, cmdInfo:commandInfo) {
+    executeCommand(commandName:string, cmdInfo:CommandInfo) {
         // ding~
-        cmdInfo.entity && cmdInfo.entity.playSound && cmdInfo.entity.playSound('random.levelup',{pitch:8+Math.floor(Math.random()*12)})
+        // 都有?.了你还用&&
+        cmdInfo?.entity?.playSound?.('random.levelup',{pitch:8+Math.floor(Math.random()*12)})
 
         this.commandsRegistryMap.get(
             this.alias.get(commandName)??commandName
@@ -141,13 +107,13 @@ export class CommandRegistry {
         //     console.error(`Command "${commandName}" not found.`);
     }
 
-    execute(commandText:string,cmdInfo:commandInfoNoArgs){
+    execute(commandText:string,cmdInfo:CommandInfoNoArgs){
         const args = CommandRegistry.parse(commandText)
         this.executeCommand(args[0],{...cmdInfo,args})
     }
 
     // removeCommand
-    removeCommand(commandName:string, callback:Function) {
+    removeCommand(commandName:string, callback?:Function) {
         if(callback)
             this.commandsRegistryMap.get(commandName)?.delete(callback)
         else

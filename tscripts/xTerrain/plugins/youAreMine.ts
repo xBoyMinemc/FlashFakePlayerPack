@@ -1,9 +1,8 @@
 import type { SimulatedPlayer } from '@minecraft/server-gametest'
 import { getSimPlayer } from '../../lib/xboyPackage/Util'
-import { CommandRegistry, type commandInfo } from '../../lib/yumeCommand/CommandRegistry'
+import { CommandRegistry, type CommandInfo } from '../../lib/yumeCommand/CommandRegistry'
 import {
     world,
-    EntityComponent,
     EntityEquippableComponent,
     EntityInventoryComponent,
     EquipmentSlot,
@@ -107,7 +106,7 @@ commandRegistry.registerCommand('假人装备交换', ({entity,isEntity,sim}) =>
 })
 
 
-const returnResWithoutArgs = ({entity,isEntity,sim}:commandInfo)=>{
+const returnResWithoutArgs = ({entity,isEntity,sim}:CommandInfo)=>{
     if(!isEntity && !sim) {
         console.error('error not isEntity')
         return
@@ -118,6 +117,7 @@ const returnResWithoutArgs = ({entity,isEntity,sim}:commandInfo)=>{
 
     const equip = <EntityEquippableComponent>SimPlayer.getComponent("minecraft:equippable")
 
+    // emmm你这变量名
     const { location:l, dimension:d } = entity
 
     for (const i in EquipmentSlot) {
@@ -142,10 +142,10 @@ const returnResWithoutArgs = ({entity,isEntity,sim}:commandInfo)=>{
     // SimPLayer's xp turn to player
     const total = SimPlayer.getTotalXp()
     if(total!==0){
-        entity.sendMessage('xp +'+total),
-            entity.addExperience(total),
-            SimPlayer.resetLevel(),
-            entity.playSound('random.levelup')
+        entity.sendMessage('xp +'+total);
+        entity.addExperience(total);
+        SimPlayer.resetLevel();
+        entity.playSound('random.levelup');
     }
 }
 

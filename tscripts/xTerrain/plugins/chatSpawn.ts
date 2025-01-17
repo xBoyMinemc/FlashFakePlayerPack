@@ -8,7 +8,7 @@ import {
     GetPID,
     initSucceed
 } from '../main'
-import { commandInfo, CommandRegistry } from '../../lib/yumeCommand/CommandRegistry'
+import { CommandInfo, CommandRegistry } from '../../lib/yumeCommand/CommandRegistry'
 import { Dimension, Vector3, world } from '@minecraft/server'
 import {xyz_dododo} from "../../lib/xboyPackage/xyz_dododo";
 const overworld = world.getDimension("overworld");
@@ -105,7 +105,7 @@ commandRegistry.registerCommand('假人生成',withArgs)
 
 // #56 参考：
 // 假人生成 x y z name 维度序号（数字 0-主世界 1-地狱 2-末地）
-const withArgs_xyz_name = ({args,entity}:commandInfo)=>{
+const withArgs_xyz_name = ({args,entity}:CommandInfo)=>{
     let location: Vector3 = null
     let nameTag : string = null
     if (args[1] === '批量' || args.length < 2) return
@@ -164,5 +164,6 @@ world.afterEvents.chatSend.subscribe(({message, sender})=>{
         sender.sendMessage(commandRegistry.showList().toString())
     }
 })
+world.beforeEvents.chatSend
 
 // console.error('[假人]内置插件chatSpawn加载成功')
