@@ -51,9 +51,11 @@ export function commandParse(command:string):string[] {
 // tokens => [ 'cmdHead', 'arg1', 'arg2', 'arg3', '_arg4', '7', '8', '~-5' ]
 
 export const internalExceptionWaringText = '[模拟玩家] 出现内部异常，已尝试处理，请在GitHub进行反馈以免再次出现问题';
+export const cannotHandledExceptionWaringText = '[模拟玩家] 出现不可处理的内部异常，请在GitHub进行反馈';
+type CommandHandler = (cmdInfo:CommandInfo) => void;
 
 export class CommandRegistry {
-    private commandsRegistryMap = new Map<string,Set<Function>>();
+    private commandsRegistryMap = new Map<string,Set<CommandHandler>>();
     public get commandsList() {
         return new Set(this.commandsRegistryMap.keys());
     }
@@ -70,10 +72,13 @@ export class CommandRegistry {
     registerAlias( alias:string ,commandName:string) {
         this.alias.set(alias,commandName)
         this.commandsList.add(alias)
+
+        return this.registerAlias;
     }
 
     // registerCommand
     registerCommand(commandName:string, callback?:(commandInfoObject:CommandInfo)=>void) {
+        // 虽然但是你这个if啥意思
         if(!callback) {
             this.commandsRegistryMap.set(commandName, new Set());
             return;
@@ -85,7 +90,7 @@ export class CommandRegistry {
 
         this.commandsList.add(commandName)
         this.commandsRegistryMap.get(commandName).add(callback);
-        return;
+        return callback;
     }
 
     // executeCommand
@@ -96,7 +101,7 @@ export class CommandRegistry {
 
         this.commandsRegistryMap.get(
             this.alias.get(commandName)??commandName
-        )?.forEach((callback:Function) => callback(cmdInfo) )
+        )?.forEach((callback) => callback(cmdInfo) )
         // 感谢 .?  我不需要为判空做try-catch
 
         // if (this.commands.has(commandName)){
@@ -113,7 +118,7 @@ export class CommandRegistry {
     }
 
     // removeCommand
-    removeCommand(commandName:string, callback?:Function) {
+    removeCommand(commandName:string, callback?:CommandHandler) {
         if(callback)
             this.commandsRegistryMap.get(commandName)?.delete(callback)
         else

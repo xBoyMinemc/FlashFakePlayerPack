@@ -1,40 +1,87 @@
-import {Player, ScriptEventSource, system} from "@minecraft/server";
-import {CommandInfo, commandParse} from "./CommandRegistry";
+import {Player, ScriptEventCommandMessageAfterEvent, ScriptEventSource, system, Vector3} from "@minecraft/server";
+import {cannotHandledExceptionWaringText, CommandInfo, commandParse} from "./CommandRegistry";
 
 type ScriptEventHandler = (event:CommandInfo) => void;
-type ScriptEventID = `flash_fake_player:${string}`;
+type ScriptEventID = `ffp:${string}`;
+
+function getSourceLocation(e: ScriptEventCommandMessageAfterEvent): Vector3 {
+    return e.sourceEntity?.location ?? e.sourceBlock?.location ?? (
+        () => {
+            throw new TypeError('无法获取位置');
+        }
+    )();
+}
+
+function getCommandInfo(e: ScriptEventCommandMessageAfterEvent): CommandInfo {
+    return {
+        args: commandParse(e.message),
+        entity: e.sourceEntity instanceof Player ? e.sourceEntity : null,
+        location: getSourceLocation(e),
+        isEntity: e.sourceType === ScriptEventSource.Entity,
+    };
+}
 
 export class ScriptEventRegistry {
     public get scriptEventsIDList() {
-        return new Set(this.scriptEventsMap.keys());
+        return new Set(this.scriptEventHandlersMap.keys());
     }
-    private scriptEventsMap: Map<ScriptEventID, Set<ScriptEventHandler>>;
+    private scriptEventHandlersMap = new Map<ScriptEventID, Set<ScriptEventHandler>>;
+    private alias = new Map<ScriptEventID, ScriptEventID>;
+
     constructor() {
         // 全局/scriptevent监听初始化
         system.afterEvents.scriptEventReceive.subscribe(e => {
             // @ts-ignore 我在运行时判断有没有你给我编译时抛错误无敌了
-            if (this.scriptEventsMap.size === 0 || !this.scriptEventsMap.has(e.id)) {
+            if (this.scriptEventHandlersMap.size === 0 || !this.scriptEventHandlersMap.has(e.id)) {
                 return;
             }
 
-            const filterScriptEventHandlers =
-                Array.from(this.scriptEventsMap.entries())
-                    .filter(
-                        ([id, _handler]) => e.id === id
-                    )
-                    .map(v => /*值*/v[1]);
-
-            filterScriptEventHandlers.forEach(handlers => {
-                handlers.forEach(handler => {
-                    handler({
-                        args: commandParse(e.message),
-                        entity: e.sourceEntity instanceof Player ? e.sourceEntity : null,
-                        location: e.sourceEntity.location,
-                        isEntity: e.sourceType === ScriptEventSource.Entity,
+            // 处理直接注册的handler
+            Array.from(this.scriptEventHandlersMap.entries())
+                .filter(
+                    ([id]) => e.id === id
+                )
+                .map(v => /*值*/v[1])
+                // 把获取到的所有handler执行
+                .forEach(handlers => {
+                    handlers.forEach(handler => {
+                        handler(getCommandInfo(e));
                     });
                 });
-            });
-        }, { namespaces: ['flash_fake_player'] });
+
+            // 处理别名(alias)
+            Array.from(this.alias.entries())
+                .filter(
+                    ([alias]) => e.id === alias
+                )
+                .map(v => this.scriptEventHandlersMap.get(v[1]))
+                .forEach(handlers => {
+                    handlers.forEach(handler => {
+                        handler(getCommandInfo(e));
+                    });
+                });
+        }, { namespaces: ['ffp'] });
     }
 
+    public registerScriptEventHandler(
+        id: ScriptEventID,
+        callback: ScriptEventHandler
+    ): ScriptEventHandler {
+        if (!this.scriptEventHandlersMap.has(id))
+            this.scriptEventHandlersMap.set(id, new Set());
+
+        this.scriptEventHandlersMap.get(id).add(callback);
+        return callback;
+    }
+
+    public registerAlias(alias: ScriptEventID, targetID: ScriptEventID) {
+        if (!this.scriptEventHandlersMap.has(targetID)) {
+            console.warn(cannotHandledExceptionWaringText);
+        }
+        this.alias.set(alias, targetID);
+
+        // 666演都不演了
+        // this.registerAlias('ffp:1', 'ffp:2')('ffp:3', 'ffp:4');
+        return this.registerAlias;
+    }
 }
