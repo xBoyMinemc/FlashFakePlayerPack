@@ -56,9 +56,7 @@ type CommandHandler = (cmdInfo:CommandInfo) => void;
 
 export class CommandRegistry {
     private commandsRegistryMap = new Map<string,Set<CommandHandler>>();
-    public get commandsList() {
-        return new Set(this.commandsRegistryMap.keys());
-    }
+    public commandsList = new Set<string>();
     public commandRegistrySign :string;
     static parse = commandParse;
     private  alias = new Map<string,string>();
@@ -71,18 +69,14 @@ export class CommandRegistry {
     // registerAlias
     registerAlias( alias:string ,commandName:string) {
         this.alias.set(alias,commandName)
-        this.commandsList.add(alias)
+        this.
+        commandsList.add(alias)
 
         return this.registerAlias;
     }
 
     // registerCommand
-    registerCommand(commandName:string, callback?:(commandInfoObject:CommandInfo)=>void) {
-        // 虽然但是你这个if啥意思
-        if(!callback) {
-            this.commandsRegistryMap.set(commandName, new Set());
-            return;
-        }
+    registerCommand(commandName:string, callback:(commandInfoObject:CommandInfo)=>void) {
         if(this.alias.has(commandName))
             this.alias.delete(commandName)
         if (!this.commandsRegistryMap.has(commandName))

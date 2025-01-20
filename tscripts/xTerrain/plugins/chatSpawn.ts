@@ -1,28 +1,31 @@
-import type { SimulatedPlayer } from '@minecraft/server-gametest'
+import type {SimulatedPlayer} from '@minecraft/server-gametest'
 
 import {
-    spawnSimulatedPlayer,
-    spawnSimulatedPlayerByNameTag,
+    GetPID, initSucceed,
     SimulatedPlayerEnum,
     spawned as spawnedEvent,
-    GetPID,
-    initSucceed
+    spawnSimulatedPlayer,
+    spawnSimulatedPlayerByNameTag
 } from '../main'
-import { CommandInfo, CommandRegistry } from '../../lib/yumeCommand/CommandRegistry'
-import { Dimension, Vector3, world } from '@minecraft/server'
+import {CommandInfo, CommandRegistry} from '../../lib/yumeCommand/CommandRegistry'
+import {ScriptEventRegistry} from "../../lib/yumeCommand/ScriptEventRegistry";
+import {Dimension, Vector3, world} from '@minecraft/server'
 import {xyz_dododo} from "../../lib/xboyPackage/xyz_dododo";
+
 const overworld = world.getDimension("overworld");
 
 
-const commandRegistry: CommandRegistry = new CommandRegistry()
-commandRegistry.registerCommand('假人生成')
+const commandRegistry = new CommandRegistry()
 commandRegistry.registerAlias('假人创建','假人生成')
 commandRegistry.registerAlias('FFPP','假人生成')
 commandRegistry.registerAlias('ffpp','假人生成')
 commandRegistry.registerAlias('Ffpp','假人生成')
 
-// 假人生成函数(?)
+const scriptEventRegistry = new ScriptEventRegistry()
+
 const noArgs = ({args,entity,location,isEntity})=>{
+    // @ts-ignore
+    console.log(args, Object.getPrototypeOf(entity).constructor.name)
     if(!initSucceed)
         return entity?.sendMessage('[假人] 插件未初始化完成，请重试')
     if(args.length!==1)return;
@@ -102,6 +105,7 @@ const withArgs = ({args,entity,location,isEntity})=>{
         }
 }
 commandRegistry.registerCommand('假人生成',withArgs)
+scriptEventRegistry.registerScriptEventHandler('ffp:ffpp',noArgs)
 
 // #56 参考：
 // 假人生成 x y z name 维度序号（数字 0-主世界 1-地狱 2-末地）

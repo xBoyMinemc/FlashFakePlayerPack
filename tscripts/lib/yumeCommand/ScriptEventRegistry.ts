@@ -28,7 +28,9 @@ export class ScriptEventRegistry {
     private scriptEventHandlersMap = new Map<ScriptEventID, Set<ScriptEventHandler>>;
     private alias = new Map<ScriptEventID, ScriptEventID>;
 
+    //
     constructor() {
+        console.log('construct')
         // 全局/scriptevent监听初始化
         system.afterEvents.scriptEventReceive.subscribe(e => {
             // @ts-ignore 我在运行时判断有没有你给我编译时抛错误无敌了
@@ -36,27 +38,34 @@ export class ScriptEventRegistry {
                 return;
             }
 
+            let { id } = e;
+            id = id.trim().toLowerCase();
+            console.log('triggered')
+
             // 处理直接注册的handler
             Array.from(this.scriptEventHandlersMap.entries())
                 .filter(
-                    ([id]) => e.id === id
+                    ([_id]) => _id === id
                 )
                 .map(v => /*值*/v[1])
                 // 把获取到的所有handler执行
                 .forEach(handlers => {
-                    handlers.forEach(handler => {
-                        handler(getCommandInfo(e));
+                    handlers?.forEach?.(handler => {
+                        console.log(handler, id,  'call')
+                        const cmdInfo = getCommandInfo(e)
+                        handler(cmdInfo);
                     });
                 });
 
             // 处理别名(alias)
             Array.from(this.alias.entries())
                 .filter(
-                    ([alias]) => e.id === alias
+                    ([alias]) => id === alias
                 )
                 .map(v => this.scriptEventHandlersMap.get(v[1]))
                 .forEach(handlers => {
-                    handlers.forEach(handler => {
+                    handlers?.forEach?.(handler => {
+                        console.log(handler, id, 'alias call`')
                         handler(getCommandInfo(e));
                     });
                 });
@@ -67,6 +76,10 @@ export class ScriptEventRegistry {
         id: ScriptEventID,
         callback: ScriptEventHandler
     ): ScriptEventHandler {
+        console.log('register')
+        // @ts-ignore
+        id = id.toLowerCase();
+
         if (!this.scriptEventHandlersMap.has(id))
             this.scriptEventHandlersMap.set(id, new Set());
 
@@ -75,6 +88,10 @@ export class ScriptEventRegistry {
     }
 
     public registerAlias(alias: ScriptEventID, targetID: ScriptEventID) {
+        console.log('register alias')
+        // @ts-ignore
+        alias = alias.toLowerCase();
+
         if (!this.scriptEventHandlersMap.has(targetID)) {
             console.warn(cannotHandledExceptionWaringText);
         }
