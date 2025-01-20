@@ -11,6 +11,7 @@ export interface CommandInfo {
 export type CommandInfoNoArgs = Omit<CommandInfo, "args">;
 
 // Parse command
+
 export function commandParse(command:string):string[] {
     const tokens = [];
     let currentToken = '';

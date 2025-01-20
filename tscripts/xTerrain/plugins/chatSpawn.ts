@@ -23,9 +23,8 @@ commandRegistry.registerAlias('Ffpp','假人生成')
 
 const scriptEventRegistry = new ScriptEventRegistry()
 
-const noArgs = ({args,entity,location,isEntity})=>{
+function noArgs({args,entity,location,isEntity}:CommandInfo) {
     // @ts-ignore
-    console.log(args, Object.getPrototypeOf(entity).constructor.name)
     if(!initSucceed)
         return entity?.sendMessage('[假人] 插件未初始化完成，请重试')
     if(args.length!==1)return;
@@ -52,7 +51,7 @@ const noArgs = ({args,entity,location,isEntity})=>{
     }else {
         const PID = GetPID()
         const __FlashPlayer__ = world.scoreboard.getObjective('##FlashPlayer##')
-        const SimulatedPlayer :SimulatedPlayer= spawnSimulatedPlayer(location,entity,PID)
+        const SimulatedPlayer :SimulatedPlayer= spawnSimulatedPlayer(location,entity.dimension,PID)
 
 
 
@@ -69,7 +68,7 @@ const noArgs = ({args,entity,location,isEntity})=>{
 
 commandRegistry.registerCommand('假人生成',noArgs)
 
-const withArgs = ({args,entity,location,isEntity})=>{
+function withArgs({args,entity,location,isEntity}:CommandInfo) {
     if(args[1]!=='批量')return
     if(typeof Number(args[2]) !== 'number')return  entity?.sendMessage('[模拟玩家] 命令错误，期待数字却得到 '+typeof Number(args[2]))
 
@@ -92,7 +91,7 @@ const withArgs = ({args,entity,location,isEntity})=>{
         }else {
             const PID = GetPID()
             const __FlashPlayer__ = world.scoreboard.getObjective('##FlashPlayer##')
-            const SimulatedPlayer :SimulatedPlayer= spawnSimulatedPlayer(location,entity,PID)
+            const SimulatedPlayer :SimulatedPlayer= spawnSimulatedPlayer(location,entity.dimension,PID)
 
 
 
@@ -106,10 +105,12 @@ const withArgs = ({args,entity,location,isEntity})=>{
 }
 commandRegistry.registerCommand('假人生成',withArgs)
 scriptEventRegistry.registerScriptEventHandler('ffp:ffpp',noArgs)
+scriptEventRegistry.registerScriptEventHandler('ffp:ffpp',withArgs)
+scriptEventRegistry.registerScriptEventHandler('ffp:ffpp',withArgs_xyz_name)
 
 // #56 参考：
 // 假人生成 x y z name 维度序号（数字 0-主世界 1-地狱 2-末地）
-const withArgs_xyz_name = ({args,entity}:CommandInfo)=>{
+function withArgs_xyz_name({args,entity}:CommandInfo) {
     let location: Vector3 = null
     let nameTag : string = null
     if (args[1] === '批量' || args.length < 2) return
@@ -123,6 +124,9 @@ const withArgs_xyz_name = ({args,entity}:CommandInfo)=>{
         const [__x,__y,__z] = xyz_dododo([x,y,z],[_x,_y,_z])
         location = {x:__x,y:__y,z:__z}
         // 好烂，谁来改改
+
+        // 改xx这代码😡
+        // 还是我自己写个addon霸👆🤓
     }catch (e) {
         return entity?.sendMessage('[模拟玩家] 命令错误，期待三个却得到错误的信息 '+args.join(' '))
     }

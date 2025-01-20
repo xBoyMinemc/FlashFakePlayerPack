@@ -1,5 +1,5 @@
 import {Player, ScriptEventCommandMessageAfterEvent, ScriptEventSource, system, Vector3} from "@minecraft/server";
-import {cannotHandledExceptionWaringText, CommandInfo, commandParse} from "./CommandRegistry";
+import {cannotHandledExceptionWaringText, CommandInfo, commandParse, CommandRegistry} from "./CommandRegistry";
 
 type ScriptEventHandler = (event:CommandInfo) => void;
 type ScriptEventID = `ffp:${string}`;
@@ -12,9 +12,25 @@ function getSourceLocation(e: ScriptEventCommandMessageAfterEvent): Vector3 {
     )();
 }
 
+function scriptEventArgsParse(
+    idOrEvent:
+        | ScriptEventID
+        | ScriptEventCommandMessageAfterEvent,
+    message?: string
+): string[] {
+    let id = idOrEvent instanceof ScriptEventCommandMessageAfterEvent
+        ? idOrEvent.id
+        : idOrEvent;
+    message = message ?? (<ScriptEventCommandMessageAfterEvent>idOrEvent).message;
+    
+    const res = commandParse(message);
+    res.unshift(id);
+    return res
+}
+
 function getCommandInfo(e: ScriptEventCommandMessageAfterEvent): CommandInfo {
     return {
-        args: commandParse(e.message),
+        args: scriptEventArgsParse(e),
         entity: e.sourceEntity instanceof Player ? e.sourceEntity : null,
         location: getSourceLocation(e),
         isEntity: e.sourceType === ScriptEventSource.Entity,
@@ -30,7 +46,6 @@ export class ScriptEventRegistry {
 
     //
     constructor() {
-        console.log('construct')
         // 全局/scriptevent监听初始化
         system.afterEvents.scriptEventReceive.subscribe(e => {
             // @ts-ignore 我在运行时判断有没有你给我编译时抛错误无敌了
@@ -40,7 +55,6 @@ export class ScriptEventRegistry {
 
             let { id } = e;
             id = id.trim().toLowerCase();
-            console.log('triggered')
 
             // 处理直接注册的handler
             Array.from(this.scriptEventHandlersMap.entries())
@@ -51,7 +65,6 @@ export class ScriptEventRegistry {
                 // 把获取到的所有handler执行
                 .forEach(handlers => {
                     handlers?.forEach?.(handler => {
-                        console.log(handler, id,  'call')
                         const cmdInfo = getCommandInfo(e)
                         handler(cmdInfo);
                     });
@@ -65,7 +78,6 @@ export class ScriptEventRegistry {
                 .map(v => this.scriptEventHandlersMap.get(v[1]))
                 .forEach(handlers => {
                     handlers?.forEach?.(handler => {
-                        console.log(handler, id, 'alias call`')
                         handler(getCommandInfo(e));
                     });
                 });
@@ -76,7 +88,6 @@ export class ScriptEventRegistry {
         id: ScriptEventID,
         callback: ScriptEventHandler
     ): ScriptEventHandler {
-        console.log('register')
         // @ts-ignore
         id = id.toLowerCase();
 
@@ -88,7 +99,6 @@ export class ScriptEventRegistry {
     }
 
     public registerAlias(alias: ScriptEventID, targetID: ScriptEventID) {
-        console.log('register alias')
         // @ts-ignore
         alias = alias.toLowerCase();
 
