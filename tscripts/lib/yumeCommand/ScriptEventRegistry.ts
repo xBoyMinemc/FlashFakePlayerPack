@@ -78,8 +78,7 @@ export class ScriptEventRegistry {
                 // 把获取到的所有handler执行
                 .forEach(handlers => {
                     handlers?.forEach?.(handler => {
-                        const cmdInfo = getCommandInfo(e)
-                        handler(cmdInfo);
+                        handler(getCommandInfo(e));
                     });
                 });
 
