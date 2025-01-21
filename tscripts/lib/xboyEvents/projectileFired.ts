@@ -32,7 +32,7 @@ const around = (v:number, r:number) => v > -r && v < r;
 
 // const r3 = (o:Vector3,v:number):boolean=>o.x>v||o.x<-v || o.y>v||o.y<-v || o.z>v||o.z<v;
 
-const soso = ({x,y,z})=>({x:+x.toFixed(2),y:+y.toFixed(2),z:+z.toFixed(2)});
+// const soso = ({x,y,z})=>({x:+x.toFixed(2),y:+y.toFixed(2),z:+z.toFixed(2)});
 
 // 相对位差
 const div = ({x,y,z},{x:a,y:b,z:c})=>({x:x-a,y:y-b,z:z-c})
@@ -40,8 +40,8 @@ const div = ({x,y,z},{x:a,y:b,z:c})=>({x:x-a,y:y-b,z:z-c})
 const yu = ({x,y,z},{x:a,y:b,z:c})=>((x-a)**2+(y-b)**2+(z-c)**2)
 const me = ({x,y,z},{x:a,y:b,z:c},m:number)=>({x:x-a*m,y:y-b*m,z:z-c*m})
 const yume = ({x,y,z},{x:a,y:b,z:c})=>Math.sqrt((x-a)**2+(y-b)**2+(z-c)**2)
-const r3 = (o:Vector3,_o:Vector3,v:number):boolean=>o.x-_o.x<-v ||o.x-_o.x>v||  o.y-_o.y>v||o.y-_o.y<-v || o.z-_o.z>v||o.z-_o.z<-v;
-world.afterEvents.entitySpawn.subscribe(({entity: entity}) => {
+// const r3 = (o:Vector3,_o:Vector3,v:number):boolean=>o.x-_o.x<-v ||o.x-_o.x>v||  o.y-_o.y>v||o.y-_o.y<-v || o.z-_o.z>v||o.z-_o.z<-v;
+world.afterEvents.entitySpawn.subscribe(({entity}) => {
     // world.getDimension("overworld").runCommandAsync("tell @a[tag=xboy] size fishingHookDespawned_HookArray=>"+queue.fishingHookDespawned_HookArray.size)
 
     // entity.runCommandAsync("me "+entity.typeId)
@@ -126,7 +126,7 @@ fishingHookDespawned.subscribe(event=>{
             do{
                 let l = +mou;
                 let t = ++time;
-                let _i = i;
+                // let _i = i;
                 system.runTimeout(()=>{
                     world.getDimension('overworld').spawnParticle('minecraft:endrod',me(
                         arr[i],

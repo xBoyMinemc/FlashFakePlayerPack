@@ -1,15 +1,28 @@
-import {Player, ScriptEventCommandMessageAfterEvent, ScriptEventSource, system, Vector3} from "@minecraft/server";
-import {cannotHandledExceptionWaringText, CommandInfo, commandParse, CommandRegistry} from "./CommandRegistry";
+import {
+    DimensionLocation,
+    Player,
+    ScriptEventCommandMessageAfterEvent,
+    ScriptEventSource,
+    system
+} from "@minecraft/server";
+import {cannotHandledExceptionWaringText, CommandInfo, commandParse} from "./CommandRegistry";
 
 type ScriptEventHandler = (event:CommandInfo) => void;
 type ScriptEventID = `ffp:${string}`;
 
-function getSourceLocation(e: ScriptEventCommandMessageAfterEvent): Vector3 {
-    return e.sourceEntity?.location ?? e.sourceBlock?.location ?? (
-        () => {
-            throw new TypeError('无法获取位置');
-        }
-    )();
+function getSourceLocation(e: ScriptEventCommandMessageAfterEvent): DimensionLocation {
+    return {
+        ...e.sourceEntity?.location ?? e.sourceBlock?.location ?? (
+            () => {
+                throw new TypeError('[模拟玩家] 无法获取位置');
+            }
+        )(),
+        dimension: e.sourceEntity?.dimension ?? e.sourceBlock?.dimension ?? (
+            () => {
+                throw new TypeError('[模拟玩家] 无法获取位置');
+            }
+        )(),
+    };
 }
 
 function scriptEventArgsParse(

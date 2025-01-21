@@ -1,6 +1,6 @@
 import type { SimulatedPlayer } from '@minecraft/server-gametest'
 import { getSimPlayer } from '../../lib/xboyPackage/Util'
-import { CommandRegistry, type CommandInfo } from '../../lib/yumeCommand/CommandRegistry'
+import {CommandRegistry, type CommandInfo, getLocationFromEntityLike} from '../../lib/yumeCommand/CommandRegistry'
 import {
     world,
     EntityEquippableComponent,
@@ -169,7 +169,7 @@ commandRegistry.registerCommand('假人销毁', ({entity,isEntity,args,sim}) => 
         const SimPlayer:SimulatedPlayer = getSimPlayer.formView(entity)
         if(!SimPlayer)return entity.sendMessage("§e§l-面前不存在模拟玩家")
 
-        commandRegistry.executeCommand('假人背包清空',{args:['假人背包清空'],entity,isEntity,sim:SimPlayer})
+        commandRegistry.executeCommand('假人背包清空',{args:['假人背包清空'],entity,isEntity,sim:SimPlayer,location:getLocationFromEntityLike(entity)})
         entity.sendMessage("§e§l-拜拜了您内")
         SimPlayer.disconnect()
     }
@@ -182,7 +182,7 @@ commandRegistry.registerCommand('假人销毁', ({entity,isEntity,args,sim}) => 
 
         if(!SimPlayer)return entity.sendMessage("§e§l-不存在模拟玩家"+index)
 
-        commandRegistry.executeCommand('假人背包清空',{args:['假人背包清空'],entity,isEntity,sim:SimPlayer})
+        commandRegistry.executeCommand('假人背包清空',{args:['假人背包清空'],entity,isEntity,sim:SimPlayer,location:getLocationFromEntityLike(entity)})
         entity.sendMessage("§e§l-拜拜了您内")
         SimPlayer.disconnect()
     }
@@ -274,7 +274,7 @@ commandRegistry.registerCommand('假人改名', ({entity,isEntity,args})=> {
 world.afterEvents.chatSend.subscribe(({message, sender})=> {
     const args = CommandRegistry.parse(message)
     if(commandRegistry.commandsList.has(args[0]))
-        commandRegistry.executeCommand(args[0],{isEntity:true,entity:sender,location:sender.location,args})
+        commandRegistry.executeCommand(args[0],{isEntity:true,entity:sender,location:getLocationFromEntityLike(sender),args})
 
     if(message==='showshowway'){
         sender.sendMessage(commandRegistry.showList().toString())

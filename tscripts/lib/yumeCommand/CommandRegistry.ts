@@ -1,10 +1,15 @@
-import {Player, Vector3} from "@minecraft/server";
+import {
+    Dimension,
+    DimensionLocation,
+    Player,
+    Vector3
+} from "@minecraft/server";
 import type {SimulatedPlayer} from "@minecraft/server-gametest";
 
 export interface CommandInfo {
     args: string[],
     entity?: Player,
-    location?: Vector3,
+    location?: DimensionLocation,
     isEntity?: boolean,
     sim?: SimulatedPlayer
 } // | Player | Dimension | Entity
@@ -44,6 +49,14 @@ export function commandParse(command:string):string[] {
     }
 
     return tokens;
+}
+
+export function getLocationFromEntityLike(entity: {
+    location: Vector3; dimension: Dimension;
+}): DimensionLocation {
+    return {
+        ...entity.location, dimension: entity.dimension
+    }
 }
 
 // const command = 'cmdHead arg1  "arg2" "arg3" \"_arg4\" 7 8 ~-5 ';

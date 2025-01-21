@@ -7,7 +7,7 @@ import {
     spawnSimulatedPlayer,
     spawnSimulatedPlayerByNameTag
 } from '../main'
-import {CommandInfo, CommandRegistry} from '../../lib/yumeCommand/CommandRegistry'
+import {CommandInfo, CommandRegistry, getLocationFromEntityLike} from '../../lib/yumeCommand/CommandRegistry'
 import {ScriptEventRegistry} from "../../lib/yumeCommand/ScriptEventRegistry";
 import {Dimension, Vector3, world} from '@minecraft/server'
 import {xyz_dododo} from "../../lib/xboyPackage/xyz_dododo";
@@ -33,7 +33,7 @@ function noArgs({args,entity,location,isEntity}:CommandInfo) {
     if(isEntity){
         const PID = GetPID()
         const __FlashPlayer__ = world.scoreboard.getObjective('##FlashPlayer##')
-        const SimulatedPlayer :SimulatedPlayer = spawnSimulatedPlayer(entity.location,entity.dimension,PID)
+        const SimulatedPlayer :SimulatedPlayer = spawnSimulatedPlayer(location,location.dimension,PID)
 
 
 
@@ -51,7 +51,7 @@ function noArgs({args,entity,location,isEntity}:CommandInfo) {
     }else {
         const PID = GetPID()
         const __FlashPlayer__ = world.scoreboard.getObjective('##FlashPlayer##')
-        const SimulatedPlayer :SimulatedPlayer= spawnSimulatedPlayer(location,entity.dimension,PID)
+        const SimulatedPlayer :SimulatedPlayer= spawnSimulatedPlayer(location,location.dimension,PID)
 
 
 
@@ -77,7 +77,7 @@ function withArgs({args,entity,location,isEntity}:CommandInfo) {
         if(isEntity){
             const PID = GetPID()
             const __FlashPlayer__ = world.scoreboard.getObjective('##FlashPlayer##')
-            const SimulatedPlayer :SimulatedPlayer = spawnSimulatedPlayer(entity.location,entity.dimension,PID)
+            const SimulatedPlayer :SimulatedPlayer = spawnSimulatedPlayer(location,location.dimension,PID)
 
 
 
@@ -91,7 +91,7 @@ function withArgs({args,entity,location,isEntity}:CommandInfo) {
         }else {
             const PID = GetPID()
             const __FlashPlayer__ = world.scoreboard.getObjective('##FlashPlayer##')
-            const SimulatedPlayer :SimulatedPlayer= spawnSimulatedPlayer(location,entity.dimension,PID)
+            const SimulatedPlayer :SimulatedPlayer= spawnSimulatedPlayer(location,location.dimension,PID)
 
 
 
@@ -163,15 +163,14 @@ function withArgs_xyz_name({args,entity}:CommandInfo) {
 }
 commandRegistry.registerCommand('假人生成',withArgs_xyz_name)
 
-world.afterEvents.chatSend.subscribe(({message, sender})=>{
+world.afterEvents.chatSend.subscribe(({message, sender:entity})=>{
     const cmdArgs = CommandRegistry.parse(message)
     if(commandRegistry.commandsList.has(cmdArgs[0]))
-        commandRegistry.executeCommand(cmdArgs[0],{entity:sender,isEntity:true,args:cmdArgs})
+        commandRegistry.executeCommand(cmdArgs[0],{entity,isEntity:true,args:cmdArgs,location:getLocationFromEntityLike(entity)})
 
     if(message==='showshowway'){
-        sender.sendMessage(commandRegistry.showList().toString())
+        entity.sendMessage(commandRegistry.showList().toString())
     }
 })
-world.beforeEvents.chatSend
 
 // console.error('[假人]内置插件chatSpawn加载成功')
