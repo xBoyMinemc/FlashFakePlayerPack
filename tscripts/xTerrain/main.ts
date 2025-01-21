@@ -97,7 +97,7 @@ register('我是云梦', '假人', (test:Test) => {
 
     initialized.trigger(null)
     initSucceed = true
-    console.warn('[模拟玩家] 初始化完成，输入“假人创建”或“ffpp”')
+    console.log('[模拟玩家] 初始化完成，输入“假人创建”或“ffpp”')
 })
 .maxTicks(tickWaitTimes)
 .structureName('xboyMinemcSIM:void');

@@ -97,10 +97,10 @@ export class ScriptEventRegistry {
         }, { namespaces: ['ffp'] });
     }
 
-    public registerScriptEventHandler(
+    public registerScriptEventHandler<T extends ScriptEventHandler>(
         id: ScriptEventID,
-        callback: ScriptEventHandler
-    ): ScriptEventHandler {
+        callback: T
+    ): T {
         // @ts-ignore
         id = id.toLowerCase();
 
