@@ -61,8 +61,7 @@ export class ScriptEventRegistry {
     constructor() {
         // 全局/scriptevent监听初始化
         system.afterEvents.scriptEventReceive.subscribe(e => {
-            // @ts-ignore 我在运行时判断有没有你给我编译时抛错误无敌了
-            if (this.scriptEventHandlersMap.size === 0 || !this.scriptEventHandlersMap.has(e.id)) {
+            if (this.scriptEventHandlersMap.size === 0 || !this.scriptEventHandlersMap.has(<ScriptEventID>e.id)) {
                 return;
             }
 
