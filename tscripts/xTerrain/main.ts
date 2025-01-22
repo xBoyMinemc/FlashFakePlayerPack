@@ -5,7 +5,7 @@ import type {
     spawnedEvent,
     spawnedEventSignal,
 } from '../@types/globalThis'
-import { Dimension, system, Vector3 } from '@minecraft/server'
+import {Dimension, LocationOutOfWorldBoundariesError, system, Vector3} from '@minecraft/server'
 
 import { register } from '@minecraft/server-gametest'
 
@@ -87,10 +87,17 @@ register('我是云梦', '假人', (test:Test) => {
         SimulatedPlayer.addTag('init')
         SimulatedPlayer.addTag(SIGN.YUME_SIM_SIGN)
         SimulatedPlayer.addTag(SIGN.AUTO_RESPAWN_SIGN)
-        //@ts-ignore
-        SimulatedPlayer.setSpawnPoint({...location,dimension})
-        //@ts-ignore
-        SimulatedPlayer.teleport(location, { dimension })
+        try {
+            SimulatedPlayer.setSpawnPoint({...location, dimension})
+            SimulatedPlayer.teleport(location, {dimension})
+        } catch (e) {
+            if (e instanceof LocationOutOfWorldBoundariesError) {
+                console.warn('[模拟玩家] 有东西尝试在非法位置生成假人，已阻止');
+                SimulatedPlayer.disconnect();
+            } else {
+                throw e;
+            }
+        }
 
         return SimulatedPlayer
     }
