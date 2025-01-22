@@ -2,7 +2,7 @@ import type {SimulatedPlayer} from '@minecraft/server-gametest'
 
 import {
     GetPID, initSucceed,
-    SimulatedPlayerEnum,
+    simulatedPlayers,
     spawned as spawnedEvent,
     spawnSimulatedPlayer,
     spawnSimulatedPlayerByNameTag
@@ -37,8 +37,8 @@ function noArgs({args,entity,location,isEntity}:CommandInfo) {
 
 
 
-        SimulatedPlayerEnum[PID]=SimulatedPlayer
-        SimulatedPlayerEnum[SimulatedPlayer.id]=PID
+        simulatedPlayers[PID]=SimulatedPlayer
+        simulatedPlayers[SimulatedPlayer.id]=PID
 
         spawnedEvent.trigger({spawnedSimulatedPlayer:SimulatedPlayer,PID})
         // __FlashPlayer__.setScore(SimulatedPlayer,pid) //Score方案 因为无法为模拟玩家设置分数而放弃
@@ -55,8 +55,8 @@ function noArgs({args,entity,location,isEntity}:CommandInfo) {
 
 
 
-        SimulatedPlayerEnum[PID]=SimulatedPlayer
-        SimulatedPlayerEnum[SimulatedPlayer.id]=PID
+        simulatedPlayers[PID]=SimulatedPlayer
+        simulatedPlayers[SimulatedPlayer.id]=PID
 
         spawnedEvent.trigger({spawnedSimulatedPlayer:SimulatedPlayer,PID})
         // __FlashPlayer__.setScore(SimulatedPlayer,pid) //Score方案 因为无法为模拟玩家设置分数而放弃
@@ -82,8 +82,8 @@ function withArgs({args,entity,location,isEntity}:CommandInfo) {
 
 
             // add SimulatedPlayer to SimulatedPlayerList,by ues obj <key,value>
-            SimulatedPlayerEnum[PID]=SimulatedPlayer
-            SimulatedPlayerEnum[SimulatedPlayer.id]=PID
+            simulatedPlayers[PID]=SimulatedPlayer
+            simulatedPlayers[SimulatedPlayer.id]=PID
 
             spawnedEvent.trigger({spawnedSimulatedPlayer:SimulatedPlayer,PID})
             __FlashPlayer__.setScore(SimulatedPlayer.id,PID)
@@ -96,8 +96,8 @@ function withArgs({args,entity,location,isEntity}:CommandInfo) {
 
 
             // add SimulatedPlayer to SimulatedPlayerList,by ues obj <key,value>
-            SimulatedPlayerEnum[PID]=SimulatedPlayer
-            SimulatedPlayerEnum[SimulatedPlayer.id]=PID
+            simulatedPlayers[PID]=SimulatedPlayer
+            simulatedPlayers[SimulatedPlayer.id]=PID
 
             spawnedEvent.trigger({spawnedSimulatedPlayer:SimulatedPlayer,PID})
             __FlashPlayer__.setScore(SimulatedPlayer.id,PID)
@@ -155,8 +155,8 @@ function withArgs_xyz_name({args,entity}:CommandInfo) {
 
     const SimulatedPlayer :SimulatedPlayer = nameTag ? spawnSimulatedPlayerByNameTag(location,dimension ?? entity?.dimension ?? overworld,nameTag) : spawnSimulatedPlayer(location,dimension ?? entity?.dimension ?? overworld,PID)
 
-    SimulatedPlayerEnum[PID]=SimulatedPlayer
-    SimulatedPlayerEnum[SimulatedPlayer.id]=PID
+    simulatedPlayers[PID]=SimulatedPlayer
+    simulatedPlayers[SimulatedPlayer.id]=PID
 
     spawnedEvent.trigger({spawnedSimulatedPlayer:SimulatedPlayer,PID})
     __FlashPlayer__.setScore(SimulatedPlayer.id,PID)

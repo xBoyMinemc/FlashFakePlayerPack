@@ -2,7 +2,7 @@ import type { SimulatedPlayer } from '@minecraft/server-gametest'
 import {Dimension, Player, Vector3} from '@minecraft/server'
 
 import {
-    SimulatedPlayerEnum,
+    simulatedPlayers,
     testWorldLocation
 } from '../main'
 import {CommandRegistry, getLocationFromEntityLike} from '../../lib/yumeCommand/CommandRegistry'
@@ -26,8 +26,8 @@ const noArgs = ({args,entity,isEntity})=>{
     const SimPlayer:SimulatedPlayer = getSimPlayer.formView(entity)
     if(!SimPlayer)return
 
-    for(const i in SimulatedPlayerEnum)
-        if(SimulatedPlayerEnum[i]===SimPlayer)
+    for(const i in simulatedPlayers)
+        if(simulatedPlayers[i]===SimPlayer)
             SimPlayer.addTag(SIGN.AUTO_BREAKBLOCK_SIGN)
 
     // console.error('[假人]内置插件'+'假人挖掘'+'执行成功')

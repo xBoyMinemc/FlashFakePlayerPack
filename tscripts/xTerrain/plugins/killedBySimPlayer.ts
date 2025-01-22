@@ -1,18 +1,18 @@
 import entityDeadByHurt from '../../lib/xboyEvents/entityDeadByHurt'
-import {SimulatedPlayerEnum} from '../main'
+import {simulatedPlayers} from '../main'
 import {SimulatedPlayer} from '@minecraft/server-gametest'
 
 entityDeadByHurt.subscribe(({damageSource,hurtEntity})=>{
     if(hurtEntity.typeId !== 'minecraft:player')return
     if(!damageSource)return
 
-    if(SimulatedPlayerEnum[hurtEntity.id])
+    if(simulatedPlayers[hurtEntity.id])
         return damageSource ?? damageSource?.damagingEntity['sendMessage']('玩不起，就别玩')
 
-    const PID = SimulatedPlayerEnum[damageSource.damagingEntity.id]
+    const PID = simulatedPlayers[damageSource.damagingEntity.id]
     if(!PID)return
 
-    const SimPlayer = <SimulatedPlayer>SimulatedPlayerEnum[PID]
+    const SimPlayer = <SimulatedPlayer>simulatedPlayers[PID]
 
     if(!SimPlayer)return
 

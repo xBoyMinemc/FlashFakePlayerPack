@@ -8,7 +8,7 @@ import {
     EquipmentSlot,
     TicksPerSecond
 } from '@minecraft/server'
-import { SimulatedPlayerEnum } from '../main'
+import { simulatedPlayers } from '../main'
 
 
 // 后面还要重构一遍
@@ -178,7 +178,7 @@ commandRegistry.registerCommand('假人销毁', ({entity,isEntity,args,sim}) => 
 
         if(typeof index !== 'number')return  entity?.sendMessage('[模拟玩家] 命令错误，期待数字却得到 '+typeof Number(args[1]))
 
-        const SimPlayer:SimulatedPlayer = SimulatedPlayerEnum[index]
+        const SimPlayer:SimulatedPlayer = simulatedPlayers[index]
 
         if(!SimPlayer)return entity.sendMessage("§e§l-不存在模拟玩家"+index)
 
@@ -217,7 +217,7 @@ commandRegistry.registerCommand('假人重生', ({entity,isEntity,args}) => {
 
         if(typeof index !== 'number')return entity?.sendMessage('[模拟玩家] 命令错误，期待数字却得到 '+typeof Number(args[1]))
 
-        const SimPlayer:SimulatedPlayer = SimulatedPlayerEnum[index]
+        const SimPlayer:SimulatedPlayer = simulatedPlayers[index]
 
         if(!SimPlayer)return entity.sendMessage("§e§l-不存在模拟玩家"+index)
 
@@ -244,9 +244,9 @@ commandRegistry.registerCommand('假人时区', ({entity}) => {
 
 // List
 commandRegistry.registerCommand('假人列表', ({entity}) => {
-    if(Object.keys(SimulatedPlayerEnum).length===0) return entity.sendMessage('列表空的')
-    for (const index in SimulatedPlayerEnum) if (SimulatedPlayerEnum[index] && Number(index)>=0)
-        entity.sendMessage(`§e§l-序号：${index} ## 生成名称: ${SimulatedPlayerEnum[index].name}${SimulatedPlayerEnum[index].name===SimulatedPlayerEnum[index].nameTag?'':' #当前名称: '+SimulatedPlayerEnum[index].nameTag}`)
+    if(Object.keys(simulatedPlayers).length===0) return entity.sendMessage('列表空的')
+    for (const index in simulatedPlayers) if (simulatedPlayers[index] && Number(index)>=0)
+        entity.sendMessage(`§e§l-序号：${index} ## 生成名称: ${simulatedPlayers[index].name}${simulatedPlayers[index].name===simulatedPlayers[index].nameTag?'':' #当前名称: '+simulatedPlayers[index].nameTag}`)
 })
 
 // rename
@@ -299,7 +299,7 @@ commandRegistry.registerCommand('假人位置', ({ entity, isEntity, args }) => 
         const index = Number(args[1]);
         if (typeof index !== 'number') return entity.sendMessage('[模拟玩家] 命令错误，期待数字却得到 ' + typeof Number(args[1]));
 
-        SimPlayer = SimulatedPlayerEnum[index];
+        SimPlayer = simulatedPlayers[index];
 
         if (!SimPlayer) return entity.sendMessage("§e§l-不存在模拟玩家" + index);
     }
