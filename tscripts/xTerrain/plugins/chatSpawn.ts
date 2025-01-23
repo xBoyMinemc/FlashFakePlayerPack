@@ -110,8 +110,7 @@ scriptEventRegistry.registerScriptEventHandler('ffp:ffpp',withArgs_xyz_name)
 
 // #56 参考：
 // 假人生成 x y z name 维度序号（数字 0-主世界 1-地狱 2-末地）
-function withArgs_xyz_name({args,entity}:CommandInfo) {
-    let location: Vector3 = null
+function withArgs_xyz_name({args,entity,location}:CommandInfo) {
     let nameTag : string = null
     if (args[1] === '批量' || args.length < 2) return
 
@@ -120,9 +119,8 @@ function withArgs_xyz_name({args,entity}:CommandInfo) {
         return entity?.sendMessage('[模拟玩家] 命令错误，期待三个坐标数字，得到个数为'+(args.length-1))
     try {
         const [x,y,z] = args.slice(1,4)
-        const {x:_x,y:_y,z:_z} = entity.location
+        const {x:_x,y:_y,z:_z} = location
         const [__x,__y,__z] = xyz_dododo([x,y,z],[_x,_y,_z])
-        location = {x:__x,y:__y,z:__z}
         // 好烂，谁来改改
 
         // 改xx这代码😡
@@ -153,7 +151,9 @@ function withArgs_xyz_name({args,entity}:CommandInfo) {
     const PID = GetPID()
     const __FlashPlayer__ = world.scoreboard.getObjective('##FlashPlayer##')
 
-    const SimulatedPlayer :SimulatedPlayer = nameTag ? spawnSimulatedPlayerByNameTag(location,dimension ?? entity?.dimension ?? overworld,nameTag) : spawnSimulatedPlayer(location,dimension ?? entity?.dimension ?? overworld,PID)
+    const SimulatedPlayer :SimulatedPlayer = nameTag
+        ? spawnSimulatedPlayerByNameTag(location, dimension ?? location?.dimension ?? overworld, nameTag)
+        : spawnSimulatedPlayer(location, dimension ?? location?.dimension ?? overworld, PID)
 
     simulatedPlayers[PID]=SimulatedPlayer
     simulatedPlayers[SimulatedPlayer.id]=PID
