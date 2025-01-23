@@ -132,8 +132,7 @@ function withArgs_xyz_name({args, entity, location: senderLocation}: CommandInfo
         // 改xx这代码😡
         // 还是我自己写个addon霸👆🤓
     }catch (e) {
-        // return entity?.sendMessage('[模拟玩家] 命令错误，期待三个却得到错误的信息 '+args.join(' '))
-        throw e
+        return entity?.sendMessage('[模拟玩家] 命令错误，期待三个却得到错误的信息 '+args.join(' '))
     }
 
     // name
