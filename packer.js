@@ -51,7 +51,7 @@ const manifest_json = {
     ]
 }
 
-fs.writeFile('./manifest.json',JSON.stringify(manifest_json,null,'\t'),()=>{})
+fs.writeFile('./manifest.json',JSON.stringify(manifest_json,null,4),()=>{})
 
 
 // 创建一个Archiver实例，将输出流传递给它

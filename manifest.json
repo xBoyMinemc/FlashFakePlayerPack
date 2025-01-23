@@ -1,45 +1,45 @@
 {
-	"format_version": 2,
-	"header": {
-		"name": "§t1.21.30 v17 §e§lFlash§fFakePlayerPack",
-		"description": "【指定生成坐标-构建于1.21.30-支持1.21.2x-1.21.5x】1.21.30 \n开启实验性游戏内容（测试版 API）-游戏内输入“假人帮助”或“假人创建” 对着假人右键（蹲或不蹲是两个不同的菜单） 无关QQ群：122957051:",
-		"uuid": "aa101e99-abb4-448d-b58f-71e9da43064e",
-		"version": [
-			1,
-			21,
-			317
-		],
-		"min_engine_version": [
-			1,
-			21,
-			20
-		]
-	},
-	"modules": [
-		{
-			"version": [
-				1,
-				21,
-				317
-			],
-			"type": "script",
-			"uuid": "10101e99-abc1-5488-ba76-71e9da441300",
-			"description": "§e§lFlash§fFakePlayerPack",
-			"entry": "scripts/main/preload.js"
-		}
-	],
-	"dependencies": [
-		{
-			"module_name": "@minecraft/server",
-			"version": "2.0.0-alpha"
-		},
-		{
-			"module_name": "@minecraft/server-gametest",
-			"version": "2.0.0-alpha"
-		},
-		{
-			"module_name": "@minecraft/server-ui",
-			"version": "2.0.0-alpha"
-		}
-	]
+    "format_version": 2,
+    "header": {
+        "name": "§t1.21.30                   v17 §e§lFlash§fFakePlayerPack",
+        "description": "【指定生成坐标-构建于1.21.30-支持1.21.2x-1.21.5x】1.21.30 \n开启实验性游戏内容（测试版 API）-游戏内输入“假人帮助”或“假人创建” 对着假人右键（蹲或不蹲是两个不同的菜单） 无关QQ群：122957051:",
+        "uuid": "aa101e99-abb4-448d-b58f-71e9da43064e",
+        "version": [
+            1,
+            21,
+            317
+        ],
+        "min_engine_version": [
+            1,
+            21,
+            20
+        ]
+    },
+    "modules": [
+        {
+            "version": [
+                1,
+                21,
+                317
+            ],
+            "type": "script",
+            "uuid": "10101e99-abc1-5488-ba76-71e9da441300",
+            "description": "§e§lFlash§fFakePlayerPack",
+            "entry": "scripts/main/preload.js"
+        }
+    ],
+    "dependencies": [
+        {
+            "module_name": "@minecraft/server",
+            "version": "2.0.0-alpha"
+        },
+        {
+            "module_name": "@minecraft/server-gametest",
+            "version": "2.0.0-alpha"
+        },
+        {
+            "module_name": "@minecraft/server-ui",
+            "version": "2.0.0-alpha"
+        }
+    ]
 }
