@@ -68,6 +68,19 @@ export class ScriptEventRegistry {
             let { id } = e;
             id = id.trim().toLowerCase();
 
+            let playedSound = false;
+            const execute = (handlers: Set<ScriptEventHandler>) => {
+                if (handlers.size > 0) {
+                    handlers.forEach(handler => {
+                        handler(getCommandInfo(e))
+                    });
+                    if (!playedSound) {
+                        (<Player>e.sourceEntity)?.playSound('note.bell');
+                        playedSound = true;
+                    }
+                }
+            }
+
             // 处理直接注册的handler
             Array.from(this.scriptEventHandlersMap.entries())
                 .filter(
@@ -75,11 +88,7 @@ export class ScriptEventRegistry {
                 )
                 .map(v => /*值*/v[1])
                 // 把获取到的所有handler执行
-                .forEach(handlers => {
-                    handlers?.forEach?.(handler => {
-                        handler(getCommandInfo(e));
-                    });
-                });
+                .forEach(execute);
 
             // 处理别名(alias)
             Array.from(this.alias.entries())
@@ -87,11 +96,7 @@ export class ScriptEventRegistry {
                     ([alias]) => id === alias
                 )
                 .map(v => this.scriptEventHandlersMap.get(v[1]))
-                .forEach(handlers => {
-                    handlers?.forEach?.(handler => {
-                        handler(getCommandInfo(e));
-                    });
-                });
+                .forEach(execute);
         }, { namespaces: ['ffp'] });
     }
 

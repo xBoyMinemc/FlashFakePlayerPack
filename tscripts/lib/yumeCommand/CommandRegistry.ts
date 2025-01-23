@@ -105,7 +105,7 @@ export class CommandRegistry {
     executeCommand(commandName:string, cmdInfo:CommandInfo) {
         // ding~
         // 都有?.了你还用&&
-        cmdInfo?.entity?.playSound?.('random.levelup',{pitch:8+Math.floor(Math.random()*12)})
+        cmdInfo?.entity?.playSound?.('note.bell')
 
         this.commandsRegistryMap.get(
             this.alias.get(commandName)??commandName
