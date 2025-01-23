@@ -90,7 +90,7 @@ export class CommandRegistry {
     }
 
     // registerCommand
-    registerCommand(commandName:string, callback:(commandInfoObject:CommandInfo)=>void) {
+    registerCommand<T extends (commandInfoObject:CommandInfo)=>void>(commandName:string, callback:T):T {
         if(this.alias.has(commandName))
             this.alias.delete(commandName)
         if (!this.commandsRegistryMap.has(commandName))
