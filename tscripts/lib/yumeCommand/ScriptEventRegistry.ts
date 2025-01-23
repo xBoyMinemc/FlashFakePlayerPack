@@ -99,8 +99,7 @@ export class ScriptEventRegistry {
         id: ScriptEventID,
         callback: T
     ): T {
-        // @ts-ignore
-        id = id.toLowerCase();
+        id = <ScriptEventID>id.toLowerCase();
 
         if (!this.scriptEventHandlersMap.has(id))
             this.scriptEventHandlersMap.set(id, new Set());
@@ -110,8 +109,7 @@ export class ScriptEventRegistry {
     }
 
     public registerAlias(alias: ScriptEventID, targetID: ScriptEventID) {
-        // @ts-ignore
-        alias = alias.toLowerCase();
+        alias = <ScriptEventID>alias.toLowerCase();
 
         if (!this.scriptEventHandlersMap.has(targetID)) {
             console.warn(cannotHandledExceptionWaringText);
