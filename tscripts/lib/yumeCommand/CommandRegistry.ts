@@ -105,11 +105,14 @@ export class CommandRegistry {
     executeCommand(commandName:string, cmdInfo:CommandInfo) {
         // ding~
         // 都有?.了你还用&&
-        cmdInfo?.entity?.playSound?.('note.bell')
-
-        this.commandsRegistryMap.get(
+        const handlers = this.commandsRegistryMap.get(
             this.alias.get(commandName)??commandName
-        )?.forEach((callback) => callback(cmdInfo) )
+        );
+        if (handlers?.size > 0) {
+            handlers.forEach((callback) => callback(cmdInfo) )
+            cmdInfo?.entity?.playSound?.('note.bell')
+        }
+
         // 感谢 .?  我不需要为判空做try-catch
 
         // if (this.commands.has(commandName)){
