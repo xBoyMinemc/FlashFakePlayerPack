@@ -1,15 +1,14 @@
 import type { SimulatedPlayer } from '@minecraft/server-gametest'
 import { getSimPlayer } from '../../lib/xboyPackage/Util'
-import { CommandRegistry, type commandInfo } from '../../lib/yumeCommand/CommandRegistry'
+import {CommandRegistry, type CommandInfo, getLocationFromEntityLike} from '../../lib/yumeCommand/CommandRegistry'
 import {
     world,
-    EntityComponent,
     EntityEquippableComponent,
     EntityInventoryComponent,
     EquipmentSlot,
     TicksPerSecond
 } from '@minecraft/server'
-import { SimulatedPlayerEnum } from '../main'
+import { simulatedPlayers } from '../main'
 
 
 // 后面还要重构一遍
@@ -107,7 +106,7 @@ commandRegistry.registerCommand('假人装备交换', ({entity,isEntity,sim}) =>
 })
 
 
-const returnResWithoutArgs = ({entity,isEntity,sim}:commandInfo)=>{
+const returnResWithoutArgs = ({entity,isEntity,sim}:CommandInfo)=>{
     if(!isEntity && !sim) {
         console.error('error not isEntity')
         return
@@ -118,6 +117,7 @@ const returnResWithoutArgs = ({entity,isEntity,sim}:commandInfo)=>{
 
     const equip = <EntityEquippableComponent>SimPlayer.getComponent("minecraft:equippable")
 
+    // emmm你这变量名
     const { location:l, dimension:d } = entity
 
     for (const i in EquipmentSlot) {
@@ -142,10 +142,10 @@ const returnResWithoutArgs = ({entity,isEntity,sim}:commandInfo)=>{
     // SimPLayer's xp turn to player
     const total = SimPlayer.getTotalXp()
     if(total!==0){
-        entity.sendMessage('xp +'+total),
-            entity.addExperience(total),
-            SimPlayer.resetLevel(),
-            entity.playSound('random.levelup')
+        entity.sendMessage('xp +'+total);
+        entity.addExperience(total);
+        SimPlayer.resetLevel();
+        entity.playSound('random.levelup');
     }
 }
 
@@ -169,7 +169,7 @@ commandRegistry.registerCommand('假人销毁', ({entity,isEntity,args,sim}) => 
         const SimPlayer:SimulatedPlayer = getSimPlayer.formView(entity)
         if(!SimPlayer)return entity.sendMessage("§e§l-面前不存在模拟玩家")
 
-        commandRegistry.executeCommand('假人背包清空',{args:['假人背包清空'],entity,isEntity,sim:SimPlayer})
+        commandRegistry.executeCommand('假人背包清空',{args:['假人背包清空'],entity,isEntity,sim:SimPlayer,location:getLocationFromEntityLike(entity)})
         entity.sendMessage("§e§l-拜拜了您内")
         SimPlayer.disconnect()
     }
@@ -178,11 +178,11 @@ commandRegistry.registerCommand('假人销毁', ({entity,isEntity,args,sim}) => 
 
         if(typeof index !== 'number')return  entity?.sendMessage('[模拟玩家] 命令错误，期待数字却得到 '+typeof Number(args[1]))
 
-        const SimPlayer:SimulatedPlayer = SimulatedPlayerEnum[index]
+        const SimPlayer:SimulatedPlayer = simulatedPlayers[index]
 
         if(!SimPlayer)return entity.sendMessage("§e§l-不存在模拟玩家"+index)
 
-        commandRegistry.executeCommand('假人背包清空',{args:['假人背包清空'],entity,isEntity,sim:SimPlayer})
+        commandRegistry.executeCommand('假人背包清空',{args:['假人背包清空'],entity,isEntity,sim:SimPlayer,location:getLocationFromEntityLike(entity)})
         entity.sendMessage("§e§l-拜拜了您内")
         SimPlayer.disconnect()
     }
@@ -217,7 +217,7 @@ commandRegistry.registerCommand('假人重生', ({entity,isEntity,args}) => {
 
         if(typeof index !== 'number')return entity?.sendMessage('[模拟玩家] 命令错误，期待数字却得到 '+typeof Number(args[1]))
 
-        const SimPlayer:SimulatedPlayer = SimulatedPlayerEnum[index]
+        const SimPlayer:SimulatedPlayer = simulatedPlayers[index]
 
         if(!SimPlayer)return entity.sendMessage("§e§l-不存在模拟玩家"+index)
 
@@ -244,9 +244,9 @@ commandRegistry.registerCommand('假人时区', ({entity}) => {
 
 // List
 commandRegistry.registerCommand('假人列表', ({entity}) => {
-    if(Object.keys(SimulatedPlayerEnum).length===0) return entity.sendMessage('列表空的')
-    for (const index in SimulatedPlayerEnum) if (SimulatedPlayerEnum[index] && Number(index)>=0)
-        entity.sendMessage(`§e§l-序号：${index} ## 生成名称: ${SimulatedPlayerEnum[index].name}${SimulatedPlayerEnum[index].name===SimulatedPlayerEnum[index].nameTag?'':' #当前名称: '+SimulatedPlayerEnum[index].nameTag}`)
+    if(Object.keys(simulatedPlayers).length===0) return entity.sendMessage('列表空的')
+    for (const index in simulatedPlayers) if (simulatedPlayers[index] && Number(index)>=0)
+        entity.sendMessage(`§e§l-序号：${index} ## 生成名称: ${simulatedPlayers[index].name}${simulatedPlayers[index].name===simulatedPlayers[index].nameTag?'':' #当前名称: '+simulatedPlayers[index].nameTag}`)
 })
 
 // rename
@@ -274,7 +274,7 @@ commandRegistry.registerCommand('假人改名', ({entity,isEntity,args})=> {
 world.afterEvents.chatSend.subscribe(({message, sender})=> {
     const args = CommandRegistry.parse(message)
     if(commandRegistry.commandsList.has(args[0]))
-        commandRegistry.executeCommand(args[0],{isEntity:true,entity:sender,location:sender.location,args})
+        commandRegistry.executeCommand(args[0],{isEntity:true,entity:sender,location:getLocationFromEntityLike(sender),args})
 
     if(message==='showshowway'){
         sender.sendMessage(commandRegistry.showList().toString())
@@ -299,7 +299,7 @@ commandRegistry.registerCommand('假人位置', ({ entity, isEntity, args }) => 
         const index = Number(args[1]);
         if (typeof index !== 'number') return entity.sendMessage('[模拟玩家] 命令错误，期待数字却得到 ' + typeof Number(args[1]));
 
-        SimPlayer = SimulatedPlayerEnum[index];
+        SimPlayer = simulatedPlayers[index];
 
         if (!SimPlayer) return entity.sendMessage("§e§l-不存在模拟玩家" + index);
     }

@@ -1,10 +1,22 @@
-import { Player, Vector3} from "@minecraft/server";
-import type { SimulatedPlayer } from "@minecraft/server-gametest";
+import {
+    Dimension,
+    DimensionLocation,
+    Player,
+    Vector3
+} from "@minecraft/server";
+import type {SimulatedPlayer} from "@minecraft/server-gametest";
 
-export type commandInfo = {args: string[], entity?: Player, location?: Vector3, isEntity?: boolean, sim?: SimulatedPlayer}
-// | Player | Dimension | Entity
-export type commandInfoNoArgs = {entity?: Player, location?: Vector3, isEntity?: boolean, sim?: SimulatedPlayer}
+export interface CommandInfo {
+    args: string[],
+    entity?: Player,
+    location?: DimensionLocation,
+    isEntity?: boolean,
+    sim?: SimulatedPlayer
+} // | Player | Dimension | Entity
+export type CommandInfoNoArgs = Omit<CommandInfo, "args">;
+
 // Parse command
+
 export function commandParse(command:string):string[] {
     const tokens = [];
     let currentToken = '';
@@ -39,51 +51,68 @@ export function commandParse(command:string):string[] {
     return tokens;
 }
 
+export function getLocationFromEntityLike(entity: {
+    location: Vector3; dimension: Dimension;
+}): DimensionLocation {
+    return {
+        ...entity.location, dimension: entity.dimension
+    }
+}
+
 // const command = 'cmdHead arg1  "arg2" "arg3" \"_arg4\" 7 8 ~-5 ';
 // const tokens = commandParse(command);
 // console.log(tokens);
 // tokens => [ 'cmdHead', 'arg1', 'arg2', 'arg3', '_arg4', '7', '8', '~-5' ]
 
+export const internalExceptionWaringText = '[模拟玩家] 出现内部异常，已尝试处理，请在GitHub进行反馈以免再次出现问题';
+export const cannotHandledExceptionWaringText = '[模拟玩家] 出现不可处理的内部异常，请在GitHub进行反馈';
+type CommandHandler = (cmdInfo:CommandInfo) => void;
+
 export class CommandRegistry {
-    private commandsRegistryMap :Map<string,Set<Function>> = new Map();
-    public commandsList = new Set<string>()
+    private commandsRegistryMap = new Map<string,Set<CommandHandler>>();
+    public commandsList = new Set<string>();
     public commandRegistrySign :string;
     static parse = commandParse;
     private  alias = new Map<string,string>();
 
 
-    constructor(commandRegistrySign:string='funny') {
+    constructor(commandRegistrySign='funny') {
         this.commandRegistrySign  = commandRegistrySign;
-        this.commandsRegistryMap  = new Map();
     }
 
     // registerAlias
     registerAlias( alias:string ,commandName:string) {
         this.alias.set(alias,commandName)
-        this.commandsList.add(alias)
+        this.
+        commandsList.add(alias)
+
+        return this.registerAlias;
     }
 
     // registerCommand
-    registerCommand(commandName:string, callback?:(commandInfoObject:commandInfo)=>void) {
-        if(!callback)
-            return this.commandsRegistryMap.set(commandName,new Set());
+    registerCommand<T extends CommandHandler>(commandName:string, callback:T):T {
         if(this.alias.has(commandName))
             this.alias.delete(commandName)
         if (!this.commandsRegistryMap.has(commandName))
             this.commandsRegistryMap.set(commandName,new Set());
 
         this.commandsList.add(commandName)
-        return this.commandsRegistryMap.get(commandName).add(callback);
+        this.commandsRegistryMap.get(commandName).add(callback);
+        return callback;
     }
 
     // executeCommand
-    executeCommand(commandName:string, cmdInfo:commandInfo) {
+    executeCommand(commandName:string, cmdInfo:CommandInfo) {
         // ding~
-        cmdInfo.entity && cmdInfo.entity.playSound && cmdInfo.entity.playSound('random.levelup',{pitch:8+Math.floor(Math.random()*12)})
-
-        this.commandsRegistryMap.get(
+        // 都有?.了你还用&&
+        const handlers = this.commandsRegistryMap.get(
             this.alias.get(commandName)??commandName
-        )?.forEach((callback:Function) => callback(cmdInfo) )
+        );
+        if (handlers?.size > 0) {
+            handlers.forEach((callback) => callback(cmdInfo) )
+            cmdInfo?.entity?.playSound?.('note.bell')
+        }
+
         // 感谢 .?  我不需要为判空做try-catch
 
         // if (this.commands.has(commandName)){
@@ -94,13 +123,13 @@ export class CommandRegistry {
         //     console.error(`Command "${commandName}" not found.`);
     }
 
-    execute(commandText:string,cmdInfo:commandInfoNoArgs){
+    execute(commandText:string,cmdInfo:CommandInfoNoArgs){
         const args = CommandRegistry.parse(commandText)
         this.executeCommand(args[0],{...cmdInfo,args})
     }
 
     // removeCommand
-    removeCommand(commandName:string, callback:Function) {
+    removeCommand(commandName:string, callback?:CommandHandler) {
         if(callback)
             this.commandsRegistryMap.get(commandName)?.delete(callback)
         else

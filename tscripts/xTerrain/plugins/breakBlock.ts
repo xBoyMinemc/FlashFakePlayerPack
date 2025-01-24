@@ -2,10 +2,10 @@ import type { SimulatedPlayer } from '@minecraft/server-gametest'
 import {Dimension, Player, Vector3} from '@minecraft/server'
 
 import {
-    SimulatedPlayerEnum,
+    simulatedPlayers,
     testWorldLocation
 } from '../main'
-import { CommandRegistry } from '../../lib/yumeCommand/CommandRegistry'
+import {CommandRegistry, getLocationFromEntityLike} from '../../lib/yumeCommand/CommandRegistry'
 import { getSimPlayer } from '../../lib/xboyPackage/Util'
 import { world, system } from "@minecraft/server"
 import SIGN from "../../lib/xboyPackage/YumeSignEnum";
@@ -26,8 +26,8 @@ const noArgs = ({args,entity,isEntity})=>{
     const SimPlayer:SimulatedPlayer = getSimPlayer.formView(entity)
     if(!SimPlayer)return
 
-    for(const i in SimulatedPlayerEnum)
-        if(SimulatedPlayerEnum[i]===SimPlayer)
+    for(const i in simulatedPlayers)
+        if(simulatedPlayers[i]===SimPlayer)
             SimPlayer.addTag(SIGN.AUTO_BREAKBLOCK_SIGN)
 
     // console.error('[假人]内置插件'+'假人挖掘'+'执行成功')
@@ -37,15 +37,15 @@ commandRegistry.registerCommand('假人挖掘',noArgs)
 commandRegistry.registerAlias('假人摧毁','假人挖掘')
 
 
-world.afterEvents.chatSend.subscribe(({message, sender})=>{
+world.afterEvents.chatSend.subscribe(({message, sender:entity})=>{
     // const cmdArgs = CommandRegistry.parse(message)
     // if(commandRegistry.commandsList.has(cmdArgs[0]))
     //     commandRegistry.executeCommand(cmdArgs[0],{entity:sender,isEntity:true,args:cmdArgs})
 
 
-    commandRegistry.execute(message,{entity:sender,isEntity:true})
+    commandRegistry.execute(message,{entity,isEntity:true,location:getLocationFromEntityLike(entity)})
     if(message==='showshowway'){
-        sender.sendMessage(commandRegistry.showList().toString())
+        entity.sendMessage(commandRegistry.showList().toString())
     }
 })
 
@@ -53,10 +53,10 @@ const Vector_subtract = ({x,y,z}:Vector3, {x:u,y:v,z:w}:Vector3)=>({x:x-u,y:y-v,
 const Vector_addition = ({x,y,z}:Vector3, {x:u,y:v,z:w}:Vector3)=>({x:x+u,y:y+v,z:z+w})
 const Vector_multiplication_dot = ({x,y,z}:Vector3, u:number)=>({x:x*u,y:y*u,z:z*u})
 
-type awa = 'awa'
+// type awa = 'awa'
 
 // task
-const breaks = (awa:awa='awa')=>
+const breaks = (/*awa:awa='awa'*/)=>
     world.getPlayers({tags:[SIGN.AUTO_BREAKBLOCK_SIGN]}).forEach( async SimPlayer => {
         // getHeadLocation
         // getViewDirection
