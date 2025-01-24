@@ -5,7 +5,11 @@ import {
     ScriptEventSource,
     system
 } from "@minecraft/server";
-import {cannotHandledExceptionWaringText, CommandInfo, commandParse} from "./CommandRegistry";
+import {
+    CommandInfo,
+    commandParse,
+    internalExceptionWaringText
+} from "./CommandRegistry";
 
 type ScriptEventHandler = (event:CommandInfo) => void;
 type ScriptEventID = `ffp:${string}`;
@@ -106,16 +110,41 @@ export class ScriptEventRegistry {
         return callback;
     }
 
-    public registerAlias(alias: ScriptEventID, targetID: ScriptEventID) {
+    /**
+     * @param alias 别名
+     * @param targetID 别名映射到的ID
+     * @param otherAliases 更多的别名，映射到{@link `targetID`}
+     * @description
+     * ```js
+     * scriptEventRegistry.registerScriptEventHandler('ffp:foo', () => {
+     *     console.log('bar');
+     * });
+     *
+     * scriptEventRegistry.registerAlias('ffp:bar', 'ffp:foo', 'ffp:baz', 'ffp:baz2');
+     * ```
+     * ```
+     * /scriptevent ffp:foo
+     * /scriptevent ffp:bar
+     * /scriptevent ffp:baz
+     * ```
+     * 控制台:
+     * ```
+     * [Scripting][inform]- bar
+     * [Scripting][inform]- bar
+     * [Scripting][inform]- bar
+     * ```
+     */
+    public registerAlias(alias: ScriptEventID, targetID: ScriptEventID, ...otherAliases: ScriptEventID[]) {
         alias = <ScriptEventID>alias.toLowerCase();
 
         if (!this.scriptEventHandlersMap.has(targetID)) {
-            console.warn(cannotHandledExceptionWaringText);
+            console.warn(internalExceptionWaringText);
+            return;
         }
         this.alias.set(alias, targetID);
 
-        // 666演都不演了
-        // this.registerAlias('ffp:1', 'ffp:2')('ffp:3', 'ffp:4');
-        return this.registerAlias;
+        for (const alias of otherAliases) {
+            this.registerAlias(alias, targetID);
+        }
     }
 }
