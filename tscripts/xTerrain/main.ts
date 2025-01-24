@@ -31,6 +31,7 @@ import './plugins/autoFishing'
 import './plugins/killedBySimPlayer'
 import './plugins/setting'
 import {playerMove} from "../lib/xboyEvents/move";
+import { CommandError, commandManager } from '../lib/yumeCommand/CommandRegistry';
 
 const overworld = world.getDimension('overworld')
 const tickWaitTimes = 20*60*60*24*365
@@ -149,6 +150,17 @@ playerMove.subscribe(()=>{
     //     // '鱼肉 ‭‭‭⁧⁧⁧~咕噜咕噜',
     //
     // )
+
+world.afterEvents.chatSend.subscribe(({ message, sender }) => {
+    try {
+        commandManager.execute(message, { entity: sender, isEntity: true });
+    } catch (e) {
+        if (!(e instanceof CommandError)) {
+            console.error(e);
+            world.sendMessage('[模拟玩家] 命令执行错误：' + e);
+        }
+    }
+});
 
 export { spawnSimulatedPlayer,spawnSimulatedPlayerByNameTag,testWorldLocation,GetPID }
 
