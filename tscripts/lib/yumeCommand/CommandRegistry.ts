@@ -40,7 +40,6 @@ export class CommandNotFoundError extends CommandError {
 
 type CommandHandler = (cmdInfo: CommandInfo) => void;
 
-// Parse command
 /**
  * 解析命令字符串。
  *
@@ -50,11 +49,11 @@ type CommandHandler = (cmdInfo: CommandInfo) => void;
  *
  * @example
  * ```typescript
- * > commandParse("say player 'Hello World'");
+ * > parseCommandString("say player 'Hello World'");
  * { prefix: 'say', args: [ 'player', 'Hello World' ] }
  * ```
  */
-export function commandParse(input: string): { prefix: string; args: string[] } {
+export function parseCommandString(input: string): { prefix: string; args: string[] } {
     const regex = /"([^"]*)"|'([^']*)'|(\S+)/g; // 正则匹配所有单词或引号内的文本
     const parts = [];
     let match: RegExpMatchArray | null;
@@ -78,7 +77,7 @@ export function commandParse(input: string): { prefix: string; args: string[] } 
 // tokens => [ 'cmdHead', 'arg1', 'arg2', 'arg3', '_arg4', '7', '8', '~-5' ]
 
 class CommandManager {
-    private commandParse = commandParse
+    private parseCommandString = parseCommandString
     private commandMap: Map<string, Command> = new Map();
 
     /**
@@ -138,7 +137,7 @@ class CommandManager {
      * 然后将这些信息用于执行相应的命令。
      */
     execute(commandString: string, commandInfoNoArgs?: CommandInfoNoArgs): void {
-        const { prefix, args } = this.commandParse(commandString);
+        const { prefix, args } = this.parseCommandString(commandString);
 
         this.executeCommand(prefix, args, commandInfoNoArgs);
     }
