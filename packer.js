@@ -51,7 +51,7 @@ const manifest_json = {
     ]
 }
 
-fs.writeFile('./manifest.json',JSON.stringify(manifest_json,null,'\t'),()=>{})
+fs.writeFile('./manifest.json',JSON.stringify(manifest_json,null,4),()=>{})
 
 
 // 创建一个Archiver实例，将输出流传递给它
@@ -71,12 +71,12 @@ archive.finalize().then(() => 0);
 
 // make dir ./build
 !fs.existsSync('./build') && fs.mkdirSync('build');
-const name = './build/'+manifest_json.header.name
-    .replace(/§./g,'')
-    .replaceAll(/\./g,'-')
-    .replaceAll(' ','-')
-    .trim()+'.mcpack';
-
+const name = './build/'
+    + manifest_json.header.name
+        .trim()
+        .replace(/§./g, '')
+        .replace(/(\.+|\s+)/g, '-')
+    + '.mcpack';
 
 
 // 监听archive的'error'事件，以处理任何错误
