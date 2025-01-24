@@ -8,25 +8,17 @@ import {
     GetPID,
     initSucceed
 } from '../main'
-import { commandInfo, CommandRegistry } from '../../lib/yumeCommand/CommandRegistry'
+import { type CommandInfo, commandManager, Command } from '../../lib/yumeCommand/CommandRegistry'
 import { Dimension, Vector3, world } from '@minecraft/server'
 import {xyz_dododo} from "../../lib/xboyPackage/xyz_dododo";
 const overworld = world.getDimension("overworld");
 
 
-const commandRegistry: CommandRegistry = new CommandRegistry()
-commandRegistry.registerCommand('假人生成')
-commandRegistry.registerAlias('假人创建','假人生成')
-commandRegistry.registerAlias('FFPP','假人生成')
-commandRegistry.registerAlias('ffpp','假人生成')
-commandRegistry.registerAlias('Ffpp','假人生成')
+const chatSpawnCommand = new Command()
 
-
-
-const noArgs = ({args,entity,location,isEntity})=>{
+chatSpawnCommand.register(({args})=>args.length === 0, ({entity,location,isEntity})=>{
     if(!initSucceed)
         return entity?.sendMessage('[假人] 插件未初始化完成，请重试')
-    if(args.length!==1)return;
     // TEST with pid input
 
     if(isEntity){
@@ -63,15 +55,12 @@ const noArgs = ({args,entity,location,isEntity})=>{
     }
 
 
-}
+})
 
-commandRegistry.registerCommand('假人生成',noArgs)
+chatSpawnCommand.register(({args})=>args[0] === '批量', ({args,entity,location,isEntity})=>{
+    if(typeof Number(args[1]) !== 'number')return  entity?.sendMessage('[模拟玩家] 命令错误，期待数字却得到 '+typeof Number(args[2]))
 
-const withArgs = ({args,entity,location,isEntity})=>{
-    if(args[1]!=='批量')return
-    if(typeof Number(args[2]) !== 'number')return  entity?.sendMessage('[模拟玩家] 命令错误，期待数字却得到 '+typeof Number(args[2]))
-
-    let count = Number(args[2])
+    let count = Number(args[1])
     while (count-->0)
         if(isEntity){
             const PID = GetPID()
@@ -101,21 +90,21 @@ const withArgs = ({args,entity,location,isEntity})=>{
             spawnedEvent.trigger({spawnedSimulatedPlayer:SimulatedPlayer,PID})
             __FlashPlayer__.setScore(SimulatedPlayer.id,PID)
         }
-}
-commandRegistry.registerCommand('假人生成',withArgs)
+})
 
 // #56 参考：
 // 假人生成 x y z name 维度序号（数字 0-主世界 1-地狱 2-末地）
-const withArgs_xyz_name = ({args,entity}:commandInfo)=>{
+chatSpawnCommand.register(({args,entity}:CommandInfo)=>{
+    
     let location: Vector3 = null
     let nameTag : string = null
-    if (args[1] === '批量' || args.length < 2) return
+    if (args[0] === '批量' || args.length < 1) return
 
     // xyz
-    if(args.length>=2 && args.length<=3)
-        return entity?.sendMessage('[模拟玩家] 命令错误，期待三个坐标数字，得到个数为'+(args.length-1))
+    if(args.length>=1 && args.length<=2)
+        return entity?.sendMessage('[模拟玩家] 命令错误，期待三个坐标数字，得到个数为'+args.length)
     try {
-        const [x,y,z] = args.slice(1,4)
+        const [x,y,z] = args.slice(0,3)
         const {x:_x,y:_y,z:_z} = entity.location
         const [__x,__y,__z] = xyz_dododo([x,y,z],[_x,_y,_z])
         location = {x:__x,y:__y,z:__z}
@@ -125,21 +114,21 @@ const withArgs_xyz_name = ({args,entity}:commandInfo)=>{
     }
 
     // name
-    if(args.length>=5){
+    if(args.length>=4){
         try {
-            nameTag = args[4]
+            nameTag = args[3]
         }catch (e) {
-            return entity?.sendMessage('[模拟玩家] 命令错误，期待文本作为名称却得到 '+args[4])
+            return entity?.sendMessage('[模拟玩家] 命令错误，期待文本作为名称却得到 '+args[3])
         }
     }
 
     // dimension
     let dimension : Dimension;
-    if (args.length >= 6) {
+    if (args.length >= 5) {
         try {
-            dimension = world.getDimension(["overworld", "nether", "the end"][Number(args[5])])
+            dimension = world.getDimension(["overworld", "nether", "the end"][Number(args[4])])
         } catch (e) {
-            return entity?.sendMessage('[模拟玩家] 命令错误，期待序号作为维度（0-主世界 1-地狱 2-末地）却得到 ' + args[5])
+            return entity?.sendMessage('[模拟玩家] 命令错误，期待序号作为维度（0-主世界 1-地狱 2-末地）却得到 ' + args[4])
         }
     }
 
@@ -153,17 +142,18 @@ const withArgs_xyz_name = ({args,entity}:commandInfo)=>{
 
     spawnedEvent.trigger({spawnedSimulatedPlayer:SimulatedPlayer,PID})
     __FlashPlayer__.setScore(SimulatedPlayer.id,PID)
-}
-commandRegistry.registerCommand('假人生成',withArgs_xyz_name)
-
-world.afterEvents.chatSend.subscribe(({message, sender})=>{
-    const cmdArgs = CommandRegistry.parse(message)
-    if(commandRegistry.commandsList.has(cmdArgs[0]))
-        commandRegistry.executeCommand(cmdArgs[0],{entity:sender,isEntity:true,args:cmdArgs})
-
-    if(message==='showshowway'){
-        sender.sendMessage(commandRegistry.showList().toString())
-    }
 })
+
+commandManager.registerCommand(['假人生成', '假人创建', 'FFPP', 'ffpp', 'Ffpp'], chatSpawnCommand)
+
+// world.afterEvents.chatSend.subscribe(({message, sender})=>{
+//     const cmdArgs = CommandRegistry.parse(message)
+//     if(commandRegistry.commandsList.has(cmdArgs[0]))
+//         commandRegistry.executeCommand(cmdArgs[0],{entity:sender,isEntity:true,args:cmdArgs})
+
+//     if(message==='showshowway'){
+//         sender.sendMessage(commandRegistry.showList().toString())
+//     }
+// })
 
 // console.error('[假人]内置插件chatSpawn加载成功')
