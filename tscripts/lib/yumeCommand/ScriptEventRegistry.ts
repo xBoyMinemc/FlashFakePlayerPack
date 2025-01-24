@@ -68,16 +68,12 @@ export class ScriptEventRegistry {
             let { id } = e;
             id = id.trim().toLowerCase();
 
-            let playedSound = false;
             const execute = (handlers: Set<ScriptEventHandler>) => {
                 if (handlers.size > 0) {
                     handlers.forEach(handler => {
                         handler(getCommandInfo(e))
                     });
-                    if (!playedSound) {
-                        (<Player>e.sourceEntity)?.playSound('note.bell');
-                        playedSound = true;
-                    }
+                    (<Player>e.sourceEntity)?.playSound('note.bell');
                 }
             }
 
