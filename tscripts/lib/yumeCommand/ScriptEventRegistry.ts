@@ -65,9 +65,6 @@ export class ScriptEventRegistry {
                 return;
             }
 
-            let { id } = e;
-            id = id.trim().toLowerCase();
-
             const execute = (handlers: Set<ScriptEventHandler>) => {
                 if (handlers.size > 0) {
                     handlers.forEach(handler => {
@@ -80,7 +77,7 @@ export class ScriptEventRegistry {
             // 处理直接注册的handler
             Array.from(this.scriptEventHandlersMap.entries())
                 .filter(
-                    ([_id]) => _id === id
+                    ([id]) => e.id === id
                 )
                 .map(v => /*值*/v[1])
                 // 把获取到的所有handler执行
@@ -89,7 +86,7 @@ export class ScriptEventRegistry {
             // 处理别名(alias)
             Array.from(this.alias.entries())
                 .filter(
-                    ([alias]) => id === alias
+                    ([alias]) => e.id === alias
                 )
                 .map(v => this.scriptEventHandlersMap.get(v[1]))
                 .forEach(execute);
