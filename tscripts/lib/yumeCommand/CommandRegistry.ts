@@ -147,7 +147,7 @@ class CommandManager {
      * 该方法首先解析命令字符串，提取命令前缀和参数数组，
      * 然后将这些信息用于执行相应的命令。
      */
-    execute(commandString: string, commandInfoNoArgs?: CommandInfoNoArgs): void {
+    execute(commandString: string, commandInfoNoArgs: CommandInfoNoArgs = {}): void {
         const { prefix, args } = this.parseCommandString(commandString);
 
         this.executeCommand(prefix, args, commandInfoNoArgs);
