@@ -12,6 +12,8 @@ import {
     cannotHandledExceptionWaringText
 } from "./CommandRegistry";
 
+const namespaces = ['ffp'];
+
 type ScriptEventID = `ffp:${string}`;
 
 function getSourceLocation(e: ScriptEventCommandMessageAfterEvent): DimensionLocation {
@@ -68,4 +70,4 @@ system.afterEvents.scriptEventReceive.subscribe(e => {
         } else
             commandInfoNoArgs?.entity?.sendMessage(cannotHandledExceptionWaringText);
     }
-}, { namespaces: ['ffp'] });
+}, { namespaces });
