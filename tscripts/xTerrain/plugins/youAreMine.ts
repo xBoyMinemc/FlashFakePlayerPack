@@ -308,7 +308,7 @@ locationCommand.register(({ entity, isEntity, args: [simIndex] }) => {
     }
 
     const { x, y, z } = simulatedPlayer.location;
-    entity.sendMessage(`§e§l${simulatedPlayer.name}位于 ${dimensionMap[simulatedPlayer.dimension.id] ?? simulatedPlayer.dimension.id}(${x.toFixed(2)}, ${y.toFixed(2)}, ${z.toFixed(2)})`);
+    entity.sendMessage(`§e§l${simulatedPlayer.name} 位于 ${dimensionMap[simulatedPlayer.dimension.id] ?? simulatedPlayer.dimension.id}(${x.toFixed(2)}, ${y.toFixed(2)}, ${z.toFixed(2)})`);
 });
 commandManager.registerCommand(['假人位置', '假人坐标'], locationCommand);
 // 你懂的~
