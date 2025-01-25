@@ -81,13 +81,13 @@ helpCommand.register(({ args, isEntity }) => args.length === 0 && isEntity, ({ e
             "输入‘假人github’了解更多"
         ].forEach((text) => entity.sendMessage(`§e§l-${text}`));
 });
-helpCommand.register(({ args, isEntity }) => args.length > 0 && isEntity, ({ args, entity }) => {
+helpCommand.register(({ args, isEntity }) => args.length > 0 && isEntity, ({ args: [item], entity }) => {
     const helpMessage =
         ({
             "销毁": ["销毁示例", "假人销毁 + 空格 + 序号", "假人销毁 1", "假人销毁 2"],
             "重生": ["重生示例", "假人重生 + 空格 + 序号", "假人重生 1", "假人重生 2"],
         })
-            [args[0]]
+            [item]
 
           helpMessage
             ?

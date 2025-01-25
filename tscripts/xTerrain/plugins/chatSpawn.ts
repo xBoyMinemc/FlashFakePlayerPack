@@ -55,10 +55,11 @@ chatSpawnCommand.register(({args})=>args.length === 0, ({entity,location,isEntit
 
 })
 
-chatSpawnCommand.register(({args})=>args[0] === '批量', ({args,entity,location,isEntity})=>{
-    if(typeof Number(args[1]) !== 'number')return  entity?.sendMessage('[模拟玩家] 命令错误，期待数字却得到 '+typeof Number(args[2]))
+chatSpawnCommand.register(({ args }) => args[0] === '批量', ({ args: [, countString], entity, location, isEntity }) => {
+    if (!countString) return entity?.sendMessage('[模拟玩家] 命令错误，请提供数字');
+    if (!Number.isSafeInteger(Number(countString))) return entity?.sendMessage('[模拟玩家] 命令错误，期待数字却得到 ' + countString);
 
-    let count = Number(args[1])
+    let count = Number(countString);
     while (count-- > 0)
         if (isEntity) {
             const PID = GetPID()
@@ -90,67 +91,70 @@ chatSpawnCommand.register(({args})=>args[0] === '批量', ({args,entity,location
 
 // #56 参考：
 // 假人生成 x y z name 维度序号（数字 0-主世界 1-地狱 2-末地）
-chatSpawnCommand.register(({args,entity, location: senderLocation}:CommandInfo)=>{
-    let location: Vector3;
-    let nameTag : string = null
-    if (args[0] === '批量' || args.length < 1) return
+chatSpawnCommand.register(
+    ({ args }) => args[0] !== '批量' && args.length >= 3,
+    ({
+        args: [targetX, targetY, targetZ, targetName, targetDimension],
+        entity,
+        location: senderLocation,
+    }: CommandInfo) => {
+        let location: Vector3;
+        let nameTag: string = null;
 
-    // xyz
-    if (args.length >= 1 && args.length <= 2)
-        return entity?.sendMessage('[模拟玩家] 命令错误，期待三个坐标数字，得到个数为' + args.length)
-    try {
-        const [x, y, z] = args.slice(0, 3)
-        const {x: _x, y: _y, z: _z} = senderLocation
-        // @ts-ignore
-        const [__x, __y, __z] = xyz_dododo([x, y, z], [_x, _y, _z])
-
-        location = {
-            x: __x,
-            y: __y,
-            z: __z
-        }
-
-        // 好烂，谁来改改
-
-        // 改xx这代码😡
-        // 还是我自己写个addon霸👆🤓
-    }catch (e) {
-        return entity?.sendMessage('[模拟玩家] 命令错误，期待三个却得到错误的信息 '+args.join(' '))
-    }
-
-    // name
-    if(args.length>=4){
+        // xyz
+        // TODO: 参数数量错误时给予用户提示
+        // if (args.length >= 1 && args.length <= 2)
+        //     return entity?.sendMessage('[模拟玩家] 命令错误，期待三个坐标数字，得到个数为' + args.length)
         try {
-            nameTag = args[3]
+            const { x: sourceX, y: sourceY, z: sourceZ } = senderLocation;
+            // @ts-ignore
+            const [x, y, z] = xyz_dododo([targetX, targetY, targetZ], [sourceX, sourceY, sourceZ])
+    
+            location = { x, y, z };
+    
+            // 好烂，谁来改改
+    
+            // 改xx这代码😡
+            // 还是我自己写个addon霸👆🤓
         }catch (e) {
-            return entity?.sendMessage('[模拟玩家] 命令错误，期待文本作为名称却得到 '+args[3])
+            return entity?.sendMessage(`[模拟玩家] 命令错误，期待三个却得到错误的信息 ${targetX} ${targetY} ${targetZ}`);
         }
-    }
 
-    // dimension
-    let dimension : Dimension;
-    if (args.length >= 5) {
-        try {
-            dimension = world.getDimension(["overworld", "nether", "the end"][Number(args[4])])
-        } catch (e) {
-            return entity?.sendMessage('[模拟玩家] 命令错误，期待序号作为维度（0-主世界 1-地狱 2-末地）却得到 ' + args[4])
+        // name
+        if (targetName) {
+            try {
+                nameTag = targetName;
+            } catch (e) {
+                return entity?.sendMessage('[模拟玩家] 命令错误，期待文本作为名称却得到 ' + targetName);
+            }
         }
+
+        // dimension
+        let dimension: Dimension;
+        if (targetDimension) {
+            try {
+                dimension = world.getDimension(['overworld', 'nether', 'the end'][Number(targetDimension)]);
+            } catch (e) {
+                return entity?.sendMessage('[模拟玩家] 命令错误，期待序号作为维度（0-主世界 1-地狱 2-末地）却得到 ' + targetDimension);
+            }
+        }
+        dimension ??= senderLocation.dimension ?? overworld;
+
+        const PID = GetPID();
+        const __FlashPlayer__ =
+            world.scoreboard.getObjective('##FlashPlayer##');
+
+        const SimulatedPlayer: SimulatedPlayer = nameTag
+            ? spawnSimulatedPlayerByNameTag(location, dimension, nameTag)
+            : spawnSimulatedPlayer(location, dimension, PID);
+
+        simulatedPlayers[PID] = SimulatedPlayer;
+        simulatedPlayers[SimulatedPlayer.id] = PID;
+
+        spawnedEvent.trigger({ spawnedSimulatedPlayer: SimulatedPlayer, PID });
+        __FlashPlayer__.setScore(SimulatedPlayer.id, PID);
     }
-    dimension ??= senderLocation.dimension ?? overworld;
-
-    const PID = GetPID()
-    const __FlashPlayer__ = world.scoreboard.getObjective('##FlashPlayer##')
-
-    const SimulatedPlayer :SimulatedPlayer = nameTag
-        ? spawnSimulatedPlayerByNameTag(location, dimension, nameTag)
-        : spawnSimulatedPlayer(location, dimension, PID)
-
-    simulatedPlayers[PID]=SimulatedPlayer
-    simulatedPlayers[SimulatedPlayer.id]=PID
-
-    spawnedEvent.trigger({spawnedSimulatedPlayer:SimulatedPlayer,PID})
-    __FlashPlayer__.setScore(SimulatedPlayer.id,PID)
-})
+);
 
 commandManager.registerCommand(['假人生成', '假人创建', 'ffpp'], chatSpawnCommand);
 

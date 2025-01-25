@@ -160,14 +160,14 @@ commandManager.registerCommand(['假人资源回收','假人背包清空','假�
 
 // disconnect
 const disconnectCommand = new Command();
-disconnectCommand.register(({entity,isEntity,args,sim}) => {
+disconnectCommand.register(({entity,isEntity,args:[simIndex],sim}) => {
     if(sim)return sim.disconnect()
 
     if(!isEntity) {
         console.error('error not isEntity')
         return
     }
-    if(args.length===0){
+    if (simIndex === undefined) {
         const SimPlayer:SimulatedPlayer = getSimPlayer.formView(entity)
         if(!SimPlayer)return entity.sendMessage("§e§l-面前不存在模拟玩家")
 
@@ -176,9 +176,9 @@ disconnectCommand.register(({entity,isEntity,args,sim}) => {
         SimPlayer.disconnect()
     }
     else {
-        const index = Number(args[0])
+        const index = Number(simIndex)
 
-        if(typeof index !== 'number')return  entity?.sendMessage('[模拟玩家] 命令错误，期待数字却得到 '+typeof Number(args[0]))
+        if(typeof index !== 'number')return  entity?.sendMessage('[模拟玩家] 命令错误，期待数字却得到 '+typeof Number(simIndex))
 
         const SimPlayer:SimulatedPlayer = simulatedPlayers[index]
 
@@ -194,14 +194,14 @@ commandManager.registerCommand(['假人销毁','假人移除','假人清除'], d
 
 // respawn
 const respawnCommand = new Command();
-respawnCommand.register(({entity,isEntity,args}) => {
+respawnCommand.register(({entity,isEntity,args:[simIndex]}) => {
 
-    if(!isEntity && args.length===0) {
+    if (!isEntity && simIndex === undefined) {
         console.error('error not isEntity')
         return
     }
 
-    if(args.length===0){
+    if (simIndex === undefined) {
         ;
         ;"对准~";
         ;
@@ -212,9 +212,9 @@ respawnCommand.register(({entity,isEntity,args}) => {
         ;
         ;"云梦知道有人对不准，所以给你做了指向性的功能，输入假人序号即可";
         ;
-        const index = Number(args[0])
+        const index = Number(simIndex)
 
-        if(typeof index !== 'number')return entity?.sendMessage('[模拟玩家] 命令错误，期待数字却得到 '+typeof Number(args[0]))
+        if(typeof index !== 'number')return entity?.sendMessage('[模拟玩家] 命令错误，期待数字却得到 '+typeof Number(simIndex))
 
         const SimPlayer:SimulatedPlayer = simulatedPlayers[index]
 
@@ -258,43 +258,42 @@ commandManager.registerCommand('假人列表', listCommand);
 
 // rename
 const renameCommand = new Command();
-renameCommand.register(({entity,isEntity,args}) => {
-    if(!isEntity && args.length===0) {
+renameCommand.register(({entity,isEntity,args:[newName]}) => {
+    if(!isEntity) {
         console.error('error not isEntity')
         return
     }
 
-    if(args.length===1){
-        ;
-        ;"对准~";
-        ;
-        const SimPlayer:SimulatedPlayer = getSimPlayer.formView(entity)
-        if(!SimPlayer)return entity.sendMessage("§e§l-你不要怀疑，10000%是你没对准，如果假人真躺了的话")  //entity.sendMessage("§e§l-面前不存在模拟玩家")
-        SimPlayer.nameTag = args[0]
-        entity.sendMessage("§e§l-改名成功")
-    }
-
+    if(!newName)
+        return entity.sendMessage('[模拟玩家] 命令错误，请提供新名称');
+    ;
+    ; "对准~";
+    ;
+    const SimPlayer: SimulatedPlayer = getSimPlayer.formView(entity);
+    if (!SimPlayer) return entity.sendMessage("§e§l-你不要怀疑，10000%是你没对准，如果假人真躺了的话");  //entity.sendMessage("§e§l-面前不存在模拟玩家")
+    SimPlayer.nameTag = newName;
+    entity.sendMessage("§e§l-改名成功")
 });
 commandManager.registerCommand(['假人改名', '假人重命名', '假人换名'], renameCommand);
 
 
 // location
 const locationCommand = new Command();
-locationCommand.register(({ entity, isEntity, args }) => {
-    if (!isEntity && args.length === 0) {
+locationCommand.register(({ entity, isEntity, args: [simIndex] }) => {
+    if (!isEntity && simIndex === undefined) {
         console.error('error not isEntity');
         return;
     }
     let SimPlayer: SimulatedPlayer;
-    if (args.length === 0) {
+    if (simIndex === undefined) {
         ;
         ; "对准~";
         ;
         SimPlayer = getSimPlayer.formView(entity);
         if (!SimPlayer) return entity.sendMessage("§e§l-面前不存在模拟玩家");
-    } else if (args.length === 1) {
-        const index = Number(args[0]);
-        if (typeof index !== 'number') return entity.sendMessage('[模拟玩家] 命令错误，期待数字却得到 ' + typeof Number(args[0]));
+    } else {
+        const index = Number(simIndex);
+        if (typeof index !== 'number') return entity.sendMessage('[模拟玩家] 命令错误，期待数字却得到 ' + typeof Number(simIndex));
 
         SimPlayer = simulatedPlayers[index];
 
