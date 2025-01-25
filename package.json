@@ -1,4 +1,5 @@
 {
+  "private": true,
   "scripts": {
     "dev": "cd . && tsc -w -outDir ./scripts/",
     "webpackTest" : "cd . && tsc && webpack",

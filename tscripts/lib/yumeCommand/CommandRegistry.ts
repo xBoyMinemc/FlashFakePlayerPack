@@ -1,14 +1,19 @@
-import type { Player, Vector3 } from "@minecraft/server";
+import type {
+    Dimension,
+    DimensionLocation,
+    Player,
+    Vector3
+} from "@minecraft/server";
 import type { SimulatedPlayer } from "@minecraft/server-gametest";
 
 export interface CommandInfo {
-    args: string[],
-    entity?: Player,
-    location?: Vector3,
-    isEntity?: boolean,
-    sim?: SimulatedPlayer
-}
-export interface CommandInfoNoArgs extends Omit<CommandInfo, "args"> {}
+    args: string[];
+    entity?: Player;
+    location?: DimensionLocation;
+    isEntity?: boolean;
+    sim?: SimulatedPlayer;
+} // | Player | Dimension | Entity
+export type CommandInfoNoArgs = Omit<CommandInfo, "args">;
 
 export class CommandError extends Error {
     constructor(message: string) {
@@ -71,10 +76,16 @@ export function parseCommandString(input: string): { prefix: string; args: strin
     return { prefix, args };
 }
 
-// const command = 'cmdHead arg1  "arg2" "arg3" \"_arg4\" 7 8 ~-5 ';
-// const tokens = commandParse(command);
-// console.log(tokens);
-// tokens => [ 'cmdHead', 'arg1', 'arg2', 'arg3', '_arg4', '7', '8', '~-5' ]
+export function getLocationFromEntityLike(entity: {
+    location: Vector3; dimension: Dimension;
+}): DimensionLocation {
+    return {
+        ...entity.location, dimension: entity.dimension
+    }
+}
+
+export const internalExceptionWaringText = '[模拟玩家] 出现内部异常，已尝试处理，请在GitHub进行反馈以免再次出现问题';
+export const cannotHandledExceptionWaringText = '[模拟玩家] 出现不可处理的内部异常，请在GitHub进行反馈';
 
 class CommandManager {
     private parseCommandString = parseCommandString
@@ -120,7 +131,7 @@ class CommandManager {
 
         // ding~
         // 都有?.了你还用&&
-        commandInfoNoArgs?.entity?.playSound?.('random.levelup', { pitch: 8 + Math.floor(Math.random() * 12) })
+        commandInfoNoArgs?.entity?.playSound?.('note.bell');
 
         command.execute({ args, ...commandInfoNoArgs });
     }

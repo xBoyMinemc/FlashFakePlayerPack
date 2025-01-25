@@ -1,6 +1,6 @@
 //@ts-nocheck
 import type { SimulatedPlayer } from '@minecraft/server-gametest'
-import {SimulatedPlayerEnum, testWorldLocation} from '../main'
+import {simulatedPlayers, testWorldLocation} from '../main'
 import SIGN from '../../lib/xboyPackage/YumeSignEnum'
 import type { EntityHealthComponent, Vector3 } from '@minecraft/server'
 import { system, world } from '@minecraft/server'
@@ -15,14 +15,14 @@ function AUTO_BEHAVIOR(){
 
     let SimulatedPlayerCount = 0
     const AllPlayerCount = world.getAllPlayers().length
-    for (const index in SimulatedPlayerEnum) {
+    for (const index in simulatedPlayers) {
         if((Number(index)>0?Number(index):-Number(index))>1000)continue
 
-        const SimPlayer:SimulatedPlayer = <SimulatedPlayer>SimulatedPlayerEnum[index]
+        const SimPlayer:SimulatedPlayer = <SimulatedPlayer>simulatedPlayers[index]
         //判假人是否存在
         if(!SimPlayer || !SimPlayer?.isValid?.()){
-            delete SimulatedPlayerEnum[SimulatedPlayerEnum[index]]
-            delete SimulatedPlayerEnum[index]
+            delete simulatedPlayers[simulatedPlayers[index]]
+            delete simulatedPlayers[index]
             continue
         }
         ++SimulatedPlayerCount

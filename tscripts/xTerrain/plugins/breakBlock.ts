@@ -2,10 +2,10 @@ import type { SimulatedPlayer } from '@minecraft/server-gametest'
 import {Dimension, Player, Vector3} from '@minecraft/server'
 
 import {
-    SimulatedPlayerEnum,
+    simulatedPlayers,
     testWorldLocation
 } from '../main'
-import { Command, commandManager } from '../../lib/yumeCommand/CommandRegistry'
+import { Command, commandManager } from '../../lib/yumeCommand/CommandRegistry';
 import { getSimPlayer } from '../../lib/xboyPackage/Util'
 import { world, system } from "@minecraft/server"
 import SIGN from "../../lib/xboyPackage/YumeSignEnum";
@@ -22,8 +22,8 @@ breakBlockCommand.register(({ args }) => args.length === 0, ({ entity, isEntity 
     const SimPlayer: SimulatedPlayer = getSimPlayer.formView(entity)
     if (!SimPlayer) return
 
-    for (const i in SimulatedPlayerEnum)
-        if (SimulatedPlayerEnum[i] === SimPlayer)
+    for(const i in simulatedPlayers)
+        if(simulatedPlayers[i]===SimPlayer)
             SimPlayer.addTag(SIGN.AUTO_BREAKBLOCK_SIGN)
 
     // console.error('[假人]内置插件'+'假人挖掘'+'执行成功')
@@ -35,10 +35,10 @@ const Vector_subtract = ({x,y,z}:Vector3, {x:u,y:v,z:w}:Vector3)=>({x:x-u,y:y-v,
 const Vector_addition = ({x,y,z}:Vector3, {x:u,y:v,z:w}:Vector3)=>({x:x+u,y:y+v,z:z+w})
 const Vector_multiplication_dot = ({x,y,z}:Vector3, u:number)=>({x:x*u,y:y*u,z:z*u})
 
-type awa = 'awa'
+// type awa = 'awa'
 
 // task
-const breaks = (awa:awa='awa')=>
+const breaks = (/*awa:awa='awa'*/)=>
     world.getPlayers({tags:[SIGN.AUTO_BREAKBLOCK_SIGN]}).forEach( async SimPlayer => {
         // getHeadLocation
         // getViewDirection

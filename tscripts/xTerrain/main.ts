@@ -5,7 +5,7 @@ import type {
     spawnedEvent,
     spawnedEventSignal,
 } from '../@types/globalThis'
-import { Dimension, system, Vector3 } from '@minecraft/server'
+import {Dimension, LocationOutOfWorldBoundariesError, system, Vector3} from '@minecraft/server'
 
 import { register } from '@minecraft/server-gametest'
 
@@ -32,13 +32,13 @@ import './plugins/killedBySimPlayer'
 import './plugins/setting'
 import './plugins/showCommandsList'
 import {playerMove} from "../lib/xboyEvents/move";
-import { CommandError, commandManager } from '../lib/yumeCommand/CommandRegistry';
+import { CommandError, commandManager, getLocationFromEntityLike } from '../lib/yumeCommand/CommandRegistry';
 
 const overworld = world.getDimension('overworld')
 const tickWaitTimes = 20*60*60*24*365
 
 // all of SimulatedPlayer List
-export const SimulatedPlayerEnum  = {}
+export const simulatedPlayers  = {}
 
 export let initSucceed = false
 
@@ -89,17 +89,24 @@ register('我是云梦', '假人', (test:Test) => {
         SimulatedPlayer.addTag('init')
         SimulatedPlayer.addTag(SIGN.YUME_SIM_SIGN)
         SimulatedPlayer.addTag(SIGN.AUTO_RESPAWN_SIGN)
-        //@ts-ignore
-        SimulatedPlayer.setSpawnPoint({...location,dimension})
-        //@ts-ignore
-        SimulatedPlayer.teleport(location, { dimension })
+        try {
+            SimulatedPlayer.setSpawnPoint({...location, dimension})
+            SimulatedPlayer.teleport(location, {dimension})
+        } catch (e) {
+            if (e instanceof LocationOutOfWorldBoundariesError) {
+                console.warn('[模拟玩家] 有东西尝试在非法位置生成假人，已阻止');
+                SimulatedPlayer.disconnect();
+            } else {
+                throw e;
+            }
+        }
 
         return SimulatedPlayer
     }
 
     initialized.trigger(null)
     initSucceed = true
-    console.warn('[模拟玩家] 初始化完成，输入“假人创建”或“ffpp”')
+    console.log('[模拟玩家] 初始化完成，输入“假人创建”或“ffpp”')
 })
 .maxTicks(tickWaitTimes)
 .structureName('xboyMinemcSIM:void');
@@ -154,7 +161,7 @@ playerMove.subscribe(()=>{
 
 world.afterEvents.chatSend.subscribe(({ message, sender }) => {
     try {
-        commandManager.execute(message, { entity: sender, isEntity: true });
+        commandManager.execute(message, { entity: sender, isEntity: true, location: getLocationFromEntityLike(sender) });
     } catch (e) {
         if (!(e instanceof CommandError)) {
             console.error(e);
