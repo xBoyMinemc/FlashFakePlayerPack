@@ -16,16 +16,24 @@ const namespaces = ['ffp'];
 
 type ScriptEventID = `ffp:${string}`;
 
+class CannotGetLocationError extends Error {
+    constructor(message: string) {
+        super(message);
+        this.name = 'CannotGetLocationError';
+    }
+}
+
+
 function getSourceLocation(e: ScriptEventCommandMessageAfterEvent): DimensionLocation {
     return {
         ...e.sourceEntity?.location ?? e.sourceBlock?.location ?? (
             () => {
-                throw new TypeError('[模拟玩家] 无法获取位置');
+                throw new CannotGetLocationError('[模拟玩家] 无法获取位置');
             }
         )(),
         dimension: e.sourceEntity?.dimension ?? e.sourceBlock?.dimension ?? (
             () => {
-                throw new TypeError('[模拟玩家] 无法获取位置');
+                throw new CannotGetLocationError('[模拟玩家] 无法获取位置');
             }
         )(),
     };
