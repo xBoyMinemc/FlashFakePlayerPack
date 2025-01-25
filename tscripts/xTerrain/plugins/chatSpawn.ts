@@ -90,7 +90,7 @@ chatSpawnCommand.register(({ args }) => args[0] === '批量', ({ args: [, countS
 })
 
 // #56 参考：
-// 假人生成 x y z name 维度序号（数字 0-主世界 1-地狱 2-末地）
+// 假人生成 x y z name 维度序号（数字 0-主世界 1-下界 2-末地）
 chatSpawnCommand.register(
     ({ args }) => args.length >= 3,
     ({
@@ -127,7 +127,7 @@ chatSpawnCommand.register(
             try {
                 dimension = world.getDimension(['overworld', 'nether', 'the end'][Number(targetDimension)]);
             } catch (e) {
-                return entity?.sendMessage('[模拟玩家] 命令错误，期待序号作为维度（0-主世界 1-地狱 2-末地）却得到 ' + targetDimension);
+                return entity?.sendMessage('[模拟玩家] 命令错误，期待序号作为维度（0-主世界 1-下界 2-末地）却得到 ' + targetDimension);
             }
         }
         dimension ??= senderLocation.dimension ?? overworld;
