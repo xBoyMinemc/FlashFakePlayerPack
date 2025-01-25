@@ -23,21 +23,21 @@ export class CommandError extends Error {
 }
 
 export class InvalidInputError extends CommandError {
-    constructor(input: string) {
+    constructor(public input: string) {
         super(`Invalid input: ${input}`);
         this.name = "InvalidInputError";
     }
 }
 
 export class CommandAlreadyExistsError extends CommandError {
-    constructor(commandName: string) {
+    constructor(public commandName: string) {
         super(`Command ${commandName} already exists`);
         this.name = "CommandAlreadyExistsError";
     }
 }
 
 export class CommandNotFoundError extends CommandError {
-    constructor(commandName: string) {
+    constructor(public commandName: string) {
         super(`Command ${commandName} not found`);
         this.name = "CommandNotFoundError";
     }
