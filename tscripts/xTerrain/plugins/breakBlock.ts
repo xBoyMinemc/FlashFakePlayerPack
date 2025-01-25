@@ -17,10 +17,16 @@ export const BreakBlockSimulatedPlayerList:Set<string> = new Set()
 
 const breakBlockCommand = new Command();
 breakBlockCommand.register(({ args }) => args.length === 0, ({ entity, isEntity }) => {
-    if (!isEntity) return
+    if (!isEntity) {
+        console.error('error not isEntity');
+        return;
+    }
 
     const SimPlayer: SimulatedPlayer = getSimPlayer.formView(entity)
-    if (!SimPlayer) return
+    if (!SimPlayer) {
+        entity.sendMessage('§e§l-面前不存在模拟玩家');
+        return;
+    } 
 
     for(const i in simulatedPlayers)
         if(simulatedPlayers[i]===SimPlayer)
