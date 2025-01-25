@@ -89,7 +89,7 @@ export const cannotHandledExceptionWaringText = '[模拟玩家] 出现不可处�
 
 class CommandManager {
     private parseCommandString = parseCommandString
-    private commandMap: Map<string, Command> = new Map();
+    private commandMap = new Map<string, Command>();
 
     /**
      * 注册命令实例。
@@ -169,7 +169,7 @@ class CommandManager {
 export const commandManager = new CommandManager();
 
 export class Command {
-    private conditionsHandlers: Map<Function, Function[]> = new Map();
+    private conditionsHandlers = new Map<(cmdInfo: CommandInfo) => boolean, CommandHandler[]>();
 
     /**
      * 注册命令处理回调。
