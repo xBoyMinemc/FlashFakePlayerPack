@@ -16,7 +16,6 @@ const overworld = world.getDimension("overworld");
 
 const chatSpawnCommand = new Command()
 
-// TODO: 合并请求中暂时不注册 scriptEvent，后续实现 scriptEvent 直接调用 commandManager
 chatSpawnCommand.register(({args})=>args.length === 0, ({entity,location,isEntity})=>{
     if(!initSucceed)
         return entity?.sendMessage('[假人] 插件未初始化完成，请重试')
