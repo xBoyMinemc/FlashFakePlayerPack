@@ -6,7 +6,7 @@ import SIGN from './YumeSignEnum'
 // getEntitiesFromViewDirection
 export const getSimPlayer = {
     // only one
-    formView: (e:Entity,maxDistance=16):SimulatedPlayer=>(<SimulatedPlayer><unknown>e.getEntitiesFromViewDirection({maxDistance}).find(({entity}) => entity.hasTag(SIGN.YUME_SIM_SIGN))?.entity),
+    fromView: (e:Entity, maxDistance=16):SimulatedPlayer=>(<SimulatedPlayer><unknown>e.getEntitiesFromViewDirection({maxDistance}).find(({entity}) => entity.hasTag(SIGN.YUME_SIM_SIGN))?.entity),
 
 }
 

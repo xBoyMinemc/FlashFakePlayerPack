@@ -26,7 +26,7 @@ export const commandRegistry: CommandRegistry = new CommandRegistry()
 // commandRegistry.registerAlias('swapInventory','假人主手物品交换')
 commandRegistry.registerCommand('假人主手物品交换', ({entity,sim}) => {
 
-    const SimPlayer:SimulatedPlayer = sim || getSimPlayer.formView(entity)
+    const SimPlayer:SimulatedPlayer = sim || getSimPlayer.fromView(entity)
     const s = <EntityEquippableComponent>SimPlayer.getComponent("minecraft:equippable")
 
     const p = entity.getComponent("minecraft:equippable")
@@ -42,7 +42,7 @@ commandRegistry.registerCommand('假人主手物品交换', ({entity,sim}) => {
 // commandRegistry.registerAlias('swapInventory','假人副手物品交换')
 commandRegistry.registerCommand('假人副手物品交换', ({entity,sim}) => {
 
-    const SimPlayer:SimulatedPlayer = sim || getSimPlayer.formView(entity)
+    const SimPlayer:SimulatedPlayer = sim || getSimPlayer.fromView(entity)
     const s = <EntityEquippableComponent>SimPlayer.getComponent("minecraft:equippable")
 
     const p = entity.getComponent("minecraft:equippable")
@@ -59,7 +59,7 @@ commandRegistry.registerCommand('假人副手物品交换', ({entity,sim}) => {
 commandRegistry.registerAlias('假人交换背包','假人背包交换')
 commandRegistry.registerCommand('假人背包交换', ({entity,isEntity,sim}) => {
     if(!isEntity && !sim)return
-    const SimPlayer:SimulatedPlayer = sim || getSimPlayer.formView(entity)
+    const SimPlayer:SimulatedPlayer = sim || getSimPlayer.fromView(entity)
     if(!SimPlayer)return
     const s = (<EntityInventoryComponent>SimPlayer.getComponent("minecraft:inventory")).container
 
@@ -88,7 +88,7 @@ commandRegistry.registerCommand('假人背包交换', ({entity,isEntity,sim}) =>
 commandRegistry.registerAlias('假人交换装备','假人装备交换')
 commandRegistry.registerCommand('假人装备交换', ({entity,isEntity,sim}) => {
 
-    const SimPlayer:SimulatedPlayer = sim || getSimPlayer.formView(entity)
+    const SimPlayer:SimulatedPlayer = sim || getSimPlayer.fromView(entity)
     if(!isEntity && !sim)return
 
     const s = <EntityEquippableComponent>SimPlayer.getComponent("minecraft:equippable") // SimPlayer
@@ -112,7 +112,7 @@ const returnResWithoutArgs = ({entity,isEntity,sim}:CommandInfo)=>{
         return
     }
 
-    const SimPlayer:SimulatedPlayer = sim ?? getSimPlayer.formView(entity)
+    const SimPlayer:SimulatedPlayer = sim ?? getSimPlayer.fromView(entity)
     if(!SimPlayer)return
 
     const equip = <EntityEquippableComponent>SimPlayer.getComponent("minecraft:equippable")
@@ -166,7 +166,7 @@ commandRegistry.registerCommand('假人销毁', ({entity,isEntity,args,sim}) => 
         return
     }
     if(args.length===1){
-        const SimPlayer:SimulatedPlayer = getSimPlayer.formView(entity)
+        const SimPlayer:SimulatedPlayer = getSimPlayer.fromView(entity)
         if(!SimPlayer)return entity.sendMessage("§e§l-面前不存在模拟玩家")
 
         commandRegistry.executeCommand('假人背包清空',{args:['假人背包清空'],entity,isEntity,sim:SimPlayer,location:getLocationFromEntityLike(entity)})
@@ -206,7 +206,7 @@ commandRegistry.registerCommand('假人重生', ({entity,isEntity,args}) => {
         ;
         ;"对准~";
         ;
-        const SimPlayer:SimulatedPlayer = getSimPlayer.formView(entity)
+        const SimPlayer:SimulatedPlayer = getSimPlayer.fromView(entity)
         if(!SimPlayer)return entity.sendMessage("§e§l-你不要怀疑，10000%是你没对准，如果假人真躺了的话")  //entity.sendMessage("§e§l-面前不存在模拟玩家")
         SimPlayer.respawn()
     }else {
@@ -263,7 +263,7 @@ commandRegistry.registerCommand('假人改名', ({entity,isEntity,args})=> {
         ;
         ;"对准~";
         ;
-        const SimPlayer:SimulatedPlayer = getSimPlayer.formView(entity)
+        const SimPlayer:SimulatedPlayer = getSimPlayer.fromView(entity)
         if(!SimPlayer)return entity.sendMessage("§e§l-你不要怀疑，10000%是你没对准，如果假人真躺了的话")  //entity.sendMessage("§e§l-面前不存在模拟玩家")
         SimPlayer.nameTag = args[1]
         entity.sendMessage("§e§l-改名成功")
@@ -293,7 +293,7 @@ commandRegistry.registerCommand('假人位置', ({ entity, isEntity, args }) => 
         ;
         ; "对准~";
         ;
-        SimPlayer = getSimPlayer.formView(entity);
+        SimPlayer = getSimPlayer.fromView(entity);
         if (!SimPlayer) return entity.sendMessage("§e§l-面前不存在模拟玩家");
     } else if (args.length === 2) {
         const index = Number(args[1]);

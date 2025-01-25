@@ -23,7 +23,7 @@ const noArgs = ({args,entity,isEntity})=>{
 
     if(!isEntity)return
 
-    const SimPlayer:SimulatedPlayer = getSimPlayer.formView(entity)
+    const SimPlayer:SimulatedPlayer = getSimPlayer.fromView(entity)
     if(!SimPlayer)return
 
     for(const i in simulatedPlayers)
