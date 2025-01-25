@@ -153,7 +153,7 @@ chatSpawnCommand.register(({args,entity, location: senderLocation}:CommandInfo)=
     __FlashPlayer__.setScore(SimulatedPlayer.id,PID)
 })
 
-commandManager.registerCommand(['假人生成', '假人创建', 'FFPP', 'ffpp', 'Ffpp'], chatSpawnCommand)
+commandManager.registerCommand(['假人生成', '假人创建', 'ffpp'], chatSpawnCommand);
 
 // world.afterEvents.chatSend.subscribe(({message, sender})=>{
 //     const cmdArgs = CommandRegistry.parse(message)

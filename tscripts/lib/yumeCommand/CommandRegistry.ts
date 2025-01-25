@@ -105,7 +105,8 @@ class CommandManager {
      * ```
      */
     registerCommand(prefixes: string | string[], command: Command): void {
-        const prefixesArray = Array.isArray(prefixes) ? prefixes : [prefixes];
+        let prefixesArray = Array.isArray(prefixes) ? prefixes : [prefixes];
+        prefixesArray = prefixesArray.map(prefix => prefix.toLowerCase());
 
         for (const prefix of prefixesArray) {
             if (this.commandMap.has(prefix)) {
@@ -125,6 +126,7 @@ class CommandManager {
      * @throws {CommandNotFoundError} 如果命令不存在。
      */
     executeCommand(prefix: string, args: string[], commandInfoNoArgs: CommandInfoNoArgs): void {
+        prefix = prefix.toLowerCase();
         const command = this.commandMap.get(prefix);
         if (!command)
             throw new CommandNotFoundError(prefix);
