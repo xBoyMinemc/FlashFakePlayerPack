@@ -74,6 +74,9 @@ helpCommand.register(({ args, isEntity }) => args.length === 0 && isEntity, ({ e
             "使用 # 开始使用 # 停止使用 => 使用鱼竿，鱼钩销毁后会自动抛竿（自动钓鱼）", "攻击", "自动攻击", "交换背包",
             "一般操作示例 '假人创建' '假人销毁' '假人交换背包'  ’假人github‘  ’假人help‘", "销毁 + 空格 +列表标号",
             "销毁示例", "销毁", "销毁 0", "销毁 1",
+            "用于命令方块时, 可使用 /scriptevent",
+            "使用 scriptevent 时, 只需在对应命令前加上 /scriptevent ffp:",
+            "如 /scriptevent ffp:ffpp",
             "#赠品：输入'tps开' 或 'tps关'",
             "§r这里是一些技术解释",
             "假人销毁，或游戏重启后，信息完全丢失",
@@ -86,6 +89,7 @@ helpCommand.register(({ args, isEntity }) => args.length > 0 && isEntity, ({ arg
         ({
             "销毁": ["销毁示例", "假人销毁 + 空格 + 序号", "假人销毁 1", "假人销毁 2"],
             "重生": ["重生示例", "假人重生 + 空格 + 序号", "假人重生 1", "假人重生 2"],
+            "scriptevent": ["scriptevent 示例", "/scriptevent ffp:ffpp", "/scriptevent ffp:假人生成 100 50 0", "/scriptevent ffp:假人销毁 2"]
         })
             [item]
 
