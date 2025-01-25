@@ -59,7 +59,7 @@ type CommandHandler = (cmdInfo: CommandInfo) => void;
  * { prefix: 'say', args: [ 'player', 'Hello World' ] }
  * ```
  */
-export function parseCommandString(input: string): { prefix: string; args: string[] } {
+export function parseCommandString(input: string): { prefix: string; args: string[]; } {
     const regex = /"([^"]*)"|'([^']*)'|(\S+)/g; // 正则匹配所有单词或引号内的文本
     const parts = [];
     let match: RegExpMatchArray | null;
@@ -82,7 +82,7 @@ export function getLocationFromEntityLike(entity: {
 }): DimensionLocation {
     return {
         ...entity.location, dimension: entity.dimension
-    }
+    };
 }
 
 export const internalExceptionWaringText = '[模拟玩家] 出现内部异常，已尝试处理，请在GitHub进行反馈以免再次出现问题';
@@ -117,7 +117,7 @@ export const cannotHandledExceptionWaringText = '[模拟玩家] 出现不可处�
  * ```
  */
 class CommandManager {
-    private parseCommandString = parseCommandString
+    private parseCommandString = parseCommandString;
     private commandMap = new Map<string, Command>();
 
     /**
@@ -208,7 +208,7 @@ class CommandManager {
      * @returns 返回一个字符串数组，包含所有已注册的命令前缀。
      */
     listRegisteredPrefixes(): string[] {
-        return Array.from(this.commandMap.keys())
+        return Array.from(this.commandMap.keys());
     }
 }
 

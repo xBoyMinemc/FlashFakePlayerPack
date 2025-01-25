@@ -75,9 +75,9 @@ system.afterEvents.scriptEventReceive.subscribe(e => {
         commandManager.execute(commandString, commandInfoNoArgs);
     } catch (e) {
         console.error(e);
-        if (e instanceof CommandNotFoundError) {
+        if (e instanceof CommandNotFoundError)
             commandInfoNoArgs?.entity?.sendMessage(`[模拟玩家] 命令错误，找不到命令: ${e.commandName}`);
-        } else
+        else
             commandInfoNoArgs?.entity?.sendMessage(cannotHandledExceptionWaringText);
     }
 }, { namespaces });
