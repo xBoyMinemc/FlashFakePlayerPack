@@ -4,8 +4,8 @@ on:
   push:
 #    branches:
 #      - main
-    paths:
-      - '**.ts'
+#    paths:
+#      - '**.ts'
 
 #    merge的时候记得取消注释
 
