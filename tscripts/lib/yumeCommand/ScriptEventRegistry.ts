@@ -6,12 +6,12 @@ import {
     system
 } from "@minecraft/server";
 import {
-    CommandInfo,
-    commandParse,
-    internalExceptionWaringText
+    commandManager,
+    CommandNotFoundError,
+    type CommandInfoNoArgs,
+    cannotHandledExceptionWaringText
 } from "./CommandRegistry";
 
-type ScriptEventHandler = (event:CommandInfo) => void;
 type ScriptEventID = `ffp:${string}`;
 
 function getSourceLocation(e: ScriptEventCommandMessageAfterEvent): DimensionLocation {
@@ -29,122 +29,43 @@ function getSourceLocation(e: ScriptEventCommandMessageAfterEvent): DimensionLoc
     };
 }
 
-function scriptEventArgsParse(
+function parseScriptEventString(
     idOrEvent:
         | ScriptEventID
         | ScriptEventCommandMessageAfterEvent,
     message?: string
-): string[] {
-    let id = idOrEvent instanceof ScriptEventCommandMessageAfterEvent
+): string {
+    const id = idOrEvent instanceof ScriptEventCommandMessageAfterEvent
         ? idOrEvent.id
         : idOrEvent;
-    message = message ?? (<ScriptEventCommandMessageAfterEvent>idOrEvent).message;
-    
-    const res = commandParse(message);
-    res.unshift(id);
-    return res
+
+    // 去除 namespace
+    const [_, prefix] = id.split(':');
+    message ??= (<ScriptEventCommandMessageAfterEvent>idOrEvent).message;
+
+    return `${prefix} ${message}`;
 }
 
-function getCommandInfo(e: ScriptEventCommandMessageAfterEvent): CommandInfo {
+function getCommandInfoNoArgs(e: ScriptEventCommandMessageAfterEvent): CommandInfoNoArgs {
     return {
-        args: scriptEventArgsParse(e),
         entity: e.sourceEntity instanceof Player ? e.sourceEntity : null,
         location: getSourceLocation(e),
         isEntity: e.sourceType === ScriptEventSource.Entity,
     };
 }
 
-export class ScriptEventRegistry {
-    public get scriptEventsIDList() {
-        return new Set(this.scriptEventHandlersMap.keys());
+// 注册全局/scriptevent监听
+system.afterEvents.scriptEventReceive.subscribe(e => {
+    const commandInfoNoArgs = getCommandInfoNoArgs(e);
+    const commandString = parseScriptEventString(e);
+
+    try {
+        commandManager.execute(commandString, commandInfoNoArgs);
+    } catch (e) {
+        console.error(e);
+        if (e instanceof CommandNotFoundError) {
+            commandInfoNoArgs?.entity?.sendMessage(e.message);
+        } else
+            commandInfoNoArgs?.entity?.sendMessage(cannotHandledExceptionWaringText);
     }
-    private scriptEventHandlersMap = new Map<ScriptEventID, Set<ScriptEventHandler>>;
-    private alias = new Map<ScriptEventID, ScriptEventID>;
-
-    //
-    constructor() {
-        // 全局/scriptevent监听初始化
-        system.afterEvents.scriptEventReceive.subscribe(e => {
-            if (this.scriptEventHandlersMap.size === 0 || !this.scriptEventHandlersMap.has(<ScriptEventID>e.id)) {
-                return;
-            }
-
-            const execute = (handlers: Set<ScriptEventHandler>) => {
-                if (handlers.size > 0) {
-                    handlers.forEach(handler => {
-                        handler(getCommandInfo(e))
-                    });
-                    (<Player>e.sourceEntity)?.playSound('note.bell');
-                }
-            }
-
-            // 处理直接注册的handler
-            Array.from(this.scriptEventHandlersMap.entries())
-                .filter(
-                    ([id]) => e.id === id
-                )
-                .map(v => /*值*/v[1])
-                // 把获取到的所有handler执行
-                .forEach(execute);
-
-            // 处理别名(alias)
-            Array.from(this.alias.entries())
-                .filter(
-                    ([alias]) => e.id === alias
-                )
-                .map(v => this.scriptEventHandlersMap.get(v[1]))
-                .forEach(execute);
-        }, { namespaces: ['ffp'] });
-    }
-
-    public registerScriptEventHandler<T extends ScriptEventHandler>(
-        id: ScriptEventID,
-        callback: T
-    ): T {
-        id = <ScriptEventID>id.toLowerCase();
-
-        if (!this.scriptEventHandlersMap.has(id))
-            this.scriptEventHandlersMap.set(id, new Set());
-
-        this.scriptEventHandlersMap.get(id).add(callback);
-        return callback;
-    }
-
-    /**
-     * @param alias 别名
-     * @param targetID 别名映射到的ID
-     * @param otherAliases 更多的别名，映射到{@link `targetID`}
-     * @description
-     * ```js
-     * scriptEventRegistry.registerScriptEventHandler('ffp:foo', () => {
-     *     console.log('bar');
-     * });
-     *
-     * scriptEventRegistry.registerAlias('ffp:bar', 'ffp:foo', 'ffp:baz', 'ffp:baz2');
-     * ```
-     * ```
-     * /scriptevent ffp:foo
-     * /scriptevent ffp:bar
-     * /scriptevent ffp:baz
-     * ```
-     * 控制台:
-     * ```
-     * [Scripting][inform]- bar
-     * [Scripting][inform]- bar
-     * [Scripting][inform]- bar
-     * ```
-     */
-    public registerAlias(alias: ScriptEventID, targetID: ScriptEventID, ...otherAliases: ScriptEventID[]) {
-        alias = <ScriptEventID>alias.toLowerCase();
-
-        if (!this.scriptEventHandlersMap.has(targetID)) {
-            console.warn(internalExceptionWaringText);
-            return;
-        }
-        this.alias.set(alias, targetID);
-
-        for (const alias of otherAliases) {
-            this.registerAlias(alias, targetID);
-        }
-    }
-}
+}, { namespaces: ['ffp'] });
