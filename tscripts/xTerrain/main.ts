@@ -30,6 +30,7 @@ import './plugins/gui'
 import './plugins/autoFishing'
 import './plugins/killedBySimPlayer'
 import './plugins/setting'
+import './plugins/showCommandsList'
 import {playerMove} from "../lib/xboyEvents/move";
 import { CommandError, commandManager } from '../lib/yumeCommand/CommandRegistry';
 
