@@ -32,7 +32,7 @@ import './plugins/killedBySimPlayer'
 import './plugins/setting'
 import './plugins/showCommandsList'
 import {playerMove} from "../lib/xboyEvents/move";
-import { CommandError, commandManager, getLocationFromEntityLike } from '../lib/yumeCommand/CommandRegistry';
+import { cannotHandledExceptionWaringText, CommandError, commandManager, getLocationFromEntityLike } from '../lib/yumeCommand/CommandRegistry';
 import '../lib/yumeCommand/scriptEventHandler'
 
 const overworld = world.getDimension('overworld')
@@ -166,7 +166,7 @@ world.afterEvents.chatSend.subscribe(({ message, sender }) => {
     } catch (e) {
         if (!(e instanceof CommandError)) {
             console.error(e);
-            world.sendMessage('[模拟玩家] 命令执行错误：' + e);
+            world.sendMessage(cannotHandledExceptionWaringText);
         }
     }
 });
