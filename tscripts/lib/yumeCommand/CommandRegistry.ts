@@ -105,8 +105,8 @@ class CommandManager {
      * ```
      */
     registerCommand(prefixes: string | string[], command: Command): void {
-        let prefixesArray = Array.isArray(prefixes) ? prefixes : [prefixes];
-        prefixesArray = prefixesArray.map(prefix => prefix.toLowerCase());
+        const prefixesArray = (Array.isArray(prefixes) ? prefixes : [prefixes])
+            .map(prefix => prefix.toLowerCase());
 
         for (const prefix of prefixesArray) {
             if (this.commandMap.has(prefix)) {
