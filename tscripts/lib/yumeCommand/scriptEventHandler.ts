@@ -39,6 +39,8 @@ function getSourceLocation(e: ScriptEventCommandMessageAfterEvent): DimensionLoc
     };
 }
 
+function parseScriptEventString(event: ScriptEventCommandMessageAfterEvent): string;
+function parseScriptEventString(id: ScriptEventID, message: string): string;
 function parseScriptEventString(
     idOrEvent:
         | ScriptEventID
