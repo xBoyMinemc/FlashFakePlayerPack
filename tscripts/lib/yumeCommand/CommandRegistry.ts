@@ -55,8 +55,8 @@ type CommandHandler = (cmdInfo: CommandInfo) => void;
  *
  * @example
  * ```typescript
- * > parseCommandString("say player 'Hello World'");
- * { prefix: 'say', args: [ 'player', 'Hello World' ] }
+ * console.log(parseCommandString("say player 'Hello World'"));
+ * // { prefix: 'say', args: [ 'player', 'Hello World' ] }
  * ```
  */
 export function parseCommandString(input: string): { prefix: string; args: string[]; } {
