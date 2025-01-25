@@ -50,7 +50,7 @@ function parseScriptEventString(
         : idOrEvent;
 
     // 去除 namespace
-    const [_, prefix] = id.split(':');
+    const [, prefix] = id.split(':');
     message ??= (<ScriptEventCommandMessageAfterEvent>idOrEvent).message;
 
     return `${prefix} ${message}`;
