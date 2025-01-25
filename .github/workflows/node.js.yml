@@ -39,8 +39,8 @@ jobs:
     - name: Install dependencies
       run: npm i
 
-    - name: npm run build
-      run: npm run build
+#    - name: npm run build
+#      run: npm run build
 
     - name: Publish to artifact
       if: ${{ !startsWith(env.latest_commit_message, 'v') }}
