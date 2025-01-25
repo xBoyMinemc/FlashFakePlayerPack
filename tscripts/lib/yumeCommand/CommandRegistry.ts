@@ -7,13 +7,14 @@ import type {
 import type { SimulatedPlayer } from "@minecraft/server-gametest";
 
 export interface CommandInfo {
+    prefix: string;
     args: string[];
     entity?: Player;
     location?: DimensionLocation;
     isEntity?: boolean;
     sim?: SimulatedPlayer;
 } // | Player | Dimension | Entity
-export type CommandInfoNoArgs = Omit<CommandInfo, "args">;
+export type CommandInfoNoArgs = Omit<CommandInfo, "args" | "prefix">;
 
 export class CommandError extends Error {
     constructor(message: string) {
@@ -181,7 +182,7 @@ class CommandManager {
         // 都有?.了你还用&&
         commandInfoNoArgs?.entity?.playSound?.('note.bell');
 
-        command.execute({ args, ...commandInfoNoArgs });
+        command.execute({ prefix, args, ...commandInfoNoArgs });
     }
 
     /**
