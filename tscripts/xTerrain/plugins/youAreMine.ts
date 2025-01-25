@@ -2,15 +2,22 @@ import type { SimulatedPlayer } from '@minecraft/server-gametest'
 import { getSimPlayer } from '../../lib/xboyPackage/Util'
 import { Command, commandManager, getLocationFromEntityLike } from '../../lib/yumeCommand/CommandRegistry'
 import {
+    DimensionType,
+    DimensionTypes,
     EntityEquippableComponent,
     EntityInventoryComponent,
     EquipmentSlot,
+    MinecraftDimensionTypes,
     TicksPerSecond,
     world
 } from '@minecraft/server'
-import { simulatedPlayers } from '../main'
+import { simulatedPlayers } from '../main';
 
-
+const dimensionMap: Record<string, string> = {
+    'minecraft:overworld': '主世界',
+    'minecraft:nether': '下界',
+    'minecraft:the_end': '末地'
+};
 // 后面还要重构一遍
 // const commandName1 = '假人背包交换'
 // const commandName2 = '假人装备交换'
@@ -301,7 +308,7 @@ locationCommand.register(({ entity, isEntity, args: [simIndex] }) => {
     }
 
     const { x, y, z } = SimPlayer.location;
-    entity.sendMessage(`§e§l${SimPlayer.name}位于 (${x.toFixed(2)}, ${y.toFixed(2)}, ${z.toFixed(2)}) 维度: ${SimPlayer.dimension.id}`);
+    entity.sendMessage(`§e§l${SimPlayer.name}位于 ${dimensionMap[SimPlayer.dimension.id] ?? SimPlayer.dimension.id}(${x.toFixed(2)}, ${y.toFixed(2)}, ${z.toFixed(2)})`);
 });
 commandManager.registerCommand(['假人位置', '假人坐标'], locationCommand);
 // 你懂的~
