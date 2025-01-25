@@ -292,7 +292,7 @@ locationCommand.register(({ entity, isEntity, args }) => {
         ;
         SimPlayer = getSimPlayer.formView(entity);
         if (!SimPlayer) return entity.sendMessage("§e§l-面前不存在模拟玩家");
-    } else if (args.length === 2) {
+    } else if (args.length === 1) {
         const index = Number(args[0]);
         if (typeof index !== 'number') return entity.sendMessage('[模拟玩家] 命令错误，期待数字却得到 ' + typeof Number(args[0]));
 
