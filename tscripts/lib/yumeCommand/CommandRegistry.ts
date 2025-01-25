@@ -87,6 +87,34 @@ export function getLocationFromEntityLike(entity: {
 export const internalExceptionWaringText = '[模拟玩家] 出现内部异常，已尝试处理，请在GitHub进行反馈以免再次出现问题';
 export const cannotHandledExceptionWaringText = '[模拟玩家] 出现不可处理的内部异常，请在GitHub进行反馈';
 
+/**
+ * @example
+ * ```typescript
+ * // Instantiate the Command
+ * const command = new Command();
+ * 
+ * // Handle no arguments
+ * command.register(({ args }) => args.length === 0, ({ args }) => {
+ *     console.log('Hello, world');
+ * });
+ * 
+ * // Handle one argument
+ * command.register(({ args }) => args.length === 1, ({ args }) => {
+ *     console.log(`Hello, ${args[0]}`);
+ * });
+ * 
+ * // Handle any other case
+ * command.register(({ args }) => {
+ *     console.log(`Hello, ${args.join(' ')}`);
+ * });
+ * 
+ * // Register the Command to the Command Manager
+ * commandManager.registerCommand(['hello', 'hi'], command);
+ * 
+ * // Execute the Command
+ * commandManager.execute('hello world');
+ * ```
+ */
 class CommandManager {
     private parseCommandString = parseCommandString
     private commandMap = new Map<string, Command>();
@@ -223,30 +251,3 @@ export class Command {
             }
     }
 }
-// const {executeCommand, registerCommand, removeCommand} = new CommandRegistry();
-
-// create a CommandRegistry object
-// const commandRegistry: CommandRegistry = new CommandRegistry();
-
-// Registry command
-// function sayHello({args:string[],entity:Entity|Player|Dimension,location?:Vector3,isEntity:boolean,commandName:string}) {
-//         entity.sendMessage(`Hello, ${args}!`);
-// }
-//
-// function sayGoodbye(name) {
-//         console.log(`Goodbye, ${name}!`);
-// }
-//
-// commandRegistry.registerCommand('hello', sayHello);
-// commandRegistry.registerAlias('hi', 'hello');
-// commandRegistry.registerCommand('goodbye', sayGoodbye);
-//
-// Execute command
-// commandRegistry.executeCommand('hello', {args:string[],entity:Entity|Player|Dimension,location?:Vector3,isEntity:boolean,commandName:string}); // 输出：Hello, Alice!
-// commandRegistry.executeCommand('goodbye', {args:string[],entity:Entity|Player|Dimension,location?:Vector3,isEntity:boolean,commandName:string});   // 输出：Goodbye, Bob!
-//
-// Removed command
-// commandRegistry.removeCommand('hello', sayHello);
-//
-// try ti execute the command again
-// commandRegistry.executeCommand('hello', {args:string[],entity:Entity|Player|Dimension,location?:Vector3,isEntity:boolean,commandName:string});     // 不会有任何输出，因为已经移除了 sayHello 回调
