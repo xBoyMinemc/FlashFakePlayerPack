@@ -5,7 +5,8 @@ import {
     EntityEquippableComponent,
     EntityInventoryComponent,
     EquipmentSlot,
-    TicksPerSecond
+    TicksPerSecond,
+    world
 } from '@minecraft/server'
 import { simulatedPlayers } from '../main'
 
@@ -246,9 +247,12 @@ commandManager.registerCommand(['假人时区', '假人时间'], timeCommand);
 // List
 const listCommand = new Command();
 listCommand.register(({entity}) => {
-    if(Object.keys(simulatedPlayers).length===0) return entity.sendMessage('列表空的')
-    for (const index in simulatedPlayers) if (simulatedPlayers[index] && Number(index)>=0)
-        entity.sendMessage(`§e§l-序号：${index} ## 生成名称: ${simulatedPlayers[index].name}${simulatedPlayers[index].name===simulatedPlayers[index].nameTag?'':' #当前名称: '+simulatedPlayers[index].nameTag}`)
+    let target = entity ?? world;
+    if (Object.keys(simulatedPlayers).length === 0) return target.sendMessage('列表空的');
+    for (const index in simulatedPlayers) if (simulatedPlayers[index] && Number(index) >= 0) {
+        const message = `§e§l-序号：${index} ## 生成名称: ${simulatedPlayers[index].name}${simulatedPlayers[index].name === simulatedPlayers[index].nameTag ? '' : ' #当前名称: ' + simulatedPlayers[index].nameTag}`;
+        target.sendMessage(message);
+    }
 });
 commandManager.registerCommand('假人列表', listCommand);
 
