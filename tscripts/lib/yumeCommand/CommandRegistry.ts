@@ -145,6 +145,24 @@ class CommandManager {
     }
 
     /**
+     * 取消注册命令。
+     * 
+     * @param prefixes - 要取消注册的命令前缀字符串或字符串数组。
+     * @throws {CommandNotFoundError} 当给定的前缀未被注册时会抛出错误。
+     */
+    unregisterCommand(prefixes: string | string[]): void {
+        const prefixesArray = (Array.isArray(prefixes) ? prefixes : [prefixes])
+            .map(prefix => prefix.toLowerCase());
+
+        for (const prefix of prefixesArray) {
+            if (!this.commandMap.has(prefix))
+                throw new CommandNotFoundError(prefix);
+
+            this.commandMap.delete(prefix);
+        }
+    }
+
+    /**
      * 执行指定命令
      * 
      * @param prefix 命令前缀。
