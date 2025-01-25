@@ -92,7 +92,7 @@ chatSpawnCommand.register(({ args }) => args[0] === '批量', ({ args: [, countS
 // #56 参考：
 // 假人生成 x y z name 维度序号（数字 0-主世界 1-地狱 2-末地）
 chatSpawnCommand.register(
-    ({ args }) => args[0] !== '批量' && args.length >= 3,
+    ({ args }) => args.length >= 3,
     ({
         args: [targetX, targetY, targetZ, targetName, targetDimension],
         entity,
@@ -102,9 +102,6 @@ chatSpawnCommand.register(
         let nameTag: string = null;
 
         // xyz
-        // TODO: 参数数量错误时给予用户提示
-        // if (args.length >= 1 && args.length <= 2)
-        //     return entity?.sendMessage('[模拟玩家] 命令错误，期待三个坐标数字，得到个数为' + args.length)
         try {
             const { x: sourceX, y: sourceY, z: sourceZ } = senderLocation;
             // @ts-ignore
@@ -121,13 +118,8 @@ chatSpawnCommand.register(
         }
 
         // name
-        if (targetName) {
-            try {
+        if (targetName) 
                 nameTag = targetName;
-            } catch (e) {
-                return entity?.sendMessage('[模拟玩家] 命令错误，期待文本作为名称却得到 ' + targetName);
-            }
-        }
 
         // dimension
         let dimension: Dimension;
@@ -155,6 +147,11 @@ chatSpawnCommand.register(
         __FlashPlayer__.setScore(SimulatedPlayer.id, PID);
     }
 );
+
+// 捕获命令参数数量错误并提示
+chatSpawnCommand.register(({ args, entity }) => {
+    entity?.sendMessage('[模拟玩家] 命令错误，期待三个坐标数字，得到个数为' + args.length);
+});
 
 commandManager.registerCommand(['假人生成', '假人创建', 'ffpp'], chatSpawnCommand);
 
