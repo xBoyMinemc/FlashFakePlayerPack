@@ -264,7 +264,7 @@ renameCommand.register(({entity,isEntity,args}) => {
         return
     }
 
-    if(args.length===2){
+    if(args.length===1){
         ;
         ;"对准~";
         ;
