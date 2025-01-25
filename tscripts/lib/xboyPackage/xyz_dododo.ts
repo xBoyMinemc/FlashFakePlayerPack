@@ -34,13 +34,12 @@ export function xyz_dododo(xyz:(`${number}`|`~${number}`/*|`~+${number}`|`~-${nu
         if(!Number.isFinite(data))
             throw new Error(['x','y','z'][index] + ' not a number')
 
-        let result: number;
         if (op === '+')
-            result = playerLocation[index] + data;
+            return playerLocation[index] + data;
         if (op === '-')
-            result = playerLocation[index] - data;
+            return playerLocation[index] - data;
 
-        return result;
+        return data;
     });
 }
 
