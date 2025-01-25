@@ -291,24 +291,24 @@ locationCommand.register(({ entity, isEntity, args: [simIndex] }) => {
         console.error('error not isEntity');
         return;
     }
-    let SimPlayer: SimulatedPlayer;
+    let simulatedPlayer: SimulatedPlayer;
     if (simIndex === undefined) {
         ;
         ; "对准~";
         ;
-        SimPlayer = getSimPlayer.formView(entity);
-        if (!SimPlayer) return entity.sendMessage("§e§l-面前不存在模拟玩家");
+        simulatedPlayer = getSimPlayer.formView(entity);
+        if (!simulatedPlayer) return entity.sendMessage("§e§l-面前不存在模拟玩家");
     } else {
         const index = Number(simIndex);
         if (typeof index !== 'number') return entity.sendMessage('[模拟玩家] 命令错误，期待数字却得到 ' + typeof Number(simIndex));
 
-        SimPlayer = simulatedPlayers[index];
+        simulatedPlayer = simulatedPlayers[index];
 
-        if (!SimPlayer) return entity.sendMessage("§e§l-不存在模拟玩家" + index);
+        if (!simulatedPlayer) return entity.sendMessage("§e§l-不存在模拟玩家" + index);
     }
 
-    const { x, y, z } = SimPlayer.location;
-    entity.sendMessage(`§e§l${SimPlayer.name}位于 ${dimensionMap[SimPlayer.dimension.id] ?? SimPlayer.dimension.id}(${x.toFixed(2)}, ${y.toFixed(2)}, ${z.toFixed(2)})`);
+    const { x, y, z } = simulatedPlayer.location;
+    entity.sendMessage(`§e§l${simulatedPlayer.name}位于 ${dimensionMap[simulatedPlayer.dimension.id] ?? simulatedPlayer.dimension.id}(${x.toFixed(2)}, ${y.toFixed(2)}, ${z.toFixed(2)})`);
 });
 commandManager.registerCommand(['假人位置', '假人坐标'], locationCommand);
 // 你懂的~

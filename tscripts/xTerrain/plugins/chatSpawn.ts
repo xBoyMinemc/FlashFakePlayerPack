@@ -24,15 +24,15 @@ chatSpawnCommand.register(({args})=>args.length === 0, ({entity,location,isEntit
     if (isEntity) {
         const PID = GetPID()
         const __FlashPlayer__ = world.scoreboard.getObjective('##FlashPlayer##')
-        const SimulatedPlayer: SimulatedPlayer = spawnSimulatedPlayer(location, location.dimension, PID)
+        const simulatedPlayer: SimulatedPlayer = spawnSimulatedPlayer(location, location.dimension, PID)
 
 
-        simulatedPlayers[PID] = SimulatedPlayer
-        simulatedPlayers[SimulatedPlayer.id] = PID
+        simulatedPlayers[PID] = simulatedPlayer
+        simulatedPlayers[simulatedPlayer.id] = PID
 
-        spawnedEvent.trigger({spawnedSimulatedPlayer: SimulatedPlayer, PID})
+        spawnedEvent.trigger({spawnedSimulatedPlayer: simulatedPlayer, PID})
         // __FlashPlayer__.setScore(SimulatedPlayer,pid) //Score方案 因为无法为模拟玩家设置分数而放弃
-        __FlashPlayer__.setScore(SimulatedPlayer.id, PID)
+        __FlashPlayer__.setScore(simulatedPlayer.id, PID)
 
         // ScoreBase.AddPoints(<ScoreboardObjective>ScoreBase.GetObject('##FlashPlayer##'),1)
         // const pidParticipant = __FlashPlayer__.getParticipants().find(P=>P.displayName==='##currentPID')
@@ -41,15 +41,15 @@ chatSpawnCommand.register(({args})=>args.length === 0, ({entity,location,isEntit
     } else {
         const PID = GetPID()
         const __FlashPlayer__ = world.scoreboard.getObjective('##FlashPlayer##')
-        const SimulatedPlayer: SimulatedPlayer = spawnSimulatedPlayer(location, location.dimension, PID)
+        const simulatedPlayer: SimulatedPlayer = spawnSimulatedPlayer(location, location.dimension, PID)
 
 
-        simulatedPlayers[PID] = SimulatedPlayer
-        simulatedPlayers[SimulatedPlayer.id] = PID
+        simulatedPlayers[PID] = simulatedPlayer
+        simulatedPlayers[simulatedPlayer.id] = PID
 
-        spawnedEvent.trigger({spawnedSimulatedPlayer: SimulatedPlayer, PID})
+        spawnedEvent.trigger({spawnedSimulatedPlayer: simulatedPlayer, PID})
         // __FlashPlayer__.setScore(SimulatedPlayer,pid) //Score方案 因为无法为模拟玩家设置分数而放弃
-        __FlashPlayer__.setScore(SimulatedPlayer.id, PID)
+        __FlashPlayer__.setScore(simulatedPlayer.id, PID)
     }
 
 
@@ -64,28 +64,28 @@ chatSpawnCommand.register(({ args }) => args[0] === '批量', ({ args: [, countS
         if (isEntity) {
             const PID = GetPID()
             const __FlashPlayer__ = world.scoreboard.getObjective('##FlashPlayer##')
-            const SimulatedPlayer: SimulatedPlayer = spawnSimulatedPlayer(location, location.dimension, PID)
+            const simulatedPlayer: SimulatedPlayer = spawnSimulatedPlayer(location, location.dimension, PID)
 
 
             // add SimulatedPlayer to SimulatedPlayerList,by ues obj <key,value>
-            simulatedPlayers[PID] = SimulatedPlayer
-            simulatedPlayers[SimulatedPlayer.id] = PID
+            simulatedPlayers[PID] = simulatedPlayer
+            simulatedPlayers[simulatedPlayer.id] = PID
 
-            spawnedEvent.trigger({spawnedSimulatedPlayer: SimulatedPlayer, PID})
-            __FlashPlayer__.setScore(SimulatedPlayer.id, PID)
+            spawnedEvent.trigger({spawnedSimulatedPlayer: simulatedPlayer, PID})
+            __FlashPlayer__.setScore(simulatedPlayer.id, PID)
 
         } else {
             const PID = GetPID()
             const __FlashPlayer__ = world.scoreboard.getObjective('##FlashPlayer##')
-            const SimulatedPlayer: SimulatedPlayer = spawnSimulatedPlayer(location, location.dimension, PID)
+            const simulatedPlayer: SimulatedPlayer = spawnSimulatedPlayer(location, location.dimension, PID)
 
 
             // add SimulatedPlayer to SimulatedPlayerList,by ues obj <key,value>
-            simulatedPlayers[PID] = SimulatedPlayer
-            simulatedPlayers[SimulatedPlayer.id] = PID
+            simulatedPlayers[PID] = simulatedPlayer
+            simulatedPlayers[simulatedPlayer.id] = PID
 
-            spawnedEvent.trigger({spawnedSimulatedPlayer: SimulatedPlayer, PID})
-            __FlashPlayer__.setScore(SimulatedPlayer.id, PID)
+            spawnedEvent.trigger({spawnedSimulatedPlayer: simulatedPlayer, PID})
+            __FlashPlayer__.setScore(simulatedPlayer.id, PID)
         }
 })
 
@@ -136,15 +136,15 @@ chatSpawnCommand.register(
         const __FlashPlayer__ =
             world.scoreboard.getObjective('##FlashPlayer##');
 
-        const SimulatedPlayer: SimulatedPlayer = nameTag
+        const simulatedPlayer: SimulatedPlayer = nameTag
             ? spawnSimulatedPlayerByNameTag(location, dimension, nameTag)
             : spawnSimulatedPlayer(location, dimension, PID);
 
-        simulatedPlayers[PID] = SimulatedPlayer;
-        simulatedPlayers[SimulatedPlayer.id] = PID;
+        simulatedPlayers[PID] = simulatedPlayer;
+        simulatedPlayers[simulatedPlayer.id] = PID;
 
-        spawnedEvent.trigger({ spawnedSimulatedPlayer: SimulatedPlayer, PID });
-        __FlashPlayer__.setScore(SimulatedPlayer.id, PID);
+        spawnedEvent.trigger({ spawnedSimulatedPlayer: simulatedPlayer, PID });
+        __FlashPlayer__.setScore(simulatedPlayer.id, PID);
     }
 );
 

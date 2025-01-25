@@ -86,23 +86,23 @@ register('我是云梦', '假人', (test:Test) => {
     }
     spawnSimulatedPlayerByNameTag = (location:Vector3, dimension:Dimension, nameTag: string ):SimulatedPlayer=>{
 
-        const SimulatedPlayer = test.spawnSimulatedPlayer({ x:0, y:8, z:0 }, nameTag)
-        SimulatedPlayer.addTag('init')
-        SimulatedPlayer.addTag(SIGN.YUME_SIM_SIGN)
-        SimulatedPlayer.addTag(SIGN.AUTO_RESPAWN_SIGN)
+        const simulatedPlayer = test.spawnSimulatedPlayer({ x:0, y:8, z:0 }, nameTag)
+        simulatedPlayer.addTag('init')
+        simulatedPlayer.addTag(SIGN.YUME_SIM_SIGN)
+        simulatedPlayer.addTag(SIGN.AUTO_RESPAWN_SIGN)
         try {
-            SimulatedPlayer.setSpawnPoint({...location, dimension})
-            SimulatedPlayer.teleport(location, {dimension})
+            simulatedPlayer.setSpawnPoint({...location, dimension})
+            simulatedPlayer.teleport(location, {dimension})
         } catch (e) {
             if (e instanceof LocationOutOfWorldBoundariesError) {
                 console.warn('[模拟玩家] 有东西尝试在非法位置生成假人，已阻止');
-                SimulatedPlayer.disconnect();
+                simulatedPlayer.disconnect();
             } else {
                 throw e;
             }
         }
 
-        return SimulatedPlayer
+        return simulatedPlayer
     }
 
     initialized.trigger(null)

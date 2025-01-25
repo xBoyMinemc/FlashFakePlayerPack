@@ -7,13 +7,13 @@ import { system, world } from '@minecraft/server'
 import { getEntitiesNear, getPlayerNear } from '../../lib/xboyPackage/Util'
 
 // @ts-ignore
-const SimulatedPlayerStates : ({ "str-SimPlayer.id": { o: Vector3 }}) = {}
+const simulatedPlayerStates : ({ "str-SimPlayer.id": { o: Vector3 }}) = {}
 
 const Vector_subtract = ({x,y,z}:Vector3, {x:u,y:v,z:w}:Vector3)=>({x:x-u,y:y-v,z:z-w})
 // behavior
 function AUTO_BEHAVIOR(){
 
-    let SimulatedPlayerCount = 0
+    let simulatedPlayerCount = 0
     const AllPlayerCount = world.getAllPlayers().length
     for (const index in simulatedPlayers) {
         if((Number(index)>0?Number(index):-Number(index))>1000)continue
@@ -25,7 +25,7 @@ function AUTO_BEHAVIOR(){
             delete simulatedPlayers[index]
             continue
         }
-        ++SimulatedPlayerCount
+        ++simulatedPlayerCount
         // world.sendMessage(SimPlayer.nameTag)
         //判假人是否存活
         //瞎糊乱改接口名--2023-07-21-02：02
@@ -49,8 +49,8 @@ function AUTO_BEHAVIOR(){
                                     .concat( getEntitiesNear(SimPlayer.location,SimPlayer.dimension,12,{families:["monster"]}) )
                                     .concat( getPlayerNear(SimPlayer,12,{}) )
 
-            SimulatedPlayerStates[SimPlayer.id] || (SimulatedPlayerStates[SimPlayer.id]={})
-            SimulatedPlayerStates[SimPlayer.id]["o"] || (SimulatedPlayerStates[SimPlayer.id]["o"]=SimPlayer.location)
+            simulatedPlayerStates[SimPlayer.id] || (simulatedPlayerStates[SimPlayer.id]={})
+            simulatedPlayerStates[SimPlayer.id]["o"] || (simulatedPlayerStates[SimPlayer.id]["o"]=SimPlayer.location)
             // let a: { "str-SimPlayer.id": { o: Vector3 } } = ({
             //     'str-SimPlayer.id':{
             //         'o':SimPlayer.location
@@ -73,8 +73,8 @@ function AUTO_BEHAVIOR(){
 
             }else{
                 console.error("back")
-                if( r3(SimPlayer.location,SimulatedPlayerStates[SimPlayer.id]["o"],1) )
-                    SimPlayer.moveToLocation( fix(SimulatedPlayerStates[SimPlayer.id]["o"]) )
+                if( r3(SimPlayer.location,simulatedPlayerStates[SimPlayer.id]["o"],1) )
+                    SimPlayer.moveToLocation( fix(simulatedPlayerStates[SimPlayer.id]["o"]) )
                 // SimPlayer.moveToLocation({x:-30000000,y:-128,z:0})
 
             }
