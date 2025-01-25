@@ -33,7 +33,7 @@ import './plugins/setting'
 import './plugins/showCommandsList'
 import {playerMove} from "../lib/xboyEvents/move";
 import { CommandError, commandManager, getLocationFromEntityLike } from '../lib/yumeCommand/CommandRegistry';
-import '../lib/yumeCommand/ScriptEventRegistry'
+import '../lib/yumeCommand/scriptEventHandler'
 
 const overworld = world.getDimension('overworld')
 const tickWaitTimes = 20*60*60*24*365
