@@ -54,7 +54,7 @@ const breaks = (/*awa:awa='awa'*/)=>
         const viewDirection = man.getViewDirection()
         const headLocation = man.getHeadLocation()
         const time =  times.get(man.id) ?? 0
-        const whatCanISee =  Vector_addition(headLocation, Vector_multiplication_dot(viewDirection,time % 3 + 1))
+        const whatCanISee =  man.getBlockFromViewDirection({maxDistance:5}).block
         const dimension = <Dimension>man.dimension
         // dimension.spawnParticle('minecraft:endrod',headLocation)
 
