@@ -7,41 +7,32 @@ import {
     spawnSimulatedPlayer,
     spawnSimulatedPlayerByNameTag
 } from '../main'
-import {CommandInfo, CommandRegistry, getLocationFromEntityLike} from '../../lib/yumeCommand/CommandRegistry'
-import {ScriptEventRegistry} from "../../lib/yumeCommand/ScriptEventRegistry";
-import {Dimension, Vector3, world} from '@minecraft/server'
+import { type CommandInfo, commandManager, Command } from '../../lib/yumeCommand/CommandRegistry'
+import { Dimension, Vector3, world } from '@minecraft/server'
 import {xyz_dododo} from "../../lib/xboyPackage/xyz_dododo";
 
 const overworld = world.getDimension("overworld");
 
 
-const commandRegistry = new CommandRegistry()
-commandRegistry.registerAlias('假人创建', '假人生成')
-commandRegistry.registerAlias('FFPP', '假人生成')
-commandRegistry.registerAlias('ffpp', '假人生成')
-commandRegistry.registerAlias('Ffpp', '假人生成')
+const chatSpawnCommand = new Command()
 
-const scriptEventRegistry = new ScriptEventRegistry()
-
-function noArgs({args, entity, location, isEntity}: CommandInfo) {
-    // @ts-ignore
-    if (!initSucceed)
+chatSpawnCommand.register(({args})=>args.length === 0, ({entity,location,isEntity})=>{
+    if(!initSucceed)
         return entity?.sendMessage('[假人] 插件未初始化完成，请重试')
-    if (args.length !== 1) return;
     // TEST with pid input
 
     if (isEntity) {
         const PID = GetPID()
         const __FlashPlayer__ = world.scoreboard.getObjective('##FlashPlayer##')
-        const SimulatedPlayer: SimulatedPlayer = spawnSimulatedPlayer(location, location.dimension, PID)
+        const simulatedPlayer: SimulatedPlayer = spawnSimulatedPlayer(location, location.dimension, PID)
 
 
-        simulatedPlayers[PID] = SimulatedPlayer
-        simulatedPlayers[SimulatedPlayer.id] = PID
+        simulatedPlayers[PID] = simulatedPlayer
+        simulatedPlayers[simulatedPlayer.id] = PID
 
-        spawnedEvent.trigger({spawnedSimulatedPlayer: SimulatedPlayer, PID})
+        spawnedEvent.trigger({spawnedSimulatedPlayer: simulatedPlayer, PID})
         // __FlashPlayer__.setScore(SimulatedPlayer,pid) //Score方案 因为无法为模拟玩家设置分数而放弃
-        __FlashPlayer__.setScore(SimulatedPlayer.id, PID)
+        __FlashPlayer__.setScore(simulatedPlayer.id, PID)
 
         // ScoreBase.AddPoints(<ScoreboardObjective>ScoreBase.GetObject('##FlashPlayer##'),1)
         // const pidParticipant = __FlashPlayer__.getParticipants().find(P=>P.displayName==='##currentPID')
@@ -50,134 +41,128 @@ function noArgs({args, entity, location, isEntity}: CommandInfo) {
     } else {
         const PID = GetPID()
         const __FlashPlayer__ = world.scoreboard.getObjective('##FlashPlayer##')
-        const SimulatedPlayer: SimulatedPlayer = spawnSimulatedPlayer(location, location.dimension, PID)
+        const simulatedPlayer: SimulatedPlayer = spawnSimulatedPlayer(location, location.dimension, PID)
 
 
-        simulatedPlayers[PID] = SimulatedPlayer
-        simulatedPlayers[SimulatedPlayer.id] = PID
+        simulatedPlayers[PID] = simulatedPlayer
+        simulatedPlayers[simulatedPlayer.id] = PID
 
-        spawnedEvent.trigger({spawnedSimulatedPlayer: SimulatedPlayer, PID})
+        spawnedEvent.trigger({spawnedSimulatedPlayer: simulatedPlayer, PID})
         // __FlashPlayer__.setScore(SimulatedPlayer,pid) //Score方案 因为无法为模拟玩家设置分数而放弃
-        __FlashPlayer__.setScore(SimulatedPlayer.id, PID)
+        __FlashPlayer__.setScore(simulatedPlayer.id, PID)
     }
 
 
-}
+})
 
-commandRegistry.registerCommand('假人生成', noArgs)
+chatSpawnCommand.register(({ args }) => args[0] === '批量', ({ args: [, countString], entity, location, isEntity }) => {
+    if (!countString) return entity?.sendMessage('[模拟玩家] 命令错误，请提供数字');
+    if (!Number.isSafeInteger(Number(countString))) return entity?.sendMessage('[模拟玩家] 命令错误，期待数字却得到 ' + countString);
 
-function withArgs({args, entity, location, isEntity}: CommandInfo) {
-    if (args[1] !== '批量') return
-    if (typeof Number(args[2]) !== 'number') return entity?.sendMessage('[模拟玩家] 命令错误，期待数字却得到 ' + typeof Number(args[2]))
-
-    let count = Number(args[2])
+    let count = Number(countString);
     while (count-- > 0)
         if (isEntity) {
             const PID = GetPID()
             const __FlashPlayer__ = world.scoreboard.getObjective('##FlashPlayer##')
-            const SimulatedPlayer: SimulatedPlayer = spawnSimulatedPlayer(location, location.dimension, PID)
+            const simulatedPlayer: SimulatedPlayer = spawnSimulatedPlayer(location, location.dimension, PID)
 
 
             // add SimulatedPlayer to SimulatedPlayerList,by ues obj <key,value>
-            simulatedPlayers[PID] = SimulatedPlayer
-            simulatedPlayers[SimulatedPlayer.id] = PID
+            simulatedPlayers[PID] = simulatedPlayer
+            simulatedPlayers[simulatedPlayer.id] = PID
 
-            spawnedEvent.trigger({spawnedSimulatedPlayer: SimulatedPlayer, PID})
-            __FlashPlayer__.setScore(SimulatedPlayer.id, PID)
+            spawnedEvent.trigger({spawnedSimulatedPlayer: simulatedPlayer, PID})
+            __FlashPlayer__.setScore(simulatedPlayer.id, PID)
 
         } else {
             const PID = GetPID()
             const __FlashPlayer__ = world.scoreboard.getObjective('##FlashPlayer##')
-            const SimulatedPlayer: SimulatedPlayer = spawnSimulatedPlayer(location, location.dimension, PID)
+            const simulatedPlayer: SimulatedPlayer = spawnSimulatedPlayer(location, location.dimension, PID)
 
 
             // add SimulatedPlayer to SimulatedPlayerList,by ues obj <key,value>
-            simulatedPlayers[PID] = SimulatedPlayer
-            simulatedPlayers[SimulatedPlayer.id] = PID
+            simulatedPlayers[PID] = simulatedPlayer
+            simulatedPlayers[simulatedPlayer.id] = PID
 
-            spawnedEvent.trigger({spawnedSimulatedPlayer: SimulatedPlayer, PID})
-            __FlashPlayer__.setScore(SimulatedPlayer.id, PID)
+            spawnedEvent.trigger({spawnedSimulatedPlayer: simulatedPlayer, PID})
+            __FlashPlayer__.setScore(simulatedPlayer.id, PID)
         }
-}
-
-commandRegistry.registerCommand('假人生成', withArgs)
-scriptEventRegistry.registerScriptEventHandler('ffp:ffpp', noArgs)
-scriptEventRegistry.registerScriptEventHandler('ffp:ffpp', withArgs)
-scriptEventRegistry.registerScriptEventHandler('ffp:ffpp', withArgs_xyz_name)
+})
 
 // #56 参考：
-// 假人生成 x y z name 维度序号（数字 0-主世界 1-地狱 2-末地）
-function withArgs_xyz_name({args, entity, location: senderLocation}: CommandInfo) {
-    let nameTag: string = null
-    if (args[1] === '批量' || args.length < 2) return
+// 假人生成 x y z name 维度序号（数字 0-主世界 1-下界 2-末地）
+chatSpawnCommand.register(
+    ({ args }) => args.length >= 3,
+    ({
+        args: [targetX, targetY, targetZ, targetName, targetDimension],
+        entity,
+        location: senderLocation,
+    }: CommandInfo) => {
+        let location: Vector3;
+        let nameTag: string = null;
 
-    let location: Vector3;
-    // xyz
-    if (args.length >= 2 && args.length <= 3)
-        return entity?.sendMessage('[模拟玩家] 命令错误，期待三个坐标数字，得到个数为' + (args.length - 1))
-    try {
-        const [x, y, z] = args.slice(1, 4)
-        const {x: _x, y: _y, z: _z} = senderLocation
-        // @ts-ignore
-        const [__x, __y, __z] = xyz_dododo([x, y, z], [_x, _y, _z])
-
-        location = {
-            x: __x,
-            y: __y,
-            z: __z
-        }
-
-        // 好烂，谁来改改
-
-        // 改xx这代码😡
-        // 还是我自己写个addon霸👆🤓
-    }catch (e) {
-        return entity?.sendMessage('[模拟玩家] 命令错误，期待三个却得到错误的信息 '+args.join(' '))
-    }
-
-    // name
-    if(args.length>=5){
+        // xyz
         try {
-            nameTag = args[4]
+            const { x: sourceX, y: sourceY, z: sourceZ } = senderLocation;
+            // @ts-ignore
+            const [x, y, z] = xyz_dododo([targetX, targetY, targetZ], [sourceX, sourceY, sourceZ])
+    
+            location = { x, y, z };
+    
+            // 好烂，谁来改改
+    
+            // 改xx这代码😡
+            // 还是我自己写个addon霸👆🤓
         }catch (e) {
-            return entity?.sendMessage('[模拟玩家] 命令错误，期待文本作为名称却得到 '+args[4])
+            return entity?.sendMessage(`[模拟玩家] 命令错误，期待三个却得到错误的信息 ${targetX} ${targetY} ${targetZ}`);
         }
-    }
 
-    // dimension
-    let dimension : Dimension;
-    if (args.length >= 6) {
-        try {
-            dimension = world.getDimension(["overworld", "nether", "the end"][Number(args[5])])
-        } catch (e) {
-            return entity?.sendMessage('[模拟玩家] 命令错误，期待序号作为维度（0-主世界 1-地狱 2-末地）却得到 ' + args[5])
+        // name
+        if (targetName) 
+                nameTag = targetName;
+
+        // dimension
+        let dimension: Dimension;
+        if (targetDimension) {
+            try {
+                dimension = world.getDimension(['overworld', 'nether', 'the end'][Number(targetDimension)]);
+            } catch (e) {
+                return entity?.sendMessage('[模拟玩家] 命令错误，期待序号作为维度（0-主世界 1-下界 2-末地）却得到 ' + targetDimension);
+            }
         }
+        dimension ??= senderLocation.dimension ?? overworld;
+
+        const PID = GetPID();
+        const __FlashPlayer__ =
+            world.scoreboard.getObjective('##FlashPlayer##');
+
+        const simulatedPlayer: SimulatedPlayer = nameTag
+            ? spawnSimulatedPlayerByNameTag(location, dimension, nameTag)
+            : spawnSimulatedPlayer(location, dimension, PID);
+
+        simulatedPlayers[PID] = simulatedPlayer;
+        simulatedPlayers[simulatedPlayer.id] = PID;
+
+        spawnedEvent.trigger({ spawnedSimulatedPlayer: simulatedPlayer, PID });
+        __FlashPlayer__.setScore(simulatedPlayer.id, PID);
     }
-    dimension ??= senderLocation.dimension ?? overworld;
+);
 
-    const PID = GetPID()
-    const __FlashPlayer__ = world.scoreboard.getObjective('##FlashPlayer##')
+// 捕获命令参数数量错误并提示
+chatSpawnCommand.register(({ args, entity }) => {
+    entity?.sendMessage('[模拟玩家] 命令错误，期待三个坐标数字，得到个数为' + args.length);
+});
 
-    const SimulatedPlayer :SimulatedPlayer = nameTag
-        ? spawnSimulatedPlayerByNameTag(location, dimension, nameTag)
-        : spawnSimulatedPlayer(location, dimension, PID)
+commandManager.registerCommand(['假人生成', '假人创建', 'ffpp'], chatSpawnCommand);
 
-    simulatedPlayers[PID]=SimulatedPlayer
-    simulatedPlayers[SimulatedPlayer.id]=PID
+// world.afterEvents.chatSend.subscribe(({message, sender})=>{
+//     const cmdArgs = CommandRegistry.parse(message)
+//     if(commandRegistry.commandsList.has(cmdArgs[0]))
+//         commandRegistry.executeCommand(cmdArgs[0],{entity:sender,isEntity:true,args:cmdArgs})
 
-    spawnedEvent.trigger({spawnedSimulatedPlayer:SimulatedPlayer,PID})
-    __FlashPlayer__.setScore(SimulatedPlayer.id,PID)
-}
-commandRegistry.registerCommand('假人生成',withArgs_xyz_name)
-
-world.afterEvents.chatSend.subscribe(({message, sender:entity})=>{
-    const cmdArgs = CommandRegistry.parse(message)
-    if(commandRegistry.commandsList.has(cmdArgs[0]))
-        commandRegistry.executeCommand(cmdArgs[0],{entity,isEntity:true,args:cmdArgs,location:getLocationFromEntityLike(entity)})
-
-    if(message==='showshowway'){
-        entity.sendMessage(commandRegistry.showList().toString())
-    }
-})
+//     if(message==='showshowway'){
+//         sender.sendMessage(commandRegistry.showList().toString())
+//     }
+// })
 
 // console.error('[假人]内置插件chatSpawn加载成功')

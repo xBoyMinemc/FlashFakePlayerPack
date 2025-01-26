@@ -1,7 +1,7 @@
 // SIGN for AUTO_BEHAVIOR
 import { SimulatedPlayer, LookDuration } from '@minecraft/server-gametest'
 import { Player } from '@minecraft/server'
-import { commandRegistry as urm } from '../../xTerrain/plugins/youAreMine'
+import { commandManager } from '../yumeCommand/CommandRegistry'
 
 export  enum  SIGN {
     AUTO_BREAKBLOCK_SIGN = 'AUTO_BREAKBLOCK_SIGN',
@@ -68,11 +68,11 @@ export const BEHAVIOR_FUNCTION = {
     useItemInSlot : (sim:SimulatedPlayer&Player)=>sim.useItemInSlot(sim.selectedSlotIndex),
     stopUsingItem : (sim:SimulatedPlayer)=>sim.stopUsingItem(),
     interact : (sim:SimulatedPlayer)=>sim.interact(),
-    swapMainhandItem : (sim:SimulatedPlayer,player:Player)=>urm.execute('假人主手物品交换',{entity:player,sim}),
-    swapInventory : (sim:SimulatedPlayer,player:Player)=>urm.execute('假人背包交换',{entity:player,sim}),
-    swapEquipment : (sim:SimulatedPlayer,player:Player)=>urm.execute('假人装备交换',{entity:player,sim}),
-    recycle : (sim:SimulatedPlayer,player:Player)=>urm.execute('假人资源回收',{entity:player,sim}), // item and exp
-    disconnect : (sim:SimulatedPlayer)=>urm.execute('假人销毁',{sim}),
+    swapMainhandItem : (sim:SimulatedPlayer,player:Player)=>commandManager.execute('假人主手物品交换',{entity:player,sim}),
+    swapInventory : (sim:SimulatedPlayer,player:Player)=>commandManager.execute('假人背包交换',{entity:player,sim}),
+    swapEquipment : (sim:SimulatedPlayer,player:Player)=>commandManager.execute('假人装备交换',{entity:player,sim}),
+    recycle : (sim:SimulatedPlayer,player:Player)=>commandManager.execute('假人资源回收',{entity:player,sim}), // item and exp
+    disconnect : (sim:SimulatedPlayer)=>commandManager.execute('假人销毁',{sim}),
     // rename : (sim:SimulatedPlayer,player:Player)=>0,
 }
 export const exeBehavior = (behavior: string) => BEHAVIOR[behavior] && BEHAVIOR_FUNCTION[behavior]

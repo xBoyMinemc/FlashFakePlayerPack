@@ -1,54 +1,80 @@
-import {
+import type {
     Dimension,
     DimensionLocation,
     Player,
     Vector3
 } from "@minecraft/server";
-import type {SimulatedPlayer} from "@minecraft/server-gametest";
+import type { SimulatedPlayer } from "@minecraft/server-gametest";
 
 export interface CommandInfo {
-    args: string[],
-    entity?: Player,
-    location?: DimensionLocation,
-    isEntity?: boolean,
-    sim?: SimulatedPlayer
+    prefix: string;
+    args: string[];
+    entity?: Player;
+    location?: DimensionLocation;
+    isEntity?: boolean;
+    sim?: SimulatedPlayer;
 } // | Player | Dimension | Entity
-export type CommandInfoNoArgs = Omit<CommandInfo, "args">;
+export type CommandInfoNoArgs = Omit<CommandInfo, "args" | "prefix">;
 
-// Parse command
+export class CommandError extends Error {
+    constructor(message: string) {
+        super(message);
+        this.name = "CommandError";
+    }
+}
 
-export function commandParse(command:string):string[] {
-    const tokens = [];
-    let currentToken = '';
-    let insideQuotes = false;
+export class InvalidInputError extends CommandError {
+    constructor(public input: string) {
+        super(`Invalid input: ${input}`);
+        this.name = "InvalidInputError";
+    }
+}
 
-    //  又不是不能用
-    for (let i = 0; i < command.length; i++) {
-        const char = command[i];
+export class CommandAlreadyExistsError extends CommandError {
+    constructor(public commandName: string) {
+        super(`Command ${commandName} already exists`);
+        this.name = "CommandAlreadyExistsError";
+    }
+}
 
-        if (char === ' ' && !insideQuotes) {
-            if (currentToken !== '') {
-                tokens.push(currentToken);
-                currentToken = '';
-            }
-        } else if (char === '"') {
-            if (insideQuotes) {
-                tokens.push(currentToken);
-                currentToken = '';
-                insideQuotes = false;
-            } else {
-                insideQuotes = true;
-            }
-        } else {
-            currentToken += char;
-        }
+export class CommandNotFoundError extends CommandError {
+    constructor(public commandName: string) {
+        super(`Command ${commandName} not found`);
+        this.name = "CommandNotFoundError";
+    }
+}
+
+type CommandHandler = (cmdInfo: CommandInfo) => void;
+
+/**
+ * 解析命令字符串。
+ *
+ * @param input - 需要解析的命令输入字符串。
+ * @returns 返回一个包含命令前缀和参数数组的对象。
+ * @throws {InvalidInputError} 当输入无效时抛出异常。
+ *
+ * @example
+ * ```typescript
+ * console.log(parseCommandString("say player 'Hello World'"));
+ * // { prefix: 'say', args: [ 'player', 'Hello World' ] }
+ * ```
+ */
+export function parseCommandString(input: string): { prefix: string; args: string[]; } {
+    const regex = /"([^"]*)"|'([^']*)'|(\S+)/g; // 正则匹配所有单词或引号内的文本
+    const parts = [];
+    let match: RegExpMatchArray | null;
+
+    while (match = regex.exec(input)) {
+        // 将捕获组中的内容添加到结果数组中
+        parts.push(match[1] ?? match[2] ?? match[3]);
     }
 
-    if (currentToken !== '') {
-        tokens.push(currentToken);
-    }
+    if (parts.length === 0)
+        throw new InvalidInputError(input);
 
-    return tokens;
+    // 性能略差于 const prefix = parts.shift(); 但可读性更佳
+    const [prefix, ...args] = parts;
+    return { prefix, args };
 }
 
 export function getLocationFromEntityLike(entity: {
@@ -56,125 +82,191 @@ export function getLocationFromEntityLike(entity: {
 }): DimensionLocation {
     return {
         ...entity.location, dimension: entity.dimension
-    }
+    };
 }
-
-// const command = 'cmdHead arg1  "arg2" "arg3" \"_arg4\" 7 8 ~-5 ';
-// const tokens = commandParse(command);
-// console.log(tokens);
-// tokens => [ 'cmdHead', 'arg1', 'arg2', 'arg3', '_arg4', '7', '8', '~-5' ]
 
 export const internalExceptionWaringText = '[模拟玩家] 出现内部异常，已尝试处理，请在GitHub进行反馈以免再次出现问题';
 export const cannotHandledExceptionWaringText = '[模拟玩家] 出现不可处理的内部异常，请在GitHub进行反馈';
-type CommandHandler = (cmdInfo:CommandInfo) => void;
 
-export class CommandRegistry {
-    private commandsRegistryMap = new Map<string,Set<CommandHandler>>();
-    public commandsList = new Set<string>();
-    public commandRegistrySign :string;
-    static parse = commandParse;
-    private  alias = new Map<string,string>();
+/**
+ * @example
+ * ```typescript
+ * // Instantiate the Command
+ * const command = new Command();
+ * 
+ * // Handle no arguments
+ * command.register(({ args }) => args.length === 0, ({ args }) => {
+ *     console.log('Hello, world');
+ * });
+ * 
+ * // Handle one argument
+ * command.register(({ args }) => args.length === 1, ({ args }) => {
+ *     console.log(`Hello, ${args[0]}`);
+ * });
+ * 
+ * // Handle any other case
+ * command.register(({ args }) => {
+ *     console.log(`Hello, ${args.join(' ')}`);
+ * });
+ * 
+ * // Register the Command to the Command Manager
+ * commandManager.registerCommand(['hello', 'hi'], command);
+ * 
+ * // Execute the Command
+ * commandManager.execute('hello world');
+ * ```
+ */
+class CommandManager {
+    private parseCommandString = parseCommandString;
+    private commandMap = new Map<string, Command>();
 
+    /**
+     * 注册命令实例。
+     * 
+     * @param prefixes - 触发该命令的前缀字符串或字符串数组。
+     * @param command - 要注册的命令对象。
+     * 
+     * @throws {CommandAlreadyExistsError} 当给定的前缀已被注册时会抛出错误。
+     * 
+     * @example
+     * ```typescript
+     * registerCommand(['假人生成', '假人创建'], spawn);
+     * ```
+     */
+    registerCommand(prefixes: string | string[], command: Command): void {
+        const prefixesArray = (Array.isArray(prefixes) ? prefixes : [prefixes])
+            .map(prefix => prefix.toLowerCase());
 
-    constructor(commandRegistrySign='funny') {
-        this.commandRegistrySign  = commandRegistrySign;
+        for (const prefix of prefixesArray) {
+            if (this.commandMap.has(prefix)) {
+                throw new CommandAlreadyExistsError(prefix);
+            }
+            this.commandMap.set(prefix, command);
+        }
     }
 
-    // registerAlias
-    registerAlias( alias:string ,commandName:string) {
-        this.alias.set(alias,commandName)
-        this.
-        commandsList.add(alias)
+    /**
+     * 取消注册命令。
+     * 
+     * @param prefixes - 要取消注册的命令前缀字符串或字符串数组。
+     * @throws {CommandNotFoundError} 当给定的前缀未被注册时会抛出错误。
+     */
+    unregisterCommand(prefixes: string | string[]): void {
+        const prefixesArray = (Array.isArray(prefixes) ? prefixes : [prefixes])
+            .map(prefix => prefix.toLowerCase());
 
-        return this.registerAlias;
+        for (const prefix of prefixesArray) {
+            if (!this.commandMap.has(prefix))
+                throw new CommandNotFoundError(prefix);
+
+            this.commandMap.delete(prefix);
+        }
     }
 
-    // registerCommand
-    registerCommand<T extends CommandHandler>(commandName:string, callback:T):T {
-        if(this.alias.has(commandName))
-            this.alias.delete(commandName)
-        if (!this.commandsRegistryMap.has(commandName))
-            this.commandsRegistryMap.set(commandName,new Set());
+    /**
+     * 执行指定命令
+     * 
+     * @param prefix 命令前缀。
+     * @param args 命令参数。
+     * @param commandInfoNoArgs 命令信息。
+     * 
+     * @throws {CommandNotFoundError} 如果命令不存在。
+     */
+    executeCommand(prefix: string, args: string[], commandInfoNoArgs: CommandInfoNoArgs): void {
+        prefix = prefix.toLowerCase();
+        const command = this.commandMap.get(prefix);
+        if (!command)
+            throw new CommandNotFoundError(prefix);
 
-        this.commandsList.add(commandName)
-        this.commandsRegistryMap.get(commandName).add(callback);
-        return callback;
-    }
-
-    // executeCommand
-    executeCommand(commandName:string, cmdInfo:CommandInfo) {
         // ding~
         // 都有?.了你还用&&
-        const handlers = this.commandsRegistryMap.get(
-            this.alias.get(commandName)??commandName
-        );
-        if (handlers?.size > 0) {
-            handlers.forEach((callback) => callback(cmdInfo) )
-            cmdInfo?.entity?.playSound?.('note.bell')
+        commandInfoNoArgs?.entity?.playSound?.('note.bell');
+
+        command.execute({ prefix, args, ...commandInfoNoArgs });
+    }
+
+    /**
+     * 处理字符串命令并执行。
+     * 
+     * @param commandString - 要执行的完整命令字符串。
+     * @param commandInfoNoArgs - 命令信息。
+     * 
+     * @throws {CommandNotFoundError} 如果命令不存在。
+     * 
+     * 该方法首先解析命令字符串，提取命令前缀和参数数组，
+     * 然后将这些信息用于执行相应的命令。
+     */
+    execute(commandString: string, commandInfoNoArgs: CommandInfoNoArgs = {}): void {
+        const { prefix, args } = this.parseCommandString(commandString);
+
+        this.executeCommand(prefix, args, commandInfoNoArgs);
+    }
+
+    /**
+     * 获取已注册的所有命令前缀。
+     * 
+     * @returns 返回一个字符串数组，包含所有已注册的命令前缀。
+     */
+    listRegisteredPrefixes(): string[] {
+        return Array.from(this.commandMap.keys());
+    }
+}
+
+// 导出实例（单例模式）
+export const commandManager = new CommandManager();
+
+export class Command {
+    private conditionsHandlers = new Map<(cmdInfo: CommandInfo) => boolean, CommandHandler[]>();
+
+    /**
+     * 注册命令处理回调。
+     * 
+     * @param handler 注册的命令 handler，接受命令信息对象。
+     */
+    register(handler: CommandHandler): void;
+
+    /**
+     * 注册有条件约束的命令处理回调。
+     * 用于实现命令的分支或重载。
+     * 
+     * @param condition 条件回调，接受命令信息对象，返回一个布尔值，仅当返回布尔值为 true 时才会执行对应的 handler。
+     * @param handler 命令处理回调，接受命令信息对象。
+     */
+    register(condition: (commandInfo: CommandInfo) => boolean, handler: CommandHandler): void;
+    register(conditionOrHandler: (commandInfo: CommandInfo) => any, handler?: CommandHandler): void {
+        let condition: (commandInfo: CommandInfo) => boolean;
+        if (handler)
+            condition = conditionOrHandler;
+        else {
+            handler = conditionOrHandler;
+
+            // 如果未提供 condition, 使用永真条件
+            condition = () => true;
         }
 
-        // 感谢 .?  我不需要为判空做try-catch
+        if (!this.conditionsHandlers.has(condition))
+            this.conditionsHandlers.set(condition, []);
 
-        // if (this.commands.has(commandName)){
-        //     const callbacks = this.commands.get(commandName);
-        //     callbacks.forEach((callback:Function) => callback(...args) );
-        // }
-        // else
-        //     console.error(`Command "${commandName}" not found.`);
+        this.conditionsHandlers.get(condition).push(handler);
     }
 
-    execute(commandText:string,cmdInfo:CommandInfoNoArgs){
-        const args = CommandRegistry.parse(commandText)
-        this.executeCommand(args[0],{...cmdInfo,args})
-    }
+    /**
+     * 执行命令。
+     * 
+     * @param commandInfo 命令信息对象。
+     * 
+     * @description
+     * 按命令注册先后顺序，
+     * 只有第一个满足条件的 handler 会被执行。
 
-    // removeCommand
-    removeCommand(commandName:string, callback?:CommandHandler) {
-        if(callback)
-            this.commandsRegistryMap.get(commandName)?.delete(callback)
-        else
-            this.commandsRegistryMap.delete(commandName)
-        // if (this.commands.has(commandName)){
-        //     if(this.commands.get(commandName).delete(callback)){
-        //         return true
-        //     }
-        //         console.error('Command '+commandName+' not has this callback.')
-        //         return false
-        // }
-        // else
-        //     console.error(`Command "${commandName}" not found.`);
-    }
+     */
+    execute(commandInfo: CommandInfo): void {
+        for (const [condition, handlers] of this.conditionsHandlers)
+            if (condition(commandInfo)) {
+                handlers.forEach(handler => handler(commandInfo));
 
-    showList() {
-        return Array.from(this.commandsList.keys())
-            .concat(Array.from(this.alias.keys())).join('\u000a')
+                // 只执行首个条件满足的 handler
+                break;
+            }
     }
-
 }
-// const {executeCommand, registerCommand, removeCommand} = new CommandRegistry();
-
-// create a CommandRegistry object
-// const commandRegistry: CommandRegistry = new CommandRegistry();
-
-// Registry command
-// function sayHello({args:string[],entity:Entity|Player|Dimension,location?:Vector3,isEntity:boolean,commandName:string}) {
-//         entity.sendMessage(`Hello, ${args}!`);
-// }
-//
-// function sayGoodbye(name) {
-//         console.log(`Goodbye, ${name}!`);
-// }
-//
-// commandRegistry.registerCommand('hello', sayHello);
-// commandRegistry.registerAlias('hi', 'hello');
-// commandRegistry.registerCommand('goodbye', sayGoodbye);
-//
-// Execute command
-// commandRegistry.executeCommand('hello', {args:string[],entity:Entity|Player|Dimension,location?:Vector3,isEntity:boolean,commandName:string}); // 输出：Hello, Alice!
-// commandRegistry.executeCommand('goodbye', {args:string[],entity:Entity|Player|Dimension,location?:Vector3,isEntity:boolean,commandName:string});   // 输出：Goodbye, Bob!
-//
-// Removed command
-// commandRegistry.removeCommand('hello', sayHello);
-//
-// try ti execute the command again
-// commandRegistry.executeCommand('hello', {args:string[],entity:Entity|Player|Dimension,location?:Vector3,isEntity:boolean,commandName:string});     // 不会有任何输出，因为已经移除了 sayHello 回调

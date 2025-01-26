@@ -10,7 +10,7 @@ ops['-'] = '-'
  *
  * console.log(xyz_dododo('~-30 5 4', [1, 25, 0])) // [ 29, 5, 4 ]
  */
-export function xyz_dododo(xyz:(`${number}`|`~${number}`|`~-${number}`)[],playerLocation=[0,0,0]) : number[] {
+export function xyz_dododo(xyz:(`${number}`|`~${number}`/*|`~+${number}`|`~-${number}`*/)[],playerLocation=[0,0,0]) : number[] {
     // 遍历分割后的数组
     return xyz.map((part, index) => {
         // 否则直接解析为数字
@@ -34,13 +34,12 @@ export function xyz_dododo(xyz:(`${number}`|`~${number}`|`~-${number}`)[],player
         if(!Number.isFinite(data))
             throw new Error(['x','y','z'][index] + ' not a number')
 
+        if (op === '+')
+            return playerLocation[index] + data;
+        if (op === '-')
+            return playerLocation[index] - data;
 
-        if(op === '+')
-            data += playerLocation[index]
-        if(op === '-')
-            data -= playerLocation[index]
-
-        return data
+        return data;
     });
 }
 
