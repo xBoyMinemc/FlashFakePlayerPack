@@ -97,8 +97,14 @@ commandManager.registerCommand(['假人背包交换','假人交换背包'], inve
 
 // swapEquipment
 // commandRegistry.registerAlias('swapEquipment','假人装备交换')
+<<<<<<< Updated upstream
 const equipmentSwapCommand = new Command();
 equipmentSwapCommand.register(({entity,isEntity,sim}) => {
+=======
+commandRegistry.registerAlias('假人交换装备','假人装备交换')
+commandRegistry.registerCommand('假人装备交换', ({entity,isEntity,sim}) => {
+
+>>>>>>> Stashed changes
     const SimPlayer:SimulatedPlayer = sim || getSimPlayer.formView(entity)
     if(!isEntity && !sim)return
 
@@ -174,7 +180,11 @@ disconnectCommand.register(({entity,isEntity,args:[simIndex],sim}) => {
         console.error('error not isEntity')
         return
     }
+<<<<<<< Updated upstream
     if (simIndex === undefined) {
+=======
+    if(args.length===1){
+>>>>>>> Stashed changes
         const SimPlayer:SimulatedPlayer = getSimPlayer.formView(entity)
         if(!SimPlayer)return entity.sendMessage("§e§l-面前不存在模拟玩家")
 
@@ -271,6 +281,7 @@ renameCommand.register(({entity,isEntity,args:[newName]}) => {
         return
     }
 
+<<<<<<< Updated upstream
     if(!newName)
         return entity.sendMessage('[模拟玩家] 命令错误，请提供新名称');
     ;
@@ -282,6 +293,17 @@ renameCommand.register(({entity,isEntity,args:[newName]}) => {
     entity.sendMessage("§e§l-改名成功")
 });
 commandManager.registerCommand(['假人改名', '假人重命名', '假人换名'], renameCommand);
+=======
+    if(args.length===2){
+        ;
+        ;"对准~";
+        ;
+        const SimPlayer:SimulatedPlayer = getSimPlayer.formView(entity)
+        if(!SimPlayer)return entity.sendMessage("§e§l-你不要怀疑，10000%是你没对准，如果假人真躺了的话")  //entity.sendMessage("§e§l-面前不存在模拟玩家")
+        SimPlayer.nameTag = args[1]
+        entity.sendMessage("§e§l-改名成功")
+    }
+>>>>>>> Stashed changes
 
 
 // location
@@ -296,11 +318,19 @@ locationCommand.register(({ entity, isEntity, args: [simIndex] }) => {
         ;
         ; "对准~";
         ;
+<<<<<<< Updated upstream
         simulatedPlayer = getSimPlayer.formView(entity);
         if (!simulatedPlayer) return entity.sendMessage("§e§l-面前不存在模拟玩家");
     } else {
         const index = Number(simIndex);
         if (typeof index !== 'number') return entity.sendMessage('[模拟玩家] 命令错误，期待数字却得到 ' + typeof Number(simIndex));
+=======
+        SimPlayer = getSimPlayer.formView(entity);
+        if (!SimPlayer) return entity.sendMessage("§e§l-面前不存在模拟玩家");
+    } else if (args.length === 2) {
+        const index = Number(args[1]);
+        if (typeof index !== 'number') return entity.sendMessage('[模拟玩家] 命令错误，期待数字却得到 ' + typeof Number(args[1]));
+>>>>>>> Stashed changes
 
         simulatedPlayer = simulatedPlayers[index];
 
