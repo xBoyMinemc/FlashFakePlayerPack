@@ -86,13 +86,10 @@ archive.on('error', (err) => {
 
 // 创建一个输出流，将ZIP文件写入到指定的文件中
 const name1 = name ?? 'example1.zip'
-// const name2 =  name.replace('FlashFakePlayerPack','假人测试版') ?? 'example2.zip'
 const output1 = fs.createWriteStream(name1);
-// const output2 = fs.createWriteStream(name2);
 
 // 监听archive的'drain'事件，以确保数据被写入输出流
 output1.on('close', () => console.log(`${name1} 文件已成功创建，共包含 ${archive.pointer()} 字节`));
-// output2.on('close', () => console.log(`${name2} 文件已成功创建，共包含 ${archive.pointer()} 字节`));
 
 // 将ZIP文件写入到输出流
 archive.pipe(output1);
@@ -105,11 +102,7 @@ if(fs.existsSync(tempPath)){
     !fs.existsSync(tempPath+'/build') && fs.mkdirSync(tempPath+'/build');
 
     const tempName = tempPath+'/'+name
-    const tempName2 = tempPath+'/'+name2
     const output3 = fs.createWriteStream(tempName);
-    const output4 = fs.createWriteStream(tempName2);
     output3.on('close', () => console.log(`${tempName} 文件已成功创建，共包含 ${archive.pointer()} 字节`));
-    output4.on('close', () => console.log(`${tempName2} 文件已成功创建，共包含 ${archive.pointer()} 字节`));
     archive.pipe(output3);
-    archive.pipe(output4);
 }
