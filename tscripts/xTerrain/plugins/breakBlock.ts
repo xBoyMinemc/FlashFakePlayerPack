@@ -22,22 +22,11 @@ breakBlockCommand.register(({ args }) => args.length === 0, ({ entity, isEntity 
         return;
     }
 
-<<<<<<< Updated upstream
     const SimPlayer: SimulatedPlayer = getSimPlayer.formView(entity)
     if (!SimPlayer) {
         entity.sendMessage('§e§l-面前不存在模拟玩家');
         return;
     } 
-=======
-const noArgs = ({args,entity,isEntity})=>{
-
-    if(args.length!==1)return
-
-    if(!isEntity)return
-
-    const SimPlayer:SimulatedPlayer = getSimPlayer.formView(entity)
-    if(!SimPlayer)return
->>>>>>> Stashed changes
 
     for(const i in simulatedPlayers)
         if(simulatedPlayers[i]===SimPlayer)
