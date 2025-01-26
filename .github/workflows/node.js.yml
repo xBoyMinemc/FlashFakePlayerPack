@@ -4,6 +4,8 @@ on:
   push:
     branches:
       - main
+    paths:
+      - '**.ts'
 
 jobs:
   build-and-release:
@@ -11,7 +13,7 @@ jobs:
 
     steps:
     - name: Checkout repository
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
 
     - name: Get the latest commit message
       id: get_latest_commit
@@ -28,18 +30,22 @@ jobs:
         echo "EOF" >> $GITHUB_ENV
         
     - name: Set up Node.js
-      if: startsWith(env.latest_commit_message, 'v')
-      uses: actions/setup-node@v3
+      uses: actions/setup-node@v4
       with:
         node-version: '22'
-        
+
     - name: Install dependencies
-      if: startsWith(env.latest_commit_message, 'v')
       run: npm i
-      
-    - name: npm run build
-      if: startsWith(env.latest_commit_message, 'v')
+
+    - name: Build
       run: npm run build
+
+    - name: Publish to artifact
+      if: ${{ !startsWith(env.latest_commit_message, 'v') }}
+      uses: actions/upload-artifact@v4
+      with:
+        name: '测试版'
+        path: build
 
     - name: Release
       if: startsWith(env.latest_commit_message, 'v')
