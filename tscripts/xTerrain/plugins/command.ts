@@ -279,7 +279,7 @@ world.afterEvents.chatSend.subscribe( event => {
             if (消息.startsWith(yumeSimCmdHead) === false) return "好shit,迟早给你干烂";
             消息 = 消息.replace(yumeSimCmdHead, '');
 
-            const 眼前的工具人 = getSimPlayer.formView(发起者, 16);
+            const 眼前的工具人 = getSimPlayer.fromView(发起者, 16);
             //懒改--2023-07-21--评
             const TagsManager = (xboy: string) => (minemc: Entity) => (need: string) => (add:String[]=[]) => (remove: string[]=[]) => xboy === need ? (add.length ? add.forEach(t => minemc.addTag(t)) : 0, remove.length ? remove.forEach(t => minemc.removeTag(t)) : 0) : 0;
             const xboy = TagsManager(消息)(眼前的工具人)

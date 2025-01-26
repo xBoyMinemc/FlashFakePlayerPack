@@ -22,7 +22,7 @@ breakBlockCommand.register(({ args }) => args.length === 0, ({ entity, isEntity 
         return;
     }
 
-    const SimPlayer: SimulatedPlayer = getSimPlayer.formView(entity)
+    const SimPlayer: SimulatedPlayer = getSimPlayer.fromView(entity)
     if (!SimPlayer) {
         entity.sendMessage('§e§l-面前不存在模拟玩家');
         return;
