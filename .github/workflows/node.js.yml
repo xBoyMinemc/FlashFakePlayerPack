@@ -2,12 +2,10 @@ name: Build and Release
 
 on:
   push:
-#    branches:
-#      - main
-#    paths:
-#      - '**.ts'
-
-#    merge的时候记得取消注释
+    branches:
+      - main
+    paths:
+      - '**.ts'
 
 jobs:
   build-and-release:
@@ -39,7 +37,8 @@ jobs:
     - name: Install dependencies
       run: npm i
 
-    - run: node packer.js
+    - name: Build
+      run: npm run build
 
     - name: Publish to artifact
       if: ${{ !startsWith(env.latest_commit_message, 'v') }}
