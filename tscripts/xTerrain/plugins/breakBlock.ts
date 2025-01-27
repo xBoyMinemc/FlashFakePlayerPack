@@ -10,11 +10,6 @@ import { getSimPlayer } from '../../lib/xboyPackage/Util'
 import { world, system } from "@minecraft/server"
 import SIGN from "../../lib/xboyPackage/YumeSignEnum";
 
-
-export const BreakBlockSimulatedPlayerList:Set<string> = new Set()
-
-
-
 const breakBlockCommand = new Command();
 breakBlockCommand.register(({ args }) => args.length === 0, ({ entity, isEntity }) => {
     if (!isEntity) {
