@@ -48,6 +48,11 @@ chatSpawnCommand.register(({ args }) => args[0] === '批量', ({ args: [, countS
         spawnAndRegisterSimulatedPlayer(location, location.dimension);
 });
 
+// 假人生成 name
+chatSpawnCommand.register(({ args }) => args.length === 1, ({ args: [targetName], location }) => {
+    spawnAndRegisterSimulatedPlayer(location, location.dimension, targetName);
+});
+
 // #56 参考：
 // 假人生成 x y z name 维度序号（数字 0-主世界 1-下界 2-末地）
 chatSpawnCommand.register(
