@@ -30,6 +30,7 @@ const spawnAndRegisterSimulatedPlayer = (location: Vector3, dimension: Dimension
 
 const chatSpawnCommand = new Command();
 
+// 假人生成
 chatSpawnCommand.register(({ args }) => args.length === 0, ({ entity, location }) => {
     if (!initSucceed)
         return entity?.sendMessage('[假人] 插件未初始化完成，请重试');
@@ -37,6 +38,7 @@ chatSpawnCommand.register(({ args }) => args.length === 0, ({ entity, location }
     spawnAndRegisterSimulatedPlayer(location, location.dimension);
 });
 
+// 假人生成 批量 count
 chatSpawnCommand.register(({ args }) => args[0] === '批量', ({ args: [, countString], entity, location }) => {
     if (!countString) return entity?.sendMessage('[模拟玩家] 命令错误，请提供数字');
     if (!Number.isSafeInteger(Number(countString))) return entity?.sendMessage('[模拟玩家] 命令错误，期待数字却得到 ' + countString);
