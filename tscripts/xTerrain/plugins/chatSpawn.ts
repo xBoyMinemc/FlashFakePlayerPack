@@ -8,12 +8,17 @@ import {
     spawnSimulatedPlayerByNameTag
 } from '../main'
 import { type CommandInfo, commandManager, Command } from '../../lib/yumeCommand/CommandRegistry'
-import { Dimension, Vector3, world } from '@minecraft/server'
+import { Dimension, Vector3, world, type Player } from '@minecraft/server'
 import {xyz_dododo} from "../../lib/xboyPackage/xyz_dododo";
 
 const overworld = world.getDimension("overworld");
 
-const spawnAndRegisterSimulatedPlayer = (location: Vector3, dimension: Dimension, nameTag?: string): void => {
+const spawnAndRegisterSimulatedPlayer = (entity: Player | undefined, location: Vector3, dimension: Dimension, nameTag?: string): void => {
+    if (!initSucceed) {
+        entity?.sendMessage('[假人] 插件未初始化完成，请重试');
+        return;
+    }
+
     const PID = GetPID();
     const __FlashPlayer__ = world.scoreboard.getObjective('##FlashPlayer##');
     const simulatedPlayer: SimulatedPlayer = nameTag
@@ -32,10 +37,7 @@ const chatSpawnCommand = new Command();
 
 // 假人生成
 chatSpawnCommand.register(({ args }) => args.length === 0, ({ entity, location }) => {
-    if (!initSucceed)
-        return entity?.sendMessage('[假人] 插件未初始化完成，请重试');
-
-    spawnAndRegisterSimulatedPlayer(location, location.dimension);
+    spawnAndRegisterSimulatedPlayer(entity, location, location.dimension);
 });
 
 // 假人生成 批量 count
@@ -45,12 +47,12 @@ chatSpawnCommand.register(({ args }) => args[0] === '批量', ({ args: [, countS
 
     let count = Number(countString);
     while (count-- > 0)
-        spawnAndRegisterSimulatedPlayer(location, location.dimension);
+        spawnAndRegisterSimulatedPlayer(entity, location, location.dimension);
 });
 
 // 假人生成 name
-chatSpawnCommand.register(({ args }) => args.length === 1, ({ args: [targetName], location }) => {
-    spawnAndRegisterSimulatedPlayer(location, location.dimension, targetName);
+chatSpawnCommand.register(({ args }) => args.length === 1, ({ args: [targetName], entity, location }) => {
+    spawnAndRegisterSimulatedPlayer(entity, location, location.dimension, targetName);
 });
 
 // #56 参考：
@@ -96,7 +98,7 @@ chatSpawnCommand.register(
         }
         dimension ??= senderLocation.dimension ?? overworld;
 
-        spawnAndRegisterSimulatedPlayer(location, dimension, nameTag);
+        spawnAndRegisterSimulatedPlayer(entity, location, dimension, nameTag);
     }
 );
 
