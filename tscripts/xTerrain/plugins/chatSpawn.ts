@@ -102,7 +102,7 @@ chatSpawnCommand.register(
 
 // 捕获命令参数数量错误并提示
 chatSpawnCommand.register(({ args, entity }) => {
-    entity?.sendMessage('[模拟玩家] 命令错误，期待三个坐标数字，得到个数为' + args.length);
+    entity?.sendMessage(`[模拟玩家] 命令错误，期待3个坐标数字或1个名称字符串，得到个数为${args.length}`);
 });
 
 commandManager.registerCommand(['假人生成', '假人创建', 'ffpp'], chatSpawnCommand);
