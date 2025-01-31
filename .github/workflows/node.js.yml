@@ -49,6 +49,7 @@ jobs:
       with:
         name: '测试版'
         path: ${{ env.filepath }}
+        compression-level: 0
 
     - name: Release
       if: startsWith(env.latest_commit_message, 'v')
