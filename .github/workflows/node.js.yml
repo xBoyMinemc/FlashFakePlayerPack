@@ -6,7 +6,7 @@ on:
       - main
     paths:
       - '**.ts'
-      - '.github/workflows'
+      - '.github/workflows/**'
 env:
   tag: v1.21.50
 
