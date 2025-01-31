@@ -78,7 +78,7 @@ const name = './build/'
         .trim()
         .replace(/§./g, '')
         .replace(/(\.+|\s+)/g, '-')
-    + '.zip';
+    + '.mcpack';
 
 if (printFilePathOnly) console.log(name)
 
