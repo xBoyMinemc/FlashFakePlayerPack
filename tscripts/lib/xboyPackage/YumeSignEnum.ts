@@ -74,10 +74,12 @@ export const BEHAVIOR_FUNCTION = {
     swapEquipment : (sim:SimulatedPlayer,player:Player)=>commandManager.execute('假人装备交换',{entity:player,sim}),
     recycle : (sim:SimulatedPlayer,player:Player)=>commandManager.execute('假人资源回收',{entity:player,sim}), // item and exp
     disconnect : (sim:SimulatedPlayer)=>commandManager.execute('假人销毁',{sim}),
-    rename: (sim: SimulatedPlayer, player: Player) => {
+    rename: async (sim: SimulatedPlayer, player: Player) => {
         const modalForm = new ModalFormData().title("假人改名");
         modalForm.textField('新名称', '输入新名称', sim.nameTag);
-        modalForm.show(<any>player).then(({ formValues: [name] }) => sim.nameTag = <string>name/* commandManager.executeCommand('假人改名', [name], { entity: player, sim }) */);
+        const { formValues: [name] } = await modalForm.show(<any>player);
+        sim.nameTag = <string>name;
+        // commandManager.executeCommand('假人改名', [name], { entity: player, sim });
     },
 }
 export const exeBehavior = (behavior: string) => BEHAVIOR[behavior] && BEHAVIOR_FUNCTION[behavior]
