@@ -2,8 +2,6 @@ name: Build and Release
 
 on:
   push:
-    branches:
-      - main
     paths:
       - '**.ts'
       - 'CHANGELOG.md'
@@ -46,7 +44,7 @@ jobs:
         compression-level: 0
 
     - name: Release
-      if: startsWith(env.latest_commit_message, 'v')
+      if: ${{ startsWith(env.latest_commit_message, 'v') && github.ref == 'refs/heads/main' }}
       uses: softprops/action-gh-release@v2
       with:
         tag_name: ${{ env.tag }}
