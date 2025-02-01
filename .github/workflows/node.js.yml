@@ -53,7 +53,7 @@ jobs:
 
     - name: Release
       if: startsWith(env.latest_commit_message, 'v')
-      uses: softprops/action-gh-release@v1
+      uses: softprops/action-gh-release@v2
       with:
         tag_name: ${{ env.tag }}
         name: Release  ${{ env.latest_commit_message }}
