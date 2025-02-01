@@ -32,6 +32,7 @@ const mainhandItemSwapCommand = new Command();
 mainhandItemSwapCommand.register(({entity,sim}) => {
 
     const SimPlayer:SimulatedPlayer = sim || getSimPlayer.fromView(entity)
+    // @ts-ignore
     const s = <EntityEquippableComponent>SimPlayer.getComponent("minecraft:equippable")
 
     const p = entity.getComponent("minecraft:equippable")
@@ -50,6 +51,7 @@ const offhandItemSwapCommand = new Command();
 offhandItemSwapCommand.register(({entity,sim}) => {
 
     const SimPlayer:SimulatedPlayer = sim || getSimPlayer.fromView(entity)
+    // @ts-ignore
     const s = <EntityEquippableComponent>SimPlayer.getComponent("minecraft:equippable")
 
     const p = entity.getComponent("minecraft:equippable")
@@ -69,6 +71,7 @@ inventorySwapCommand.register(({entity,isEntity,sim}) => {
     if(!isEntity && !sim)return
     const SimPlayer:SimulatedPlayer = sim || getSimPlayer.fromView(entity)
     if(!SimPlayer)return
+    // @ts-ignore
     const s = (<EntityInventoryComponent>SimPlayer.getComponent("minecraft:inventory")).container
 
     const p = entity.getComponent("minecraft:inventory").container
@@ -99,6 +102,7 @@ equipmentSwapCommand.register(({entity,isEntity,sim}) => {
     const SimPlayer:SimulatedPlayer = sim || getSimPlayer.fromView(entity)
     if(!isEntity && !sim)return
 
+    // @ts-ignore
     const s = <EntityEquippableComponent>SimPlayer.getComponent("minecraft:equippable") // SimPlayer
 
     const p = entity.getComponent("minecraft:equippable") // player
@@ -126,6 +130,7 @@ returnResCommand.register(({entity,isEntity,sim})=>{
     const SimPlayer:SimulatedPlayer = sim ?? getSimPlayer.fromView(entity)
     if(!SimPlayer)return
 
+    // @ts-ignore
     const equip = <EntityEquippableComponent>SimPlayer.getComponent("minecraft:equippable")
 
     // emmm你这变量名
@@ -142,6 +147,7 @@ returnResCommand.register(({entity,isEntity,sim})=>{
         // 置空
         equip.setEquipment(<EquipmentSlot>i, null) //undefined? new ItemStack('air')?
     }
+    // @ts-ignore
     const { container:s } =  <EntityInventoryComponent>SimPlayer.getComponent("minecraft:inventory")
 
     for (
