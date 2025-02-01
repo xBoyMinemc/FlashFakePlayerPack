@@ -77,9 +77,11 @@ export const BEHAVIOR_FUNCTION = {
     rename: async (sim: SimulatedPlayer, player: Player) => {
         const modalForm = new ModalFormData().title("假人改名");
         modalForm.textField('新名称', '输入新名称', sim.nameTag);
-        const { formValues: [name] } = await modalForm.show(<any>player);
-        sim.nameTag = <string>name;
-        // commandManager.executeCommand('假人改名', [name], { entity: player, sim });
+        try {
+            const { formValues: [name] } = await modalForm.show(<any>player);
+            sim.nameTag = <string>name;
+            // commandManager.executeCommand('假人改名', [name], { entity: player, sim });
+        } catch {}
     },
 }
 export const exeBehavior = (behavior: string) => BEHAVIOR[behavior] && BEHAVIOR_FUNCTION[behavior]
