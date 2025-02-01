@@ -52,4 +52,4 @@ jobs:
         tag_name: ${{ env.tag }}
         name: Release  ${{ env.latest_commit_message }}
         files: ${{ env.filepath }}
-        body_path: ${{ github.workspace }}-CHANGELOG.md
+        body_path: ${{ github.workspace }}/CHANGELOG.md
