@@ -22,13 +22,6 @@ jobs:
       run:
         echo "latest_commit_message=$(git reflog -1 --pretty=format:%s)" >> $GITHUB_ENV
 
-    - name: Read changelog
-      run: |
-        changelog=$(< CHANGELOG.md)
-        echo "CHANGELOG<<EOF" >> $GITHUB_ENV
-        echo "$changelog" >> $GITHUB_ENV
-        echo "EOF" >> $GITHUB_ENV
-
     - name: Set up Node.js
       uses: actions/setup-node@v4
       with:
@@ -57,7 +50,5 @@ jobs:
       with:
         tag_name: ${{ env.tag }}
         name: Release  ${{ env.latest_commit_message }}
-        body: ${{ env.CHANGELOG }}
-        draft: false
-        prerelease: false
         files: ${{ env.filepath }}
+        body_path: ${{ github.workspace }}-CHANGELOG.md
