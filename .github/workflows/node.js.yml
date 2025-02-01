@@ -6,9 +6,10 @@ on:
       - main
     paths:
       - '**.ts'
+      - 'CHANGELOG.md'
       - '.github/workflows/**'
 env:
-  tag: v1.21.50
+  tag: v1.21.51
 
 jobs:
   build-and-release:
