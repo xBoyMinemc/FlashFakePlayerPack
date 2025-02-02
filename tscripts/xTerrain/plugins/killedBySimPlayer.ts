@@ -7,7 +7,7 @@ entityDeadByHurt.subscribe(({damageSource,hurtEntity})=>{
     if(!damageSource)return
 
     if(simulatedPlayers[hurtEntity.id])
-        return damageSource ?? damageSource?.damagingEntity['sendMessage']('玩不起，就别玩')
+        return damageSource?.damagingEntity['sendMessage']('玩不起，就别玩')
 
     const PID = simulatedPlayers[damageSource.damagingEntity.id]
     if(!PID)return
