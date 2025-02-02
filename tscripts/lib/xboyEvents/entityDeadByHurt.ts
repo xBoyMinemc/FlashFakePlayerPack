@@ -7,7 +7,7 @@ const entityDeadByHurt = new EventSignal<EntityDeadByHurtEvent>()
 
 
 world.afterEvents.entityHurt.subscribe(event=>
-  event.hurtEntity.getComponent("minecraft:health").currentValue<=0 && entityDeadByHurt.trigger(event)
+  event.hurtEntity.getComponent("minecraft:health")?.currentValue<=0 && entityDeadByHurt.trigger(event)
 )
 
 /*
