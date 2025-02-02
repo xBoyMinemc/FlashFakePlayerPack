@@ -35,8 +35,8 @@ const mainhandItemSwapCommand = new Command();
 mainhandItemSwapCommand.register(({entity,sim}) => {
 
     const SimPlayer:SimulatedPlayer = sim || getSimPlayer.fromView(entity)
-    // @ts-ignore
-    const s = <EntityEquippableComponent>SimPlayer.getComponent("minecraft:equippable")
+
+    const s = <EntityEquippableComponent><unknown>SimPlayer.getComponent("minecraft:equippable")
 
     const p = entity.getComponent("minecraft:equippable")
     const i = EquipmentSlot['Mainhand'] ?? EquipmentSlot['mainhand']
@@ -74,8 +74,8 @@ inventorySwapCommand.register(({entity,isEntity,sim}) => {
     if(!isEntity && !sim)return
     const SimPlayer:SimulatedPlayer = sim || getSimPlayer.fromView(entity)
     if(!SimPlayer)return
-    // @ts-ignore
-    const s = (<EntityInventoryComponent>SimPlayer.getComponent("minecraft:inventory")).container
+
+    const s = (<EntityInventoryComponent><unknown>SimPlayer.getComponent("minecraft:inventory")).container
 
     const p = entity.getComponent("minecraft:inventory").container
 
@@ -105,8 +105,7 @@ equipmentSwapCommand.register(({entity,isEntity,sim}) => {
     const SimPlayer:SimulatedPlayer = sim || getSimPlayer.fromView(entity)
     if(!isEntity && !sim)return
 
-    // @ts-ignore
-    const s = <EntityEquippableComponent>SimPlayer.getComponent("minecraft:equippable") // SimPlayer
+    const s = <EntityEquippableComponent><unknown>SimPlayer.getComponent("minecraft:equippable") // SimPlayer
 
     const p = entity.getComponent("minecraft:equippable") // player
     for (const i in  EquipmentSlot) {
@@ -133,8 +132,7 @@ returnResCommand.register(({entity,isEntity,sim})=>{
     const SimPlayer:SimulatedPlayer = sim ?? getSimPlayer.fromView(entity)
     if(!SimPlayer)return
 
-    // @ts-ignore
-    const equip = <EntityEquippableComponent>SimPlayer.getComponent("minecraft:equippable")
+    const equip = <EntityEquippableComponent><unknown>SimPlayer.getComponent("minecraft:equippable")
 
     // emmm你这变量名
     const { location:l, dimension:d } = entity
