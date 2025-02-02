@@ -51,8 +51,8 @@ const offhandItemSwapCommand = new Command();
 offhandItemSwapCommand.register(({entity,sim}) => {
 
     const SimPlayer:SimulatedPlayer = sim || getSimPlayer.fromView(entity)
-    // @ts-ignore
-    const s = <EntityEquippableComponent>SimPlayer.getComponent("minecraft:equippable")
+
+    const s = <EntityEquippableComponent><unknown>SimPlayer.getComponent("minecraft:equippable")
 
     const p = entity.getComponent("minecraft:equippable")
     const i = EquipmentSlot['Offhand'] ?? EquipmentSlot['offhand']
@@ -145,8 +145,8 @@ returnResCommand.register(({entity,isEntity,sim})=>{
         // 置空
         equip.setEquipment(<EquipmentSlot>i, null) //undefined? new ItemStack('air')?
     }
-    // @ts-ignore
-    const { container:s } =  <EntityInventoryComponent>SimPlayer.getComponent("minecraft:inventory")
+
+    const { container:s } =  <EntityInventoryComponent><unknown>SimPlayer.getComponent("minecraft:inventory")
 
     for (
         let i = s.size;
