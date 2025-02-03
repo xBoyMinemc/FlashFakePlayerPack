@@ -6,15 +6,8 @@ import {SimulatedPlayer} from '@minecraft/server-gametest'
 entityDeadByHurt.subscribe(({ damageSource: { damagingEntity }, deadEntity }) => {
     if (deadEntity.typeId !== 'minecraft:player' || damagingEntity.typeId !== 'minecraft:player') return;
 
-    if (simulatedPlayers[deadEntity.id])
-        return (<Player>damagingEntity).sendMessage('玩不起，就别玩');
+    if (!(deadEntity.id in simulatedPlayers || damagingEntity.id in simulatedPlayers)) return;
 
-    const PID = simulatedPlayers[damagingEntity.id];
-    if (!PID) return;
-
-    const SimPlayer = <SimulatedPlayer>simulatedPlayers[PID];
-
-    if (!SimPlayer) return;
-
+    (<Player>damagingEntity).sendMessage('玩不起，就别玩');
     (<Player>deadEntity).sendMessage('菜，就多练');
 });
