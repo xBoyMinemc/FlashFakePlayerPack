@@ -3,11 +3,11 @@ import entityDeadByHurt from '../../lib/xboyEvents/entityDeadByHurt'
 import {simulatedPlayers} from '../main'
 import {SimulatedPlayer} from '@minecraft/server-gametest'
 
-entityDeadByHurt.subscribe(({damageSource,hurtEntity})=>{
-    if(hurtEntity.typeId !== 'minecraft:player')return
+entityDeadByHurt.subscribe(({damageSource,deadEntity})=>{
+    if(deadEntity.typeId !== 'minecraft:player')return
     if(!damageSource)return
 
-    if(simulatedPlayers[hurtEntity.id])
+    if(simulatedPlayers[deadEntity.id])
         return (<Player>damageSource?.damagingEntity).sendMessage('玩不起，就别玩')
 
     const PID = simulatedPlayers[damageSource.damagingEntity.id]
@@ -17,5 +17,5 @@ entityDeadByHurt.subscribe(({damageSource,hurtEntity})=>{
 
     if(!SimPlayer)return
 
-    (<Player>hurtEntity).sendMessage('菜，就多练')
+    (<Player>deadEntity).sendMessage('菜，就多练')
 })
