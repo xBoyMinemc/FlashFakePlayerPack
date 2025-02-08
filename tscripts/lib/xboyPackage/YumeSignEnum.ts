@@ -75,11 +75,11 @@ export const BEHAVIOR_FUNCTION = {
     rename: async (sim: SimulatedPlayer, player: Player) => {
         const modalForm = new ModalFormData().title("假人改名");
         modalForm.textField('新名称', '输入新名称', sim.nameTag);
-        try {
-            const { formValues: [name] } = await modalForm.show(<any>player);
-            sim.nameTag = <string>name;
-            // commandManager.executeCommand('假人改名', [name], { entity: player, sim });
-        } catch {}
+        const { canceled, formValues } = await modalForm.show(<any>player);
+        if (canceled) return;
+
+        sim.nameTag = <string>formValues[0];
+        // commandManager.executeCommand('假人改名', [name], { entity: player, sim });
     },
     recycle : (sim:SimulatedPlayer,player:Player)=>commandManager.execute('假人资源回收',{entity:player,sim}), // item and exp
     disconnect : (sim:SimulatedPlayer)=>commandManager.execute('假人销毁',{sim}),
