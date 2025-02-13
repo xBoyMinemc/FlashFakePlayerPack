@@ -49,7 +49,7 @@ const breaks = (/*awa:awa='awa'*/)=>
         const viewDirection = man.getViewDirection()
         const headLocation = man.getHeadLocation()
         const time =  times.get(man.id) ?? 0
-        const block =  man.getBlockFromViewDirection({maxDistance:5})?.block
+        const block =  man.getBlockFromViewDirection({maxDistance:6})?.block
         if (!block) return
 
         const dimension = <Dimension>man.dimension
