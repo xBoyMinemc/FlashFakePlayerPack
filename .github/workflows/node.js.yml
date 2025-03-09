@@ -33,7 +33,7 @@ jobs:
           echo "filepath=$(node packer.js --print-filepath-only)" >> $GITHUB_ENV
         timeout-minutes: 1
 
-      - name: Publish to artifact
+      - name: Upload to artifact
         uses: actions/upload-artifact@v4
         with:
           name: ${{ env.artifact-name }}
