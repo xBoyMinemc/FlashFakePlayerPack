@@ -7,47 +7,59 @@ on:
       - 'CHANGELOG.md'
       - '.github/workflows/**'
 env:
-  tag: v1.21.51
+  artifact-name: 测试版
 
 jobs:
-  build-and-release:
+  build:
+    name: Build
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v4
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
-    - name: Get the latest commit message
-      run:
-        echo "latest_commit_message=$(git reflog -1 --pretty=format:%s)" >> $GITHUB_ENV
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
 
-    - name: Set up Node.js
-      uses: actions/setup-node@v4
-      with:
-        node-version: 22
+      - name: Install dependencies
+        run: npm ci
 
-    - name: Install dependencies
-      run: npm i
+      - name: Build
+        run: |
+          tsc
+          webpack
+          echo "filepath=$(node packer.js --print-filepath-only)" >> $GITHUB_ENV
+        timeout-minutes: 1
 
-    - name: Build
-      run: |
-        tsc
-        webpack
-        echo "filepath=$(node packer.js --print-filepath-only)" >> $GITHUB_ENV
-      timeout-minutes: 1
+      - name: Upload to artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ env.artifact-name }}
+          path: ${{ env.filepath }}
+          compression-level: 0
 
-    - name: Publish to artifact
-      uses: actions/upload-artifact@v4
-      with:
-        name: '测试版'
-        path: ${{ env.filepath }}
-        compression-level: 0
 
-    - name: Release
-      if: ${{ startsWith(env.latest_commit_message, 'v') && github.ref == 'refs/heads/main' }}
-      uses: softprops/action-gh-release@v2
-      with:
-        tag_name: ${{ env.tag }}
-        name: Release  ${{ env.latest_commit_message }}
-        files: ${{ env.filepath }}
-        body_path: ${{ github.workspace }}/CHANGELOG.md
+  release:
+    name: Release
+    runs-on: ubuntu-latest
+    needs: build
+    if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags/v')
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Download artifact
+        uses: actions/download-artifact@v4
+        with:
+          path: ${{ github.workspace }}/dist
+          name: ${{ env.artifact-name }}
+
+      - name: Release
+        uses: softprops/action-gh-release@v2
+        with:
+          name: Release ${{ github.ref_name }}
+          files: ${{ github.workspace }}/dist/*
+          body_path: ${{ github.workspace }}/CHANGELOG.md
