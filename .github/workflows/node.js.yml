@@ -7,7 +7,7 @@ on:
       - 'CHANGELOG.md'
       - '.github/workflows/**'
 env:
-  artifact-name: '测试版'
+  artifact-name: 测试版
 
 jobs:
   build:
