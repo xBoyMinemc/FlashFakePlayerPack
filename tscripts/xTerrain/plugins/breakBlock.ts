@@ -46,26 +46,14 @@ const breaks = (/*awa:awa='awa'*/)=>
         // 这是一会要用到的妙妙工具
         // @ts-ignore
         const man = <SimulatedPlayer>SimPlayer
-        const viewDirection = man.getViewDirection()
-        const headLocation = man.getHeadLocation()
-        const time =  times.get(man.id) ?? 0
         const block =  man.getBlockFromViewDirection({maxDistance:6})?.block
         if (!block) return
 
-        const dimension = <Dimension>man.dimension
-        // dimension.spawnParticle('minecraft:endrod',headLocation)
-
-
-        time < 600 && dimension.spawnParticle('minecraft:endrod',Vector_addition(block.location, {x:0.5,y:0.5,z:0.5}))
         if (block.isValid() && !block.isLiquid && !block.isAir){
             man.breakBlock(Vector_subtract(block, testWorldLocation))
-        } else {
-            times.set(man.id,time+1)
         }
     })
 
-
-const times = new Map<Player["id"],number>()
 system.runInterval(breaks,0) // 2 + 0 = 0
 
 // console.error('[假人]内置插件'+commandName+'加载成功')
