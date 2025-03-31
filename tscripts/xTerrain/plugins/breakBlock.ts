@@ -44,8 +44,7 @@ const breaks = (/*awa:awa='awa'*/)=>
         // getHeadLocation
         // getViewDirection
         // 这是一会要用到的妙妙工具
-        // @ts-ignore
-        const man = <SimulatedPlayer>SimPlayer
+        const man = <SimulatedPlayer><unknown>SimPlayer
         const block =  man.getBlockFromViewDirection({maxDistance:6})?.block
         if (!block) return
 
