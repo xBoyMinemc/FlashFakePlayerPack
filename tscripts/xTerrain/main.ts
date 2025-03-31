@@ -37,7 +37,6 @@ import '../lib/yumeCommand/scriptEventHandler'
 
 const overworld = world.getDimension('overworld')
 const tickWaitTimes = 20*60*60*24*365
-
 // all of SimulatedPlayer List
 export const simulatedPlayers  = {}
 
@@ -91,7 +90,9 @@ register('我是云梦', '假人', (test:Test) => {
         simulatedPlayer.addTag(SIGN.YUME_SIM_SIGN)
         simulatedPlayer.addTag(SIGN.AUTO_RESPAWN_SIGN)
         try {
+            //@ts-ignore
             simulatedPlayer.setSpawnPoint({...location, dimension})
+            //@ts-ignore
             simulatedPlayer.teleport(location, {dimension})
         } catch (e) {
             if (e instanceof LocationOutOfWorldBoundariesError) {
@@ -160,15 +161,21 @@ playerMove.subscribe(()=>{
     //
     // )
 
-world.afterEvents.chatSend.subscribe(({ message, sender }) => {
-    try {
-        commandManager.execute(message, { entity: sender, isEntity: true, location: getLocationFromEntityLike(sender) });
-    } catch (e) {
-        if (!(e instanceof CommandError)) {
-            console.error(e);
-            world.sendMessage(cannotHandledExceptionWaringText);
+world.beforeEvents.chatSend.subscribe(({message, sender}) => {
+    system.run(() => {
+        try {
+            commandManager.execute(message, {
+                entity: sender,
+                isEntity: true,
+                location: getLocationFromEntityLike(sender)
+            });
+        } catch (e) {
+            if (!(e instanceof CommandError)) {
+                console.error(e);
+                world.sendMessage(cannotHandledExceptionWaringText);
+            }
         }
-    }
+    });
 });
 
 export { spawnSimulatedPlayer,spawnSimulatedPlayerByNameTag,testWorldLocation,GetPID }

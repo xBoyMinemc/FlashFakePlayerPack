@@ -96,7 +96,7 @@ system.runInterval(AUTO_BEHAVIOR,20)
 // commandRegistry.registerCommand('假人自动丢三叉戟', ({entity,isEntity}) => {
 //     if(!isEntity)return
 //
-//     const SimPlayer:SimulatedPlayer = getSimPlayer.formView(entity)
+//     const SimPlayer:SimulatedPlayer = getSimPlayer.fromView(entity)
 //
 //     if(!SimPlayer)return
 //     else

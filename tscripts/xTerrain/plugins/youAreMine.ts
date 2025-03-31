@@ -2,12 +2,9 @@ import type { SimulatedPlayer } from '@minecraft/server-gametest'
 import { getSimPlayer } from '../../lib/xboyPackage/Util'
 import { Command, commandManager, getLocationFromEntityLike } from '../../lib/yumeCommand/CommandRegistry'
 import {
-    DimensionType,
-    DimensionTypes,
     EntityEquippableComponent,
     EntityInventoryComponent,
     EquipmentSlot,
-    MinecraftDimensionTypes,
     TicksPerSecond,
     world
 } from '@minecraft/server'
@@ -34,8 +31,9 @@ const dimensionMap: Record<string, string> = {
 const mainhandItemSwapCommand = new Command();
 mainhandItemSwapCommand.register(({entity,sim}) => {
 
-    const SimPlayer:SimulatedPlayer = sim || getSimPlayer.formView(entity)
-    const s = <EntityEquippableComponent>SimPlayer.getComponent("minecraft:equippable")
+    const SimPlayer:SimulatedPlayer = sim || getSimPlayer.fromView(entity)
+
+    const s = <EntityEquippableComponent><unknown>SimPlayer.getComponent("minecraft:equippable")
 
     const p = entity.getComponent("minecraft:equippable")
     const i = EquipmentSlot['Mainhand'] ?? EquipmentSlot['mainhand']
@@ -52,8 +50,9 @@ commandManager.registerCommand('假人主手物品交换', mainhandItemSwapComma
 const offhandItemSwapCommand = new Command();
 offhandItemSwapCommand.register(({entity,sim}) => {
 
-    const SimPlayer:SimulatedPlayer = sim || getSimPlayer.formView(entity)
-    const s = <EntityEquippableComponent>SimPlayer.getComponent("minecraft:equippable")
+    const SimPlayer:SimulatedPlayer = sim || getSimPlayer.fromView(entity)
+
+    const s = <EntityEquippableComponent><unknown>SimPlayer.getComponent("minecraft:equippable")
 
     const p = entity.getComponent("minecraft:equippable")
     const i = EquipmentSlot['Offhand'] ?? EquipmentSlot['offhand']
@@ -70,9 +69,10 @@ commandManager.registerCommand('假人副手物品交换', offhandItemSwapComman
 const inventorySwapCommand = new Command();
 inventorySwapCommand.register(({entity,isEntity,sim}) => {
     if(!isEntity && !sim)return
-    const SimPlayer:SimulatedPlayer = sim || getSimPlayer.formView(entity)
+    const SimPlayer:SimulatedPlayer = sim || getSimPlayer.fromView(entity)
     if(!SimPlayer)return
-    const s = (<EntityInventoryComponent>SimPlayer.getComponent("minecraft:inventory")).container
+
+    const s = (<EntityInventoryComponent><unknown>SimPlayer.getComponent("minecraft:inventory")).container
 
     const p = entity.getComponent("minecraft:inventory").container
 
@@ -99,10 +99,10 @@ commandManager.registerCommand(['假人背包交换','假人交换背包'], inve
 // commandRegistry.registerAlias('swapEquipment','假人装备交换')
 const equipmentSwapCommand = new Command();
 equipmentSwapCommand.register(({entity,isEntity,sim}) => {
-    const SimPlayer:SimulatedPlayer = sim || getSimPlayer.formView(entity)
+    const SimPlayer:SimulatedPlayer = sim || getSimPlayer.fromView(entity)
     if(!isEntity && !sim)return
 
-    const s = <EntityEquippableComponent>SimPlayer.getComponent("minecraft:equippable") // SimPlayer
+    const s = <EntityEquippableComponent><unknown>SimPlayer.getComponent("minecraft:equippable") // SimPlayer
 
     const p = entity.getComponent("minecraft:equippable") // player
     for (const i in  EquipmentSlot) {
@@ -126,10 +126,10 @@ returnResCommand.register(({entity,isEntity,sim})=>{
         return
     }
 
-    const SimPlayer:SimulatedPlayer = sim ?? getSimPlayer.formView(entity)
+    const SimPlayer:SimulatedPlayer = sim ?? getSimPlayer.fromView(entity)
     if(!SimPlayer)return
 
-    const equip = <EntityEquippableComponent>SimPlayer.getComponent("minecraft:equippable")
+    const equip = <EntityEquippableComponent><unknown>SimPlayer.getComponent("minecraft:equippable")
 
     // emmm你这变量名
     const { location:l, dimension:d } = entity
@@ -145,7 +145,8 @@ returnResCommand.register(({entity,isEntity,sim})=>{
         // 置空
         equip.setEquipment(<EquipmentSlot>i, null) //undefined? new ItemStack('air')?
     }
-    const { container:s } =  <EntityInventoryComponent>SimPlayer.getComponent("minecraft:inventory")
+
+    const { container:s } =  <EntityInventoryComponent><unknown>SimPlayer.getComponent("minecraft:inventory")
 
     for (
         let i = s.size;
@@ -175,7 +176,7 @@ disconnectCommand.register(({entity,isEntity,args:[simIndex],sim}) => {
         return
     }
     if (simIndex === undefined) {
-        const SimPlayer:SimulatedPlayer = getSimPlayer.formView(entity)
+        const SimPlayer:SimulatedPlayer = getSimPlayer.fromView(entity)
         if(!SimPlayer)return entity.sendMessage("§e§l-面前不存在模拟玩家")
 
         commandManager.executeCommand('假人背包清空', [], { entity, isEntity, sim: SimPlayer ,location:getLocationFromEntityLike(entity)})
@@ -212,7 +213,7 @@ respawnCommand.register(({entity,isEntity,args:[simIndex]}) => {
         ;
         ;"对准~";
         ;
-        const SimPlayer:SimulatedPlayer = getSimPlayer.formView(entity)
+        const SimPlayer:SimulatedPlayer = getSimPlayer.fromView(entity)
         if(!SimPlayer)return entity.sendMessage("§e§l-你不要怀疑，10000%是你没对准，如果假人真躺了的话")  //entity.sendMessage("§e§l-面前不存在模拟玩家")
         SimPlayer.respawn()
     }else {
@@ -276,7 +277,7 @@ renameCommand.register(({entity,isEntity,args:[newName]}) => {
     ;
     ; "对准~";
     ;
-    const SimPlayer: SimulatedPlayer = getSimPlayer.formView(entity);
+    const SimPlayer: SimulatedPlayer = getSimPlayer.fromView(entity);
     if (!SimPlayer) return entity.sendMessage("§e§l-你不要怀疑，10000%是你没对准，如果假人真躺了的话");  //entity.sendMessage("§e§l-面前不存在模拟玩家")
     SimPlayer.nameTag = newName;
     entity.sendMessage("§e§l-改名成功")
@@ -296,7 +297,7 @@ locationCommand.register(({ entity, isEntity, args: [simIndex] }) => {
         ;
         ; "对准~";
         ;
-        simulatedPlayer = getSimPlayer.formView(entity);
+        simulatedPlayer = getSimPlayer.fromView(entity);
         if (!simulatedPlayer) return entity.sendMessage("§e§l-面前不存在模拟玩家");
     } else {
         const index = Number(simIndex);

@@ -1,11 +1,9 @@
 /node_modules/
-package-lock.json
 *.zip
 *.rar
 .idea
 workspace.xml
 .vscode
-.github
 /build/
 /scripts_yeah/
 /scripts/
