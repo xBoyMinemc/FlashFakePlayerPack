@@ -48,7 +48,7 @@ const breaks = (/*awa:awa='awa'*/)=>
         const block =  man.getBlockFromViewDirection({maxDistance:6})?.block
         if (!block) return
 
-        if (block.isValid() && !block.isLiquid && !block.isAir){
+        if (block.isValid && !block.isLiquid && !block.isAir){
             man.breakBlock(Vector_subtract(block, testWorldLocation))
         }
     })
