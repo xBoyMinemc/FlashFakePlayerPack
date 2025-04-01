@@ -1,3 +1,9 @@
+## 适配 1.21.7x
+
+不再支持更旧的版本，如果需要，可下载上一个 Release
+
+---
+
 ### feat: 添加/scriptevent 支持，以实现指令而不是聊天栏操作 (https://github.com/xBoyMinemc/FlashFakePlayerPack/pull/67)
 
 -   `/scriptevent ffp:ffpp`
