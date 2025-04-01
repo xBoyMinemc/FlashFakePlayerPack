@@ -20,7 +20,7 @@ function AUTO_BEHAVIOR(){
 
         const SimPlayer:SimulatedPlayer = <SimulatedPlayer>simulatedPlayers[index]
         //判假人是否存在
-        if(!SimPlayer || !SimPlayer?.isValid?.()){
+        if(!SimPlayer || !SimPlayer?.isValid){
             delete simulatedPlayers[simulatedPlayers[index]]
             delete simulatedPlayers[index]
             continue
