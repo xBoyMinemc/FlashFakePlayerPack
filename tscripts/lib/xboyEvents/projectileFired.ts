@@ -56,10 +56,10 @@ world.afterEvents.entitySpawn.subscribe(({entity}) => {
                     Fisher = queue.playerFishingArray.find(
                         playerFishing =>
                                     (
-                            entity.runCommandAsync("tell @a[tag=xboy] length x "+(entity.location.x - playerFishing.location.x - playerFishing.getVelocity().x)),
-                            entity.runCommandAsync("tell @a[tag=xboy] length y "+(entity.location.y - playerFishing.location.y - playerFishing.getVelocity().y)),
-                            entity.runCommandAsync("tell @a[tag=xboy] length z "+(entity.location.z - playerFishing.location.z - playerFishing.getVelocity().z)),
-                            entity.runCommandAsync("tell @a[tag=xboy] ==========================================")
+                            entity.runCommand("tell @a[tag=xboy] length x "+(entity.location.x - playerFishing.location.x - playerFishing.getVelocity().x)),
+                            entity.runCommand("tell @a[tag=xboy] length y "+(entity.location.y - playerFishing.location.y - playerFishing.getVelocity().y)),
+                            entity.runCommand("tell @a[tag=xboy] length z "+(entity.location.z - playerFishing.location.z - playerFishing.getVelocity().z)),
+                            entity.runCommand("tell @a[tag=xboy] ==========================================")
                                   ) &&
 
                             around(entity.location.x - playerFishing.location.x - playerFishing.getVelocity().x, 5)// @ts-ignore
@@ -106,13 +106,13 @@ console.error(("#########"))
 
 projectileFired.subscribe(event=>{
     console.error("projectileFired")
-    world.getDimension("overworld").runCommandAsync("me ##arrow发射\u000aarrow id=>"+event.HookId+"\u000a发起者id=>"+event.Fisher.id);
+    world.getDimension("overworld").runCommand("me ##arrow发射\u000aarrow id=>"+event.HookId+"\u000a发起者id=>"+event.Fisher.id);
 })
 
 console.error("#########")
 fishingHookDespawned.subscribe(event=>{
     console.error("projectileFiredDespawned")
-    world.getDimension("overworld").runCommandAsync("me ##arrow销毁\u000aarrow id=>"+event.HookId+"\u000a发起者id=>"+event.Fisher.id);
+    world.getDimension("overworld").runCommand("me ##arrow销毁\u000aarrow id=>"+event.HookId+"\u000a发起者id=>"+event.Fisher.id);
     // 工具人们.forEach(_=> _==undefined?0:_.id===event.Fisher.id?
     event.fishingHookDespawned_TickArray.push(()=> {
         console.error('fishingHookDespawned_TickArray',JSON.stringify(pos[event.HookId]))

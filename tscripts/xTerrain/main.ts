@@ -117,6 +117,7 @@ register('我是云梦', '假人', (test:Test) => {
 // .requiredSuccessfulAttempts(tickWaitTimes)
 // .padding(0)
 
+    // @ts-ignore
     (world.afterEvents.worldInitialize ?? world.afterEvents['worldLoad']).subscribe(()=>{
 
     // 记分板PID初始化 写的烂 执行两次
@@ -125,13 +126,12 @@ register('我是云梦', '假人', (test:Test) => {
 
     const z = 11451400 +  Math.floor(Math.random() * 114514 * 19 )
     system.run(()=>{
-        overworld.runCommandAsync('execute positioned 15000000 256 '+z+' run gametest run 我是云梦:假人')
-            .catch((e) => world.sendMessage('[模拟玩家] 报错了，我也不知道为什么'+e))
-            .finally(()=> {
-                // world.sendMessage('[模拟玩家] 完成一次命令执行尝试')
-
-            })
-    })
+        try {
+            overworld.runCommand('execute positioned 15000000 256 ' + z + ' run gametest run 我是云梦:假人');
+        } catch (e) {
+            world.sendMessage('[模拟玩家] 报错了，我也不知道为什么' + e);
+        }
+    });
 })
 
 let say = false
