@@ -1,8 +1,8 @@
 {
   "include": [
-    "./tscripts/**/*"
+    "./src/**/*"
   ],
-//  "exclude": ["./tscripts/xTerrain/main.js"],
+//  "exclude": ["./src/xTerrain/main.js"],
   "compilerOptions": {
     /* Visit https://aka.ms/tsconfig to read more about this file */
 
