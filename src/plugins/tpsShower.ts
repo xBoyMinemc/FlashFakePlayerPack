@@ -18,7 +18,7 @@ const tpsShower = ()=>{
 
     // overworld.runCommandAsync(`title @a[tag=tps] actionbar §e§lTPS:§3${tps}`)
     // no command,on $player.onScreenDisplay.setActionBar(`§e§lTPS:§3${tps}`)$
-    world.getAllPlayers().forEach(player=>player.hasTag("tps")?player.onScreenDisplay.setActionBar(`§e§lTPS:§3${tps}`):0)
+    world.getPlayers({ tags: ["tps"] }).forEach(player=>player.onScreenDisplay.setActionBar(`§e§lTPS:§3${tps}`))
     tps = 0
 
 }
