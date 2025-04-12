@@ -1,5 +1,5 @@
 // -302 65 -1556
-import tpsShower  from '../lib/xboyTools/tpsShower';
+import tpsShower  from '../plugins/tpsShower';
 
 
 import "../plugins/main.js";
