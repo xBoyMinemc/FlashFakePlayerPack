@@ -2,7 +2,7 @@
 import tpsShower  from '../lib/xboyTools/tpsShower';
 
 
-import "../xTerrain/main.js";
+import "../plugins/main.js";
 import { world, system } from "@minecraft/server";
 const overworld = world.getDimension("overworld");
 const nether = world.getDimension("nether");

@@ -4,11 +4,11 @@ import {Dimension, Player, Vector3} from '@minecraft/server'
 import {
     simulatedPlayers,
     testWorldLocation
-} from '../main'
-import { Command, commandManager } from '../../command';
-import { getSimPlayer } from '../../lib/xboyPackage/Util'
+} from './main'
+import { Command, commandManager } from '../command';
+import { getSimPlayer } from '../lib/xboyPackage/Util'
 import { world, system } from "@minecraft/server"
-import SIGN from "../../lib/xboyPackage/YumeSignEnum";
+import SIGN from "../lib/xboyPackage/YumeSignEnum";
 
 const breakBlockCommand = new Command();
 breakBlockCommand.register(({ args }) => args.length === 0, ({ entity, isEntity }) => {

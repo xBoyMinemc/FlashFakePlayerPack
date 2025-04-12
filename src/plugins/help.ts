@@ -1,4 +1,4 @@
-import { Command, commandManager } from '../../command'
+import { Command, commandManager } from '../command'
 
 const qrcodeTextGithub =
 `111111111111111111111111111

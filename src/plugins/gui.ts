@@ -6,11 +6,11 @@ import SIGN, {
     exeBehavior,
     SIGN_TAG_LIST,
     SIGN_ZH
-} from '../../lib/xboyPackage/YumeSignEnum'
+} from '../lib/xboyPackage/YumeSignEnum'
 import { ActionFormData } from '@minecraft/server-ui'
 import { SimulatedPlayer } from '@minecraft/server-gametest'
-import { getSimPlayer } from '../../lib/xboyPackage/Util'
-import { simulatedPlayers } from '../main'
+import { getSimPlayer } from '../lib/xboyPackage/Util'
+import { simulatedPlayers } from './main'
 
 // world.afterEvents.entityHitEntity.subscribe(({damagingEntity,hitEntity})=>{
 //     if(!damagingEntity || !hitEntity)return;

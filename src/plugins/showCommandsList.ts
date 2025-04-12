@@ -1,4 +1,4 @@
-import { Command, commandManager } from "../../command";
+import { Command, commandManager } from "../command";
 
 const listCommands = new Command();
 listCommands.register(({ entity }) => {

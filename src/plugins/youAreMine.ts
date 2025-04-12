@@ -1,6 +1,6 @@
 import type { SimulatedPlayer } from '@minecraft/server-gametest'
-import { getSimPlayer } from '../../lib/xboyPackage/Util'
-import { Command, commandManager, getLocationFromEntityLike } from '../../command';
+import { getSimPlayer } from '../lib/xboyPackage/Util'
+import { Command, commandManager, getLocationFromEntityLike } from '../command';
 import {
     EntityEquippableComponent,
     EntityInventoryComponent,
@@ -8,7 +8,7 @@ import {
     TicksPerSecond,
     world
 } from '@minecraft/server'
-import { simulatedPlayers } from '../main';
+import { simulatedPlayers } from './main';
 
 const dimensionMap: Record<string, string> = {
     'minecraft:overworld': '主世界',

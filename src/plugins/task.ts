@@ -1,10 +1,10 @@
 //@ts-nocheck
 import type { SimulatedPlayer } from '@minecraft/server-gametest'
-import {simulatedPlayers, testWorldLocation} from '../main'
-import SIGN from '../../lib/xboyPackage/YumeSignEnum'
+import {simulatedPlayers, testWorldLocation} from './main'
+import SIGN from '../lib/xboyPackage/YumeSignEnum'
 import type { EntityHealthComponent, Vector3 } from '@minecraft/server'
 import { system, world } from '@minecraft/server'
-import { getEntitiesNear, getPlayerNear } from '../../lib/xboyPackage/Util'
+import { getEntitiesNear, getPlayerNear } from '../lib/xboyPackage/Util'
 
 // @ts-ignore
 const simulatedPlayerStates : ({ "str-SimPlayer.id": { o: Vector3 }}) = {}

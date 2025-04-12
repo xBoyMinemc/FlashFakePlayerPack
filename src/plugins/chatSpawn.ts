@@ -6,10 +6,10 @@ import {
     spawned as spawnedEvent,
     spawnSimulatedPlayer,
     spawnSimulatedPlayerByNameTag
-} from '../main'
-import { type CommandInfo, commandManager, Command } from '../../command'
+} from './main'
+import { type CommandInfo, commandManager, Command } from '../command'
 import { Dimension, Vector3, world, type Player } from '@minecraft/server'
-import {xyz_dododo} from "../../lib/xboyPackage/xyz_dododo";
+import {xyz_dododo} from "../lib/xboyPackage/xyz_dododo";
 
 const overworld = world.getDimension("overworld");
 

@@ -2,7 +2,7 @@
 // No longer maintained
 import { world } from '@minecraft/server'
 import type { Entity } from '@minecraft/server'
-import type { World } from '../../@types/globalThis'
+import type { World } from '../@types/globalThis'
 // import {
 //     Container,
 //     EntityEquippableComponent,
@@ -22,8 +22,8 @@ import type { World } from '../../@types/globalThis'
 // import qrcode from "../../lib/qrcode-terminal/mod.js";
 
 // import {Location} from "../../lib/xboyPackage/The law of the ancestors is immutable";
-import SIGN, { exeBehavior } from "../../lib/xboyPackage/YumeSignEnum";
-import {getSimPlayer} from "../../lib/xboyPackage/Util";
+import SIGN, { exeBehavior } from "../lib/xboyPackage/YumeSignEnum";
+import {getSimPlayer} from "../lib/xboyPackage/Util";
 //
 // import {BlockLocation} from "../../@types/globalThis";
 // class BlockLocation extends Location {
