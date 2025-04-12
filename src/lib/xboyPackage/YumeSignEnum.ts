@@ -1,7 +1,7 @@
 // SIGN for AUTO_BEHAVIOR
 import { SimulatedPlayer, LookDuration } from '@minecraft/server-gametest'
 import { Player } from '@minecraft/server'
-import { commandManager } from '../yumeCommand/CommandRegistry'
+import { commandManager } from '../../command'
 import { ModalFormData } from '@minecraft/server-ui';
 
 export  enum  SIGN {

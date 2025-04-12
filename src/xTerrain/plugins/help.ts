@@ -1,4 +1,4 @@
-import { Command, commandManager } from '../../lib/yumeCommand/CommandRegistry'
+import { Command, commandManager } from '../../command'
 
 const qrcodeTextGithub =
 `111111111111111111111111111

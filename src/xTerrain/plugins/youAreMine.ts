@@ -1,6 +1,6 @@
 import type { SimulatedPlayer } from '@minecraft/server-gametest'
 import { getSimPlayer } from '../../lib/xboyPackage/Util'
-import { Command, commandManager, getLocationFromEntityLike } from '../../lib/yumeCommand/CommandRegistry'
+import { Command, commandManager, getLocationFromEntityLike } from '../../command';
 import {
     EntityEquippableComponent,
     EntityInventoryComponent,

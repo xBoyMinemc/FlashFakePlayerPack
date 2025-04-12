@@ -1,4 +1,4 @@
-import { Command, commandManager } from '../../lib/yumeCommand/CommandRegistry'
+import { Command, commandManager } from '../../command'
 import type { ScoreboardObjective } from '@minecraft/server'
 import ScoreBase from '../../lib/xboyPackage/scoreBase/rw'
 

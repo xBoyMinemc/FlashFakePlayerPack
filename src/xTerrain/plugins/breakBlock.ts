@@ -5,7 +5,7 @@ import {
     simulatedPlayers,
     testWorldLocation
 } from '../main'
-import { Command, commandManager } from '../../lib/yumeCommand/CommandRegistry';
+import { Command, commandManager } from '../../command';
 import { getSimPlayer } from '../../lib/xboyPackage/Util'
 import { world, system } from "@minecraft/server"
 import SIGN from "../../lib/xboyPackage/YumeSignEnum";
