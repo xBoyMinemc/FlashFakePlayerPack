@@ -74,7 +74,7 @@ export const BEHAVIOR_FUNCTION = {
     swapEquipment : (sim:SimulatedPlayer,player:Player)=>commandManager.execute('假人装备交换',{entity:player,sim}),
     rename: async (sim: SimulatedPlayer, player: Player) => {
         const modalForm = new ModalFormData().title("假人改名");
-        modalForm.textField(`由 "${sim.nameTag}" 改为：`, '输入新名称', { defaultValue: sim.nameTag });
+        modalForm.textField(`由 "${sim.nameTag}" 改为：`, '输入新名称', sim.nameTag);
         const { canceled, formValues } = await modalForm.show(<any>player);
         if (canceled) return;
 
