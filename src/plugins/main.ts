@@ -32,8 +32,7 @@ import './killedBySimPlayer'
 import './setting'
 import './showCommandsList'
 import {playerMove} from "../lib/xboyEvents/move";
-import { cannotHandledExceptionWarningText, CommandError, commandManager, getLocationFromEntityLike } from '../command';
-import '../lib/yumeCommand/scriptEventHandler'
+import '../triggers'
 
 const overworld = world.getDimension('overworld')
 const tickWaitTimes = 20*60*60*24*365
@@ -159,23 +158,6 @@ playerMove.subscribe(()=>{
     //     // 'Deja Vu Yan Returns',
     //
     // )
-
-world.beforeEvents.chatSend.subscribe(({message, sender}) => {
-    system.run(() => {
-        try {
-            commandManager.execute(message, {
-                entity: sender,
-                isEntity: true,
-                location: getLocationFromEntityLike(sender)
-            });
-        } catch (e) {
-            if (!(e instanceof CommandError)) {
-                console.error(e);
-                world.sendMessage(cannotHandledExceptionWarningText);
-            }
-        }
-    });
-});
 
 export { spawnSimulatedPlayer,spawnSimulatedPlayerByNameTag,testWorldLocation,GetPID }
 
