@@ -1,2 +1,2 @@
-import './chat-send';
-import './script-event';
+export * from './chat-send';
+export * from './script-event';
