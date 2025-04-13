@@ -23,7 +23,7 @@ import type { World } from '../@types/globalThis'
 
 // import {Location} from "../../lib/xboyPackage/The law of the ancestors is immutable";
 import SIGN, { exeBehavior } from "../lib/xboyPackage/YumeSignEnum";
-import {getSimPlayer} from "../lib/xboyPackage/Util";
+import {getSimPlayer} from "../utils/Util";
 //
 // import {BlockLocation} from "../../@types/globalThis";
 // class BlockLocation extends Location {

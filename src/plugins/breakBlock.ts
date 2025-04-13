@@ -6,7 +6,7 @@ import {
     testWorldLocation
 } from './main'
 import { Command, commandManager } from '../command';
-import { getSimPlayer } from '../lib/xboyPackage/Util'
+import { getSimPlayer } from '../utils/Util'
 import { world, system } from "@minecraft/server"
 import SIGN from "../lib/xboyPackage/YumeSignEnum";
 

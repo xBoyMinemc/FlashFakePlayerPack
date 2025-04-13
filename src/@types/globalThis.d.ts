@@ -13,7 +13,7 @@ import { SimulatedPlayer,
 import {
     Location,
     BlockLocation
-} from "../lib/xboyPackage/The law of the ancestors is immutable";
+} from "../utils/The law of the ancestors is immutable";
 
 
 

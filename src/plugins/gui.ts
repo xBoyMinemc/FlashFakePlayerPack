@@ -9,7 +9,7 @@ import SIGN, {
 } from '../lib/xboyPackage/YumeSignEnum'
 import { ActionFormData } from '@minecraft/server-ui'
 import { SimulatedPlayer } from '@minecraft/server-gametest'
-import { getSimPlayer } from '../lib/xboyPackage/Util'
+import { getSimPlayer } from '../utils/Util'
 import { simulatedPlayers } from './main'
 
 // world.afterEvents.entityHitEntity.subscribe(({damagingEntity,hitEntity})=>{
