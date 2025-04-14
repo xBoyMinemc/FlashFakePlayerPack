@@ -10,12 +10,6 @@ import {
 import { SimulatedPlayer,
 } from "@minecraft/server-gametest";
 
-import {
-    Location,
-    BlockLocation
-} from "../utils/The law of the ancestors is immutable";
-
-
 
 
 /**
@@ -174,7 +168,6 @@ export class FishingHookDespawnedEventSignal {
     trigger(FishingHookDespawnedEvent: FishingHookDespawnedEvent): void;
     protected constructor();
 }
-export { BlockLocation };
 
 export class initializedEvent {}
 export  class initializedEventSignal {

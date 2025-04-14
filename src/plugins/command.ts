@@ -21,7 +21,6 @@ import type { World } from '../@types/globalThis'
 
 // import qrcode from "../../lib/qrcode-terminal/mod.js";
 
-// import {Location} from "../../lib/xboyPackage/The law of the ancestors is immutable";
 import SIGN, { exeBehavior } from "../lib/xboyPackage/YumeSignEnum";
 import {getSimPlayer} from "../utils/Util";
 //
