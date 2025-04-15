@@ -9,7 +9,7 @@ import {Dimension, LocationOutOfWorldBoundariesError, system, Vector3} from '@mi
 
 import { register } from '@minecraft/server-gametest'
 
-import verify from '../lib/xboyPackage/scoreBase/verifyDataBase'
+import { PIDManager } from '../core/pid'
 import EventSignal from '../lib/xboyEvents/EventSignal'
 
 import { SIGN } from '../lib/xboyPackage/YumeSignEnum'
@@ -41,6 +41,8 @@ export const simulatedPlayers  = {}
 
 export let initSucceed = false
 
+export const pidManager = new PIDManager();
+
 
 let randomTickSpeed = 1
 let doDayLightCycle = true
@@ -63,9 +65,6 @@ let testWorldLocation : Vector3
 
 if(!world.structureManager.get('xboyMinemcSIM:void'))
     world.structureManager.createEmpty('xboyMinemcSIM:void', { x:1, y:1, z:1 }).saveToWorld()
-
-const GetPID = ()=> world.scoreboard.getObjective('##FlashPlayer##').addScore('##currentPID',1)
-
 
 export const initialized : initializedEventSignal = new EventSignal<initializedEvent>()
 export const spawned : spawnedEventSignal = new EventSignal<spawnedEvent>()
@@ -119,9 +118,8 @@ register('我是云梦', '假人', (test:Test) => {
     // @ts-ignore
     (world.afterEvents.worldInitialize ?? world.afterEvents['worldLoad']).subscribe(()=>{
 
-    // 记分板PID初始化 写的烂 执行两次
-    verify()
-    verify()
+    // 记分板PID初始化
+    pidManager.initialize();
 
     const z = 11451400 +  Math.floor(Math.random() * 114514 * 19 )
     system.run(()=>{
@@ -159,5 +157,5 @@ playerMove.subscribe(()=>{
     //
     // )
 
-export { spawnSimulatedPlayer,spawnSimulatedPlayerByNameTag,testWorldLocation,GetPID }
+export { spawnSimulatedPlayer,spawnSimulatedPlayerByNameTag,testWorldLocation }
 

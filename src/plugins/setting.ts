@@ -1,22 +1,11 @@
 import { Command, commandManager } from '../command'
-import type { ScoreboardObjective } from '@minecraft/server'
-import ScoreBase from '../lib/xboyPackage/scoreBase/rw'
+import { pidManager } from './main';
 
 
 const settingsCommand = new Command()
 
 settingsCommand.register(({ entity }) => {
-
-    const SetPID = (PID:number=1)=>{
-        const __FlashPlayer__ = <ScoreboardObjective>ScoreBase.GetObject('##FlashPlayer##')
-
-        const value = ScoreBase.GetPoints(__FlashPlayer__,'##currentPID')
-
-              __FlashPlayer__.setScore('##currentPID',PID)
-
-        return value
-    }
-    const PID = SetPID(1)
+    const PID = pidManager.reset()
     entity?.sendMessage('重置成功，重置前为'+PID)
 
 

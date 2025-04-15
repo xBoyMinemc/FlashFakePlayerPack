@@ -1,0 +1,1 @@
+export type PID = number & { readonly __brand: unique symbol }
