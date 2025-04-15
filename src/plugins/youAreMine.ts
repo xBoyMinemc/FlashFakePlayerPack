@@ -8,7 +8,8 @@ import {
     TicksPerSecond,
     world
 } from '@minecraft/server'
-import { simulatedPlayers } from './main';
+import { simulatedPlayerManager } from './main';
+import type { PID } from '../core/pid';
 
 const dimensionMap: Record<string, string> = {
     'minecraft:overworld': '主世界',
@@ -169,7 +170,7 @@ commandManager.registerCommand(['假人资源回收','假人背包清空','假�
 // disconnect
 const disconnectCommand = new Command();
 disconnectCommand.register(({entity,isEntity,args:[simIndex],sim}) => {
-    if(sim)return sim.disconnect()
+    if(sim)return simulatedPlayerManager.remove(sim);
 
     if(!isEntity) {
         console.error('error not isEntity')
@@ -181,20 +182,20 @@ disconnectCommand.register(({entity,isEntity,args:[simIndex],sim}) => {
 
         commandManager.executeCommand('假人背包清空', [], { entity, isEntity, sim: SimPlayer ,location:getLocationFromEntityLike(entity)})
         entity.sendMessage("§e§l-拜拜了您内")
-        SimPlayer.disconnect()
+        simulatedPlayerManager.remove(SimPlayer)
     }
     else {
         const index = Number(simIndex)
 
         if(typeof index !== 'number')return  entity?.sendMessage('[模拟玩家] 命令错误，期待数字却得到 '+typeof Number(simIndex))
 
-        const SimPlayer:SimulatedPlayer = simulatedPlayers[index]
+        const SimPlayer:SimulatedPlayer = simulatedPlayerManager.get(index as PID)
 
         if(!SimPlayer)return entity.sendMessage("§e§l-不存在模拟玩家"+index)
 
         commandManager.executeCommand('假人背包清空', [], { entity, isEntity, sim: SimPlayer ,location:getLocationFromEntityLike(entity)})
         entity.sendMessage("§e§l-拜拜了您内")
-        SimPlayer.disconnect()
+        simulatedPlayerManager.remove(SimPlayer)
     }
 
 });
@@ -224,7 +225,7 @@ respawnCommand.register(({entity,isEntity,args:[simIndex]}) => {
 
         if(typeof index !== 'number')return entity?.sendMessage('[模拟玩家] 命令错误，期待数字却得到 '+typeof Number(simIndex))
 
-        const SimPlayer:SimulatedPlayer = simulatedPlayers[index]
+        const SimPlayer:SimulatedPlayer = simulatedPlayerManager.get(index as PID)
 
         if(!SimPlayer)return entity.sendMessage("§e§l-不存在模拟玩家"+index)
 
@@ -256,9 +257,9 @@ commandManager.registerCommand(['假人时区', '假人时间'], timeCommand);
 const listCommand = new Command();
 listCommand.register(({entity}) => {
     let target = entity ?? world;
-    if (Object.keys(simulatedPlayers).length === 0) return target.sendMessage('列表空的');
-    for (const index in simulatedPlayers) if (simulatedPlayers[index] && Number(index) >= 0) {
-        const message = `§e§l-序号：${index} ## 生成名称: ${simulatedPlayers[index].name}${simulatedPlayers[index].name === simulatedPlayers[index].nameTag ? '' : ' #当前名称: ' + simulatedPlayers[index].nameTag}`;
+    if (simulatedPlayerManager.simulatedPlayers.size === 0) return target.sendMessage('列表空的');
+    for (const [index, simulatedPlayer] of simulatedPlayerManager.simulatedPlayers) {
+        const message = `§e§l-序号：${index} ## 生成名称: ${simulatedPlayer.name}${simulatedPlayer.name === simulatedPlayer.nameTag ? '' : ' #当前名称: ' + simulatedPlayer.nameTag}`;
         target.sendMessage(message);
     }
 });
@@ -303,7 +304,7 @@ locationCommand.register(({ entity, isEntity, args: [simIndex] }) => {
         const index = Number(simIndex);
         if (typeof index !== 'number') return entity.sendMessage('[模拟玩家] 命令错误，期待数字却得到 ' + typeof Number(simIndex));
 
-        simulatedPlayer = simulatedPlayers[index];
+        simulatedPlayer = simulatedPlayerManager.get(index as PID)
 
         if (!simulatedPlayer) return entity.sendMessage("§e§l-不存在模拟玩家" + index);
     }

@@ -1,10 +1,7 @@
 import type { SimulatedPlayer } from '@minecraft/server-gametest'
 import {Dimension, Player, Vector3} from '@minecraft/server'
 
-import {
-    simulatedPlayers,
-    testWorldLocation
-} from './main'
+import { testWorldLocation } from './main';
 import { Command, commandManager } from '../core/command';
 import { getSimPlayer } from '../utils/Util'
 import { world, system } from "@minecraft/server"
@@ -23,9 +20,7 @@ breakBlockCommand.register(({ args }) => args.length === 0, ({ entity, isEntity 
         return;
     } 
 
-    for(const i in simulatedPlayers)
-        if(simulatedPlayers[i]===SimPlayer)
-            SimPlayer.addTag(SIGN.AUTO_BREAKBLOCK_SIGN)
+    SimPlayer.addTag(SIGN.AUTO_BREAKBLOCK_SIGN)
 
     // console.error('[假人]内置插件'+'假人挖掘'+'执行成功')
 

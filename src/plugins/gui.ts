@@ -9,8 +9,7 @@ import SIGN, {
 } from '../constants/YumeSignEnum'
 import { ActionFormData } from '@minecraft/server-ui'
 import { SimulatedPlayer } from '@minecraft/server-gametest'
-import { getSimPlayer } from '../utils/Util'
-import { simulatedPlayers } from './main'
+import { simulatedPlayerManager } from './main'
 
 // world.afterEvents.entityHitEntity.subscribe(({damagingEntity,hitEntity})=>{
 //     if(!damagingEntity || !hitEntity)return;
@@ -24,7 +23,7 @@ import { simulatedPlayers } from './main'
 world.beforeEvents.playerInteractWithEntity.subscribe(e=>{
     const {player,target} = e
     if(!player || player.typeId!=='minecraft:player')return
-    if(!target || target.typeId!=='minecraft:player' || !simulatedPlayers[target.id])return// world.sendMessage('meow~ target');
+    if(!target || !simulatedPlayerManager.has(target))return// world.sendMessage('meow~ target');
     const SimPlayer = <SimulatedPlayer><unknown>target // what's unknow?
     if(!SimPlayer)return
     e.cancel=true

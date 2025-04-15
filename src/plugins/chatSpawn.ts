@@ -1,42 +1,29 @@
-import type {SimulatedPlayer} from '@minecraft/server-gametest'
-
-import {
-    initSucceed,
-    pidManager,
-    simulatedPlayers,
-    spawned as spawnedEvent,
-    spawnSimulatedPlayer,
-    spawnSimulatedPlayerByNameTag
-} from './main'
+import { simulatedPlayerManager } from './main';
 import { type CommandInfo, commandManager, Command } from '../core/command'
-import { Dimension, Vector3, world, type Player } from '@minecraft/server'
+import { Dimension, LocationOutOfWorldBoundariesError, Vector3, world, type Player } from '@minecraft/server'
 import {xyz_dododo} from "../utils/xyz_dododo";
+import { NotReadyError } from '../core/simulated-player';
 
 const overworld = world.getDimension("overworld");
 
-const spawnAndRegisterSimulatedPlayer = (entity: Player | undefined, location: Vector3, dimension: Dimension, nameTag?: string): void => {
-    if (!initSucceed) {
-        entity?.sendMessage('[假人] 插件未初始化完成，请重试');
-        return;
+const addSimulatedPlayer = (entity: Player | undefined, location: Vector3, dimension: Dimension, nameTag?: string): void => {
+    try {
+        simulatedPlayerManager.add({ name: nameTag, dimension, location });
+    } catch (e) {
+        if (e instanceof NotReadyError)
+            entity?.sendMessage('[假人] 插件未初始化完成，请重试');
+        else if (e instanceof LocationOutOfWorldBoundariesError)
+            entity?.sendMessage('[假人] 位置非法，请在合法位置重试');
+        else
+            throw e;
     }
-
-    const pid = pidManager.next();
-    const simulatedPlayer: SimulatedPlayer = nameTag
-        ? spawnSimulatedPlayerByNameTag(location, dimension, nameTag)
-        : spawnSimulatedPlayer(location, dimension, pid);
-
-
-    simulatedPlayers[pid] = simulatedPlayer;
-    simulatedPlayers[simulatedPlayer.id] = pid;
-
-    spawnedEvent.trigger({ spawnedSimulatedPlayer: simulatedPlayer, PID: pid });
 };
 
 const chatSpawnCommand = new Command();
 
 // 假人生成
 chatSpawnCommand.register(({ args }) => args.length === 0, ({ entity, location }) => {
-    spawnAndRegisterSimulatedPlayer(entity, location, location.dimension);
+    addSimulatedPlayer(entity, location, location.dimension);
 });
 
 // 假人生成 批量 count
@@ -46,12 +33,12 @@ chatSpawnCommand.register(({ args }) => args[0] === '批量', ({ args: [, countS
 
     let count = Number(countString);
     while (count-- > 0)
-        spawnAndRegisterSimulatedPlayer(entity, location, location.dimension);
+        addSimulatedPlayer(entity, location, location.dimension);
 });
 
 // 假人生成 name
 chatSpawnCommand.register(({ args }) => args.length === 1, ({ args: [targetName], entity, location }) => {
-    spawnAndRegisterSimulatedPlayer(entity, location, location.dimension, targetName);
+    addSimulatedPlayer(entity, location, location.dimension, targetName);
 });
 
 // #56 参考：
@@ -97,7 +84,7 @@ chatSpawnCommand.register(
         }
         dimension ??= senderLocation.dimension ?? overworld;
 
-        spawnAndRegisterSimulatedPlayer(entity, location, dimension, nameTag);
+        addSimulatedPlayer(entity, location, dimension, nameTag);
     }
 );
 

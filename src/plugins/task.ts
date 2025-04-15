@@ -1,6 +1,6 @@
 //@ts-nocheck
 import type { SimulatedPlayer } from '@minecraft/server-gametest'
-import {simulatedPlayers, testWorldLocation} from './main'
+import {simulatedPlayerManager, testWorldLocation} from './main'
 import SIGN from '../constants/YumeSignEnum'
 import type { EntityHealthComponent, Vector3 } from '@minecraft/server'
 import { system, world } from '@minecraft/server'
@@ -13,44 +13,34 @@ const Vector_subtract = ({x,y,z}:Vector3, {x:u,y:v,z:w}:Vector3)=>({x:x-u,y:y-v,
 // behavior
 function AUTO_BEHAVIOR(){
 
-    let simulatedPlayerCount = 0
     const AllPlayerCount = world.getAllPlayers().length
-    for (const index in simulatedPlayers) {
-        if((Number(index)>0?Number(index):-Number(index))>1000)continue
-
-        const SimPlayer:SimulatedPlayer = <SimulatedPlayer>simulatedPlayers[index]
-        //判假人是否存在
-        if(!SimPlayer || !SimPlayer?.isValid){
-            delete simulatedPlayers[simulatedPlayers[index]]
-            delete simulatedPlayers[index]
-            continue
-        }
-        ++simulatedPlayerCount
+    for (const [pid, simulatedPlayer] of simulatedPlayerManager.simulatedPlayers) {
         // world.sendMessage(SimPlayer.nameTag)
         //判假人是否存活
         //瞎糊乱改接口名--2023-07-21-02：02
-        if((<EntityHealthComponent>SimPlayer.getComponent('minecraft:health')).currentValue<=0){
-            if(SimPlayer.hasTag(SIGN.AUTO_RESPAWN_SIGN))SimPlayer.respawn()
+        if((<EntityHealthComponent>simulatedPlayer.getComponent('minecraft:health')).currentValue<=0){
+            if(simulatedPlayer.hasTag(SIGN.AUTO_RESPAWN_SIGN))simulatedPlayer.respawn()
+                
             continue
         }
-        if(SimPlayer.hasTag(SIGN.AUTO_JUMP_SIGN))SimPlayer.jump()
+        if(simulatedPlayer.hasTag(SIGN.AUTO_JUMP_SIGN))simulatedPlayer.jump()
 
-        const EntitiesFromView = SimPlayer.getEntitiesFromViewDirection({maxDistance:4})[0]?.entity
-        if(SimPlayer.hasTag(SIGN.ATTACK_SIGN) && EntitiesFromView)SimPlayer.attackEntity(EntitiesFromView)
+        const EntitiesFromView = simulatedPlayer.getEntitiesFromViewDirection({maxDistance:4})[0]?.entity
+        if(simulatedPlayer.hasTag(SIGN.ATTACK_SIGN) && EntitiesFromView)simulatedPlayer.attackEntity(EntitiesFromView)
 
-        const EntitiesNear = getEntitiesNear(SimPlayer.location,SimPlayer.dimension,4,{})[0]
-        if(SimPlayer.hasTag(SIGN.AUTO_ATTACK_SIGN) && EntitiesNear)SimPlayer.lookAtEntity(EntitiesNear)
-        if(SimPlayer.hasTag(SIGN.AUTO_ATTACK_SIGN) && EntitiesFromView)SimPlayer.attackEntity(EntitiesFromView)
+        const EntitiesNear = getEntitiesNear(simulatedPlayer.location,simulatedPlayer.dimension,4,{})[0]
+        if(simulatedPlayer.hasTag(SIGN.AUTO_ATTACK_SIGN) && EntitiesNear)simulatedPlayer.lookAtEntity(EntitiesNear)
+        if(simulatedPlayer.hasTag(SIGN.AUTO_ATTACK_SIGN) && EntitiesFromView)simulatedPlayer.attackEntity(EntitiesFromView)
 
-        if(SimPlayer.hasTag(SIGN.AUTO_TRIDENT_SIGN))SimPlayer.useItemInSlot(0) ? system.runTimeout(()=>SimPlayer.stopUsingItem(),10) : 0
+        if(simulatedPlayer.hasTag(SIGN.AUTO_TRIDENT_SIGN))simulatedPlayer.useItemInSlot(0) ? system.runTimeout(()=>simulatedPlayer.stopUsingItem(),10) : 0
 
-        if(SimPlayer.hasTag(SIGN.AUTO_CHASE_SIGN)){
-            const entities = getEntitiesNear(SimPlayer.location,SimPlayer.dimension,12,{families:["undead"]})
-                                    .concat( getEntitiesNear(SimPlayer.location,SimPlayer.dimension,12,{families:["monster"]}) )
-                                    .concat( getPlayerNear(SimPlayer,12,{}) )
+        if(simulatedPlayer.hasTag(SIGN.AUTO_CHASE_SIGN)){
+            const entities = getEntitiesNear(simulatedPlayer.location,simulatedPlayer.dimension,12,{families:["undead"]})
+                                    .concat( getEntitiesNear(simulatedPlayer.location,simulatedPlayer.dimension,12,{families:["monster"]}) )
+                                    .concat( getPlayerNear(simulatedPlayer,12,{}) )
 
-            simulatedPlayerStates[SimPlayer.id] || (simulatedPlayerStates[SimPlayer.id]={})
-            simulatedPlayerStates[SimPlayer.id]["o"] || (simulatedPlayerStates[SimPlayer.id]["o"]=SimPlayer.location)
+            simulatedPlayerStates[simulatedPlayer.id] || (simulatedPlayerStates[simulatedPlayer.id]={})
+            simulatedPlayerStates[simulatedPlayer.id]["o"] || (simulatedPlayerStates[simulatedPlayer.id]["o"]=simulatedPlayer.location)
             // let a: { "str-SimPlayer.id": { o: Vector3 } } = ({
             //     'str-SimPlayer.id':{
             //         'o':SimPlayer.location
@@ -65,16 +55,16 @@ function AUTO_BEHAVIOR(){
 
                 // walk to target
                 const target = entities[0]
-                if( !r3(target.location,SimPlayer.location,4) ){
+                if( !r3(target.location,simulatedPlayer.location,4) ){
 
-                    SimPlayer.moveToLocation(fix(target.location))
+                    simulatedPlayer.moveToLocation(fix(target.location))
                     // console.error(target.typeId,target.location.x,target.location.y,target.location.z)
                 }
 
             }else{
                 console.error("back")
-                if( r3(SimPlayer.location,simulatedPlayerStates[SimPlayer.id]["o"],1) )
-                    SimPlayer.moveToLocation( fix(simulatedPlayerStates[SimPlayer.id]["o"]) )
+                if( r3(simulatedPlayer.location,simulatedPlayerStates[simulatedPlayer.id]["o"],1) )
+                    simulatedPlayer.moveToLocation( fix(simulatedPlayerStates[simulatedPlayer.id]["o"]) )
                 // SimPlayer.moveToLocation({x:-30000000,y:-128,z:0})
 
             }
