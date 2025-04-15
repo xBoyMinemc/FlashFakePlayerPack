@@ -8,7 +8,7 @@ import {
 import { Command, commandManager } from '../command';
 import { getSimPlayer } from '../utils/Util'
 import { world, system } from "@minecraft/server"
-import SIGN from "../lib/xboyPackage/YumeSignEnum";
+import SIGN from "../constants/YumeSignEnum";
 
 const breakBlockCommand = new Command();
 breakBlockCommand.register(({ args }) => args.length === 0, ({ entity, isEntity }) => {

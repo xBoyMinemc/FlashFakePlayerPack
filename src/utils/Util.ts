@@ -1,6 +1,6 @@
 import type {Block, Dimension, Entity, EntityQueryOptions, Player, Vector3} from '@minecraft/server'
 import {SimulatedPlayer} from '@minecraft/server-gametest'
-import SIGN from '../lib/xboyPackage/YumeSignEnum'
+import SIGN from '../constants/YumeSignEnum'
 
 
 // getEntitiesFromViewDirection

@@ -6,7 +6,7 @@ import SIGN, {
     exeBehavior,
     SIGN_TAG_LIST,
     SIGN_ZH
-} from '../lib/xboyPackage/YumeSignEnum'
+} from '../constants/YumeSignEnum'
 import { ActionFormData } from '@minecraft/server-ui'
 import { SimulatedPlayer } from '@minecraft/server-gametest'
 import { getSimPlayer } from '../utils/Util'

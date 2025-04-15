@@ -12,7 +12,7 @@ import { register } from '@minecraft/server-gametest'
 import { PIDManager } from '../core/pid'
 import EventSignal from '../lib/xboyEvents/EventSignal'
 
-import { SIGN } from '../lib/xboyPackage/YumeSignEnum'
+import { SIGN } from '../constants/YumeSignEnum'
 import { world } from '@minecraft/server'
 
 // import './plugins/noFlashDoor' // pig

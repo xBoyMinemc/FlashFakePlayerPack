@@ -21,7 +21,7 @@ import type { World } from '../@types/globalThis'
 
 // import qrcode from "../../lib/qrcode-terminal/mod.js";
 
-import SIGN, { exeBehavior } from "../lib/xboyPackage/YumeSignEnum";
+import SIGN, { exeBehavior } from "../constants/YumeSignEnum";
 import {getSimPlayer} from "../utils/Util";
 //
 // import {BlockLocation} from "../../@types/globalThis";
