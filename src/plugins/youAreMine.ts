@@ -1,6 +1,6 @@
 import type { SimulatedPlayer } from '@minecraft/server-gametest'
 import { getSimPlayer } from '../utils/Util'
-import { Command, commandManager, getLocationFromEntityLike } from '../command';
+import { Command, commandManager, getLocationFromEntityLike } from '../core/command';
 import {
     EntityEquippableComponent,
     EntityInventoryComponent,

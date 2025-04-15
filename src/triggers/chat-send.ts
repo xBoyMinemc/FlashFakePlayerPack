@@ -1,5 +1,5 @@
 import { system, world } from "@minecraft/server";
-import { commandManager, getLocationFromEntityLike, cannotHandledExceptionWarningText, CommandError } from "../command";
+import { commandManager, getLocationFromEntityLike, cannotHandledExceptionWarningText, CommandError } from "../core/command";
 
 world.beforeEvents.chatSend.subscribe(({message, sender}) => {
     system.run(() => {

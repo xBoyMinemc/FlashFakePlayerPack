@@ -5,7 +5,7 @@ import {
     simulatedPlayers,
     testWorldLocation
 } from './main'
-import { Command, commandManager } from '../command';
+import { Command, commandManager } from '../core/command';
 import { getSimPlayer } from '../utils/Util'
 import { world, system } from "@minecraft/server"
 import SIGN from "../constants/YumeSignEnum";

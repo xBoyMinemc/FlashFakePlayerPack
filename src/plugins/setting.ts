@@ -1,4 +1,4 @@
-import { Command, commandManager } from '../command'
+import { Command, commandManager } from '../core/command'
 import { pidManager } from './main';
 
 
