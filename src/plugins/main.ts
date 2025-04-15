@@ -71,13 +71,11 @@ export const simulatedPlayerManager=new SimulatedPlayerManager();
     simulatedPlayerManager.initialize();
 })
 
-let say = false
-playerMove.subscribe(()=>{
-    if (say) return
-    say = true
-    world.sendMessage('[模拟玩家] 初始化完成，输入“假人创建”或“ffpp”')
-    // TODO: 发送一次后解挂
-})
+const broadcast = () => {
+    world.sendMessage('[模拟玩家] 初始化完成，输入“假人创建”或“ffpp”');
+    playerMove.unsubscribe(broadcast);
+};
+playerMove.subscribe(broadcast);
 
     // initialized.subscribe(()=> console.error('[模拟玩家]初始化完毕，加载内置插件') )
     // initialized.subscribe(()=>
