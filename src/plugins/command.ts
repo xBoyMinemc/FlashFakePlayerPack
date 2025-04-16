@@ -22,7 +22,7 @@ import type { World } from '../@types/globalThis'
 // import qrcode from "../../lib/qrcode-terminal/mod.js";
 
 import SIGN, { exeBehavior } from "../constants/YumeSignEnum";
-import {getSimPlayer} from "../utils/Util";
+import {getSimPlayer} from "../core/queries/Util";
 //
 // import {BlockLocation} from "../../@types/globalThis";
 // class BlockLocation extends Location {

@@ -3,7 +3,7 @@ import {Dimension, Player, Vector3} from '@minecraft/server'
 
 import { testWorldLocation } from './main';
 import { Command, commandManager } from '../core/command';
-import { getSimPlayer } from '../utils/Util'
+import { getSimPlayer } from '../core/queries/Util'
 import { world, system } from "@minecraft/server"
 import SIGN from "../constants/YumeSignEnum";
 
