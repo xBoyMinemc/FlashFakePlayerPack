@@ -5,8 +5,6 @@ import SIGN from "../../constants/YumeSignEnum";
 import { SimulatedPlayerNotFoundError, NotReadyError } from "./errors";
 import type { AddSimulatedPlayerOptions, SpawnSimulatedPlayerOptions } from "./types";
 
-const overworld = world.getDimension('overworld');
-
 export class SimulatedPlayerManager {
     private readonly initialSigns = [
         SIGN.YUME_SIM_SIGN,
@@ -25,29 +23,10 @@ export class SimulatedPlayerManager {
         this._test = test;
     }
 
-    private generateTestPosition(): Vector3 {
-        const z = 11451400 + Math.floor(Math.random() * 114514 * 19);
-        return {
-            x: 15000000,
-            y: 256,
-            z
-        };
-    }
-
     initialize() {
         // 记分板PID初始化
         this.pidManager.initialize();
-
-        const { x, y, z } = this.generateTestPosition();
-
-        system.run(() => {
-            try {
-                overworld.runCommand(`execute positioned ${x} ${y} ${z} run gametest run 我是云梦:假人`);
-                this._initialized = true;
-            } catch (e) {
-                world.sendMessage('[模拟玩家] 报错了，我也不知道为什么' + e);
-            }
-        });
+        this._initialized = true;
     }
 
     get ready(): boolean {
