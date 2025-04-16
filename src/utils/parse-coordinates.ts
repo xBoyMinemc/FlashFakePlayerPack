@@ -4,11 +4,11 @@ ops['-'] = '-'
 
 /**
  * @example
- * console.log(xyz_dododo('1 2 3')); // [ 1, 2, 3 ]
+ * console.log(parseCoordinates('1 2 3')); // [ 1, 2, 3 ]
  *
- * console.log(xyz_dododo('~30 5 4', [1, 0, 0])) // [ 31, 5, 4 ]
+ * console.log(parseCoordinates('~30 5 4', [1, 0, 0])) // [ 31, 5, 4 ]
  *
- * console.log(xyz_dododo('~-30 5 4', [1, 25, 0])) // [ 29, 5, 4 ]
+ * console.log(parseCoordinates('~-30 5 4', [1, 25, 0])) // [ 29, 5, 4 ]
  */
 export function parseCoordinates(xyz:(`${number}`|`~${number}`/*|`~+${number}`|`~-${number}`*/)[],playerLocation=[0,0,0]) : number[] {
     // 遍历分割后的数组
@@ -44,20 +44,20 @@ export function parseCoordinates(xyz:(`${number}`|`~${number}`/*|`~+${number}`|`
 }
 
 /*
-function xyz_dododo_test() {
+function parseCoordinates_test() {
     // 示例用法
-    const result1 = xyz_dododo(["1", "1", "1"]);
+    const result1 = parseCoordinates(["1", "1", "1"]);
     console.log(result1); // [ 1, 1, 1 ]
 
-    const result2 = xyz_dododo(["1.1", "-20" ,"-30.2"]);
+    const result2 = parseCoordinates(["1.1", "-20" ,"-30.2"]);
     console.log(result2); // [ 1.1, -20, -30.2 ]
 
 
-    const result3 = xyz_dododo(["~2.2", "~+3" ,"~-4.5"]);
+    const result3 = parseCoordinates(["~2.2", "~+3" ,"~-4.5"]);
     console.log(result3); // [ 102.2, 203, -295.5 ]
 
     // @ts-expect-error
-    const result4 = xyz_dododo(["~/2.2", "~+0" ,"~-"]);
+    const result4 = parseCoordinates(["~/2.2", "~+0" ,"~-"]);
     console.log(result4);
     // throw new Error(['x','y','z'][index] + ' not a number')
     // ^
