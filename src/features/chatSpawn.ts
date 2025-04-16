@@ -1,4 +1,4 @@
-import { simulatedPlayerManager } from './main';
+import { simulatedPlayerManager } from '../main';
 import { type CommandInfo, commandManager, Command } from '../core/command'
 import { Dimension, LocationOutOfWorldBoundariesError, Vector3, world, type Player } from '@minecraft/server'
 import {xyz_dododo} from "../utils/xyz_dododo";

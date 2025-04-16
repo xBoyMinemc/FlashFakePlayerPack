@@ -1,7 +1,7 @@
 import type { SimulatedPlayer } from '@minecraft/server-gametest'
 import {Dimension, Player, Vector3} from '@minecraft/server'
 
-import { testWorldLocation } from './main';
+import { testWorldLocation } from '../main';
 import { Command, commandManager } from '../core/command';
 import { getSimPlayer } from '../core/queries/Util'
 import { world, system } from "@minecraft/server"

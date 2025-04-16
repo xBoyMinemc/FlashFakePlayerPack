@@ -9,7 +9,7 @@ import SIGN, {
 } from '../constants/YumeSignEnum'
 import { ActionFormData } from '@minecraft/server-ui'
 import { SimulatedPlayer } from '@minecraft/server-gametest'
-import { simulatedPlayerManager } from './main'
+import { simulatedPlayerManager } from '../main'
 
 // world.afterEvents.entityHitEntity.subscribe(({damagingEntity,hitEntity})=>{
 //     if(!damagingEntity || !hitEntity)return;

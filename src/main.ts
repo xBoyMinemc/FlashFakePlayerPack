@@ -5,23 +5,11 @@ import { world } from '@minecraft/server'
 
 // import './plugins/noFlashDoor' // pig
 
+import './features'
 
-
-import './help'
-
-import './chatSpawn'
-import './command'
-import './breakBlock'
-import './youAreMine'
-import './task'
-import './gui'
-import './autoFishing'
-import './killedBySimPlayer'
-import './setting'
-import './showCommandsList'
-import {playerMove} from "../lib/xboyEvents/move";
-import '../triggers'
-import { SimulatedPlayerManager } from '../core/simulated-player';
+import {playerMove} from "./lib/xboyEvents/move";
+import './triggers'
+import { SimulatedPlayerManager } from './core/simulated-player';
 
 const tickWaitTimes = 20*60*60*24*365
 

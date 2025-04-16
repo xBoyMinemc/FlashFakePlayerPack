@@ -1,5 +1,5 @@
 import { Command, commandManager } from '../core/command'
-import { simulatedPlayerManager } from './main';
+import { simulatedPlayerManager } from '../main';
 
 
 const settingsCommand = new Command()

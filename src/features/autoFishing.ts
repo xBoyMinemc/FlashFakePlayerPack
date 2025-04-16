@@ -1,6 +1,6 @@
 import {world} from "@minecraft/server";
 import {fishingHookDespawned, fishingHookSpawned} from "../lib/xboyEvents/fishingHookSpawned";
-import { simulatedPlayerManager } from "./main";
+import { simulatedPlayerManager } from "../main";
 
 const debug = false
 fishingHookDespawned.subscribe(event=>{

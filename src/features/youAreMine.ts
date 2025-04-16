@@ -8,7 +8,7 @@ import {
     TicksPerSecond,
     world
 } from '@minecraft/server'
-import { simulatedPlayerManager } from './main';
+import { simulatedPlayerManager } from '../main';
 import type { PID } from '../core/pid';
 
 const dimensionMap: Record<string, string> = {

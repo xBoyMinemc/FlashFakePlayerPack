@@ -1,6 +1,6 @@
 //@ts-nocheck
 import type { SimulatedPlayer } from '@minecraft/server-gametest'
-import {simulatedPlayerManager, testWorldLocation} from './main'
+import {simulatedPlayerManager, testWorldLocation} from '../main'
 import SIGN from '../constants/YumeSignEnum'
 import type { EntityHealthComponent, Vector3 } from '@minecraft/server'
 import { system, world } from '@minecraft/server'
