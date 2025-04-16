@@ -1,4 +1,4 @@
-const ops = {}
+const ops: Record<string, string> = {}
 ops['+'] = '+'
 ops['-'] = '-'
 

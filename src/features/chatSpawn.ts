@@ -51,7 +51,7 @@ chatSpawnCommand.register(
         location: senderLocation,
     }: CommandInfo) => {
         let location: Vector3;
-        let nameTag: string = null;
+        let nameTag: string | null = null;
 
         // xyz
         try {

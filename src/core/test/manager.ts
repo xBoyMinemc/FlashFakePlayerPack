@@ -5,19 +5,19 @@ const overworld = world.getDimension('overworld');
 
 export class TestManager {
     private readonly maxTicks = 20 * 60 * 60 * 24 * 365;
-    private _testLocation: Vector3;
+    private _testLocation: Vector3 | undefined;
     private _test: Test | undefined;
 
-    private _resolve: (value: Test | PromiseLike<Test>) => void;
+    private _resolve: ((value: Test | PromiseLike<Test>) => void) | undefined;
     public readonly ready = new Promise<Test>(resolve => {
         this._resolve = resolve;
     });
 
-    get testLocation(): Vector3 {
+    get testLocation(): Vector3 | undefined {
         return this._testLocation;
     }
 
-    get test(): Test {
+    get test(): Test | undefined {
         return this._test;
     }
 
@@ -35,7 +35,7 @@ export class TestManager {
             world.gameRules.doMobSpawning = doMobSpawning;
 
             this._test = test;
-            this._resolve(test);
+            this._resolve!(test);
 
             console.log('[模拟玩家] 初始化完成，输入“假人创建”或“ffpp”');
         })

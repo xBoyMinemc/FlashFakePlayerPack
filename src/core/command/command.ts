@@ -61,7 +61,7 @@ export class Command {
         if (!this.conditionsHandlers.has(condition))
             this.conditionsHandlers.set(condition, []);
 
-        this.conditionsHandlers.get(condition).push(handler);
+        this.conditionsHandlers.get(condition)!.push(handler);
     }
 
     /**

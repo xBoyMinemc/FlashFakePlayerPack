@@ -60,7 +60,7 @@ function parseScriptEventString(
 
 function getCommandInfoNoArgs(e: ScriptEventCommandMessageAfterEvent): CommandInfoNoArgs {
     return {
-        entity: e.sourceEntity instanceof Player ? e.sourceEntity : null,
+        entity: e.sourceEntity instanceof Player ? e.sourceEntity : undefined,
         location: getSourceLocation(e),
         isEntity: e.sourceType === ScriptEventSource.Entity,
     };

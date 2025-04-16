@@ -11,18 +11,18 @@ export class PIDManager {
         if (!world.scoreboard.getObjective(this.scoreboardName))
             world.scoreboard.addObjective(this.scoreboardName);
 
-        if (!world.scoreboard.getObjective(this.scoreboardName).hasParticipant(this.scoreName))
-            world.scoreboard.getObjective(this.scoreboardName).setScore(this.scoreName, this.initialValue);
+        if (!world.scoreboard.getObjective(this.scoreboardName)!.hasParticipant(this.scoreName))
+            world.scoreboard.getObjective(this.scoreboardName)!.setScore(this.scoreName, this.initialValue);
     }
 
     next(): PID {
-        const pid = world.scoreboard.getObjective(this.scoreboardName).addScore(this.scoreName, 1) as PID;
+        const pid = world.scoreboard.getObjective(this.scoreboardName)!.addScore(this.scoreName, 1) as PID;
         return pid;
     }
 
     reset(): PID {
-        const currentPID = world.scoreboard.getObjective(this.scoreboardName).getScore(this.scoreName) as PID;
-        world.scoreboard.getObjective(this.scoreboardName).setScore(this.scoreName, this.initialValue);
+        const currentPID = world.scoreboard.getObjective(this.scoreboardName)!.getScore(this.scoreName) as PID;
+        world.scoreboard.getObjective(this.scoreboardName)!.setScore(this.scoreName, this.initialValue);
         return currentPID;
     }
 }
