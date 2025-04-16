@@ -1,11 +1,11 @@
 import type { SimulatedPlayer } from '@minecraft/server-gametest'
 import {Dimension, Player, Vector3} from '@minecraft/server'
 
-import { testWorldLocation } from '../main';
 import { Command, commandManager } from '../core/command';
 import { getSimPlayer } from '../core/queries/Util'
 import { world, system } from "@minecraft/server"
 import SIGN from "../constants/YumeSignEnum";
+import { testManager } from '../main';
 
 const breakBlockCommand = new Command();
 breakBlockCommand.register(({ args }) => args.length === 0, ({ entity, isEntity }) => {
@@ -44,7 +44,7 @@ const breaks = (/*awa:awa='awa'*/)=>
         if (!block) return
 
         if (block.isValid && !block.isLiquid && !block.isAir){
-            man.breakBlock(Vector_subtract(block, testWorldLocation))
+            man.breakBlock(Vector_subtract(block, testManager.testLocation))
         }
     })
 
