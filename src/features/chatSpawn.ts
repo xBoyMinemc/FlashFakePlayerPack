@@ -1,7 +1,7 @@
 import { simulatedPlayerManager } from '../main';
 import { type CommandInfo, commandManager, Command } from '../core/command'
 import { Dimension, LocationOutOfWorldBoundariesError, Vector3, world, type Player } from '@minecraft/server'
-import {xyz_dododo} from "../utils/xyz_dododo";
+import {parseCoordinates} from "../utils/parse-coordinates";
 import { NotReadyError } from '../core/simulated-player';
 
 const overworld = world.getDimension("overworld");
@@ -57,7 +57,7 @@ chatSpawnCommand.register(
         try {
             const { x: sourceX, y: sourceY, z: sourceZ } = senderLocation;
             // @ts-ignore
-            const [x, y, z] = xyz_dododo([targetX, targetY, targetZ], [sourceX, sourceY, sourceZ])
+            const [x, y, z] = parseCoordinates([targetX, targetY, targetZ], [sourceX, sourceY, sourceZ])
     
             location = { x, y, z };
     
