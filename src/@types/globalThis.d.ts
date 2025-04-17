@@ -210,34 +210,7 @@ export  class spawnedEventSignal {
     trigger(initializedEvent: spawnedEvent): void;
     // protected constructor();
 }
-export class projectileFiredEvent {
-    /**
-     * who Fired projectile.
-     */
-    Fisher: Entity;
-    /**
-     * id of projectile entity.
-     */
-    HookId: Entity["id"];
-    protected constructor();
-}
-export class projectileFiredEventSignal {
-    /**
-     * @remarks
-     * Adds a callback that will be called when a projectile Fired.
-     * @param callback
-     */
-    subscribe(callback: (arg: projectileFiredEvent) => void): (arg: projectileFiredEvent) => void;
-    /**
-     * @remarks
-     * Removes a callback from being called when a projectile Fired.
-     * @param callback
-     * @throws This function can throw errors.
-     */
-    unsubscribe(callback: (arg: projectileFiredEvent) => void): void;
-    trigger(projectileFired: projectileFiredEvent): void;
-    protected constructor();
-}
+
 export class playerReadyAfterEventSignal {
     subscribe(undefined): void;
     unsubscribe(undefined): void;

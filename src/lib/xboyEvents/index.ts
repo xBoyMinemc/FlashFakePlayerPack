@@ -1,7 +1,6 @@
 import entityDeadByHurt from "./entityDeadByHurt"
 import { fishingHookSpawned, fishingHookDespawned } from "./fishingHookSpawned"
 import reloadFromCmd from "./reloadFromCmd"
-// import  "./projectileFired"; // TEST
 import { playerReady } from "./ready";
 
 const events = {
@@ -11,4 +10,3 @@ const events = {
     fishingHookDespawned: fishingHookDespawned
 }
 // world.events.reloadFromCmd = reloadFromCmd
-// world.events.projectileFired = projectileFired
