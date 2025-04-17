@@ -1,8 +1,8 @@
-import { system, world, type Entity, type Vector3 } from "@minecraft/server";
 import { PIDManager, type PID } from "../pid";
 import { Test, type SimulatedPlayer } from "@minecraft/server-gametest";
 import SIGN from "../../constants/YumeSignEnum";
 import { SimulatedPlayerNotFoundError, NotReadyError } from "./errors";
+import type { Entity } from "@minecraft/server";
 import type { AddSimulatedPlayerOptions, SpawnSimulatedPlayerOptions } from "./types";
 
 export class SimulatedPlayerManager {
