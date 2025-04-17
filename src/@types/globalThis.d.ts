@@ -238,37 +238,8 @@ export class projectileFiredEventSignal {
     trigger(projectileFired: projectileFiredEvent): void;
     protected constructor();
 }
-export class playerMoveAfterEvent {
-    /**
-     * @remarks
-     * Describes the location after move.
-     *
-     */
-    readonly location: Vector3;
-    /**
-     * @remarks
-     * Describes the viewDirection after move.
-     *
-     */
-    readonly viewDirection: Vector3;
-    /**
-     * @remarks
-     * Describes the location before move.
-     *
-     */
-    readonly locationBefore: Vector3;
-    /**
-     * @remarks
-     * Describes the viewDirection before move.
-     *
-     */
-    readonly viewDirectionBefore: Vector3;
-}
-
-
-
-export class playerMoveAfterEventSignal {
-    subscribe(callback: (arg: playerMoveAfterEvent) => void): (arg: playerMoveAfterEvent) => void;
-    unsubscribe(callback: (arg: playerMoveAfterEvent) => void): void;
-    trigger(playerMoveAfterEvent: playerMoveAfterEvent): void;
+export class playerReadyAfterEventSignal {
+    subscribe(undefined): void;
+    unsubscribe(undefined): void;
+    trigger(undefined): void;
 }

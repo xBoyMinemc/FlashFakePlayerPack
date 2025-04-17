@@ -2,7 +2,7 @@ import { world } from '@minecraft/server'
 
 import './features'
 
-import {playerMove} from "./lib/xboyEvents/move";
+import {playerReady} from "./lib/xboyEvents/ready";
 import './triggers'
 import { SimulatedPlayerManager } from './core/simulated-player';
 import { TestManager } from './core/test/manager';
@@ -20,8 +20,6 @@ world.afterEvents.worldLoad.subscribe(() => {
     testManager.initialize();
 });
 
-const broadcast = () => {
+playerReady.subscribe(() => {
     world.sendMessage('[模拟玩家] 初始化完成，输入“假人创建”或“ffpp”');
-    playerMove.unsubscribe(broadcast);
-};
-playerMove.subscribe(broadcast);
+});
