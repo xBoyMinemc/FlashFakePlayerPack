@@ -2,7 +2,7 @@ import { world } from '@minecraft/server'
 
 import './features'
 
-import {playerReady} from "./lib/xboyEvents/ready";
+import {playerReady} from "./features/events/player-ready";
 import './triggers'
 import { SimulatedPlayerManager } from './core/simulated-player';
 import { TestManager } from './core/test/manager';

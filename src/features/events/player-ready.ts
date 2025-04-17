@@ -1,5 +1,5 @@
 import { type Player, system, world } from "@minecraft/server";
-import EventSignal from "./EventSignal";
+import EventSignal from "../../core/event/signal";
 import type { playerReadyAfterEventSignal } from "../../@types/globalThis";
 
 // EventSignal
