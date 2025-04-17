@@ -10,60 +10,6 @@ import {
 import { SimulatedPlayer,
 } from "@minecraft/server-gametest";
 
-/**
- * xBoyMinemc
- * Manages callbacks that are connected to when an entity dead by hurt.
- */
-export class EntityDeadByHurtEventSignal {
-    /**
-     * @remarks
-     * Adds a callback that will be called when an entity is  dead by hurt.
-     * @param callback
-     * @param options
-     */
-    subscribe(callback: (arg: EntityDeadByHurtEvent) => void, options?: EntityEventOptions): (arg: EntityDeadByHurtEvent) => void;
-    /**
-     * @remarks
-     * Removes a callback from being called when an entity is dead by hurt.
-     * @param callback
-     * @throws This function can throw errors.
-     */
-    unsubscribe(callback: (arg: EntityDeadByHurtEvent) => void): void;
-    trigger(EntityDeadByHurt: EntityDeadByHurtEvent): void;
-    protected constructor();
-}
-/**
- * Contains information related to an entity getting dead by
- * another entity.
- */
-// @ts-ignore
-export class EntityDeadByHurtEvent extends EntityDieAfterEvent {
-    // /**
-    //  * A summary of the reason that damage was caused.
-    //  */
-    // readonly cause: EntityDamageCause;
-    // /**
-    //  * Describes the amount of damage caused.
-    //  */
-    // readonly damage: number;
-    // /**
-    //  * Optional entity that caused the damaging attack, or
-    //  * undefined if the hurt reason was not because of another
-    //  * entity.
-    //  */
-    // readonly damagingEntity: Entity;
-    // /**
-    //  * Entity that was Dead.
-    //  */
-    // readonly hurtEntity: Entity;
-    // /**
-    //  * Optional entity for a projectile that potentially hurt an
-    //  * entity.
-    //  */
-    // readonly projectile: Entity;
-    // protected constructor();
-}
-
 export class FishingHookSpawnedEventSignal {
     /**
      * @remarks
