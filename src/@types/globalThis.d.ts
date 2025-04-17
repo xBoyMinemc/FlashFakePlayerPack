@@ -10,44 +10,6 @@ import {
 import { SimulatedPlayer,
 } from "@minecraft/server-gametest";
 
-
-
-/**
- * Manages callbacks that are connected to a reloadFromCmd event.
- */
-export class reloadFromCmdEventSignal {
-    /**
-     * @remarks
-     * Adds a callback that will be called on every reload from command.
-     * @param callback
-     */
-    subscribe(callback: (arg: reloadFromCmdEvent) => void): void;
-    /**
-     * @remarks
-     * Removes a callback from being called every reload from command.
-     * @param callback
-     * @throws This function can throw errors.
-     */
-    unsubscribe(callback: (arg: reloadFromCmdEvent) => void): void;
-    /**
-     * @remarks
-     * Trigger a callback from being called every reload from command.
-     * @throws This function can throw errors.
-     */
-    trigger(TickEvent): void;
-    protected constructor();
-}
-
-/**
- * An event for reloadFromCmd, that fires when reload from command.
- */
-export class reloadFromCmdEvent {
-}
-
-
-
-
-
 /**
  * xBoyMinemc
  * Manages callbacks that are connected to when an entity dead by hurt.
