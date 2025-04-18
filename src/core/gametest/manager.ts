@@ -3,7 +3,7 @@ import { register, type Test } from "@minecraft/server-gametest";
 
 const overworld = world.getDimension('overworld');
 
-export class TestManager {
+export class GameTestManager {
     private readonly maxTicks = 20 * 60 * 60 * 24 * 365;
     private _testLocation: Vector3 | undefined;
     private _test: Test | undefined;

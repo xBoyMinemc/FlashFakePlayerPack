@@ -5,11 +5,11 @@ import './features'
 import {playerReady} from "./features/events/player-ready";
 import './triggers'
 import { SimulatedPlayerManager } from './core/simulated-player';
-import { TestManager } from './core/test/manager';
+import { GameTestManager } from './core/gametest/manager';
 
 export const simulatedPlayerManager=new SimulatedPlayerManager();
 
-export const testManager = new TestManager()
+export const testManager = new GameTestManager()
 testManager.ready.then(test => {
     simulatedPlayerManager.test = test;
 });
