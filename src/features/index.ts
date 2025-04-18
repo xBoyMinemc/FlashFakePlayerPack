@@ -1,6 +1,6 @@
 export * from './help'
 export * from './chatSpawn'
-export * from './command'
+export * from './behaviors'
 export * from './breakBlock'
 export * from './youAreMine'
 export * from './task'
