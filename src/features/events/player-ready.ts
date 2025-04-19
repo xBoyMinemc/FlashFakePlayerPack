@@ -1,9 +1,8 @@
 import { type Player, system, world } from "@minecraft/server";
 import EventSignal from "../../core/event/signal";
-import type { playerReadyAfterEventSignal } from "../../@types/globalThis";
 
 // EventSignal
-export const playerReady: playerReadyAfterEventSignal = new EventSignal<undefined>();
+export const playerReady = new EventSignal();
 
 const playerViewYMap = new Map<Player, number>();
 
@@ -25,7 +24,7 @@ const update = (): void => {
 
         // update to Map && Event-trigger
         playerViewYMap.set(player, currentViewY);
-        playerReady.trigger(undefined);
+        playerReady.trigger();
 
         system.clearRun(id);
     });

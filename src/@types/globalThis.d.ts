@@ -51,9 +51,3 @@ export  class spawnedEventSignal {
     trigger(initializedEvent: spawnedEvent): void;
     // protected constructor();
 }
-
-export class playerReadyAfterEventSignal {
-    subscribe(undefined): void;
-    unsubscribe(undefined): void;
-    trigger(undefined): void;
-}
