@@ -1,5 +1,6 @@
 import { system, world } from "@minecraft/server";
-import { commandManager, getLocationFromEntityLike, cannotHandledExceptionWarningText, CommandError } from "../core/command";
+import { commandManager, getLocationFromEntityLike, CommandError } from "../core/command";
+import { Messages } from "../constants/messages";
 
 world.beforeEvents.chatSend.subscribe(({message, sender}) => {
     system.run(() => {
@@ -12,7 +13,7 @@ world.beforeEvents.chatSend.subscribe(({message, sender}) => {
         } catch (e) {
             if (!(e instanceof CommandError)) {
                 console.error(e);
-                world.sendMessage(cannotHandledExceptionWarningText);
+                world.sendMessage(Messages.UNHANDLED_EXCEPTION);
             }
         }
     });

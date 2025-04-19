@@ -8,9 +8,9 @@ import {
 import {
     commandManager,
     CommandNotFoundError,
-    type CommandInfoNoArgs,
-    cannotHandledExceptionWarningText
+    type CommandInfoNoArgs
 } from "../core/command";
+import { Messages } from "../constants/messages";
 
 const namespaces = ['ffp'];
 
@@ -78,6 +78,6 @@ system.afterEvents.scriptEventReceive.subscribe(e => {
         if (e instanceof CommandNotFoundError)
             commandInfoNoArgs?.entity?.sendMessage(`[模拟玩家] 命令错误，找不到命令: ${e.commandName}`);
         else
-            commandInfoNoArgs?.entity?.sendMessage(cannotHandledExceptionWarningText);
+            commandInfoNoArgs?.entity?.sendMessage(Messages.UNHANDLED_EXCEPTION);
     }
 }, { namespaces });
