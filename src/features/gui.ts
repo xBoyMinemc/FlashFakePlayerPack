@@ -6,10 +6,10 @@ import SIGN, {
     exeBehavior,
     SIGN_TAG_LIST,
     SIGN_ZH
-} from '../constants/YumeSignEnum'
+} from '@/constants/YumeSignEnum'
 import { ActionFormData } from '@minecraft/server-ui'
 import { SimulatedPlayer } from '@minecraft/server-gametest'
-import { simulatedPlayerManager } from '../main'
+import { simulatedPlayerManager } from '@/main'
 
 // world.afterEvents.entityHitEntity.subscribe(({damagingEntity,hitEntity})=>{
 //     if(!damagingEntity || !hitEntity)return;

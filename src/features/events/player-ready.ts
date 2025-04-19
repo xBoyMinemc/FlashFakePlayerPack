@@ -1,5 +1,5 @@
 import { type Player, system, world } from "@minecraft/server";
-import EventSignal from "../../core/event/signal";
+import EventSignal from "@/core/event/signal";
 
 // EventSignal
 export const playerReady = new EventSignal();

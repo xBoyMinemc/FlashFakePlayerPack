@@ -1,6 +1,6 @@
 import type { SimulatedPlayer } from '@minecraft/server-gametest'
-import { getSimPlayer } from '../../../core/queries/Util'
-import { commandManager, getLocationFromEntityLike } from '../../../core/command';
+import { getSimPlayer } from '@/core/queries/Util'
+import { commandManager, getLocationFromEntityLike } from '@/core/command';
 import {
     EntityEquippableComponent,
     EntityInventoryComponent,
@@ -8,9 +8,9 @@ import {
     TicksPerSecond,
     world
 } from '@minecraft/server'
-import { simulatedPlayerManager } from '../../../main';
-import type { PID } from '../../../core/pid';
-import { dimensionMap } from '../../../constants/dimensions';
+import { simulatedPlayerManager } from '@/main';
+import type { PID } from '@/core/pid';
+import { dimensionMap } from '@/constants/dimensions';
 
 // 后面还要重构一遍
 // const commandName1 = '假人背包交换'

@@ -1,5 +1,5 @@
 import { EntityDamageCause, world, type Player } from '@minecraft/server';
-import { simulatedPlayerManager } from '../main';
+import { simulatedPlayerManager } from '@/main';
 
 world.afterEvents.entityDie.subscribe(({ damageSource: { cause, damagingEntity }, deadEntity }) => {
     if (cause !== EntityDamageCause.entityAttack) return;

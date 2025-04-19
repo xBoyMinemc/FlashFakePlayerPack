@@ -19,5 +19,10 @@ module.exports = {
     },
     plugins: [
         new CleanWebpackPlugin()
-    ]
+    ],
+    resolve: {
+        alias: {
+            '@': __dirname + '/scripts_yeah',
+        }
+    }
 };

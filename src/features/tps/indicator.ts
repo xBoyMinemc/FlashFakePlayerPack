@@ -1,6 +1,6 @@
 import { world } from "@minecraft/server";
-import { TPSMonitor } from "../../core/tps";
-import { commandManager } from "../../core/command";
+import { TPSMonitor } from "@/core/tps";
+import { commandManager } from "@/core/command";
 import { playerReady } from "../events/player-ready";
 
 const TPS_TAG = 'tps';
