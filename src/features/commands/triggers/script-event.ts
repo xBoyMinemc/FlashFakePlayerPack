@@ -9,8 +9,8 @@ import {
     commandManager,
     CommandNotFoundError,
     type CommandInfoNoArgs
-} from "../core/command";
-import { Messages } from "../constants/messages";
+} from "../../../core/command";
+import { Messages } from "../../../constants/messages";
 
 const namespaces = ['ffp'];
 

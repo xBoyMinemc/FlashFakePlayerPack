@@ -1,9 +1,9 @@
-import { simulatedPlayerManager } from '../main';
-import { type CommandInfo, commandManager, Command } from '../core/command'
+import { simulatedPlayerManager } from '../../../main';
+import { type CommandInfo, commandManager, Command } from '../../../core/command'
 import { Dimension, LocationOutOfWorldBoundariesError, Vector3, world, type Player } from '@minecraft/server'
-import {parseCoordinates} from "../utils/parse-coordinates";
-import { NotReadyError } from '../core/simulated-player';
-import { dimensions } from '../constants/dimensions';
+import {parseCoordinates} from "../../../utils/parse-coordinates";
+import { NotReadyError } from '../../../core/simulated-player';
+import { dimensions } from '../../../constants/dimensions';
 
 const overworld = world.getDimension("overworld");
 
