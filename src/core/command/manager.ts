@@ -1,6 +1,5 @@
-import type { Command } from "./command";
 import { InvalidInputError, CommandAlreadyExistsError, CommandNotFoundError } from "./errors";
-import type { CommandInfoNoArgs } from "./types";
+import type { Executable, CommandHandler, CommandInfoNoArgs } from "./types";
 
 export function parseCommandString(input: string): { prefix: string; args: string[]; } {
     const regex = /"([^"]*)"|'([^']*)'|(\S+)/g; // 正则匹配所有单词或引号内的文本
@@ -50,13 +49,13 @@ export function parseCommandString(input: string): { prefix: string; args: strin
  */
 class CommandManager {
     private parseCommandString = parseCommandString;
-    private commandMap = new Map<string, Command>();
+    private commandMap = new Map<string, CommandHandler>();
 
     /**
      * 注册命令实例。
      * 
      * @param prefixes - 触发该命令的前缀字符串或字符串数组。
-     * @param command - 要注册的命令对象。
+     * @param command - 要注册的命令对象或函数。
      * 
      * @throws {CommandAlreadyExistsError} 当给定的前缀已被注册时会抛出错误。
      * 
@@ -65,15 +64,24 @@ class CommandManager {
      * registerCommand(['假人生成', '假人创建'], spawn);
      * ```
      */
-    registerCommand(prefixes: string | string[], command: Command): void {
+    registerCommand(prefixes: string | string[], command: Executable | CommandHandler): void {
         const prefixesArray = (Array.isArray(prefixes) ? prefixes : [prefixes])
             .map(prefix => prefix.toLowerCase());
 
+        let commandHandler: CommandHandler;
+
+        if (typeof command === 'function')
+            commandHandler = command;
+        else if (typeof command.execute === 'function')
+            commandHandler = command.execute.bind(command);
+        else
+            throw new Error('Command must be a function or an object conforming to Executable interface.');
+
         for (const prefix of prefixesArray) {
-            if (this.commandMap.has(prefix)) {
+            if (this.commandMap.has(prefix))
                 throw new CommandAlreadyExistsError(prefix);
-            }
-            this.commandMap.set(prefix, command);
+
+            this.commandMap.set(prefix, commandHandler);
         }
     }
 
@@ -114,7 +122,7 @@ class CommandManager {
         // 都有?.了你还用&&
         commandInfoNoArgs?.entity?.playSound?.('note.bell');
 
-        command.execute({ prefix, args, ...commandInfoNoArgs });
+        command({ prefix, args, ...commandInfoNoArgs });
     }
 
     /**

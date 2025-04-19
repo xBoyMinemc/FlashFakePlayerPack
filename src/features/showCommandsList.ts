@@ -1,7 +1,5 @@
-import { Command, commandManager } from "../core/command";
+import { commandManager } from "../core/command";
 
-const listCommands = new Command();
-listCommands.register(({ entity }) => {
+commandManager.registerCommand(['showshowway', '假人命令列表'], ({ entity }) => {
     entity?.sendMessage(commandManager.listRegisteredPrefixes().join('\n'));
 });
-commandManager.registerCommand(['showshowway', '假人命令列表'], listCommands);

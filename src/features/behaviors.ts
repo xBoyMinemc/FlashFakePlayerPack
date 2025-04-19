@@ -1,6 +1,6 @@
 import SIGN from '../constants/YumeSignEnum';
 import { getSimPlayer } from '../core/queries/Util';
-import { Command, commandManager } from '../core/command';
+import { commandManager } from '../core/command';
 
 interface BehaviorCommandConfig {
     behavior: string;
@@ -71,11 +71,9 @@ const behaviorCommandConfigs: BehaviorCommandConfig[] = [
 
 const behaviorPrefix = '假人';
 
-// HACK: 兼容 v8 的命令形式，需要考虑优化方式
 const registerBehaviorCommands = () => {
     behaviorCommandConfigs.forEach(behaviorCommand => {
-        const command = new Command();
-        command.register(({ entity }) => {
+        commandManager.registerCommand(`${behaviorPrefix}${behaviorCommand.behavior}`, ({ entity }) => {
             if (!entity) return;
             const simulatedPlayer = getSimPlayer.fromView(entity);
             if (!simulatedPlayer) return;
@@ -89,7 +87,6 @@ const registerBehaviorCommands = () => {
                 simulatedPlayer.removeTag(tag);
             });
         });
-        commandManager.registerCommand(`${behaviorPrefix}${behaviorCommand.behavior}`, command);
     });
 };
 

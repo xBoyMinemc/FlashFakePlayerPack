@@ -1,6 +1,6 @@
 import type { SimulatedPlayer } from '@minecraft/server-gametest'
 import { getSimPlayer } from '../core/queries/Util'
-import { Command, commandManager, getLocationFromEntityLike } from '../core/command';
+import { commandManager, getLocationFromEntityLike } from '../core/command';
 import {
     EntityEquippableComponent,
     EntityInventoryComponent,
@@ -29,8 +29,7 @@ const dimensionMap: Record<string, string> = {
 
 // swapMainhandItem
 // commandRegistry.registerAlias('swapInventory','假人主手物品交换')
-const mainhandItemSwapCommand = new Command();
-mainhandItemSwapCommand.register(({entity,sim}) => {
+commandManager.registerCommand('假人主手物品交换', ({entity,sim}) => {
 
     const SimPlayer:SimulatedPlayer = sim || getSimPlayer.fromView(entity)
 
@@ -43,13 +42,11 @@ mainhandItemSwapCommand.register(({entity,sim}) => {
     s.setEquipment(<EquipmentSlot>i, __)
     p.setEquipment(<EquipmentSlot>i, _)
 });
-commandManager.registerCommand('假人主手物品交换', mainhandItemSwapCommand);
 
 
 // swapOffhandItem
 // commandRegistry.registerAlias('swapInventory','假人副手物品交换')
-const offhandItemSwapCommand = new Command();
-offhandItemSwapCommand.register(({entity,sim}) => {
+commandManager.registerCommand('假人副手物品交换', ({entity,sim}) => {
 
     const SimPlayer:SimulatedPlayer = sim || getSimPlayer.fromView(entity)
 
@@ -62,13 +59,11 @@ offhandItemSwapCommand.register(({entity,sim}) => {
     s.setEquipment(<EquipmentSlot>i, __)
     p.setEquipment(<EquipmentSlot>i, _)
 });
-commandManager.registerCommand('假人副手物品交换', offhandItemSwapCommand);
 
 
 // swapInventory
 // commandRegistry.registerAlias('swapInventory','假人背包交换')
-const inventorySwapCommand = new Command();
-inventorySwapCommand.register(({entity,isEntity,sim}) => {
+commandManager.registerCommand(['假人背包交换','假人交换背包'], ({entity,isEntity,sim}) => {
     if(!isEntity && !sim)return
     const SimPlayer:SimulatedPlayer = sim || getSimPlayer.fromView(entity)
     if(!SimPlayer)return
@@ -93,13 +88,11 @@ inventorySwapCommand.register(({entity,isEntity,sim}) => {
     ) ;
 
 });
-commandManager.registerCommand(['假人背包交换','假人交换背包'], inventorySwapCommand);
 
 
 // swapEquipment
 // commandRegistry.registerAlias('swapEquipment','假人装备交换')
-const equipmentSwapCommand = new Command();
-equipmentSwapCommand.register(({entity,isEntity,sim}) => {
+commandManager.registerCommand(['假人装备交换','假人交换装备'], ({entity,isEntity,sim}) => {
     const SimPlayer:SimulatedPlayer = sim || getSimPlayer.fromView(entity)
     if(!isEntity && !sim)return
 
@@ -116,12 +109,10 @@ equipmentSwapCommand.register(({entity,isEntity,sim}) => {
         p.setEquipment(<EquipmentSlot>i, _) //set player item
     }
 });
-commandManager.registerCommand(['假人装备交换','假人交换装备'], equipmentSwapCommand);
 
 
 // recycle item and exp
-const returnResCommand = new Command();
-returnResCommand.register(({entity,isEntity,sim})=>{
+commandManager.registerCommand(['假人资源回收','假人背包清空','假人爆金币'], ({entity,isEntity,sim})=>{
     if(!isEntity && !sim) {
         console.error('error not isEntity')
         return
@@ -164,12 +155,10 @@ returnResCommand.register(({entity,isEntity,sim})=>{
         entity.playSound('random.levelup');
     }
 });
-commandManager.registerCommand(['假人资源回收','假人背包清空','假人爆金币'], returnResCommand);
 
 
 // disconnect
-const disconnectCommand = new Command();
-disconnectCommand.register(({entity,isEntity,args:[simIndex],sim}) => {
+commandManager.registerCommand(['假人销毁','假人移除','假人清除'], ({entity,isEntity,args:[simIndex],sim}) => {
     if(sim)return simulatedPlayerManager.remove(sim);
 
     if(!isEntity) {
@@ -199,11 +188,10 @@ disconnectCommand.register(({entity,isEntity,args:[simIndex],sim}) => {
     }
 
 });
-commandManager.registerCommand(['假人销毁','假人移除','假人清除'], disconnectCommand);
 
 // respawn
-const respawnCommand = new Command();
-respawnCommand.register(({entity,isEntity,args:[simIndex]}) => {
+commandManager.registerCommand(['假人重生', '假人复活', '复活吧，我的爱人', '复活吧！我的爱人', '复活吧!我的爱人', '复活吧我的爱人'],
+    ({ entity, isEntity, args: [simIndex] }) => {
 
     if (!isEntity && simIndex === undefined) {
         console.error('error not isEntity')
@@ -234,12 +222,10 @@ respawnCommand.register(({entity,isEntity,args:[simIndex]}) => {
     }
 
 });
-commandManager.registerCommand(['假人重生', '假人复活', '复活吧，我的爱人', '复活吧！我的爱人', '复活吧!我的爱人', '复活吧我的爱人'], respawnCommand);
 
 
 // time
-const timeCommand = new Command();
-timeCommand.register(({entity}) => {
+commandManager.registerCommand(['假人时区', '假人时间'], ({entity}) => {
     // entity.sendMessage(''+Intl.DateTimeFormat().resolvedOptions().timeZone)
 
     const now = new Date()
@@ -251,11 +237,9 @@ timeCommand.register(({entity}) => {
     entity.sendMessage(`UTC偏移量：${offsetHours} 小时`)
     entity.sendMessage(`TicksPerSecond：${TicksPerSecond}`)
 });
-commandManager.registerCommand(['假人时区', '假人时间'], timeCommand);
 
 // List
-const listCommand = new Command();
-listCommand.register(({entity}) => {
+commandManager.registerCommand('假人列表', ({entity}) => {
     let target = entity ?? world;
     if (simulatedPlayerManager.simulatedPlayers.size === 0) return target.sendMessage('列表空的');
     for (const [index, simulatedPlayer] of simulatedPlayerManager.simulatedPlayers) {
@@ -263,11 +247,9 @@ listCommand.register(({entity}) => {
         target.sendMessage(message);
     }
 });
-commandManager.registerCommand('假人列表', listCommand);
 
 // rename
-const renameCommand = new Command();
-renameCommand.register(({entity,isEntity,args:[newName]}) => {
+commandManager.registerCommand(['假人改名', '假人重命名', '假人换名'], ({entity,isEntity,args:[newName]}) => {
     if(!isEntity) {
         console.error('error not isEntity')
         return
@@ -283,12 +265,10 @@ renameCommand.register(({entity,isEntity,args:[newName]}) => {
     SimPlayer.nameTag = newName;
     entity.sendMessage("§e§l-改名成功")
 });
-commandManager.registerCommand(['假人改名', '假人重命名', '假人换名'], renameCommand);
 
 
 // location
-const locationCommand = new Command();
-locationCommand.register(({ entity, isEntity, args: [simIndex] }) => {
+commandManager.registerCommand(['假人位置', '假人坐标'], ({ entity, isEntity, args: [simIndex] }) => {
     if (!isEntity && simIndex === undefined) {
         console.error('error not isEntity');
         return;
@@ -312,7 +292,6 @@ locationCommand.register(({ entity, isEntity, args: [simIndex] }) => {
     const { x, y, z } = simulatedPlayer.location;
     entity.sendMessage(`§e§l${simulatedPlayer.name} 位于 ${dimensionMap[simulatedPlayer.dimension.id] ?? simulatedPlayer.dimension.id}(${x.toFixed(2)}, ${y.toFixed(2)}, ${z.toFixed(2)})`);
 });
-commandManager.registerCommand(['假人位置', '假人坐标'], locationCommand);
 // 你懂的~
 // youAreMine
 // ~
