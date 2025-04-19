@@ -3,6 +3,7 @@ import { type CommandInfo, commandManager, Command } from '../core/command'
 import { Dimension, LocationOutOfWorldBoundariesError, Vector3, world, type Player } from '@minecraft/server'
 import {parseCoordinates} from "../utils/parse-coordinates";
 import { NotReadyError } from '../core/simulated-player';
+import { dimensions } from '../constants/dimensions';
 
 const overworld = world.getDimension("overworld");
 
@@ -77,7 +78,7 @@ chatSpawnCommand.register(
         let dimension: Dimension;
         if (targetDimension) {
             try {
-                dimension = world.getDimension(['overworld', 'nether', 'the end'][Number(targetDimension)]);
+                dimension = world.getDimension(dimensions[Number(targetDimension)]);
             } catch (e) {
                 return entity?.sendMessage('[模拟玩家] 命令错误，期待序号作为维度 (0-主世界 1-下界 2-末地) 却得到 ' + targetDimension);
             }

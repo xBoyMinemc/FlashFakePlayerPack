@@ -10,12 +10,8 @@ import {
 } from '@minecraft/server'
 import { simulatedPlayerManager } from '../main';
 import type { PID } from '../core/pid';
+import { dimensionMap } from '../constants/dimensions';
 
-const dimensionMap: Record<string, string> = {
-    'minecraft:overworld': '主世界',
-    'minecraft:nether': '下界',
-    'minecraft:the_end': '末地'
-};
 // 后面还要重构一遍
 // const commandName1 = '假人背包交换'
 // const commandName2 = '假人装备交换'
