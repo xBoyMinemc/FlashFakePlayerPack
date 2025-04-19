@@ -3,7 +3,7 @@ import type {
     DimensionLocation,
     Vector3
 } from "@minecraft/server";
-import type { Executable, CommandInfo, CommandHandler } from "./types";
+import type { Executable, CommandInfo, CommandCondition, CommandHandler } from "./types";
 
 /**
  * 解析命令字符串。
@@ -30,7 +30,7 @@ export const internalExceptionWarningText = '[模拟玩家] 出现内部异常�
 export const cannotHandledExceptionWarningText = '[模拟玩家] 出现不可处理的内部异常，请在GitHub进行反馈';
 
 export class Command implements Executable {
-    private conditionsHandlers = new Map<(cmdInfo: CommandInfo) => boolean, CommandHandler[]>();
+    private conditionsHandlers = new Map<CommandCondition, CommandHandler[]>();
 
     /**
      * 注册命令处理回调。
@@ -46,11 +46,11 @@ export class Command implements Executable {
      * @param condition 条件回调，接受命令信息对象，返回一个布尔值，仅当返回布尔值为 true 时才会执行对应的 handler。
      * @param handler 命令处理回调，接受命令信息对象。
      */
-    register(condition: (commandInfo: CommandInfo) => boolean, handler: CommandHandler): void;
-    register(conditionOrHandler: (commandInfo: CommandInfo) => any, handler?: CommandHandler): void {
-        let condition: (commandInfo: CommandInfo) => boolean;
+    register(condition: CommandCondition, handler: CommandHandler): void;
+    register(conditionOrHandler: CommandCondition | CommandHandler, handler?: CommandHandler): void {
+        let condition: CommandCondition;
         if (handler)
-            condition = conditionOrHandler;
+            condition = conditionOrHandler as CommandCondition;
         else {
             handler = conditionOrHandler;
 
