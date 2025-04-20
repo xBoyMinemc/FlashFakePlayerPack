@@ -8,7 +8,7 @@ class GameTestManager {
     private _testLocation: Vector3 | undefined;
     private _test: Test | undefined;
 
-    private _resolve: ((value: Test | PromiseLike<Test>) => void) | undefined;
+    private _resolve!: ((value: Test | PromiseLike<Test>) => void);
     public readonly ready = new Promise<Test>(resolve => {
         this._resolve = resolve;
     });
@@ -35,7 +35,7 @@ class GameTestManager {
             world.gameRules.doMobSpawning = doMobSpawning;
 
             this._test = test;
-            this._resolve!(test);
+            this._resolve(test);
 
             console.log('[模拟玩家] 初始化完成，输入“假人创建”或“ffpp”');
         })
