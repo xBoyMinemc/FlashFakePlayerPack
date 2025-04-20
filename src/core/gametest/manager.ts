@@ -36,8 +36,6 @@ class GameTestManager {
 
             this._test = test;
             this._resolve(test);
-
-            console.log('[模拟玩家] 初始化完成，输入“假人创建”或“ffpp”');
         })
             .maxTicks(this.maxTicks)
             .structureName('xboyMinemcSIM:void');

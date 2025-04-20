@@ -9,6 +9,7 @@ import { gameTestManager } from '@/core/gametest/manager';
 
 gameTestManager.ready.then(test => {
     simulatedPlayerManager.test = test;
+    console.log('[模拟玩家] 初始化完成，输入“假人创建”或“ffpp”');
 });
 gameTestManager.registerTest();
 
