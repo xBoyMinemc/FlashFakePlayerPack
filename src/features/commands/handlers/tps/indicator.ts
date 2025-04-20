@@ -5,7 +5,7 @@ import { playerReady } from "@/features/events/player-ready";
 
 const TPS_TAG = 'tps';
 
-const EVENTS: { subscribe: (...args: any) => void; }[] = [world.afterEvents.playerJoin, world.afterEvents.playerLeave, playerReady];
+const EVENTS: { subscribe: (...args: any) => void; }[] = [world.afterEvents.playerSpawn, world.afterEvents.playerLeave, playerReady];
 
 const tpsMonitor = new TPSMonitor();
 
