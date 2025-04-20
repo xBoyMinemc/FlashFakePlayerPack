@@ -1,4 +1,4 @@
-import { Player, system, world } from '@minecraft/server'
+import { system, world } from '@minecraft/server'
 import SIGN, {
     BEHAVIOR,
     BEHAVIOR_LIST,
@@ -24,7 +24,7 @@ world.beforeEvents.playerInteractWithEntity.subscribe(e=>{
     const {player,target} = e
     if(!player || player.typeId!=='minecraft:player')return
     if(!target || !simulatedPlayerManager.has(target))return// world.sendMessage('meow~ target');
-    const SimPlayer = <SimulatedPlayer><unknown>target // what's unknow?
+    const SimPlayer = <SimulatedPlayer>target // what's unknow?
     if(!SimPlayer)return
     e.cancel=true
 
@@ -36,8 +36,7 @@ world.beforeEvents.playerInteractWithEntity.subscribe(e=>{
             mng.button((SimPlayer.hasTag(signKey)?'§l§e':'§l§1') + SIGN_ZH[SIGN[signKey]])
             // world.sendMessage('#tag=>'+signKey);
         }
-        // @ts-ignore
-        mng.show(<Player>player).then((response) => {
+        mng.show(player).then((response) => {
             const tag = SIGN_TAG_LIST[response.selection]
             SimPlayer.hasTag(tag)?SimPlayer.removeTag(tag):SimPlayer.addTag(tag)
         },()=>0).catch(()=>0)
@@ -51,8 +50,7 @@ world.beforeEvents.playerInteractWithEntity.subscribe(e=>{
         for (const behavior of BEHAVIOR_LIST)
             mng.button((SimPlayer.hasTag(behavior)?'§l§e':'§l§1') + BEHAVIOR_ZH[BEHAVIOR[behavior]])
 
-        // @ts-ignore
-        mng.show(<Player>player).then((response) => {
+        mng.show(player).then((response) => {
             const behavior = BEHAVIOR_LIST[response.selection]
             exeBehavior(behavior)(SimPlayer,player)
         },()=>0).catch(()=>0)

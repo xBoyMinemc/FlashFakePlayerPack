@@ -51,9 +51,7 @@ export class SimulatedPlayerManager {
             simulatedPlayer.nameTag = nameTag;
         this.initialSigns.forEach(sign => simulatedPlayer.addTag(sign));
         try {
-            //@ts-ignore
             simulatedPlayer.setSpawnPoint({ ...location, dimension });
-            //@ts-ignore
             simulatedPlayer.teleport(location, { dimension });
         } catch (e) {
             simulatedPlayer.disconnect();

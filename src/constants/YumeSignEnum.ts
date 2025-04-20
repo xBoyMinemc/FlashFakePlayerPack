@@ -62,7 +62,6 @@ export enum  BEHAVIOR_ZH {
 }
 
 export const BEHAVIOR_FUNCTION = {
-    // @ts-ignore
     lookAtEntity : (sim:SimulatedPlayer,player:Player)=>sim.lookAtEntity(player,LookDuration.Instant),
     teleport : (sim:SimulatedPlayer,player:Player)=>sim.teleport(player.location),
     useAndStopUsingItem : (sim:SimulatedPlayer&Player)=>sim.useItemInSlot(sim.selectedSlotIndex) && sim.stopUsingItem(),
@@ -75,7 +74,7 @@ export const BEHAVIOR_FUNCTION = {
     rename: async (sim: SimulatedPlayer, player: Player) => {
         const modalForm = new ModalFormData().title("假人改名");
         modalForm.textField(`由 "${sim.nameTag}" 改为：`, '输入新名称', sim.nameTag);
-        const { canceled, formValues } = await modalForm.show(<any>player);
+        const { canceled, formValues } = await modalForm.show(player);
         if (canceled) return;
 
         sim.nameTag = <string>formValues[0];

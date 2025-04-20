@@ -26,7 +26,7 @@ commandManager.registerCommand(['假人挖掘', '假人摧毁'], breakBlockComma
 // task
 const breaks = () =>
     world.getPlayers({ tags: [SIGN.AUTO_BREAKBLOCK_SIGN] }).forEach(async SimPlayer => {
-        const man = <SimulatedPlayer><unknown>SimPlayer;
+        const man = <SimulatedPlayer>SimPlayer;
         const block = man.getBlockFromViewDirection({ maxDistance: 6 })?.block;
         if (!block) return;
 

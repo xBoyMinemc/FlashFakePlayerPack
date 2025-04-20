@@ -6,19 +6,17 @@ import type { EntityHealthComponent, Vector3 } from '@minecraft/server'
 import { system, world } from '@minecraft/server'
 import { getEntitiesNear, getPlayerNear } from '@/core/queries/Util'
 
-// @ts-ignore
 const simulatedPlayerStates : ({ "str-SimPlayer.id": { o: Vector3 }}) = {}
 
 const Vector_subtract = ({x,y,z}:Vector3, {x:u,y:v,z:w}:Vector3)=>({x:x-u,y:y-v,z:z-w})
 // behavior
 function AUTO_BEHAVIOR(){
 
-    const AllPlayerCount = world.getAllPlayers().length
     for (const [pid, simulatedPlayer] of simulatedPlayerManager.simulatedPlayers) {
         // world.sendMessage(SimPlayer.nameTag)
         //判假人是否存活
         //瞎糊乱改接口名--2023-07-21-02：02
-        if((<EntityHealthComponent>simulatedPlayer.getComponent('minecraft:health')).currentValue<=0){
+        if((simulatedPlayer.getComponent('minecraft:health')).currentValue<=0){
             if(simulatedPlayer.hasTag(SIGN.AUTO_RESPAWN_SIGN))simulatedPlayer.respawn()
                 
             continue
@@ -72,7 +70,6 @@ function AUTO_BEHAVIOR(){
     }
 
     // /gamerule playerssleepingpercentage 50%
-    // SimulatedPlayerCount && world.getDimension('minecraft:overworld').runCommand('gamerule playerssleepingpercentage '+Math.floor(100*SimulatedPlayerCount/AllPlayerCount))
 }
 
 system.runInterval(AUTO_BEHAVIOR,20)
