@@ -3,7 +3,6 @@ import { world } from '@minecraft/server'
 import '@/features'
 
 import {playerReady} from "@/features/events/player-ready";
-import '@/features/commands/triggers'
 import { SimulatedPlayerManager } from '@/core/simulated-player';
 import { GameTestManager } from '@/core/gametest/manager';
 
