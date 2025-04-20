@@ -1,7 +1,8 @@
 import { InvalidInputError } from "./errors";
 
+const regex = /"([^"]*)"|'([^']*)'|(\S+)/g; // 正则匹配所有单词或引号内的文本
+
 export function parseCommandString(input: string): { prefix: string; args: string[]; } {
-    const regex = /"([^"]*)"|'([^']*)'|(\S+)/g; // 正则匹配所有单词或引号内的文本
     const parts = [];
     let match: RegExpMatchArray | null;
 
