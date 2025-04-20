@@ -1,18 +1,20 @@
 {
   "private": true,
   "scripts": {
-    "dev": "cd . && tsc -w -outDir ./scripts/",
-    "webpackTest": "cd . && tsc && webpack",
-    "build": "cd . && tsc && webpack && node packer.js"
+    "dev": "cd . && webpack --watch",
+    "webpackTest": "cd . && webpack",
+    "build": "cd . && webpack && node packer.js"
   },
   "devDependencies": {
     "@minecraft/server": "2.0.0-beta.1.21.80-preview.22",
     "@minecraft/server-gametest": "1.0.0-beta.1.21.40-preview.25",
     "@minecraft/server-ui": "2.0.0-beta.1.21.80-preview.22",
+    "archiver": "latest",
     "clean-webpack-plugin": "^4.0.0",
+    "ts-loader": "^9.5.2",
+    "tsconfig-paths-webpack-plugin": "^4.2.0",
     "typescript": "^5.6.3",
     "webpack": "^5.95.0",
-    "webpack-cli": "^5.1.4",
-    "archiver": "latest"
+    "webpack-cli": "^5.1.4"
   }
 }

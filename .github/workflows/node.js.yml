@@ -28,7 +28,6 @@ jobs:
 
       - name: Build
         run: |
-          tsc
           webpack
           echo "filepath=$(node packer.js --print-filepath-only)" >> $GITHUB_ENV
         timeout-minutes: 1
