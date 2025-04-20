@@ -7,7 +7,7 @@
   },
   "devDependencies": {
     "@minecraft/server": "2.0.0-beta.1.21.70-stable",
-    "@minecraft/server-gametest": "1.0.0-beta.1.21.40-preview.25",
+    "@minecraft/server-gametest": "1.0.0-beta.1.21.70-stable",
     "@minecraft/server-ui": "2.0.0-beta.1.21.70-stable",
     "archiver": "latest",
     "clean-webpack-plugin": "^4.0.0",
