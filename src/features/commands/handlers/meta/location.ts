@@ -2,7 +2,7 @@ import { dimensionMap } from "@/constants/dimensions";
 import { commandManager } from "@/core/command";
 import type { PID } from "@/core/pid";
 import { getSimPlayer } from "@/core/queries/Util";
-import { simulatedPlayerManager } from "@/main";
+import { simulatedPlayerManager } from '@/core/simulated-player';
 import type { SimulatedPlayer } from "@minecraft/server-gametest";
 
 commandManager.registerCommand(['假人位置', '假人坐标'], ({ entity, isEntity, args: [simIndex] }) => {

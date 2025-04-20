@@ -1,4 +1,4 @@
-import { simulatedPlayerManager } from '@/main';
+import { simulatedPlayerManager } from '@/core/simulated-player';
 import { type CommandInfo, commandManager, Command } from '@/core/command'
 import { Dimension, LocationOutOfWorldBoundariesError, Vector3, world, type Player } from '@minecraft/server'
 import {parseCoordinates} from "@/utils/parse-coordinates";

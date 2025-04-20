@@ -1,5 +1,5 @@
 import { commandManager } from '@/core/command'
-import { simulatedPlayerManager } from '@/main';
+import { simulatedPlayerManager } from '@/core/simulated-player';
 
 commandManager.registerCommand(['假人重置序号', '假人编号重置', '假人序号重置', '假人重置编号'], ({ entity }) => {
     const PID = simulatedPlayerManager.resetPID()

@@ -5,7 +5,7 @@ import { SimulatedPlayerNotFoundError, NotReadyError } from "./errors";
 import type { Entity } from "@minecraft/server";
 import type { AddSimulatedPlayerOptions, SpawnSimulatedPlayerOptions } from "./types";
 
-export class SimulatedPlayerManager {
+class SimulatedPlayerManager {
     private readonly initialSigns = [
         SIGN.YUME_SIM_SIGN,
         SIGN.AUTO_RESPAWN_SIGN
@@ -128,3 +128,5 @@ export class SimulatedPlayerManager {
         return this.pidManager.reset();
     }
 }
+
+export const simulatedPlayerManager = new SimulatedPlayerManager();

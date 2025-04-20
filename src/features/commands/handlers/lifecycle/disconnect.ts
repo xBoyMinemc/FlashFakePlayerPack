@@ -1,7 +1,7 @@
 import { commandManager, getLocationFromEntityLike } from "@/core/command";
 import type { PID } from "@/core/pid";
 import { getSimPlayer } from "@/core/queries/Util";
-import { simulatedPlayerManager } from "@/main";
+import { simulatedPlayerManager } from '@/core/simulated-player';
 import type { SimulatedPlayer } from "@minecraft/server-gametest";
 
 commandManager.registerCommand(['假人销毁','假人移除','假人清除'], ({entity,isEntity,args:[simIndex],sim}) => {

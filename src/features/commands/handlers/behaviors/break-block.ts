@@ -4,7 +4,7 @@ import { Command, commandManager } from '@/core/command';
 import { getSimPlayer } from '@/core/queries/Util';
 import { world, system } from "@minecraft/server";
 import SIGN from "@/constants/YumeSignEnum";
-import { testManager } from '@/main';
+import { gameTestManager } from '@/core/gametest/manager';
 
 const breakBlockCommand = new Command();
 breakBlockCommand.register(({ args }) => args.length === 0, ({ entity, isEntity }) => {
@@ -31,7 +31,7 @@ const breaks = () =>
         if (!block) return;
 
         if (block.isValid && !block.isLiquid && !block.isAir) {
-            man.breakBlock(testManager.test.relativeBlockLocation(block));
+            man.breakBlock(gameTestManager.test.relativeBlockLocation(block));
         }
     });
 

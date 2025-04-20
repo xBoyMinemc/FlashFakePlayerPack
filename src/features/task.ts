@@ -1,10 +1,11 @@
 //@ts-nocheck
 import type { SimulatedPlayer } from '@minecraft/server-gametest'
-import {simulatedPlayerManager, testManager} from '@/main'
 import SIGN from '@/constants/YumeSignEnum'
 import type { EntityHealthComponent, Vector3 } from '@minecraft/server'
 import { system, world } from '@minecraft/server'
 import { getEntitiesNear, getPlayerNear } from '@/core/queries/Util'
+import { simulatedPlayerManager } from '@/core/simulated-player';
+import { gameTestManager } from '@/core/gametest/manager';
 
 const simulatedPlayerStates : ({ "str-SimPlayer.id": { o: Vector3 }}) = {}
 
@@ -47,7 +48,7 @@ function AUTO_BEHAVIOR(){
             const r = (x:number,_x:number,v:number)=>x-_x>v||x-_x<-v
             const r3 = (o:Vector3,_o:Vector3,v:number)=>o.x-_o.x>v||o.x-_o.x<-v || o.y-_o.y>v||o.y-_o.y<-v || o.z-_o.z>v||o.z-_o.z<-v
             // const fix = (o:Vector3)=>({x:o.x-30000000+1,y:o.y,z:o.z-3})
-            const fix = (location:Vector3)=>Vector_subtract(location, testManager.testLocation)
+            const fix = (location:Vector3)=>Vector_subtract(location, gameTestManager.testLocation)
             // && r3(SimulatedPlayerStates[SimPlayer]["o"],SimPlayer.location,16)
             if(entities.length>0 ){
 

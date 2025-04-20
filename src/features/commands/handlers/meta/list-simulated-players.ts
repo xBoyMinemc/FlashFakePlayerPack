@@ -1,5 +1,5 @@
 import { commandManager } from "@/core/command";
-import { simulatedPlayerManager } from "@/main";
+import { simulatedPlayerManager } from '@/core/simulated-player';
 import { world } from "@minecraft/server";
 
 commandManager.registerCommand('假人列表', ({entity}) => {
