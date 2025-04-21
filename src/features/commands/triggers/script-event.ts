@@ -10,7 +10,7 @@ import {
     CommandNotFoundError,
     type CommandInfoNoArgs
 } from "@/core/command";
-import { Messages } from "@/constants/messages";
+import { Messages } from "@/constants";
 
 const namespaces = ['ffp'];
 

@@ -1,6 +1,6 @@
 type EventListener<T> = (event: T) => void;
 
-export default class EventSignal<T = void> {
+export class EventSignal<T = void> {
     listeners = new Set<EventListener<T>>();
     subscribe(listener: EventListener<T>): EventListener<T> {
         this.listeners.add(listener);

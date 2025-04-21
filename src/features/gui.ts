@@ -1,12 +1,12 @@
 import { system, world } from '@minecraft/server'
-import SIGN, {
+import { SIGN,
     BEHAVIOR,
     BEHAVIOR_LIST,
     BEHAVIOR_ZH,
     exeBehavior,
     SIGN_TAG_LIST,
     SIGN_ZH
-} from '@/constants/YumeSignEnum'
+} from '@/constants'
 import { ActionFormData } from '@minecraft/server-ui'
 import { SimulatedPlayer } from '@minecraft/server-gametest'
 import { simulatedPlayerManager } from '@/core/simulated-player';

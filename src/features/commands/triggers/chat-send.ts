@@ -1,6 +1,6 @@
 import { system, world } from "@minecraft/server";
 import { commandManager, getLocationFromEntityLike, CommandError } from "@/core/command";
-import { Messages } from "@/constants/messages";
+import { Messages } from "@/constants";
 
 world.beforeEvents.chatSend.subscribe(({message, sender}) => {
     system.run(() => {

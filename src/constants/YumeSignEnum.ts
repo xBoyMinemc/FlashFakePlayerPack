@@ -14,7 +14,6 @@ export  enum  SIGN {
     AUTO_RESPAWN_SIGN = 'AUTO_RESPAWN_SIGN',
     YUME_SIM_SIGN = 'YUME_SIM_SIGN',    //'#yumeSimSign#',
 }
-export  default SIGN
 
 export const SIGN_TAG_LIST:string[]  = Object.keys(SIGN)
 export enum  SIGN_ZH {

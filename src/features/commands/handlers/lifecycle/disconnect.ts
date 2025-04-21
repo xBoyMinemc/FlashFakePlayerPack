@@ -1,6 +1,6 @@
 import { commandManager, getLocationFromEntityLike } from "@/core/command";
 import type { PID } from "@/core/pid";
-import { getSimPlayer } from "@/core/queries/Util";
+import { getSimPlayer } from "@/core/queries";
 import { simulatedPlayerManager } from '@/core/simulated-player';
 import type { SimulatedPlayer } from "@minecraft/server-gametest";
 

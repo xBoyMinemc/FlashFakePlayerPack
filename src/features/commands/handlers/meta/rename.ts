@@ -1,5 +1,5 @@
 import { commandManager } from "@/core/command";
-import { getSimPlayer } from "@/core/queries/Util";
+import { getSimPlayer } from "@/core/queries";
 import type { SimulatedPlayer } from "@minecraft/server-gametest";
 
 commandManager.registerCommand(['假人改名', '假人重命名', '假人换名'], ({entity,isEntity,args:[newName]}) => {

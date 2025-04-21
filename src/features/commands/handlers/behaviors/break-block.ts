@@ -1,10 +1,10 @@
 import type { SimulatedPlayer } from '@minecraft/server-gametest';
 
 import { Command, commandManager } from '@/core/command';
-import { getSimPlayer } from '@/core/queries/Util';
+import { getSimPlayer } from '@/core/queries';
 import { world, system } from "@minecraft/server";
-import SIGN from "@/constants/YumeSignEnum";
-import { gameTestManager } from '@/core/gametest/manager';
+import { SIGN } from "@/constants";
+import { gameTestManager } from '@/core/gametest';
 
 const breakBlockCommand = new Command();
 breakBlockCommand.register(({ args }) => args.length === 0, ({ entity, isEntity }) => {

@@ -1,5 +1,5 @@
-import SIGN from '@/constants/YumeSignEnum';
-import { getSimPlayer } from '@/core/queries/Util';
+import { SIGN } from '@/constants';
+import { getSimPlayer } from '@/core/queries';
 import { commandManager } from '@/core/command';
 
 interface BehaviorCommandConfig {

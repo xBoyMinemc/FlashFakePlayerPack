@@ -1,11 +1,11 @@
 //@ts-nocheck
 import type { SimulatedPlayer } from '@minecraft/server-gametest'
-import SIGN from '@/constants/YumeSignEnum'
+import { SIGN } from '@/constants'
 import type { EntityHealthComponent, Vector3 } from '@minecraft/server'
 import { system, world } from '@minecraft/server'
-import { getEntitiesNear, getPlayerNear } from '@/core/queries/Util'
+import { getEntitiesNear, getPlayerNear } from '@/core/queries'
 import { simulatedPlayerManager } from '@/core/simulated-player';
-import { gameTestManager } from '@/core/gametest/manager';
+import { gameTestManager } from '@/core/gametest';
 
 const simulatedPlayerStates : ({ "str-SimPlayer.id": { o: Vector3 }}) = {}
 

@@ -1,5 +1,5 @@
 import { system } from "@minecraft/server";
-import EventSignal from "../event/signal";
+import { EventSignal } from "../event";
 import type { TPSUpdateEvent } from "./types";
 
 export class TPSMonitor {

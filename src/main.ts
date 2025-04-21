@@ -2,9 +2,9 @@ import { world } from '@minecraft/server'
 
 import '@/features'
 
-import {playerReady} from "@/features/events/player-ready";
+import {playerReady} from "@/features/events";
 import { simulatedPlayerManager } from '@/core/simulated-player';
-import { gameTestManager } from '@/core/gametest/manager';
+import { gameTestManager } from '@/core/gametest';
 
 
 gameTestManager.ready.then(test => {
