@@ -138,11 +138,14 @@ class CommandManager {
     }
 
     /**
-     * 获取已注册的所有命令前缀。
+     * 已注册的所有命令前缀。
      * 
-     * @returns 返回一个字符串数组，包含所有已注册的命令前缀。
+     * @example
+     * ```typescript
+     * console.log(commandManager.prefixes); // ['假人生成', '假人创建']
+     * ```
      */
-    list(): string[] {
+    get prefixes(): string[] {
         return Array.from(this.commandMap.keys());
     }
 }
