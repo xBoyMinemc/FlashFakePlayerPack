@@ -72,7 +72,7 @@ system.afterEvents.scriptEventReceive.subscribe(e => {
     const commandString = parseScriptEventString(e);
 
     try {
-        commandManager.execute(commandString, commandInfoNoArgs);
+        commandManager.run(commandString, commandInfoNoArgs);
     } catch (e) {
         console.error(e);
         if (e instanceof CommandNotFoundError)

@@ -101,11 +101,11 @@ helpCommand.register(({ args, isEntity }) => args.length > 0 && isEntity, ({ arg
             entity.sendMessage("对不起，没有这种事情，做不到" + (Math.random() < 0.233 ? "给钱也做不到" : "真做不到"));
 });
 
-commandManager.registerCommand(['假人帮助', '假人help'], helpCommand)
+commandManager.add(['假人帮助', '假人help'], helpCommand)
 
 const githubCommand = new Command();
 githubCommand.register(({ entity }) => entity.sendMessage('§rhttps://github.com/xBoyMinemc 能不能扫上随缘\u000a' + (Math.random() > 0.5 ? qrcodeTextGithub : qrcodeTextRoll)));
-commandManager.registerCommand('假人github', githubCommand);
+commandManager.add('假人github', githubCommand);
 
 
 // console.error('[假人]内置插件help加载成功')

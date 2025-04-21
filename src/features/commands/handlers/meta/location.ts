@@ -5,7 +5,7 @@ import { getSimPlayer } from "@/core/queries";
 import { simulatedPlayerManager } from '@/core/simulated-player';
 import type { SimulatedPlayer } from "@minecraft/server-gametest";
 
-commandManager.registerCommand(['假人位置', '假人坐标'], ({ entity, isEntity, args: [simIndex] }) => {
+commandManager.add(['假人位置', '假人坐标'], ({ entity, isEntity, args: [simIndex] }) => {
     if (!isEntity && simIndex === undefined) {
         console.error('error not isEntity');
         return;

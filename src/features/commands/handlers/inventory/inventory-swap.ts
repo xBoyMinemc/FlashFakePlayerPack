@@ -2,7 +2,7 @@ import { commandManager } from "@/core/command";
 import { getSimPlayer } from "@/core/queries";
 import type { SimulatedPlayer } from "@minecraft/server-gametest";
 
-commandManager.registerCommand(['假人背包交换','假人交换背包'], ({entity,isEntity,sim}) => {
+commandManager.add(['假人背包交换','假人交换背包'], ({entity,isEntity,sim}) => {
     if(!isEntity && !sim)return
     const SimPlayer:SimulatedPlayer = sim || getSimPlayer.fromView(entity)
     if(!SimPlayer)return

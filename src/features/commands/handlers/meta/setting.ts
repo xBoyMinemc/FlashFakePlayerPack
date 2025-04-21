@@ -1,7 +1,7 @@
 import { commandManager } from '@/core/command'
 import { simulatedPlayerManager } from '@/core/simulated-player';
 
-commandManager.registerCommand(['假人重置序号', '假人编号重置', '假人序号重置', '假人重置编号'], ({ entity }) => {
+commandManager.add(['假人重置序号', '假人编号重置', '假人序号重置', '假人重置编号'], ({ entity }) => {
     const PID = simulatedPlayerManager.resetPID()
     entity?.sendMessage('重置成功，重置前为'+PID)
 

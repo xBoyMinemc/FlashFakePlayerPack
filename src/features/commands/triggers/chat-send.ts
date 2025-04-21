@@ -5,7 +5,7 @@ import { Messages } from "@/constants";
 world.beforeEvents.chatSend.subscribe(({message, sender}) => {
     system.run(() => {
         try {
-            commandManager.execute(message, {
+            commandManager.run(message, {
                 entity: sender,
                 isEntity: true,
                 location: getLocationFromEntityLike(sender)

@@ -21,7 +21,7 @@ breakBlockCommand.register(({ args }) => args.length === 0, ({ entity, isEntity 
 
     SimPlayer.addTag(SIGN.AUTO_BREAKBLOCK_SIGN);
 });
-commandManager.registerCommand(['假人挖掘', '假人摧毁'], breakBlockCommand);
+commandManager.add(['假人挖掘', '假人摧毁'], breakBlockCommand);
 
 // task
 const breaks = () =>

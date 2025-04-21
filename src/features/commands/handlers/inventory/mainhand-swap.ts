@@ -3,7 +3,7 @@ import { getSimPlayer } from "@/core/queries";
 import { EquipmentSlot } from "@minecraft/server";
 import type { SimulatedPlayer } from "@minecraft/server-gametest";
 
-commandManager.registerCommand('假人主手物品交换', ({entity,sim}) => {
+commandManager.add('假人主手物品交换', ({entity,sim}) => {
 
     const SimPlayer:SimulatedPlayer = sim || getSimPlayer.fromView(entity)
 

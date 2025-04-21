@@ -1,7 +1,7 @@
 import { commandManager } from "@/core/command";
 import { TicksPerSecond } from "@minecraft/server";
 
-commandManager.registerCommand(['假人时区', '假人时间'], ({entity}) => {
+commandManager.add(['假人时区', '假人时间'], ({entity}) => {
     // entity.sendMessage(''+Intl.DateTimeFormat().resolvedOptions().timeZone)
 
     const now = new Date()

@@ -15,7 +15,7 @@ tpsMonitor.tpsUpdate.subscribe(({ tps }) => {
     });
 });
 
-commandManager.registerCommand('tps开', ({ entity }) => {
+commandManager.add('tps开', ({ entity }) => {
     if (!entity) return;
 
     entity.addTag(TPS_TAG);
@@ -23,7 +23,7 @@ commandManager.registerCommand('tps开', ({ entity }) => {
     autoSwitchTPS();
 });
 
-commandManager.registerCommand('tps关', ({ entity }) => {
+commandManager.add('tps关', ({ entity }) => {
     if (!entity) return;
 
     entity.removeTag(TPS_TAG);

@@ -24,7 +24,7 @@ import type { Executable, CommandHandler, CommandInfoNoArgs } from "./types";
  * });
  * 
  * // Register the Command to the Command Manager
- * commandManager.registerCommand(['hello', 'hi'], command);
+ * commandManager.add(['hello', 'hi'], command);
  * 
  * // Execute the Command
  * commandManager.execute('hello world');
@@ -44,10 +44,10 @@ class CommandManager {
      * 
      * @example
      * ```typescript
-     * registerCommand(['假人生成', '假人创建'], spawn);
+     * add(['假人生成', '假人创建'], spawn);
      * ```
      */
-    registerCommand(prefixes: string | string[], command: Executable | CommandHandler): void {
+    add(prefixes: string | string[], command: Executable | CommandHandler): void {
         const prefixesArray = (Array.isArray(prefixes) ? prefixes : [prefixes])
             .map(prefix => prefix.toLowerCase());
 
@@ -74,7 +74,7 @@ class CommandManager {
      * @param prefixes - 要取消注册的命令前缀字符串或字符串数组。
      * @throws {CommandNotFoundError} 当给定的前缀未被注册时会抛出错误。
      */
-    unregisterCommand(prefixes: string | string[]): void {
+    remove(prefixes: string | string[]): void {
         const prefixesArray = (Array.isArray(prefixes) ? prefixes : [prefixes])
             .map(prefix => prefix.toLowerCase());
 
@@ -84,28 +84,6 @@ class CommandManager {
 
             this.commandMap.delete(prefix);
         }
-    }
-
-    /**
-     * 执行指定命令
-     * 
-     * @param prefix 命令前缀。
-     * @param args 命令参数。
-     * @param commandInfoNoArgs 命令信息。
-     * 
-     * @throws {CommandNotFoundError} 如果命令不存在。
-     */
-    executeCommand(prefix: string, args: string[], commandInfoNoArgs: CommandInfoNoArgs): void {
-        prefix = prefix.toLowerCase();
-        const command = this.commandMap.get(prefix);
-        if (!command)
-            throw new CommandNotFoundError(prefix);
-
-        // ding~
-        // 都有?.了你还用&&
-        commandInfoNoArgs?.entity?.playSound?.('note.bell');
-
-        command({ prefix, args, ...commandInfoNoArgs });
     }
 
     /**
@@ -119,10 +97,44 @@ class CommandManager {
      * 该方法首先解析命令字符串，提取命令前缀和参数数组，
      * 然后将这些信息用于执行相应的命令。
      */
-    execute(commandString: string, commandInfoNoArgs: CommandInfoNoArgs = {}): void {
+    run(commandString: string, commandInfoNoArgs?: CommandInfoNoArgs): void;
+
+    /**
+     * 执行指定命令
+     * 
+     * @param prefix 命令前缀。
+     * @param args 命令参数。
+     * @param commandInfoNoArgs 命令信息。
+     * 
+     * @throws {CommandNotFoundError} 如果命令不存在。
+     */
+    run(prefix: string, args: string[], commandInfoNoArgs: CommandInfoNoArgs): void;
+
+    // TODO: 后续参数修改为全称 ctx
+    run(arg1: string, arg2: CommandInfoNoArgs | string[] = {}, arg3?: CommandInfoNoArgs): void {
+        if (Array.isArray(arg2))
+            this.runCommand(arg1, arg2, arg3!);
+        else
+            this.runString(arg1, arg2);
+    }
+
+    private runCommand(prefix: string, args: string[], commandInfoNoArgs: CommandInfoNoArgs): void {
+        prefix = prefix.toLowerCase();
+        const command = this.commandMap.get(prefix);
+        if (!command)
+            throw new CommandNotFoundError(prefix);
+
+        // ding~
+        // 都有?.了你还用&&
+        commandInfoNoArgs?.entity?.playSound?.('note.bell');
+
+        command({ prefix, args, ...commandInfoNoArgs });
+    }
+
+    private runString(commandString: string, commandInfoNoArgs: CommandInfoNoArgs = {}): void {
         const { prefix, args } = this.parseCommandString(commandString);
 
-        this.executeCommand(prefix, args, commandInfoNoArgs);
+        this.runCommand(prefix, args, commandInfoNoArgs);
     }
 
     /**
@@ -130,7 +142,7 @@ class CommandManager {
      * 
      * @returns 返回一个字符串数组，包含所有已注册的命令前缀。
      */
-    listRegisteredPrefixes(): string[] {
+    list(): string[] {
         return Array.from(this.commandMap.keys());
     }
 }
