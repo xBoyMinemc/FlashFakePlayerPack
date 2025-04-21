@@ -4,10 +4,10 @@ import { EquipmentSlot } from "@minecraft/server";
 import type { SimulatedPlayer } from "@minecraft/server-gametest";
 
 commandManager.add(['假人装备交换','假人交换装备'], ({entity,isEntity,sim}) => {
-    const SimPlayer:SimulatedPlayer = sim || getSimPlayer.fromView(entity)
+    const simulatedPlayer:SimulatedPlayer = sim || getSimPlayer.fromView(entity)
     if(!isEntity && !sim)return
 
-    const s = SimPlayer.getComponent("minecraft:equippable") // SimPlayer
+    const s = simulatedPlayer.getComponent("minecraft:equippable") // SimPlayer
 
     const p = entity.getComponent("minecraft:equippable") // player
     for (const i in  EquipmentSlot) {

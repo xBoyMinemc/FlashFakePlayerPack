@@ -13,20 +13,20 @@ breakBlockCommand.register(({ args }) => args.length === 0, ({ entity, isEntity 
         return;
     }
 
-    const SimPlayer: SimulatedPlayer = getSimPlayer.fromView(entity);
-    if (!SimPlayer) {
+    const simulatedPlayer: SimulatedPlayer = getSimPlayer.fromView(entity);
+    if (!simulatedPlayer) {
         entity.sendMessage('§e§l-面前不存在模拟玩家');
         return;
     }
 
-    SimPlayer.addTag(SIGN.AUTO_BREAKBLOCK_SIGN);
+    simulatedPlayer.addTag(SIGN.AUTO_BREAKBLOCK_SIGN);
 });
 commandManager.add(['假人挖掘', '假人摧毁'], breakBlockCommand);
 
 // task
 const breaks = () =>
-    world.getPlayers({ tags: [SIGN.AUTO_BREAKBLOCK_SIGN] }).forEach(async SimPlayer => {
-        const man = <SimulatedPlayer>SimPlayer;
+    world.getPlayers({ tags: [SIGN.AUTO_BREAKBLOCK_SIGN] }).forEach(async simulatedPlayer => {
+        const man = <SimulatedPlayer>simulatedPlayer;
         const block = man.getBlockFromViewDirection({ maxDistance: 6 })?.block;
         if (!block) return;
 

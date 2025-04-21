@@ -13,8 +13,8 @@ commandManager.add(['假人改名', '假人重命名', '假人换名'], ({entity
     ;
     ; "对准~";
     ;
-    const SimPlayer: SimulatedPlayer = getSimPlayer.fromView(entity);
-    if (!SimPlayer) return entity.sendMessage("§e§l-你不要怀疑，10000%是你没对准，如果假人真躺了的话");  //entity.sendMessage("§e§l-面前不存在模拟玩家")
-    SimPlayer.nameTag = newName;
+    const simulatedPlayer: SimulatedPlayer = getSimPlayer.fromView(entity);
+    if (!simulatedPlayer) return entity.sendMessage("§e§l-你不要怀疑，10000%是你没对准，如果假人真躺了的话");  //entity.sendMessage("§e§l-面前不存在模拟玩家")
+    simulatedPlayer.nameTag = newName;
     entity.sendMessage("§e§l-改名成功")
 });

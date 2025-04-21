@@ -9,10 +9,10 @@ commandManager.add(['假人资源回收','假人背包清空','假人爆金币']
         return
     }
 
-    const SimPlayer:SimulatedPlayer = sim ?? getSimPlayer.fromView(entity)
-    if(!SimPlayer)return
+    const simulatedPlayer:SimulatedPlayer = sim ?? getSimPlayer.fromView(entity)
+    if(!simulatedPlayer)return
 
-    const equip = SimPlayer.getComponent("minecraft:equippable")
+    const equip = simulatedPlayer.getComponent("minecraft:equippable")
 
     // emmm你这变量名
     const { location:l, dimension:d } = entity
@@ -29,7 +29,7 @@ commandManager.add(['假人资源回收','假人背包清空','假人爆金币']
         equip.setEquipment(<EquipmentSlot>i, null) //undefined? new ItemStack('air')?
     }
 
-    const { container:s } =  SimPlayer.getComponent("minecraft:inventory")
+    const { container:s } =  simulatedPlayer.getComponent("minecraft:inventory")
 
     for (
         let i = s.size;
@@ -38,11 +38,11 @@ commandManager.add(['假人资源回收','假人背包清空','假人爆金币']
     ) ;
 
     // SimPLayer's xp turn to player
-    const total = SimPlayer.getTotalXp()
+    const total = simulatedPlayer.getTotalXp()
     if(total!==0){
         entity.sendMessage('xp +'+total);
         entity.addExperience(total);
-        SimPlayer.resetLevel();
+        simulatedPlayer.resetLevel();
         entity.playSound('random.levelup');
     }
 });

@@ -5,9 +5,9 @@ import type { SimulatedPlayer } from "@minecraft/server-gametest";
 
 commandManager.add('假人副手物品交换', ({entity,sim}) => {
 
-    const SimPlayer:SimulatedPlayer = sim || getSimPlayer.fromView(entity)
+    const simulatedPlayer:SimulatedPlayer = sim || getSimPlayer.fromView(entity)
 
-    const s = SimPlayer.getComponent("minecraft:equippable")
+    const s = simulatedPlayer.getComponent("minecraft:equippable")
 
     const p = entity.getComponent("minecraft:equippable")
     const i = EquipmentSlot['Offhand'] ?? EquipmentSlot['offhand']
