@@ -2,7 +2,7 @@ export * from './meta/help';
 export * from './meta/list-simulated-players';
 export * from './meta/location';
 export * from './meta/rename';
-export * from './meta/setting';
+export * from './meta/reset-pid';
 export * from './meta/list-commands';
 export * from './meta/time';
 
