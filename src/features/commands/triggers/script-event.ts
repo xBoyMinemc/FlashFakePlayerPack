@@ -1,14 +1,14 @@
 import {
-    DimensionLocation,
     Player,
     ScriptEventCommandMessageAfterEvent,
-    ScriptEventSource,
-    system
+    system,
+    type Dimension,
+    type Vector3
 } from "@minecraft/server";
 import {
     commandManager,
     CommandNotFoundError,
-    type CommandInfoNoArgs
+    type BaseContext
 } from "@/core/command";
 import { Messages } from "@/constants";
 
@@ -24,18 +24,16 @@ class CannotGetLocationError extends Error {
 }
 
 
-function getSourceLocation(e: ScriptEventCommandMessageAfterEvent): DimensionLocation {
+function getSourceLocation(e: ScriptEventCommandMessageAfterEvent): { location: Vector3; dimension: Dimension; } {
+    const getRequiredProp = <T>(getter: () => T | undefined) => {
+        const value = getter();
+        if (!value) throw new CannotGetLocationError('[模拟玩家] 无法获取位置');
+        return value;
+    };
+
     return {
-        ...e.sourceEntity?.location ?? e.sourceBlock?.location ?? (
-            () => {
-                throw new CannotGetLocationError('[模拟玩家] 无法获取位置');
-            }
-        )(),
-        dimension: e.sourceEntity?.dimension ?? e.sourceBlock?.dimension ?? (
-            () => {
-                throw new CannotGetLocationError('[模拟玩家] 无法获取位置');
-            }
-        )(),
+        location: getRequiredProp(() => e.sourceEntity?.location ?? e.sourceBlock?.location),
+        dimension: getRequiredProp(() => e.sourceEntity?.dimension ?? e.sourceBlock?.dimension)
     };
 }
 
@@ -58,26 +56,27 @@ function parseScriptEventString(
     return `${prefix} ${message}`;
 }
 
-function getCommandInfoNoArgs(e: ScriptEventCommandMessageAfterEvent): CommandInfoNoArgs {
+function getBaseContext(e: ScriptEventCommandMessageAfterEvent): BaseContext {
+    const { location, dimension } = getSourceLocation(e);
     return {
-        entity: e.sourceEntity instanceof Player ? e.sourceEntity : undefined,
-        location: getSourceLocation(e),
-        isEntity: e.sourceType === ScriptEventSource.Entity,
+        player: e.sourceEntity instanceof Player ? e.sourceEntity : undefined,
+        location: location,
+        dimension: dimension,
     };
 }
 
 // 注册全局/scriptevent监听
 system.afterEvents.scriptEventReceive.subscribe(e => {
-    const commandInfoNoArgs = getCommandInfoNoArgs(e);
+    const baseContext = getBaseContext(e);
     const commandString = parseScriptEventString(e);
 
     try {
-        commandManager.run(commandString, commandInfoNoArgs);
+        commandManager.run(commandString, baseContext);
     } catch (e) {
         console.error(e);
         if (e instanceof CommandNotFoundError)
-            commandInfoNoArgs?.entity?.sendMessage(`[模拟玩家] 命令错误，找不到命令: ${e.commandName}`);
+            baseContext?.player?.sendMessage(`[模拟玩家] 命令错误，找不到命令: ${e.commandName}`);
         else
-            commandInfoNoArgs?.entity?.sendMessage(Messages.UNHANDLED_EXCEPTION);
+            baseContext?.player?.sendMessage(Messages.UNHANDLED_EXCEPTION);
     }
 }, { namespaces });

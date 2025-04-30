@@ -67,7 +67,7 @@ const qrcodeTextRoll =
 11111111111111111111111111111111111`.replaceAll('0','  ').replaceAll('1','⬛')
 
 const helpCommand = new Command();
-helpCommand.register(({ args, isEntity }) => args.length === 0 && isEntity, ({ entity }) => {
+helpCommand.use(({ args, player }) => player && args.length === 0, ({ player }) => {
         [
             "输入  假人帮助+空格+功能名   获取更详细的帮助", "例如   -假人帮助 重生-",
             "###部分功能需要光标对准假人", "创建", "销毁", "列表", "扭头", "停止", "移动","§e§l自动追击§r",
@@ -82,9 +82,9 @@ helpCommand.register(({ args, isEntity }) => args.length === 0 && isEntity, ({ e
             "假人销毁，或游戏重启后，信息完全丢失",
             "假人可以捡起掉落物品",
             "输入‘假人github’了解更多"
-        ].forEach((text) => entity.sendMessage(`§e§l-${text}`));
+        ].forEach((text) => player.sendMessage(`§e§l-${text}`));
 });
-helpCommand.register(({ args, isEntity }) => args.length > 0 && isEntity, ({ args: [item], entity }) => {
+helpCommand.use(({ args, player }) => player && args.length > 0, ({ args: [item], player }) => {
     const helpMessage =
         ({
             "创建": ["创建示例", "假人创建", "假人创建 + 空格 + x y z", "假人创建 100 50 0", "假人创建 + 空格 + name", "假人创建 \"fake player\""],
@@ -96,15 +96,15 @@ helpCommand.register(({ args, isEntity }) => args.length > 0 && isEntity, ({ arg
 
           helpMessage
             ?
-            entity.sendMessage(helpMessage.join("\u000a"))
+            player.sendMessage(helpMessage.join("\u000a"))
             :
-            entity.sendMessage("对不起，没有这种事情，做不到" + (Math.random() < 0.233 ? "给钱也做不到" : "真做不到"));
+            player.sendMessage("对不起，没有这种事情，做不到" + (Math.random() < 0.233 ? "给钱也做不到" : "真做不到"));
 });
 
 commandManager.add(['假人帮助', '假人help'], helpCommand)
 
 const githubCommand = new Command();
-githubCommand.register(({ entity }) => entity.sendMessage('§rhttps://github.com/xBoyMinemc 能不能扫上随缘\u000a' + (Math.random() > 0.5 ? qrcodeTextGithub : qrcodeTextRoll)));
+githubCommand.use(({ player }) => player.sendMessage('§rhttps://github.com/xBoyMinemc 能不能扫上随缘\u000a' + (Math.random() > 0.5 ? qrcodeTextGithub : qrcodeTextRoll)));
 commandManager.add('假人github', githubCommand);
 
 

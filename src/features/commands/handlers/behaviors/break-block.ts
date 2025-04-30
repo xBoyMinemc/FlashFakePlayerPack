@@ -7,15 +7,15 @@ import { SIGN } from "@/constants";
 import { gameTestManager } from '@/core/gametest';
 
 const breakBlockCommand = new Command();
-breakBlockCommand.register(({ args }) => args.length === 0, ({ entity, isEntity }) => {
-    if (!isEntity) {
+breakBlockCommand.use(({ args }) => args.length === 0, ({ player }) => {
+    if (!player) {
         console.error('error not isEntity');
         return;
     }
 
-    const simulatedPlayer: SimulatedPlayer = getSimPlayer.fromView(entity);
+    const simulatedPlayer: SimulatedPlayer = getSimPlayer.fromView(player);
     if (!simulatedPlayer) {
-        entity.sendMessage('§e§l-面前不存在模拟玩家');
+        player.sendMessage('§e§l-面前不存在模拟玩家');
         return;
     }
 

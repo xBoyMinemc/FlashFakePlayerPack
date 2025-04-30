@@ -7,7 +7,7 @@ const regex = /"([^"]*)"|'([^']*)'|(\S+)/g; // 正则匹配所有单词或引号
  *
  * @param input - 需要解析的命令输入字符串。
  * @returns 返回一个包含命令前缀和参数数组的对象。
- * @throws {InvalidInputError} 当输入无效时抛出异常。
+ * @throws {InvalidInputError} 当输入无效时。
  *
  * @example
  * ```typescript

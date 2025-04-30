@@ -5,9 +5,9 @@ import { simulatedPlayerManager } from '@/core/simulated-player';
 import type { SimulatedPlayer } from "@minecraft/server-gametest";
 
 commandManager.add(['假人重生', '假人复活', '复活吧，我的爱人', '复活吧！我的爱人', '复活吧!我的爱人', '复活吧我的爱人'],
-    ({ entity, isEntity, args: [simIndex] }) => {
+    ({ player, args: [simIndex] }) => {
 
-    if (!isEntity && simIndex === undefined) {
+    if (!player && simIndex === undefined) {
         console.error('error not isEntity')
         return
     }
@@ -16,8 +16,8 @@ commandManager.add(['假人重生', '假人复活', '复活吧，我的爱人', 
         ;
         ;"对准~";
         ;
-        const simulatedPlayer:SimulatedPlayer = getSimPlayer.fromView(entity)
-        if(!simulatedPlayer)return entity.sendMessage("§e§l-你不要怀疑，10000%是你没对准，如果假人真躺了的话")  //entity.sendMessage("§e§l-面前不存在模拟玩家")
+        const simulatedPlayer:SimulatedPlayer = getSimPlayer.fromView(player)
+        if(!simulatedPlayer)return player.sendMessage("§e§l-你不要怀疑，10000%是你没对准，如果假人真躺了的话")  //entity.sendMessage("§e§l-面前不存在模拟玩家")
         simulatedPlayer.respawn()
     }else {
         ;
@@ -25,11 +25,11 @@ commandManager.add(['假人重生', '假人复活', '复活吧，我的爱人', 
         ;
         const index = Number(simIndex)
 
-        if(typeof index !== 'number')return entity?.sendMessage('[模拟玩家] 命令错误，期待数字却得到 '+typeof Number(simIndex))
+        if(typeof index !== 'number')return player?.sendMessage('[模拟玩家] 命令错误，期待数字却得到 '+typeof Number(simIndex))
 
         const simulatedPlayer:SimulatedPlayer = simulatedPlayerManager.get(index as PID)
 
-        if(!simulatedPlayer)return entity.sendMessage("§e§l-不存在模拟玩家"+index)
+        if(!simulatedPlayer)return player.sendMessage("§e§l-不存在模拟玩家"+index)
 
         simulatedPlayer.respawn()
 

@@ -3,19 +3,19 @@ import { getSimPlayer } from "@/core/queries";
 import { EquipmentSlot } from "@minecraft/server";
 import type { SimulatedPlayer } from "@minecraft/server-gametest";
 
-commandManager.add(['假人资源回收','假人背包清空','假人爆金币'], ({entity,isEntity,sim})=>{
-    if(!isEntity && !sim) {
+commandManager.add(['假人资源回收','假人背包清空','假人爆金币'], ({player,simulatedPlayer: sim})=>{
+    if(!player && !sim) {
         console.error('error not isEntity')
         return
     }
 
-    const simulatedPlayer:SimulatedPlayer = sim ?? getSimPlayer.fromView(entity)
+    const simulatedPlayer:SimulatedPlayer = sim ?? getSimPlayer.fromView(player)
     if(!simulatedPlayer)return
 
     const equip = simulatedPlayer.getComponent("minecraft:equippable")
 
     // emmm你这变量名
-    const { location:l, dimension:d } = entity
+    const { location:l, dimension:d } = player
 
     for (const i in EquipmentSlot) {
         //跳过主手
@@ -40,9 +40,9 @@ commandManager.add(['假人资源回收','假人背包清空','假人爆金币']
     // SimPLayer's xp turn to player
     const total = simulatedPlayer.getTotalXp()
     if(total!==0){
-        entity.sendMessage('xp +'+total);
-        entity.addExperience(total);
+        player.sendMessage('xp +'+total);
+        player.addExperience(total);
         simulatedPlayer.resetLevel();
-        entity.playSound('random.levelup');
+        player.playSound('random.levelup');
     }
 });

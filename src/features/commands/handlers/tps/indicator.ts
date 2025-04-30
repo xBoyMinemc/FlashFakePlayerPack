@@ -15,18 +15,18 @@ tpsMonitor.tpsUpdate.subscribe(({ tps }) => {
     });
 });
 
-commandManager.add('tps开', ({ entity }) => {
-    if (!entity) return;
+commandManager.add('tps开', ({ player }) => {
+    if (!player) return;
 
-    entity.addTag(TPS_TAG);
+    player.addTag(TPS_TAG);
 
     autoSwitchTPS();
 });
 
-commandManager.add('tps关', ({ entity }) => {
-    if (!entity) return;
+commandManager.add('tps关', ({ player }) => {
+    if (!player) return;
 
-    entity.removeTag(TPS_TAG);
+    player.removeTag(TPS_TAG);
 
     autoSwitchTPS();
 });
