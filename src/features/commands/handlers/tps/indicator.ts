@@ -1,11 +1,10 @@
 import { world } from "@minecraft/server";
 import { TPSMonitor } from "@/core/tps";
 import { commandManager } from "@/core/command";
-import { playerReady } from "@/features/events";
 
 const TPS_TAG = 'tps';
 
-const EVENTS: { subscribe: (...args: any) => void; }[] = [world.afterEvents.playerSpawn, world.afterEvents.playerLeave, playerReady];
+const EVENTS: { subscribe: (...args: any) => void; }[] = [world.afterEvents.playerSpawn, world.afterEvents.playerLeave, world.afterEvents.worldLoad];
 
 const tpsMonitor = new TPSMonitor();
 
