@@ -10,14 +10,14 @@ export class TPSMonitor {
 
     readonly tpsUpdate = new EventSignal<TPSUpdateEvent>();
 
-    on(): boolean {
+    start(): boolean {
         if (this.runId) return false;
 
         this.runId = system.runInterval(() => this.update());
         return true;
     }
 
-    off(): boolean {
+    stop(): boolean {
         if (!this.runId) return false;
 
         system.clearRun(this.runId);

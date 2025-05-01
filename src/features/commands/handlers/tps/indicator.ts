@@ -37,9 +37,9 @@ const checkIfRequireTPS = (): boolean => {
 
 const autoSwitchTPS = (): void => {
     if (checkIfRequireTPS())
-        tpsMonitor.on();
+        tpsMonitor.start();
     else
-        tpsMonitor.off();
+        tpsMonitor.stop();
 };
 
 EVENTS.forEach(event => event.subscribe(autoSwitchTPS));
