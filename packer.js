@@ -34,7 +34,7 @@ const manifest_json = {
             "type": "script",
             "uuid": "10101e99-abc1-5488-ba76-71e9da441300",
             "description": "§e§lFlash§fFakePlayerPack",
-            "entry": "scripts/main/preload.js"
+            "entry": "scripts/main.js"
         }
     ],
     "dependencies": [
@@ -65,7 +65,7 @@ const archive = archiver('zip', {
 archive.append(fs.createReadStream('manifest.json'), { name: 'manifest.json' });
 archive.append(fs.createReadStream('pack_icon.png'), { name: 'pack_icon.png' });
 // 使用directory方法添加整个目录到ZIP文件中
-['structures','entities','scripts/main'].forEach(_=>archive.directory(_, true)); // 第二个参数设置为false表示不包含目录本身
+['structures','entities','scripts'].forEach(_=>archive.directory(_, true)); // 第二个参数设置为false表示不包含目录本身
 
 // 当所有文件都添加完毕后，调用finalize方法来完成ZIP文件的创建
 archive.finalize().then(() => 0);

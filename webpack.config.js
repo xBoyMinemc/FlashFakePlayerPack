@@ -2,10 +2,10 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
 
 module.exports = {
-    entry: './src/main/preload.ts', // 入口文件
+    entry: './src/main.ts', // 入口文件
     output: {
-        filename: 'preload.js', // 输出文件名
-        path: __dirname + '/scripts/main', // 输出路径
+        filename: 'main.js', // 输出文件名
+        path: __dirname + '/scripts', // 输出路径
     },
     target: 'es2020', // 指定目标环境为Node.js
     mode: 'production',

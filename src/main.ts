@@ -1,24 +1,2 @@
-import { world } from '@minecraft/server'
-
-import '@/features'
-
-import {playerReady} from "@/features/events";
-import { simulatedPlayerManager } from '@/core/simulated-player';
-import { gameTestManager } from '@/core/gametest';
-
-
-gameTestManager.ready.then(test => {
-    simulatedPlayerManager.test = test;
-    console.log('[模拟玩家] 初始化完成，输入“假人创建”或“ffpp”');
-});
-gameTestManager.registerTest();
-
-world.afterEvents.worldLoad.subscribe(() => {
-    simulatedPlayerManager.initialize();
-    gameTestManager.initialize();
-});
-
-playerReady.subscribe(async () => {
-    await gameTestManager.ready;
-    world.sendMessage('[模拟玩家] 初始化完成，输入“假人创建”或“ffpp”');
-});
+import('@/main/main');
+// 2024-11-4 这里是为了解决一个莫名其妙的1.21.50触发的bug，当包加载的时候，加载world的部分方法会崩。而异步可以解决
