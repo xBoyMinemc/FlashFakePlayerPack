@@ -87,7 +87,7 @@ class SimulatedPlayerManager {
 
     has(pid: PID): boolean;
     has(id: string): boolean;
-    has(simulatedPlayer: Entity): simulatedPlayer is SimulatedPlayer;
+    has(entity: Entity): entity is SimulatedPlayer;
     has(target: PID | string | Entity): boolean {
         if (typeof target === 'number')
             return this._pidToSimulatedPlayer.has(target);
