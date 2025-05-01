@@ -8,7 +8,6 @@ import { SIGN,
     SIGN_ZH
 } from '@/constants'
 import { ActionFormData } from '@minecraft/server-ui'
-import { SimulatedPlayer } from '@minecraft/server-gametest'
 import { simulatedPlayerManager } from '@/core/simulated-player';
 
 // world.afterEvents.entityHitEntity.subscribe(({damagingEntity,hitEntity})=>{
@@ -24,7 +23,7 @@ world.beforeEvents.playerInteractWithEntity.subscribe(e=>{
     const {player,target} = e
     if(!player || player.typeId!=='minecraft:player')return
     if(!target || !simulatedPlayerManager.has(target))return// world.sendMessage('meow~ target');
-    const simulatedPLayer = <SimulatedPlayer>target // what's unknow?
+    const simulatedPLayer = target // what's unknow?
     if(!simulatedPLayer)return
     e.cancel=true
 
