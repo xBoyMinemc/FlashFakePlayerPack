@@ -26,7 +26,9 @@ const update = (): void => {
         playerViewYMap.set(player, currentViewY);
         playerReady.trigger();
 
+        // 触发一次后即清理资源
         system.clearRun(id);
+        playerViewYMap.clear();
     });
 };
 
