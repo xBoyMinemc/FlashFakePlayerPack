@@ -4,7 +4,11 @@ import { commandManager } from "@/core/command";
 
 const TPS_TAG = 'tps';
 
-const EVENTS: { subscribe: (...args: any) => void; }[] = [world.afterEvents.playerSpawn, world.afterEvents.playerLeave, world.afterEvents.worldLoad];
+const EVENTS = [
+    world.afterEvents.playerSpawn,
+    world.afterEvents.playerLeave,
+    world.afterEvents.worldLoad,
+] as const satisfies readonly { subscribe: (callback: () => void) => void; }[];
 
 const tpsMonitor = new TPSMonitor();
 
