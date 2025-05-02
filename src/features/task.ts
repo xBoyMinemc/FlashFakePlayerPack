@@ -1,20 +1,16 @@
-//@ts-nocheck
-import type { SimulatedPlayer } from '@minecraft/server-gametest'
 import { SIGN } from '@/constants'
-import type { EntityHealthComponent, Vector3 } from '@minecraft/server'
-import { system, world } from '@minecraft/server'
+import type { Vector3 } from '@minecraft/server'
+import { system } from '@minecraft/server'
 import { getEntitiesNear, getPlayerNear } from '@/core/queries'
 import { simulatedPlayerManager } from '@/core/simulated-player';
 import { gameTestManager } from '@/core/gametest';
 
-const simulatedPlayerStates : ({ "str-SimPlayer.id": { o: Vector3 }}) = {}
+const simulatedPlayerStates: Record<string, { o?: Vector3; }> = {}
 
-const Vector_subtract = ({x,y,z}:Vector3, {x:u,y:v,z:w}:Vector3)=>({x:x-u,y:y-v,z:z-w})
 // behavior
 function AUTO_BEHAVIOR(){
 
-    for (const [pid, simulatedPlayer] of simulatedPlayerManager.simulatedPlayers) {
-        // world.sendMessage(SimPlayer.nameTag)
+    for (const simulatedPlayer of simulatedPlayerManager.simulatedPlayers.values()) {
         //判假人是否存活
         //瞎糊乱改接口名--2023-07-21-02：02
         if((simulatedPlayer.getComponent('minecraft:health')).currentValue<=0){
@@ -40,62 +36,25 @@ function AUTO_BEHAVIOR(){
 
             simulatedPlayerStates[simulatedPlayer.id] || (simulatedPlayerStates[simulatedPlayer.id]={})
             simulatedPlayerStates[simulatedPlayer.id]["o"] || (simulatedPlayerStates[simulatedPlayer.id]["o"]=simulatedPlayer.location)
-            // let a: { "str-SimPlayer.id": { o: Vector3 } } = ({
-            //     'str-SimPlayer.id':{
-            //         'o':SimPlayer.location
-            //     }
-            // })
-            const r = (x:number,_x:number,v:number)=>x-_x>v||x-_x<-v
-            const r3 = (o:Vector3,_o:Vector3,v:number)=>o.x-_o.x>v||o.x-_o.x<-v || o.y-_o.y>v||o.y-_o.y<-v || o.z-_o.z>v||o.z-_o.z<-v
-            // const fix = (o:Vector3)=>({x:o.x-30000000+1,y:o.y,z:o.z-3})
-            const fix = (location:Vector3)=>Vector_subtract(location, gameTestManager.testLocation)
-            // && r3(SimulatedPlayerStates[SimPlayer]["o"],SimPlayer.location,16)
+            const r3 = (a: Vector3, b: Vector3, threshold: number) => Math.abs(a.x - b.x) > threshold || Math.abs(a.y - b.y) > threshold || Math.abs(a.z - b.z) > threshold
             if(entities.length>0 ){
 
                 // walk to target
                 const target = entities[0]
                 if( !r3(target.location,simulatedPlayer.location,4) ){
 
-                    simulatedPlayer.moveToLocation(fix(target.location))
+                    simulatedPlayer.moveToLocation(gameTestManager.test.relativeLocation(target.location))
                     // console.error(target.typeId,target.location.x,target.location.y,target.location.z)
                 }
 
             }else{
                 console.error("back")
                 if( r3(simulatedPlayer.location,simulatedPlayerStates[simulatedPlayer.id]["o"],1) )
-                    simulatedPlayer.moveToLocation( fix(simulatedPlayerStates[simulatedPlayer.id]["o"]) )
-                // SimPlayer.moveToLocation({x:-30000000,y:-128,z:0})
+                    simulatedPlayer.moveToLocation(gameTestManager.test.relativeLocation(simulatedPlayerStates[simulatedPlayer.id]["o"]))
 
             }
         }
     }
-
-    // /gamerule playerssleepingpercentage 50%
 }
 
 system.runInterval(AUTO_BEHAVIOR,20)
-
-
-// const commandRegistry: CommandRegistry = new CommandRegistry('task')
-
-
-
-// AUTO_TRIDENT_SIGN
-// commandRegistry.registerCommand('假人自动丢三叉戟', ({entity,isEntity}) => {
-//     if(!isEntity)return
-//
-//     const SimPlayer:SimulatedPlayer = getSimPlayer.fromView(entity)
-//
-//     if(!SimPlayer)return
-//     else
-//         SimPlayer.addTag(SIGN.AUTO_TRIDENT_SIGN)
-//
-// })
-
-
-// world.afterEvents.chatSend.subscribe(({message, sender})=> {
-//     const args = CommandRegistry.parse(message)
-//     if(commandRegistry.commandsList.has(args[0]))
-//         commandRegistry.executeCommand(args[0],{isEntity:true,entity:sender,location:sender.location,args})
-// })
-
