@@ -17,9 +17,9 @@ const regex = /"([^"]*)"|'([^']*)'|(\S+)/g; // 正则匹配所有单词或引号
  */
 export function parseCommandString(input: string): { prefix: string; args: string[]; } {
     const parts = [];
-    let match: RegExpMatchArray | null;
+    const iterator = input.matchAll(regex);
 
-    while (match = regex.exec(input)) {
+    for (const match of iterator) {
         // 将捕获组中的内容添加到结果数组中
         parts.push(match[1] ?? match[2] ?? match[3]);
     }
