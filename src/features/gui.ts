@@ -23,35 +23,35 @@ world.beforeEvents.playerInteractWithEntity.subscribe(e=>{
     const {player,target} = e
     if(!player || player.typeId!=='minecraft:player')return
     if(!target || !simulatedPlayerManager.has(target))return// world.sendMessage('meow~ target');
-    const simulatedPLayer = target // what's unknow?
-    if(!simulatedPLayer)return
+    const simulatedPlayer = target // what's unknow?
+    if(!simulatedPlayer)return
     e.cancel=true
 
     const tagManager = ()=>{
         const mng = new ActionFormData().title('标签管理（金色为启用）')
-        mng.body('#x#').body(simulatedPLayer.nameTag)//.button('喵？');
+        mng.body('#x#').body(simulatedPlayer.nameTag)//.button('喵？');
 
         for (const signKey of SIGN_TAG_LIST) {
-            mng.button((simulatedPLayer.hasTag(signKey)?'§l§e':'§l§1') + SIGN_ZH[SIGN[signKey]])
+            mng.button((simulatedPlayer.hasTag(signKey)?'§l§e':'§l§1') + SIGN_ZH[SIGN[signKey]])
             // world.sendMessage('#tag=>'+signKey);
         }
         mng.show(player).then((response) => {
             const tag = SIGN_TAG_LIST[response.selection]
-            simulatedPLayer.hasTag(tag)?simulatedPLayer.removeTag(tag):simulatedPLayer.addTag(tag)
+            simulatedPlayer.hasTag(tag)?simulatedPlayer.removeTag(tag):simulatedPlayer.addTag(tag)
         },()=>0).catch(()=>0)
     }
 
     const behavior = ()=>{
         const mng = new ActionFormData()
             .title('功能')
-            .body('#x#').body(simulatedPLayer.nameTag)
+            .body('#x#').body(simulatedPlayer.nameTag)
 
         for (const behavior of BEHAVIOR_LIST)
-            mng.button((simulatedPLayer.hasTag(behavior)?'§l§e':'§l§1') + BEHAVIOR_ZH[BEHAVIOR[behavior]])
+            mng.button((simulatedPlayer.hasTag(behavior)?'§l§e':'§l§1') + BEHAVIOR_ZH[BEHAVIOR[behavior]])
 
         mng.show(player).then((response) => {
             const behavior = BEHAVIOR_LIST[response.selection]
-            exeBehavior(behavior)(simulatedPLayer,player)
+            exeBehavior(behavior)(simulatedPlayer,player)
         },()=>0).catch(()=>0)
     }
 
