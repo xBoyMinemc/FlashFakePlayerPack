@@ -25,4 +25,4 @@ export * from './inventory/recycle';
 export * from './behaviors/behaviors';
 export * from './behaviors/break-block';
 
-export * from './tps/indicator'
+export * from './tps'
