@@ -1,14 +1,15 @@
-import { system, world } from '@minecraft/server'
+import { system, world, type Player } from '@minecraft/server'
 import { SIGN,
     BEHAVIOR,
     BEHAVIOR_LIST,
     BEHAVIOR_ZH,
-    exeBehavior,
     SIGN_TAG_LIST,
     SIGN_ZH
 } from '@/constants'
-import { ActionFormData } from '@minecraft/server-ui'
+import { ActionFormData, ModalFormData } from '@minecraft/server-ui'
 import { simulatedPlayerManager } from '@/core/simulated-player';
+import { commandManager } from '@/core/command';
+import { type SimulatedPlayer, LookDuration } from '@minecraft/server-gametest';
 
 // world.afterEvents.entityHitEntity.subscribe(({damagingEntity,hitEntity})=>{
 //     if(!damagingEntity || !hitEntity)return;
@@ -17,6 +18,31 @@ import { simulatedPlayerManager } from '@/core/simulated-player';
 //     new ActionFormData().body('#x#').button('喵？')
 //         .show(damagingEntity)
 // })
+
+const BEHAVIOR_HANDLERS = {
+    lookAtEntity: (sim: SimulatedPlayer, player: Player) => sim.lookAtEntity(player, LookDuration.Instant),
+    teleport: (sim: SimulatedPlayer, player: Player) => sim.teleport(player.location),
+    useAndStopUsingItem: (sim: SimulatedPlayer & Player) => sim.useItemInSlot(sim.selectedSlotIndex) && sim.stopUsingItem(),
+    useItemInSlot: (sim: SimulatedPlayer & Player) => sim.useItemInSlot(sim.selectedSlotIndex),
+    stopUsingItem: (sim: SimulatedPlayer) => sim.stopUsingItem(),
+    interact: (sim: SimulatedPlayer) => sim.interact(),
+    swapMainhandItem: (sim: SimulatedPlayer, player: Player) => commandManager.run('假人主手物品交换', { player, simulatedPlayer: sim }),
+    swapInventory: (sim: SimulatedPlayer, player: Player) => commandManager.run('假人背包交换', { player, simulatedPlayer: sim }),
+    swapEquipment: (sim: SimulatedPlayer, player: Player) => commandManager.run('假人装备交换', { player, simulatedPlayer: sim }),
+    rename: async (sim: SimulatedPlayer, player: Player) => {
+        const modalForm = new ModalFormData().title("假人改名");
+        modalForm.textField(`由 "${sim.nameTag}" 改为：`, '输入新名称', sim.nameTag);
+        const { canceled, formValues } = await modalForm.show(player);
+        if (canceled) return;
+
+        sim.nameTag = <string>formValues[0];
+        // commandManager.executeCommand('假人改名', [name], { entity: player, sim });
+    },
+    recycle: (sim: SimulatedPlayer, player: Player) => commandManager.run('假人资源回收', { player, simulatedPlayer: sim }), // item and exp
+    disconnect: (sim: SimulatedPlayer) => commandManager.run('假人销毁', { simulatedPlayer: sim }),
+};
+
+export const exeBehavior = (behavior: string) => BEHAVIOR[behavior] && BEHAVIOR_HANDLERS[behavior];
 
 
 world.beforeEvents.playerInteractWithEntity.subscribe(e=>{
