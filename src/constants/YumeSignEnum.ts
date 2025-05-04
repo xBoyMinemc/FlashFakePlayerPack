@@ -1,10 +1,10 @@
 // SIGN for AUTO_BEHAVIOR
-import { SimulatedPlayer, LookDuration } from '@minecraft/server-gametest'
-import { Player } from '@minecraft/server'
-import { commandManager } from '@/core/command'
+import { SimulatedPlayer, LookDuration } from '@minecraft/server-gametest';
+import { Player } from '@minecraft/server';
+import { commandManager } from '@/core/command';
 import { ModalFormData } from '@minecraft/server-ui';
 
-export  enum  SIGN {
+export enum SIGN {
     AUTO_BREAKBLOCK_SIGN = 'AUTO_BREAKBLOCK_SIGN',
     ATTACK_SIGN = 'ATTACK_SIGN',
     AUTO_ATTACK_SIGN = 'AUTO_ATTACK_SIGN',
@@ -15,8 +15,9 @@ export  enum  SIGN {
     YUME_SIM_SIGN = 'YUME_SIM_SIGN',    //'#yumeSimSign#',
 }
 
-export const SIGN_TAG_LIST:string[]  = Object.keys(SIGN)
-export enum  SIGN_ZH {
+export const SIGN_TAG_LIST: string[] = Object.keys(SIGN);
+
+export enum SIGN_ZH {
     AUTO_BREAKBLOCK_SIGN = '自动挖掘标签',
     ATTACK_SIGN = '攻击标签',
     AUTO_ATTACK_SIGN = '自动攻击标签',
@@ -27,9 +28,13 @@ export enum  SIGN_ZH {
     YUME_SIM_SIGN = '云梦假人标签',
 }
 
+export const DEFAULT_SIGNS = [
+    SIGN.AUTO_RESPAWN_SIGN,
+    SIGN.YUME_SIM_SIGN,
+] as const satisfies readonly SIGN[];
 
 // SIGN for normal BEHAVIOR
-export enum  BEHAVIOR {
+export enum BEHAVIOR {
     lookAtEntity = 'lookAtEntity',
     teleport = 'teleport',
     useAndStopUsingItem = 'useAndStopUsingItem',
@@ -44,8 +49,9 @@ export enum  BEHAVIOR {
     disconnect = 'disconnect',
 }
 
-export const BEHAVIOR_LIST:string[] = Object.keys(BEHAVIOR)
-export enum  BEHAVIOR_ZH {
+export const BEHAVIOR_LIST: string[] = Object.keys(BEHAVIOR);
+
+export enum BEHAVIOR_ZH {
     lookAtEntity = '扭头',
     teleport = '移动',
     useAndStopUsingItem = '使用',
@@ -61,15 +67,15 @@ export enum  BEHAVIOR_ZH {
 }
 
 export const BEHAVIOR_FUNCTION = {
-    lookAtEntity : (sim:SimulatedPlayer,player:Player)=>sim.lookAtEntity(player,LookDuration.Instant),
-    teleport : (sim:SimulatedPlayer,player:Player)=>sim.teleport(player.location),
-    useAndStopUsingItem : (sim:SimulatedPlayer&Player)=>sim.useItemInSlot(sim.selectedSlotIndex) && sim.stopUsingItem(),
-    useItemInSlot : (sim:SimulatedPlayer&Player)=>sim.useItemInSlot(sim.selectedSlotIndex),
-    stopUsingItem : (sim:SimulatedPlayer)=>sim.stopUsingItem(),
-    interact : (sim:SimulatedPlayer)=>sim.interact(),
-    swapMainhandItem : (sim:SimulatedPlayer,player:Player)=>commandManager.run('假人主手物品交换',{player,simulatedPlayer: sim}),
-    swapInventory : (sim:SimulatedPlayer,player:Player)=>commandManager.run('假人背包交换',{player,simulatedPlayer: sim}),
-    swapEquipment : (sim:SimulatedPlayer,player:Player)=>commandManager.run('假人装备交换',{player,simulatedPlayer: sim}),
+    lookAtEntity: (sim: SimulatedPlayer, player: Player) => sim.lookAtEntity(player, LookDuration.Instant),
+    teleport: (sim: SimulatedPlayer, player: Player) => sim.teleport(player.location),
+    useAndStopUsingItem: (sim: SimulatedPlayer & Player) => sim.useItemInSlot(sim.selectedSlotIndex) && sim.stopUsingItem(),
+    useItemInSlot: (sim: SimulatedPlayer & Player) => sim.useItemInSlot(sim.selectedSlotIndex),
+    stopUsingItem: (sim: SimulatedPlayer) => sim.stopUsingItem(),
+    interact: (sim: SimulatedPlayer) => sim.interact(),
+    swapMainhandItem: (sim: SimulatedPlayer, player: Player) => commandManager.run('假人主手物品交换', { player, simulatedPlayer: sim }),
+    swapInventory: (sim: SimulatedPlayer, player: Player) => commandManager.run('假人背包交换', { player, simulatedPlayer: sim }),
+    swapEquipment: (sim: SimulatedPlayer, player: Player) => commandManager.run('假人装备交换', { player, simulatedPlayer: sim }),
     rename: async (sim: SimulatedPlayer, player: Player) => {
         const modalForm = new ModalFormData().title("假人改名");
         modalForm.textField(`由 "${sim.nameTag}" 改为：`, '输入新名称', sim.nameTag);
@@ -79,8 +85,8 @@ export const BEHAVIOR_FUNCTION = {
         sim.nameTag = <string>formValues[0];
         // commandManager.executeCommand('假人改名', [name], { entity: player, sim });
     },
-    recycle : (sim:SimulatedPlayer,player:Player)=>commandManager.run('假人资源回收',{player,simulatedPlayer: sim}), // item and exp
-    disconnect : (sim:SimulatedPlayer)=>commandManager.run('假人销毁',{simulatedPlayer: sim}),
-}
-export const exeBehavior = (behavior: string) => BEHAVIOR[behavior] && BEHAVIOR_FUNCTION[behavior]
+    recycle: (sim: SimulatedPlayer, player: Player) => commandManager.run('假人资源回收', { player, simulatedPlayer: sim }), // item and exp
+    disconnect: (sim: SimulatedPlayer) => commandManager.run('假人销毁', { simulatedPlayer: sim }),
+};
 
+export const exeBehavior = (behavior: string) => BEHAVIOR[behavior] && BEHAVIOR_FUNCTION[behavior];

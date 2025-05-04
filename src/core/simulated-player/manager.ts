@@ -1,16 +1,11 @@
 import { PIDManager, type PID } from "../pid";
 import { Test, type SimulatedPlayer } from "@minecraft/server-gametest";
-import { SIGN } from "@/constants";
+import { DEFAULT_SIGNS } from "@/constants";
 import { SimulatedPlayerNotFoundError, NotReadyError } from "./errors";
 import type { Entity } from "@minecraft/server";
 import type { AddSimulatedPlayerOptions, SpawnSimulatedPlayerOptions } from "./types";
 
 class SimulatedPlayerManager {
-    private readonly initialSigns = [
-        SIGN.YUME_SIM_SIGN,
-        SIGN.AUTO_RESPAWN_SIGN
-    ] as const;
-
     private _test: Test | null = null;
     private _initialized = false;
 
@@ -49,7 +44,7 @@ class SimulatedPlayerManager {
         const simulatedPlayer = this._test!.spawnSimulatedPlayer({ x: 0, y: 8, z: 0 }, name);
         if (nameTag)
             simulatedPlayer.nameTag = nameTag;
-        this.initialSigns.forEach(sign => simulatedPlayer.addTag(sign));
+        DEFAULT_SIGNS.forEach(sign => simulatedPlayer.addTag(sign));
         try {
             simulatedPlayer.setSpawnPoint({ ...location, dimension });
             simulatedPlayer.teleport(location, { dimension });
