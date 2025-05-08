@@ -117,9 +117,6 @@ register('我是云梦', '假人', (test:Test) => {
 // .requiredSuccessfulAttempts(tickWaitTimes)
 // .padding(0)
 
-    // @ts-ignore
-    (world.afterEvents.worldInitialize ?? world.afterEvents['worldLoad']).subscribe(()=>{
-
     // 记分板PID初始化 写的烂 执行两次
     verify()
     verify()
@@ -132,7 +129,7 @@ register('我是云梦', '假人', (test:Test) => {
             world.sendMessage('[模拟玩家] 报错了，我也不知道为什么' + e);
         }
     });
-})
+
 
 let say = false
 playerMove.subscribe(()=>{
