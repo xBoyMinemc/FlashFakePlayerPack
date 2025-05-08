@@ -2,9 +2,9 @@ const fs = require('fs');
 const archiver = require('archiver');
 
 
-const pack_name = '指令与GUI增强-构建于1.21.71-支持1.21.7x'
+const pack_name = '指令与GUI增强-构建于1.21.80-支持1.21.7x-1.21.8x'
 const pack_version = [1,21,71];
-const fix_pack_version = 19
+const fix_pack_version = 20
 const min_engine_version = [1,21,70]
 
 const printFilePathOnly = process.argv.includes('--print-filepath-only')
