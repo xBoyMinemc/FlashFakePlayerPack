@@ -18,7 +18,7 @@ const update = (): void => {
             playerViewYMap.set(player, currentViewY);
             return;
         }
-        if (storedViewY == currentViewY)
+        if (storedViewY === currentViewY)
             // nothing
             return;
 
