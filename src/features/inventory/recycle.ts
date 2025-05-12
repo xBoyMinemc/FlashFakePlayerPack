@@ -1,6 +1,6 @@
 import { commandManager } from "@/core/command";
 import { getSimPlayer } from "@/core/queries";
-import { EquipmentSlot } from "@minecraft/server";
+import { EntityComponentTypes, EquipmentSlot } from "@minecraft/server";
 import type { SimulatedPlayer } from "@minecraft/server-gametest";
 
 commandManager.add(['假人资源回收','假人背包清空','假人爆金币'], ({player,simulatedPlayer: sim})=>{
@@ -12,7 +12,7 @@ commandManager.add(['假人资源回收','假人背包清空','假人爆金币']
     const simulatedPlayer:SimulatedPlayer = sim ?? getSimPlayer.fromView(player)
     if(!simulatedPlayer)return
 
-    const equip = simulatedPlayer.getComponent("minecraft:equippable")
+    const equip = simulatedPlayer.getComponent(EntityComponentTypes.Equippable)
 
     // emmm你这变量名
     const { location:l, dimension:d } = player
@@ -29,7 +29,7 @@ commandManager.add(['假人资源回收','假人背包清空','假人爆金币']
         equip.setEquipment(<EquipmentSlot>i, null) //undefined? new ItemStack('air')?
     }
 
-    const { container:s } =  simulatedPlayer.getComponent("minecraft:inventory")
+    const { container:s } =  simulatedPlayer.getComponent(EntityComponentTypes.Inventory)
 
     for (
         let i = s.size;

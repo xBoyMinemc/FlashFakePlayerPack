@@ -1,5 +1,6 @@
 import { commandManager } from "@/core/command";
 import { getSimPlayer } from "@/core/queries";
+import { EntityComponentTypes } from "@minecraft/server";
 import type { SimulatedPlayer } from "@minecraft/server-gametest";
 
 commandManager.add(['假人背包交换','假人交换背包'], ({player,simulatedPlayer: sim}) => {
@@ -7,9 +8,9 @@ commandManager.add(['假人背包交换','假人交换背包'], ({player,simulat
     const simulatedPlayer:SimulatedPlayer = sim || getSimPlayer.fromView(player)
     if(!simulatedPlayer)return
 
-    const s = simulatedPlayer.getComponent("minecraft:inventory").container
+    const s = simulatedPlayer.getComponent(EntityComponentTypes.Inventory).container
 
-    const p = player.getComponent("minecraft:inventory").container
+    const p = player.getComponent(EntityComponentTypes.Inventory).container
 
     for
     (
