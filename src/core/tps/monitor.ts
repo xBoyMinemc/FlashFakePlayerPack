@@ -1,6 +1,5 @@
 import { system } from "@minecraft/server";
 import { EventSignal } from "../event";
-import type { TPSUpdateEvent } from "./types";
 
 export class TPSMonitor {
     private calculatedTPS: number = 0;
@@ -47,4 +46,9 @@ export class TPSMonitor {
             tpsMonitor: this
         });
     }
+}
+
+export interface TPSUpdateEvent {
+    tps: number;
+    tpsMonitor: TPSMonitor;
 }
