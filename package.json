@@ -6,9 +6,9 @@
     "build": "cd . && webpack && node packer.js"
   },
   "devDependencies": {
-    "@minecraft/server": "2.0.0-beta.1.21.70-stable",
-    "@minecraft/server-gametest": "1.0.0-beta.1.21.70-stable",
-    "@minecraft/server-ui": "2.0.0-beta.1.21.70-stable",
+    "@minecraft/server": "2.0.0-beta.1.21.80-stable",
+    "@minecraft/server-gametest": "1.0.0-beta.1.21.80-stable",
+    "@minecraft/server-ui": "2.0.0-beta.1.21.80-stable",
     "archiver": "latest",
     "clean-webpack-plugin": "^4.0.0",
     "ts-loader": "^9.5.2",

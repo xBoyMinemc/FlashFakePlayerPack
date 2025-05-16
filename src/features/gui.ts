@@ -23,7 +23,14 @@ const BEHAVIOR_HANDLERS = {
     swapEquipment: (simulatedPlayer: SimulatedPlayer, player: Player) => commandManager.run('假人装备交换', { player, simulatedPlayer }),
     rename: async (simulatedPlayer: SimulatedPlayer, player: Player) => {
         const modalForm = new ModalFormData().title("假人改名");
-        modalForm.textField(`由 "${simulatedPlayer.nameTag}" 改为：`, '输入新名称', simulatedPlayer.nameTag);
+
+        try {
+            modalForm.textField(`由 "${simulatedPlayer.nameTag}" 改为：`, '输入新名称', { defaultValue: simulatedPlayer.nameTag });
+        } catch {
+            // @ts-expect-error 如果不支持如上传参方式，回退到 1.21.7x 的方式
+            modalForm.textField(`由 "${simulatedPlayer.nameTag}" 改为：`, '输入新名称', simulatedPlayer.nameTag);
+        }
+        
         const { canceled, formValues } = await modalForm.show(player);
         if (canceled) return;
 
