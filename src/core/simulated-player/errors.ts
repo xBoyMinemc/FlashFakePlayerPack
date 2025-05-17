@@ -11,3 +11,10 @@ export class SimulatedPlayerNotFoundError extends Error {
         this.name = "SimulatedPlayerNotFoundError";
     }
 }
+
+export class ExistingSimulatedPlayersError extends Error {
+    constructor(message: string) {
+        super(message);
+        this.name = "ExistingSimulatedPlayersError";
+    }
+}

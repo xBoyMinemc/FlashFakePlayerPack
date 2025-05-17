@@ -1,7 +1,7 @@
 import { PIDManager, type PID } from "../pid";
 import { Test, type SimulatedPlayer } from "@minecraft/server-gametest";
 import { DEFAULT_SIGNS } from "@/constants";
-import { SimulatedPlayerNotFoundError, NotReadyError } from "./errors";
+import { SimulatedPlayerNotFoundError, NotReadyError, ExistingSimulatedPlayersError } from "./errors";
 import type { Entity } from "@minecraft/server";
 import type { AddSimulatedPlayerOptions, SpawnSimulatedPlayerOptions } from "./types";
 
@@ -120,6 +120,9 @@ class SimulatedPlayerManager {
     }
 
     resetPID(): PID {
+        if(this._pidToSimulatedPlayer.size > 0)
+            throw new ExistingSimulatedPlayersError('Cannot reset PID while simulated players exist');
+        
         return this.pidManager.reset();
     }
 }
