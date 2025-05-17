@@ -18,9 +18,9 @@ const BEHAVIOR_HANDLERS = {
     useItemInSlot: (simulatedPlayer: SimulatedPlayer) => simulatedPlayer.useItemInSlot(simulatedPlayer.selectedSlotIndex),
     stopUsingItem: (simulatedPlayer: SimulatedPlayer) => simulatedPlayer.stopUsingItem(),
     interact: (simulatedPlayer: SimulatedPlayer) => simulatedPlayer.interact(),
-    swapMainhandItem: (simulatedPlayer: SimulatedPlayer, player: Player) => commandManager.run('假人主手物品交换', { player, simulatedPlayer }),
-    swapInventory: (simulatedPlayer: SimulatedPlayer, player: Player) => commandManager.run('假人背包交换', { player, simulatedPlayer }),
-    swapEquipment: (simulatedPlayer: SimulatedPlayer, player: Player) => commandManager.run('假人装备交换', { player, simulatedPlayer }),
+    swapMainhandItem: (simulatedPlayer: SimulatedPlayer, player: Player) => commandManager.execute('假人主手物品交换', { player, simulatedPlayer }),
+    swapInventory: (simulatedPlayer: SimulatedPlayer, player: Player) => commandManager.execute('假人背包交换', { player, simulatedPlayer }),
+    swapEquipment: (simulatedPlayer: SimulatedPlayer, player: Player) => commandManager.execute('假人装备交换', { player, simulatedPlayer }),
     rename: async (simulatedPlayer: SimulatedPlayer, player: Player) => {
         const modalForm = new ModalFormData().title("假人改名");
 
@@ -37,8 +37,8 @@ const BEHAVIOR_HANDLERS = {
         simulatedPlayer.nameTag = <string>formValues[0];
         // commandManager.executeCommand('假人改名', [name], { entity: player, simulatedPlayer });
     },
-    recycle: (simulatedPlayer: SimulatedPlayer, player: Player) => commandManager.run('假人资源回收', { player, simulatedPlayer }), // item and exp
-    disconnect: (simulatedPlayer: SimulatedPlayer) => commandManager.run('假人销毁', { simulatedPlayer }),
+    recycle: (simulatedPlayer: SimulatedPlayer, player: Player) => commandManager.execute('假人资源回收', { player, simulatedPlayer }), // item and exp
+    disconnect: (simulatedPlayer: SimulatedPlayer) => commandManager.execute('假人销毁', { simulatedPlayer }),
 };
 
 export const exeBehavior = (behavior: string) => BEHAVIOR[behavior] && BEHAVIOR_HANDLERS[behavior];

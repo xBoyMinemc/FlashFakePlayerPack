@@ -2,7 +2,7 @@ import { commandManager } from "@/core/command";
 import { simulatedPlayerManager } from '@/core/simulated-player';
 import { world } from "@minecraft/server";
 
-commandManager.add('假人列表', ({player}) => {
+commandManager.register('假人列表', ({player}) => {
     let target = player ?? world;
     if (simulatedPlayerManager.simulatedPlayers.size === 0) return target.sendMessage('列表空的');
     for (const [index, simulatedPlayer] of simulatedPlayerManager.simulatedPlayers) {

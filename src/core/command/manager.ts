@@ -46,7 +46,7 @@ class CommandManager {
      * add(['假人生成', '假人创建'], spawn);
      * ```
      */
-    add(prefixes: string | string[], rawHandler: Executable | Handler): void {
+    register(prefixes: string | string[], rawHandler: Executable | Handler): void {
         const prefixesArray = (Array.isArray(prefixes) ? prefixes : [prefixes])
             .map(prefix => prefix.toLowerCase());
 
@@ -80,7 +80,7 @@ class CommandManager {
      * @param prefixes - 要取消注册的命令前缀字符串或字符串数组。
      * @throws {CommandNotFoundError} 如果给定前缀未注册。
      */
-    remove(prefixes: string | string[]): void {
+    unregister(prefixes: string | string[]): void {
         const prefixesArray = (Array.isArray(prefixes) ? prefixes : [prefixes])
             .map(prefix => prefix.toLowerCase());
 
@@ -103,7 +103,7 @@ class CommandManager {
      * 该方法首先解析命令字符串，提取命令前缀和参数数组，
      * 然后将这些信息用于执行相应的命令。
      */
-    run(commandString: string, baseContext?: BaseContext): void;
+    execute(commandString: string, baseContext?: BaseContext): void;
 
     /**
      * 执行指定命令
@@ -114,16 +114,16 @@ class CommandManager {
      * 
      * @throws {CommandNotFoundError} 如果命令不存在。
      */
-    run(prefix: string, args: string[], baseContext: BaseContext): void;
+    execute(prefix: string, args: string[], baseContext: BaseContext): void;
 
-    run(commandStringOrPrefix: string, argsOrBaseContext: BaseContext | string[] = {}, baseContext?: BaseContext): void {
+    execute(commandStringOrPrefix: string, argsOrBaseContext: BaseContext | string[] = {}, baseContext?: BaseContext): void {
         if (Array.isArray(argsOrBaseContext))
-            this.runCommand(commandStringOrPrefix, argsOrBaseContext, baseContext!);
+            this.executeCommand(commandStringOrPrefix, argsOrBaseContext, baseContext!);
         else
-            this.runString(commandStringOrPrefix, argsOrBaseContext);
+            this.executeString(commandStringOrPrefix, argsOrBaseContext);
     }
 
-    private runCommand(prefix: string, args: string[], baseContext: BaseContext): void {
+    private executeCommand(prefix: string, args: string[], baseContext: BaseContext): void {
         prefix = prefix.toLowerCase();
         const command = this.prefixToHandlerMap.get(prefix);
         if (!command)
@@ -136,10 +136,10 @@ class CommandManager {
         command({ prefix, args, ...baseContext });
     }
 
-    private runString(commandString: string, baseContext: BaseContext = {}): void {
+    private executeString(commandString: string, baseContext: BaseContext = {}): void {
         const { prefix, args } = parseCommandString(commandString);
 
-        this.runCommand(prefix, args, baseContext);
+        this.executeCommand(prefix, args, baseContext);
     }
 
     /**

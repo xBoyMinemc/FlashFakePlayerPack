@@ -7,7 +7,7 @@ import { SIGN } from "@/constants";
 import { gameTestManager } from '@/core/gametest';
 
 const breakBlockCommand = new Command();
-breakBlockCommand.use(({ args }) => args.length === 0, ({ player }) => {
+breakBlockCommand.register(({ args }) => args.length === 0, ({ player }) => {
     if (!player) {
         console.error('error not isEntity');
         return;
@@ -21,7 +21,7 @@ breakBlockCommand.use(({ args }) => args.length === 0, ({ player }) => {
 
     simulatedPlayer.addTag(SIGN.AUTO_BREAKBLOCK_SIGN);
 });
-commandManager.add(['假人挖掘', '假人摧毁'], breakBlockCommand);
+commandManager.register(['假人挖掘', '假人摧毁'], breakBlockCommand);
 
 // task
 const breaks = () =>

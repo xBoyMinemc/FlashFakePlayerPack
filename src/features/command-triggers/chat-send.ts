@@ -5,7 +5,7 @@ import { Messages } from "@/constants";
 world.beforeEvents.chatSend.subscribe(({message, sender}) => {
     system.run(() => {
         try {
-            commandManager.run(message, {
+            commandManager.execute(message, {
                 player: sender,
                 location: sender.location,
                 dimension: sender.dimension

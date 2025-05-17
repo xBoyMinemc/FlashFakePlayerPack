@@ -8,7 +8,7 @@ export class Command implements Executable {
      * 
      * @param handler 注册的命令 handler，接受命令上下文对象。
      */
-    use(handler: Handler): void;
+    register(handler: Handler): void;
 
     /**
      * 注册有条件约束的命令处理回调。
@@ -17,8 +17,8 @@ export class Command implements Executable {
      * @param condition 条件回调，接受命令上下文对象，返回一个布尔值，仅当返回布尔值为 true 时才会执行对应的 handler。
      * @param handler 命令处理回调，接受命令上下文对象。
      */
-    use(condition: Condition, handler: Handler): void;
-    use(conditionOrHandler: Condition | Handler, handler?: Handler): void {
+    register(condition: Condition, handler: Handler): void;
+    register(conditionOrHandler: Condition | Handler, handler?: Handler): void {
         let condition: Condition;
         if (handler)
             condition = conditionOrHandler as Condition;

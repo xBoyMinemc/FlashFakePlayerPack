@@ -23,12 +23,12 @@ const addSimulatedPlayer = (entity: Player | undefined, location: Vector3, dimen
 const chatSpawnCommand = new Command();
 
 // 假人生成
-chatSpawnCommand.use(({ args }) => args.length === 0, ({ player, location, dimension }) => {
+chatSpawnCommand.register(({ args }) => args.length === 0, ({ player, location, dimension }) => {
     addSimulatedPlayer(player, location, dimension);
 });
 
 // 假人生成 批量 count
-chatSpawnCommand.use(({ args }) => args[0] === '批量', ({ args: [, countString], player, location, dimension }) => {
+chatSpawnCommand.register(({ args }) => args[0] === '批量', ({ args: [, countString], player, location, dimension }) => {
     if (!countString) return player?.sendMessage('[模拟玩家] 命令错误，请提供数字');
     if (!Number.isSafeInteger(Number(countString))) return player?.sendMessage('[模拟玩家] 命令错误，期待数字却得到 ' + countString);
 
@@ -38,13 +38,13 @@ chatSpawnCommand.use(({ args }) => args[0] === '批量', ({ args: [, countString
 });
 
 // 假人生成 name
-chatSpawnCommand.use(({ args }) => args.length === 1, ({ args: [targetName], player, location, dimension }) => {
+chatSpawnCommand.register(({ args }) => args.length === 1, ({ args: [targetName], player, location, dimension }) => {
     addSimulatedPlayer(player, location, dimension, targetName);
 });
 
 // #56 参考：
 // 假人生成 x y z name 维度序号（数字 0-主世界 1-下界 2-末地）
-chatSpawnCommand.use(
+chatSpawnCommand.register(
     ({ args }) => args.length >= 3,
     ({
         args: [targetX, targetY, targetZ, targetName, targetDimension],
@@ -91,11 +91,11 @@ chatSpawnCommand.use(
 );
 
 // 捕获命令参数数量错误并提示
-chatSpawnCommand.use(({ args, player }) => {
+chatSpawnCommand.register(({ args, player }) => {
     player?.sendMessage(`[模拟玩家] 命令错误，期待3个坐标数字(x y z)或1个名称字符串("名称")，得到个数为${args.length}。带空格名称需用引号包裹`);
 });
 
-commandManager.add(['假人生成', '假人创建', 'ffpp'], chatSpawnCommand);
+commandManager.register(['假人生成', '假人创建', 'ffpp'], chatSpawnCommand);
 
 // world.afterEvents.chatSend.subscribe(({message, sender})=>{
 //     const cmdArgs = CommandRegistry.parse(message)

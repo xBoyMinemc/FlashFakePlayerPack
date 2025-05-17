@@ -3,7 +3,7 @@ import { getSimPlayer } from "@/core/queries";
 import { EntityComponentTypes } from "@minecraft/server";
 import type { SimulatedPlayer } from "@minecraft/server-gametest";
 
-commandManager.add(['假人背包交换','假人交换背包'], ({player,simulatedPlayer: sim}) => {
+commandManager.register(['假人背包交换','假人交换背包'], ({player,simulatedPlayer: sim}) => {
     if(!player && !sim)return
     const simulatedPlayer:SimulatedPlayer = sim || getSimPlayer.fromView(player)
     if(!simulatedPlayer)return

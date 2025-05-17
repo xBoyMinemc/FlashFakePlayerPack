@@ -2,7 +2,7 @@ import { commandManager } from "@/core/command";
 import { getSimPlayer } from "@/core/queries";
 import type { SimulatedPlayer } from "@minecraft/server-gametest";
 
-commandManager.add(['假人改名', '假人重命名', '假人换名'], ({player,args:[newName]}) => {
+commandManager.register(['假人改名', '假人重命名', '假人换名'], ({player,args:[newName]}) => {
     if(!player) {
         console.error('error not isEntity')
         return
