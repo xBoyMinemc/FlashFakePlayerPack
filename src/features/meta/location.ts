@@ -1,7 +1,7 @@
 import { dimensionMap } from "@/constants";
 import { commandManager } from "@/core/command";
 import type { PID } from "@/core/pid";
-import { getSimPlayer } from "@/core/queries";
+import { getSimPlayer } from "@/utils";
 import { simulatedPlayerManager } from '@/core/simulated-player';
 import type { SimulatedPlayer } from "@minecraft/server-gametest";
 

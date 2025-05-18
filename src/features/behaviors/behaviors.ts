@@ -1,5 +1,5 @@
 import { SIGN } from '@/constants';
-import { getSimPlayer } from '@/core/queries';
+import { getSimPlayer } from '@/utils';
 import { commandManager } from '@/core/command';
 
 interface BehaviorCommandConfig {

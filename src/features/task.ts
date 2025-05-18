@@ -2,7 +2,7 @@ import { SIGN } from '@/constants';
 import type { Vector3 } from '@minecraft/server';
 import { system } from '@minecraft/server';
 import type { SimulatedPlayer } from '@minecraft/server-gametest';
-import { getEntitiesNear, getPlayerNear } from '@/core/queries';
+import { getEntitiesNear, getPlayerNear } from '@/utils';
 import { simulatedPlayerManager } from '@/core/simulated-player';
 import { gameTestManager } from '@/core/gametest';
 

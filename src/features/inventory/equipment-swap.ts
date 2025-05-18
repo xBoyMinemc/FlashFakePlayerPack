@@ -1,5 +1,5 @@
 import { commandManager } from "@/core/command";
-import { getSimPlayer } from "@/core/queries";
+import { getSimPlayer } from "@/utils";
 import { EquipmentSlot } from "@minecraft/server";
 import type { SimulatedPlayer } from "@minecraft/server-gametest";
 import { swapEquipment } from "./utils";

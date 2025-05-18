@@ -1,7 +1,7 @@
 import type { SimulatedPlayer } from '@minecraft/server-gametest';
 
 import { Command, commandManager } from '@/core/command';
-import { getSimPlayer } from '@/core/queries';
+import { getSimPlayer } from '@/utils';
 import { world, system } from "@minecraft/server";
 import { SIGN } from "@/constants";
 import { gameTestManager } from '@/core/gametest';

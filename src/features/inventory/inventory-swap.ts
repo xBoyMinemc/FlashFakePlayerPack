@@ -1,5 +1,5 @@
 import { commandManager } from "@/core/command";
-import { getSimPlayer } from "@/core/queries";
+import { getSimPlayer } from "@/utils";
 import { EntityComponentTypes } from "@minecraft/server";
 import type { SimulatedPlayer } from "@minecraft/server-gametest";
 
