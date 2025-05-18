@@ -10,9 +10,9 @@ ops['-'] = '-'
  *
  * console.log(parseCoordinates('~-30 5 4', [1, 25, 0])) // [ 29, 5, 4 ]
  */
-export function parseCoordinates(xyz:(`${number}`|`~${number}`/*|`~+${number}`|`~-${number}`*/)[],playerLocation=[0,0,0]) : number[] {
+export function parseCoordinates(dynamicLocation:(`${number}`|`~${number}`/*|`~+${number}`|`~-${number}`*/)[],baseLocation=[0,0,0]) : number[] {
     // 遍历分割后的数组
-    return xyz.map((part, index) => {
+    return dynamicLocation.map((part, index) => {
         // 否则直接解析为数字
         if (!part.startsWith('~')) {
             const data = Number(part);
@@ -35,9 +35,9 @@ export function parseCoordinates(xyz:(`${number}`|`~${number}`/*|`~+${number}`|`
             throw new Error(['x','y','z'][index] + ' not a number')
 
         if (op === '+')
-            return playerLocation[index] + data;
+            return baseLocation[index] + data;
         if (op === '-')
-            return playerLocation[index] - data;
+            return baseLocation[index] - data;
 
         return data;
     });
