@@ -1,4 +1,4 @@
-import { parseCommandString } from "./command-parser";
+import { parseCommandString } from "./parse-command";
 import { CommandAlreadyExistsError, CommandNotFoundError } from "./errors";
 import type { Executable, Handler, BaseContext } from "./types";
 
