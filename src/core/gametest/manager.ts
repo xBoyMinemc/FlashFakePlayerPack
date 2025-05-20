@@ -21,7 +21,7 @@ class GameTestManager {
         return this._test;
     }
 
-    registerTest(): void {
+    private registerTest(): void {
         const { randomTickSpeed, doDayLightCycle, doMobSpawning } = world.gameRules;
 
         if (!world.structureManager.get('xboyMinemcSIM:void'))
@@ -51,6 +51,8 @@ class GameTestManager {
     }
 
     initialize(): void {
+        this.registerTest();
+
         const { x, y, z } = this.generateTestPosition();
 
         system.run(() => {
