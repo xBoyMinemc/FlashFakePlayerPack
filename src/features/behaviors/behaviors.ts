@@ -72,17 +72,16 @@ const behaviorCommandConfigs = [
 const behaviorPrefix = '假人';
 
 const registerBehaviorCommands = () => {
-    behaviorCommandConfigs.forEach(behaviorCommand => {
-        commandManager.register(`${behaviorPrefix}${behaviorCommand.behavior}`, ({ player }) => {
+    behaviorCommandConfigs.forEach(({ behavior, adds, removes }) => {
+        commandManager.register(`${behaviorPrefix}${behavior}`, ({ player }) => {
             if (!player) return;
             const simulatedPlayer = getSimPlayer.fromView(player);
             if (!simulatedPlayer) return;
 
-            const { adds, removes } = behaviorCommand;
-
             adds.forEach(tag => {
                 simulatedPlayer.addTag(tag);
             });
+
             removes.forEach(tag => {
                 simulatedPlayer.removeTag(tag);
             });
