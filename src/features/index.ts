@@ -26,3 +26,5 @@ export * from './behaviors/behaviors';
 export * from './behaviors/break-block';
 
 export * from './tps'
+
+export * from './initialization/initialize';
