@@ -46,3 +46,6 @@ const autoSwitchTPS = (): void => {
 };
 
 EVENTS.forEach(event => event.subscribe(autoSwitchTPS));
+
+// 立即执行一次
+autoSwitchTPS();
