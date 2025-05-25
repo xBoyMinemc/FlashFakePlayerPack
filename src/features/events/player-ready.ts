@@ -1,35 +1,34 @@
 import { type Player, system, world } from "@minecraft/server";
-import { EventSignal } from "@/core/event";
 
 // EventSignal
-export const playerReady = new EventSignal();
+export const playerReady = new Promise<void>(resolve => {
+    const playerViewYMap = new Map<Player, number>();
 
-const playerViewYMap = new Map<Player, number>();
+    const update = (): void => {
+        const playerList = world.getAllPlayers();
+        playerList.forEach(player => {
+            const { y: currentViewY } = player.getViewDirection();
 
-const update = (): void => {
-    const playerList = world.getAllPlayers();
-    playerList.forEach(player => {
-        const { y: currentViewY } = player.getViewDirection();
+            const storedViewY = playerViewYMap.get(player);
 
-        const storedViewY = playerViewYMap.get(player);
+            if (storedViewY === undefined) {
+                // set to Map
+                playerViewYMap.set(player, currentViewY);
+                return;
+            }
+            if (storedViewY === currentViewY)
+                // nothing
+                return;
 
-        if (storedViewY === undefined) {
-            // set to Map
-            playerViewYMap.set(player, currentViewY);
-            return;
-        }
-        if (storedViewY === currentViewY)
-            // nothing
-            return;
+            // update to Map && Event-trigger
 
-        // update to Map && Event-trigger
-        playerViewYMap.set(player, currentViewY);
-        playerReady.trigger();
+            resolve();
 
-        // 触发一次后即清理资源
-        system.clearRun(id);
-        playerViewYMap.clear();
-    });
-};
+            // 触发一次后即清理资源
+            system.clearRun(id);
+            playerViewYMap.clear();
+        });
+    };
 
-const id = system.runInterval(update, 4);
+    const id = system.runInterval(update, 4);
+});

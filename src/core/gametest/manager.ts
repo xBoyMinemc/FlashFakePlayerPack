@@ -8,10 +8,42 @@ class GameTestManager {
     private _testLocation: Vector3 | undefined;
     private _test: Test | undefined;
 
-    private _resolve!: ((value: Test | PromiseLike<Test>) => void);
-    public readonly ready = new Promise<Test>(resolve => {
-        this._resolve = resolve;
-    });
+    initialize(): Promise<Test> {
+        // 1. 存储结构
+        this.saveStructure();
+
+        return new Promise<Test>((resolve, reject) => {
+            // 2. 暂存 gamerules
+            const { randomTickSpeed, doDayLightCycle, doMobSpawning } = world.gameRules;
+
+            // 3. 注册测试
+            register('我是云梦', '假人', (test: Test) => {
+                this._testLocation = test.worldBlockLocation({ x: 0, y: 0, z: 0 });
+
+                // 5. 恢复 gamerules
+                world.gameRules.randomTickSpeed = randomTickSpeed;
+                world.gameRules.doDayLightCycle = doDayLightCycle;
+                world.gameRules.doMobSpawning = doMobSpawning;
+
+                this._test = test;
+                resolve(test);
+            })
+                .maxTicks(this.maxTicks)
+                .structureName('xboyMinemcSIM:void');
+
+
+            // 4. 运行测试
+            const { x, y, z } = this.generateTestPosition();
+
+            system.run(() => {
+                try {
+                    overworld.runCommand(`execute positioned ${x} ${y} ${z} run gametest run 我是云梦:假人`);
+                } catch (e) {
+                    reject(e);
+                }
+            });
+        });
+    }
 
     get testLocation(): Vector3 | undefined {
         return this._testLocation;
@@ -21,24 +53,9 @@ class GameTestManager {
         return this._test;
     }
 
-    private registerTest(): void {
-        const { randomTickSpeed, doDayLightCycle, doMobSpawning } = world.gameRules;
-
+    private saveStructure(): void {
         if (!world.structureManager.get('xboyMinemcSIM:void'))
             world.structureManager.createEmpty('xboyMinemcSIM:void', { x: 1, y: 1, z: 1 }).saveToWorld();
-
-        register('我是云梦', '假人', (test: Test) => {
-            this._testLocation = test.worldBlockLocation({ x: 0, y: 0, z: 0 });
-
-            world.gameRules.randomTickSpeed = randomTickSpeed;
-            world.gameRules.doDayLightCycle = doDayLightCycle;
-            world.gameRules.doMobSpawning = doMobSpawning;
-
-            this._test = test;
-            this._resolve(test);
-        })
-            .maxTicks(this.maxTicks)
-            .structureName('xboyMinemcSIM:void');
     }
 
     private generateTestPosition(): Vector3 {
@@ -48,20 +65,6 @@ class GameTestManager {
             y: 256,
             z
         };
-    }
-
-    initialize(): void {
-        this.registerTest();
-
-        const { x, y, z } = this.generateTestPosition();
-
-        system.run(() => {
-            try {
-                overworld.runCommand(`execute positioned ${x} ${y} ${z} run gametest run 我是云梦:假人`);
-            } catch (e) {
-                world.sendMessage('[模拟玩家] 报错了，我也不知道为什么' + e);
-            }
-        });
     }
 }
 
