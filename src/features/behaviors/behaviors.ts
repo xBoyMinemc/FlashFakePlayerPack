@@ -8,7 +8,7 @@ interface BehaviorCommandConfig {
     removes: string[];
 }
 
-const behaviorCommandConfigs: BehaviorCommandConfig[] = [
+const behaviorCommandConfigs = [
     {
         behavior: "攻击",
         adds: [SIGN.ATTACK_SIGN],
@@ -67,7 +67,7 @@ const behaviorCommandConfigs: BehaviorCommandConfig[] = [
         adds: [SIGN.AUTO_TRIDENT_SIGN],
         removes: []
     }
-];
+] as const satisfies readonly BehaviorCommandConfig[];
 
 const behaviorPrefix = '假人';
 
