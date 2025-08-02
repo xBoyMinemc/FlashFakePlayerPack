@@ -44,6 +44,8 @@ function AUTO_BEHAVIOR(){
 
         if(SimPlayer.hasTag(SIGN.AUTO_TRIDENT_SIGN))SimPlayer.useItemInSlot(0) ? system.runTimeout(()=>SimPlayer.stopUsingItem(),10) : 0
 
+        if(SimPlayer.hasTag(SIGN.AUTO_CONSUME_SIGN))SimPlayer.useItemInSlot(0)
+
         if(SimPlayer.hasTag(SIGN.AUTO_CHASE_SIGN)){
             const entities = getEntitiesNear(SimPlayer.location,SimPlayer.dimension,12,{families:["undead"]})
                                     .concat( getEntitiesNear(SimPlayer.location,SimPlayer.dimension,12,{families:["monster"]}) )
