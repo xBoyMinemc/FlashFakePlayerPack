@@ -76,4 +76,15 @@ i18n -- 我觉得外国人也有权利被我的屎山震惊
 
 ~~凑活~~修复影响刷怪，时间，随机刻问题
 
+# 打包与发布流程
+
+创建 tag，tag 名以 `v` 开头（如 `v1.0.0`），会自动触发发布流程。
+
+从ts的tscripts
+编译到scripts_yeah
+然后webpack处理到scripts
+之后packer.js打包mcpack到build
+Release 说明内容取自最新的 `CHANGELOG.md`。
+最后发布
+
 
