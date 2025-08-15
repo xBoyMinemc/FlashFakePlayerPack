@@ -148,7 +148,7 @@ register('我是云梦', '假人', (test:Test) => {
 let say = false
 playerMove.subscribe(()=>{
     if (say) return
-    say  = true
+    say = true
     world.sendMessage('[模拟玩家] 初始化完成，输入“假人创建”或“ffpp”')
 })
 
@@ -201,5 +201,3 @@ listenChatMessage(({message, sender}) => {
 });
 
 export { spawnSimulatedPlayer,spawnSimulatedPlayerByNameTag,testWorldLocation,testWorldDimension,GetPID }
-
-
