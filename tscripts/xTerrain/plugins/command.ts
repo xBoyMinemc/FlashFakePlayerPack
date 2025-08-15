@@ -31,10 +31,11 @@ world.afterEvents.chatSend.subscribe( event => {
             xboy("结束跳跃")()([SIGN.AUTO_JUMP_SIGN])
             // xboy("寻路")([寻路标识符])([])
             xboy("自动追击")([SIGN.AUTO_CHASE_SIGN, SIGN.AUTO_ATTACK_SIGN,SIGN.AUTO_JUMP_SIGN])()
-            xboy("停止")()([SIGN.ATTACK_SIGN, SIGN.AUTO_ATTACK_SIGN, SIGN.AUTO_JUMP_SIGN,SIGN.AUTO_TRIDENT_SIGN])
+            xboy("停止")()([SIGN.ATTACK_SIGN, SIGN.AUTO_ATTACK_SIGN, SIGN.AUTO_JUMP_SIGN,SIGN.AUTO_TRIDENT_SIGN,SIGN.AUTO_CONSUME_SIGN])
             xboy("开摆")()([SIGN.ATTACK_SIGN, SIGN.AUTO_ATTACK_SIGN, SIGN.AUTO_JUMP_SIGN])
             xboy("自动重生")([SIGN.AUTO_RESPAWN_SIGN])()
             xboy("自动丢三叉戟")([SIGN.AUTO_TRIDENT_SIGN])()
+            xboy("自动食用")([SIGN.AUTO_CONSUME_SIGN])()
             // 并不认为参数默认值在这里是什么好主意--2023-12-14
 
             const behavior = 消息 // 坏了，重新审阅代码发现命令行为真是这里控制的，怎么这么重要的东西和shit放在一起--2023-12-14
