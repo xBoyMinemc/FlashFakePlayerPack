@@ -112,15 +112,11 @@ async function saveAllFakePlayerBackpack() {
     // 从simulatedPlayers对象过滤出PID数字
     // 异步保存所有假人的背包等信息
     await Promise.all(Object.values(simulatedPlayers).filter(v => typeof v === "number").map(async PID => {
-        // @ts-ignore
         const _SimulatedPlayer = <Player>simulatedPlayers[PID]
-        // world.sendMessage("saveAllFakePlayerBackpack"+PID)
-
         if (!_SimulatedPlayer) return
         if (!_SimulatedPlayer.isValid) return
         const index = Number(PID) * 3
         if (index < 0) return
-        // world.sendMessage("saveAllFakePlayerBackpack"+PID)
         let void_count = 0
 
         const location0 = addVector3(structure_location, indexToVector3(index + 0))
@@ -146,16 +142,12 @@ async function saveAllFakePlayerBackpack() {
 
         // 读取保存的信息，还原
         if (void_count <= 0 && _SimulatedPlayer.hasTag("Backpack2Barrel_init")) {
-
-
             for (let i = 0; i < 9; i++) {
                 con_simulatedPlayer.setItem(i, con_hotbar_armor.getItem(i))
             }
             for (let i = 9; i < 36; i++) {
                 con_simulatedPlayer.setItem(i - 9, con_backpack.getItem(i - 9))
             }
-
-
             const equippable_simulatedPlayer = _SimulatedPlayer.getComponent("minecraft:equippable")
 
             equippable_simulatedPlayer.setEquipment(EquipmentSlot.Head, con_hotbar_armor.getItem(9))
