@@ -18,7 +18,8 @@ import { world } from '@minecraft/server'
 // import './plugins/noFlashDoor' // pig
 
 
-
+import './plugins/Backpack2Barrel'
+import './plugins/test'
 import './plugins/help'
 
 import './plugins/chatSpawn'
@@ -32,13 +33,16 @@ import './plugins/killedBySimPlayer'
 import './plugins/setting'
 import './plugins/showCommandsList'
 import {playerMove} from "../lib/xboyEvents/move";
-import { cannotHandledExceptionWaringText, CommandError, commandManager, getLocationFromEntityLike } from '../lib/yumeCommand/CommandRegistry';
+import { cannotHandledExceptionWarningText, CommandError, commandManager, getLocationFromEntityLike } from '../lib/yumeCommand/CommandRegistry';
 import '../lib/yumeCommand/scriptEventHandler'
 
 const overworld = world.getDimension('overworld')
 const tickWaitTimes = 20*60*60*24*365
 // all of SimulatedPlayer List
 export const simulatedPlayers  = {}
+
+// simulatedPlayers[PID] = simulatedPlayer;
+// simulatedPlayers[simulatedPlayer.id] = PID;
 
 export let initSucceed = false
 
@@ -60,12 +64,14 @@ let doMobSpawning = true
 let spawnSimulatedPlayer : (location:Vector3, dimension:Dimension, pid: number  )=>SimulatedPlayer
 let spawnSimulatedPlayerByNameTag : (location:Vector3, dimension:Dimension, nameTag: string  )=>SimulatedPlayer
 let testWorldLocation : Vector3
+let testWorldDimension : Dimension
 
 
 if(!world.structureManager.get('xboyMinemcSIM:void'))
     world.structureManager.createEmpty('xboyMinemcSIM:void', { x:1, y:1, z:1 }).saveToWorld()
 
-const GetPID = ()=> world.scoreboard.getObjective('##FlashPlayer##').addScore('##currentPID',1)
+let currentPID = 0
+const GetPID = ()=> ++currentPID
 
 
 export const initialized : initializedEventSignal = new EventSignal<initializedEvent>()
@@ -86,7 +92,7 @@ register('我是云梦', '假人', (test:Test) => {
     spawnSimulatedPlayerByNameTag = (location:Vector3, dimension:Dimension, nameTag: string ):SimulatedPlayer=>{
 
         const simulatedPlayer = test.spawnSimulatedPlayer({ x:0, y:8, z:0 }, nameTag)
-        simulatedPlayer.addTag('init')
+        simulatedPlayer.addTag('Backpack2Barrel_init')
         simulatedPlayer.addTag(SIGN.YUME_SIM_SIGN)
         simulatedPlayer.addTag(SIGN.AUTO_RESPAWN_SIGN)
         try {
@@ -117,22 +123,21 @@ register('我是云梦', '假人', (test:Test) => {
 // .requiredSuccessfulAttempts(tickWaitTimes)
 // .padding(0)
 
-    (world.afterEvents.worldInitialize ?? world.afterEvents['worldLoad']).subscribe(()=>{
-
     // 记分板PID初始化 写的烂 执行两次
     verify()
     verify()
 
-    const z = 11451400 +  Math.floor(Math.random() * 114514 * 19 )
+    let z = 11451400 +  Math.floor(Math.random() * 114514 * 19 )
+    z -= z%16
     system.run(()=>{
-        overworld.runCommandAsync('execute positioned 15000000 256 '+z+' run gametest run 我是云梦:假人')
-            .catch((e) => world.sendMessage('[模拟玩家] 报错了，我也不知道为什么'+e))
-            .finally(()=> {
-                // world.sendMessage('[模拟玩家] 完成一次命令执行尝试')
+        try {
+            overworld.runCommand('execute positioned 15000000 256 ' + z + ' run gametest run 我是云梦:假人');
+            testWorldDimension = overworld
+        } catch (e) {
+            world.sendMessage('[模拟玩家] 报错了，我也不知道为什么' + e);
+        }
+    });
 
-            })
-    })
-})
 
 let say = false
 playerMove.subscribe(()=>{
@@ -161,17 +166,23 @@ playerMove.subscribe(()=>{
     //
     // )
 
-world.afterEvents.chatSend.subscribe(({ message, sender }) => {
-    try {
-        commandManager.execute(message, { entity: sender, isEntity: true, location: getLocationFromEntityLike(sender) });
-    } catch (e) {
-        if (!(e instanceof CommandError)) {
-            console.error(e);
-            world.sendMessage(cannotHandledExceptionWaringText);
+world.beforeEvents.chatSend.subscribe(({message, sender}) => {
+    system.run(() => {
+        try {
+            commandManager.execute(message, {
+                entity: sender,
+                isEntity: true,
+                location: getLocationFromEntityLike(sender)
+            });
+        } catch (e) {
+            if (!(e instanceof CommandError)) {
+                console.error(e);
+                world.sendMessage(cannotHandledExceptionWarningText);
+            }
         }
-    }
+    });
 });
 
-export { spawnSimulatedPlayer,spawnSimulatedPlayerByNameTag,testWorldLocation,GetPID }
+export { spawnSimulatedPlayer,spawnSimulatedPlayerByNameTag,testWorldLocation,testWorldDimension,GetPID }
 
 
