@@ -72,7 +72,7 @@ function AUTO_BEHAVIOR(){
                 }
 
             }else{
-                console.error("back")
+                // console.error("back")
                 if( r3(SimPlayer.location,simulatedPlayerStates[SimPlayer.id]["o"],1) )
                     SimPlayer.moveToLocation( fix(simulatedPlayerStates[SimPlayer.id]["o"]) )
                 // SimPlayer.moveToLocation({x:-30000000,y:-128,z:0})

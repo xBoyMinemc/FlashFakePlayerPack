@@ -46,8 +46,8 @@ world.afterEvents.entitySpawn.subscribe(({entity: entity}) => {
   // entity.runCommandAsync("tell @a[tag=xboy] ==========================================")
   //       ) &&
           
-               around(entity.location.x - playerFishing.location.x - playerFishing.getVelocity().x, 6)// @ts-ignore
-            && around(entity.location.y - playerFishing.location.y - playerFishing.getVelocity().y, ("免你一死", 7))
+               around(entity.location.x - playerFishing.location.x - playerFishing.getVelocity().x, 6)
+            && around(entity.location.y - playerFishing.location.y - playerFishing.getVelocity().y, 7)
             && around(entity.location.z - playerFishing.location.z - playerFishing.getVelocity().z, 6),
         )
       )
