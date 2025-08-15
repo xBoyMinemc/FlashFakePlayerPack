@@ -1,4 +1,13 @@
-import { BlockTypes, EquipmentSlot, ItemStack, Player, StructureSaveMode, system, Vector3, world } from "@minecraft/server";
+import {
+    BlockTypes,
+    EntityEquippableComponent, EntityInventoryComponent,
+    EquipmentSlot,
+    ItemStack,
+    StructureSaveMode,
+    system,
+    Vector3,
+    world
+} from "@minecraft/server";
 import { simulatedPlayers, testWorldDimension, testWorldLocation } from "../main";
 // 将假人背包与经验值保存到世界结构中
 
@@ -111,9 +120,10 @@ async function saveAllFakePlayerBackpack() {
 
     // 从simulatedPlayers对象过滤出PID数字
     // 异步保存所有假人的背包等信息
-    await Promise.all(Object.values(simulatedPlayers).filter(v => typeof v === "number").map(async PID => {
+    await Promise.all(simulatedPlayers.getPIDList().map(PID => {
+        // 你对Promise的认知还很浅薄
         // @ts-ignore
-        const _SimulatedPlayer = <Player>simulatedPlayers[PID]
+        const _SimulatedPlayer = simulatedPlayers.getByPID(PID)
         // world.sendMessage("saveAllFakePlayerBackpack"+PID)
 
         if (!_SimulatedPlayer) return
@@ -141,7 +151,7 @@ async function saveAllFakePlayerBackpack() {
         const inv_hotbar_armor = block_hotbar_armor.getComponent("minecraft:inventory")
         const con_hotbar_armor = inv_hotbar_armor.container
 
-        const inv_simulatedPlayer = _SimulatedPlayer.getComponent("minecraft:inventory")
+        const inv_simulatedPlayer = <EntityInventoryComponent><unknown>_SimulatedPlayer.getComponent("minecraft:inventory")
         const con_simulatedPlayer = inv_simulatedPlayer.container
 
         // 读取保存的信息，还原
@@ -156,7 +166,7 @@ async function saveAllFakePlayerBackpack() {
             }
 
 
-            const equippable_simulatedPlayer = _SimulatedPlayer.getComponent("minecraft:equippable")
+            const equippable_simulatedPlayer = <EntityEquippableComponent><unknown>_SimulatedPlayer.getComponent("minecraft:equippable")
 
             equippable_simulatedPlayer.setEquipment(EquipmentSlot.Head, con_hotbar_armor.getItem(9))
             equippable_simulatedPlayer.setEquipment(EquipmentSlot.Chest, con_hotbar_armor.getItem(10))
@@ -183,7 +193,7 @@ async function saveAllFakePlayerBackpack() {
         }
 
         // minecraft:equippable
-        const equippable_simulatedPlayer = _SimulatedPlayer.getComponent("minecraft:equippable")
+        const equippable_simulatedPlayer = <EntityEquippableComponent><unknown>_SimulatedPlayer.getComponent("minecraft:equippable")
 
         con_hotbar_armor.setItem(9, equippable_simulatedPlayer.getEquipment(EquipmentSlot.Head))
         con_hotbar_armor.setItem(10, equippable_simulatedPlayer.getEquipment(EquipmentSlot.Chest))
@@ -208,7 +218,7 @@ async function saveAllFakePlayerBackpack() {
     structure.saveAs("flashfakeplayerpack:backpack2barrel_old", StructureSaveMode.World)
     world.structureManager.delete(structure)
     // 保存到结构中
-    const structure_new = world.structureManager.createFromWorld(
+    world.structureManager.createFromWorld(
         "flashfakeplayerpack:backpack2barrel",
         testWorldDimension,
         structure_location,

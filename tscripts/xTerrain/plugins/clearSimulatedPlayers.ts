@@ -29,9 +29,9 @@ cmd.register(inf => {
     }
 
     prom.then(() => {
-        for (let _x in simulatedPlayers) {
-            simulatedPlayers.PID.disconnect();
-        }
+        simulatedPlayers.forEach(val => {
+            val.player.disconnect();
+        });
     }).catch().finally(() => {
         unlistenChatMessage(listener);
     });

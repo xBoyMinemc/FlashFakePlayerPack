@@ -40,8 +40,103 @@ import '../lib/yumeCommand/scriptEventHandler'
 const overworld = world.getDimension('overworld')
 const tickWaitTimes = 20*60*60*24*365
 // all of SimulatedPlayer List
-// @ts-expect-error
-export const simulatedPlayers: {PID: SimulatedPlayer} = {}
+// const simulatedPlayers: {[number]: SimulatedPlayer, [string]: SimulatedPlayer} = {};
+
+type SimulatedPlayerListElement = {
+    player: SimulatedPlayer,
+    pid: number,
+    uuid: string
+};
+class SimulatedPlayerList {
+    private list = new WhatCanIWriteOnThereSet();
+
+    append(simulatedPlayer: SimulatedPlayer, pid: number, uuid?: string) {
+        this.list.add({
+            player: simulatedPlayer,
+            pid,
+            uuid: uuid ?? simulatedPlayer.id
+        });
+        this.onChange();
+    }
+
+    removeByPID(pid: number) {
+        for (const item of this.list) {
+            if (item.pid === pid) {
+                this.list.delete(item);
+                return;
+            }
+        }
+        this.onChange();
+    }
+
+    removeByUUID(uuid: string) {
+        for (const item of this.list) {
+            if (item.uuid === uuid) {
+                this.list.delete(item);
+                return;
+            }
+        }
+        this.onChange();
+    }
+
+    onChange() {
+        //                                             ↓ 防止注入攻击(真的有人会注入这玩意吗？)
+        simulatedPlayers = new WhatCanIWriteOnThereSet(Array.from(this.list));
+    }
+}
+class WhatCanIWriteOnThereSet extends Set<SimulatedPlayerListElement> {
+    getByPID(pid: number): SimulatedPlayerListElement["player"] | undefined {
+        for (const item of this) {
+            if (item.pid === pid) {
+                return item.player;
+            }
+        }
+        return undefined;
+    }
+
+    getByUUID(uuid: string): SimulatedPlayerListElement["player"] | undefined {
+        for (const item of this) {
+            if (item.uuid === uuid) {
+                return item.player;
+            }
+        }
+        return undefined;
+    }
+
+    getPIDList(): number[] {
+        const pidList: number[] = [];
+        for (const item of this) {
+            pidList.push(item.pid);
+        }
+        return pidList;
+    }
+
+    getUUIDList(): string[] {
+        const uuidList: string[] = [];
+        for (const item of this) {
+            uuidList.push(item.uuid);
+        }
+        return uuidList;
+    }
+}
+
+/**
+ * @example
+ * ```ts
+ * import { simulatedPlayers } from 'main'
+ *
+ * // 获取假人数量
+ * console.log(simulatedPlayers.size)
+ *
+ * // 从PID获取假人
+ * const simulatedPlayer = simulatedPlayers.getByPID(123);
+ *
+ * // 从实体ID获取假人
+ * const simulatedPlayer = simulatedPlayers.getByUUID('123-456-789');
+ * ```
+ */
+export let simulatedPlayers: Readonly<WhatCanIWriteOnThereSet> = new WhatCanIWriteOnThereSet();
+const simulatedPlayersInstance = new SimulatedPlayerList();
 
 // simulatedPlayers[PID] = simulatedPlayer;
 // simulatedPlayers[simulatedPlayer.id] = PID;
@@ -99,8 +194,7 @@ register('我是云梦', '假人', (test:Test) => {
         simulatedPlayer.addTag(SIGN.YUME_SIM_SIGN)
         simulatedPlayer.addTag(SIGN.AUTO_RESPAWN_SIGN)
 
-        simulatedPlayers[PID] = simulatedPlayer
-        simulatedPlayers[simulatedPlayer.id] = PID
+        simulatedPlayersInstance.append(simulatedPlayer, PID, simulatedPlayer.id);
         try {
             //@ts-ignore
             simulatedPlayer.setSpawnPoint({...location, dimension})
