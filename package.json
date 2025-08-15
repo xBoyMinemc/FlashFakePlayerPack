@@ -3,7 +3,10 @@
   "scripts": {
     "dev": "cd . && tsc -w -outDir ./scripts/",
     "webpackTest": "cd . && tsc && webpack",
-    "build": "cd . && tsc && webpack && node packer.js"
+    "build": "cd . && tsc && webpack && node build/packer.js"
+  },
+  "dependencies": {
+    "@inquirer/prompts": "^7.8.2"
   },
   "devDependencies": {
     "@minecraft/server": "2.2.0-beta.1.21.101-stable",
@@ -14,5 +17,8 @@
     "typescript": "^5.6.3",
     "webpack": "^5.95.0",
     "webpack-cli": "^5.1.4"
+  },
+  "engines": {
+    "node": "^20"
   }
 }
