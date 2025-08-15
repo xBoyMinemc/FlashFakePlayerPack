@@ -32,6 +32,7 @@ import './plugins/autoFishing'
 import './plugins/killedBySimPlayer'
 import './plugins/setting'
 import './plugins/showCommandsList'
+import './plugins/clearSimulatedPlayers'
 import {playerMove} from "../lib/xboyEvents/move";
 import { cannotHandledExceptionWarningText, CommandError, commandManager, getLocationFromEntityLike } from '../lib/yumeCommand/CommandRegistry';
 import '../lib/yumeCommand/scriptEventHandler'
