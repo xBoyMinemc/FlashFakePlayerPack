@@ -2,7 +2,6 @@ import type {SimulatedPlayer} from '@minecraft/server-gametest'
 
 import {
     GetPID, initSucceed,
-    simulatedPlayers,
     spawned as spawnedEvent,
     spawnSimulatedPlayer,
     spawnSimulatedPlayerByNameTag
@@ -24,10 +23,6 @@ const spawnAndRegisterSimulatedPlayer = (entity: Player | undefined, location: V
     const simulatedPlayer: SimulatedPlayer = nameTag
         ? spawnSimulatedPlayerByNameTag(location, dimension, nameTag)
         : spawnSimulatedPlayer(location, dimension, PID);
-
-
-    simulatedPlayers[PID] = simulatedPlayer;
-    simulatedPlayers[simulatedPlayer.id] = PID;
 
     spawnedEvent.trigger({ spawnedSimulatedPlayer: simulatedPlayer, PID });
     __FlashPlayer__.setScore(simulatedPlayer.id, PID);

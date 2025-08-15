@@ -5,7 +5,7 @@ import type {
     spawnedEvent,
     spawnedEventSignal,
 } from '../@types/globalThis'
-import {Dimension, LocationOutOfWorldBoundariesError, system, Vector3} from '@minecraft/server'
+import {Dimension, LocationOutOfWorldBoundariesError, system, Vector3, World} from '@minecraft/server'
 
 import { register } from '@minecraft/server-gametest'
 
@@ -39,7 +39,8 @@ import '../lib/yumeCommand/scriptEventHandler'
 const overworld = world.getDimension('overworld')
 const tickWaitTimes = 20*60*60*24*365
 // all of SimulatedPlayer List
-export const simulatedPlayers  = {}
+// @ts-expect-error
+export const simulatedPlayers: {PID: SimulatedPlayer} = {}
 
 // simulatedPlayers[PID] = simulatedPlayer;
 // simulatedPlayers[simulatedPlayer.id] = PID;
@@ -92,9 +93,13 @@ register('我是云梦', '假人', (test:Test) => {
     spawnSimulatedPlayerByNameTag = (location:Vector3, dimension:Dimension, nameTag: string ):SimulatedPlayer=>{
 
         const simulatedPlayer = test.spawnSimulatedPlayer({ x:0, y:8, z:0 }, nameTag)
+        const PID = GetPID()
         simulatedPlayer.addTag('Backpack2Barrel_init')
         simulatedPlayer.addTag(SIGN.YUME_SIM_SIGN)
         simulatedPlayer.addTag(SIGN.AUTO_RESPAWN_SIGN)
+
+        simulatedPlayers[PID] = simulatedPlayer
+        simulatedPlayers[simulatedPlayer.id] = PID
         try {
             //@ts-ignore
             simulatedPlayer.setSpawnPoint({...location, dimension})
@@ -166,7 +171,18 @@ playerMove.subscribe(()=>{
     //
     // )
 
-world.beforeEvents.chatSend.subscribe(({message, sender}) => {
+type abaaba = Parameters<World["beforeEvents"]["chatSend"]["subscribe"]>[0];
+const listeningChatMessagesCallbacks = new Set<abaaba>();
+export function listenChatMessage(callback: abaaba): void {
+    world.beforeEvents.chatSend.subscribe(arg => callback(arg));
+    listeningChatMessagesCallbacks.add(callback);
+}
+export function unlistenChatMessage(callback: abaaba): void {
+    world.beforeEvents.chatSend.unsubscribe(callback);
+    listeningChatMessagesCallbacks.delete(callback);
+}
+
+listenChatMessage(({message, sender}) => {
     system.run(() => {
         try {
             commandManager.execute(message, {
