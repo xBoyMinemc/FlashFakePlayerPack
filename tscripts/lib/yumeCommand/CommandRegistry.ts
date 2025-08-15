@@ -88,34 +88,6 @@ export function getLocationFromEntityLike(entity: {
 export const internalExceptionWarningText = '[模拟玩家] 出现内部异常，已尝试处理，请在GitHub进行反馈以免再次出现问题';
 export const cannotHandledExceptionWarningText = '[模拟玩家] 出现不可处理的内部异常，请在GitHub进行反馈';
 
-/**
- * @example
- * ```typescript
- * // Instantiate the Command
- * const command = new Command();
- * 
- * // Handle no arguments
- * command.register(({ args }) => args.length === 0, ({ args }) => {
- *     console.log('Hello, world');
- * });
- * 
- * // Handle one argument
- * command.register(({ args }) => args.length === 1, ({ args }) => {
- *     console.log(`Hello, ${args[0]}`);
- * });
- * 
- * // Handle any other case
- * command.register(({ args }) => {
- *     console.log(`Hello, ${args.join(' ')}`);
- * });
- * 
- * // Register the Command to the Command Manager
- * commandManager.registerCommand(['hello', 'hi'], command);
- * 
- * // Execute the Command
- * commandManager.execute('hello world');
- * ```
- */
 class CommandManager {
     private parseCommandString = parseCommandString;
     private commandMap = new Map<string, Command>();
@@ -215,6 +187,34 @@ class CommandManager {
 // 导出实例（单例模式）
 export const commandManager = new CommandManager();
 
+/**
+ * @example
+ * ```typescript
+ * // Instantiate the Command
+ * const command = new Command();
+ *
+ * // Handle no arguments
+ * command.register(({ args }) => args.length === 0, ({ args }) => {
+ *     console.log('Hello, world');
+ * });
+ *
+ * // Handle one argument
+ * command.register(({ args }) => args.length === 1, ({ args }) => {
+ *     console.log(`Hello, ${args[0]}`);
+ * });
+ *
+ * // Handle any another case
+ * command.register(({ args }) => {
+ *     console.log(`Hello, ${args.join(' ')}`);
+ * });
+ *
+ * // Register the Command to the Command Manager
+ * commandManager.registerCommand(['hello', 'hi'], command);
+ *
+ * // Execute the Command
+ * commandManager.execute('hello world');
+ * ```
+ */
 export class Command {
     private conditionsHandlers = new Map<(cmdInfo: CommandInfo) => boolean, CommandHandler[]>();
 

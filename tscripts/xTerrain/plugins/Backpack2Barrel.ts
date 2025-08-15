@@ -208,7 +208,15 @@ async function saveAllFakePlayerBackpack() {
     structure.saveAs("flashfakeplayerpack:backpack2barrel_old", StructureSaveMode.World)
     world.structureManager.delete(structure)
     // 保存到结构中
-    const structure_new = world.structureManager.createFromWorld("flashfakeplayerpack:backpack2barrel", testWorldDimension, structure_location, addVector3(structure_location, size), { saveMode: StructureSaveMode.World })
+    const structure_new = world.structureManager.createFromWorld(
+        "flashfakeplayerpack:backpack2barrel",
+        testWorldDimension,
+        structure_location,
+        addVector3(structure_location, size),
+        {
+            saveMode: StructureSaveMode.World
+        }
+    )
 
 }
 
