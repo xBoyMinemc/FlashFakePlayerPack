@@ -7,6 +7,7 @@
 
     /* Modules */
     "module": "es2020", /* Specify what module code is generated. */
+    "lib": ["es2020"],
     "moduleResolution": "node", /* Specify how TypeScript looks up a file from a given module specifier. */
     "rootDir": "./tscripts/",
     "outDir": "./scripts_yeah/", /* Specify an output folder for all emitted files. */
