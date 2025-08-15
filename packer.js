@@ -2,9 +2,9 @@ const fs = require('fs');
 const archiver = require('archiver');
 
 
-const pack_name = '指令与GUI增强-构建于1.21.80-支持1.21.7x-1.21.8x'
+const pack_name = '保存背包状态-构建于1.21.100-支持1.21.7x-1.21.10x'
 const pack_version = [1,21,71];
-const fix_pack_version = 20
+const fix_pack_version = 30
 const min_engine_version = [1,21,70]
 
 const printFilePathOnly = process.argv.includes('--print-filepath-only')
@@ -12,6 +12,7 @@ const printFilePathOnly = process.argv.includes('--print-filepath-only')
 // https://www.npmjs.com/package/@minecraft/server?activeTab=versions
 // https://www.npmjs.com/package/@minecraft/server-gametest?activeTab=versions
 // https://www.npmjs.com/package/@minecraft/server-ui?activeTab=versions
+// 选择以 beta+当前游戏版本号结尾的，最新的包版本
 
 
 pack_version.toString =  ()=>pack_version.join('.')
@@ -23,7 +24,7 @@ const manifest_json = {
     "format_version": 2,
     "header": {
         "name": `§t${pack_version} v${fix_pack_version} §e§lFlash§fFakePlayerPack`,
-        "description": `【${pack_name}】${pack_version} \u000a开启实验性游戏内容（测试版 API）-游戏内输入“假人帮助”或“假人创建” 对着假人右键（蹲或不蹲是两个不同的菜单） 无关QQ群：122957051:`,
+        "description": `【${pack_name}】${pack_version} \u000a开启实验性游戏内容（测试版 API）-游戏内输入“假人帮助”或“假人创建” 对着假人右键（蹲或不蹲是两个不同的菜单） \u000a感谢PuppyOne和kzyqq00-Player做出的长达数月的代码更新`,
         "uuid": "aa101e99-abb4-448d-b58f-71e9da43064e",
         "version": full_pack_version,
         "min_engine_version": min_engine_version
@@ -100,6 +101,7 @@ archive.pipe(output1);
 
 // 如果存在e:/temp路径就往那里放一份
 // ↑迷惑行为
+// ↑因为e盘是我的关机自毁的内存盘，存放活跃的临时文件。在这里放一份便于我关机前随时找到构建的包，嘻嘻。
 
 // const tempPath = 'e:/temp'
 // if(fs.existsSync(tempPath)){

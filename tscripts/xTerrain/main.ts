@@ -18,7 +18,8 @@ import { world } from '@minecraft/server'
 // import './plugins/noFlashDoor' // pig
 
 
-
+import './plugins/Backpack2Barrel'
+import './plugins/test'
 import './plugins/help'
 
 import './plugins/chatSpawn'
@@ -40,6 +41,9 @@ const tickWaitTimes = 20*60*60*24*365
 // all of SimulatedPlayer List
 export const simulatedPlayers  = {}
 
+// simulatedPlayers[PID] = simulatedPlayer;
+// simulatedPlayers[simulatedPlayer.id] = PID;
+
 export let initSucceed = false
 
 
@@ -60,12 +64,14 @@ let doMobSpawning = true
 let spawnSimulatedPlayer : (location:Vector3, dimension:Dimension, pid: number  )=>SimulatedPlayer
 let spawnSimulatedPlayerByNameTag : (location:Vector3, dimension:Dimension, nameTag: string  )=>SimulatedPlayer
 let testWorldLocation : Vector3
+let testWorldDimension : Dimension
 
 
 if(!world.structureManager.get('xboyMinemcSIM:void'))
     world.structureManager.createEmpty('xboyMinemcSIM:void', { x:1, y:1, z:1 }).saveToWorld()
 
-const GetPID = ()=> world.scoreboard.getObjective('##FlashPlayer##').addScore('##currentPID',1)
+let currentPID = 0
+const GetPID = ()=> ++currentPID
 
 
 export const initialized : initializedEventSignal = new EventSignal<initializedEvent>()
@@ -86,7 +92,7 @@ register('我是云梦', '假人', (test:Test) => {
     spawnSimulatedPlayerByNameTag = (location:Vector3, dimension:Dimension, nameTag: string ):SimulatedPlayer=>{
 
         const simulatedPlayer = test.spawnSimulatedPlayer({ x:0, y:8, z:0 }, nameTag)
-        simulatedPlayer.addTag('init')
+        simulatedPlayer.addTag('Backpack2Barrel_init')
         simulatedPlayer.addTag(SIGN.YUME_SIM_SIGN)
         simulatedPlayer.addTag(SIGN.AUTO_RESPAWN_SIGN)
         try {
@@ -121,10 +127,12 @@ register('我是云梦', '假人', (test:Test) => {
     verify()
     verify()
 
-    const z = 11451400 +  Math.floor(Math.random() * 114514 * 19 )
+    let z = 11451400 +  Math.floor(Math.random() * 114514 * 19 )
+    z -= z%16
     system.run(()=>{
         try {
             overworld.runCommand('execute positioned 15000000 256 ' + z + ' run gametest run 我是云梦:假人');
+            testWorldDimension = overworld
         } catch (e) {
             world.sendMessage('[模拟玩家] 报错了，我也不知道为什么' + e);
         }
@@ -175,5 +183,5 @@ world.beforeEvents.chatSend.subscribe(({message, sender}) => {
     });
 });
 
-export { spawnSimulatedPlayer,spawnSimulatedPlayerByNameTag,testWorldLocation,GetPID }
+export { spawnSimulatedPlayer,spawnSimulatedPlayerByNameTag,testWorldLocation,testWorldDimension,GetPID }
 
