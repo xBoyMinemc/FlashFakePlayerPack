@@ -32,7 +32,7 @@ cmd.register(inf => {
         for (let _x in simulatedPlayers) {
             simulatedPlayers.PID.disconnect();
         }
-    }).finally(() => {
+    }).catch().finally(() => {
         unlistenChatMessage(listener);
     });
 });
