@@ -144,6 +144,8 @@ playerMove.subscribe(()=>{
     if (say) return
     say = true
     world.sendMessage('[模拟玩家] 初始化完成，输入“假人创建”或“ffpp”')
+    //添加第二行提示
+    world.sendMessage('[模拟玩家] 输入“假人帮助”以获取使用说明')
 })
 
     // initialized.subscribe(()=> console.error('[模拟玩家]初始化完毕，加载内置插件') )
