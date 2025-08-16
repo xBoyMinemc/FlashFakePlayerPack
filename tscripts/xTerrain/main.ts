@@ -50,11 +50,11 @@ type SimulatedPlayerListElement = {
 class SimulatedPlayerList {
     private list = new WhatCanIWriteOnThereSet();
 
-    append(simulatedPlayer: SimulatedPlayer, pid: number, uuid?: string) {
+    append(simulatedPlayer: SimulatedPlayer, pid: number) {
         this.list.add({
             player: simulatedPlayer,
             pid,
-            uuid: uuid ?? simulatedPlayer.id
+            uuid: simulatedPlayer.id
         });
         this.onChange();
     }
@@ -194,7 +194,7 @@ register('我是云梦', '假人', (test:Test) => {
         simulatedPlayer.addTag(SIGN.YUME_SIM_SIGN)
         simulatedPlayer.addTag(SIGN.AUTO_RESPAWN_SIGN)
 
-        simulatedPlayersInstance.append(simulatedPlayer, PID, simulatedPlayer.id);
+        simulatedPlayersInstance.append(simulatedPlayer, PID);
         try {
             //@ts-ignore
             simulatedPlayer.setSpawnPoint({...location, dimension})
