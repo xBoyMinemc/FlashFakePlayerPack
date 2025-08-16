@@ -8,7 +8,7 @@ export interface SimulatedPlayerListElement {
  * {@link simulatedPlayers}
  */
 export class SimulatedPlayerList {
-    public list = new WhatCanIWriteOnThereSet();
+    public readonly list = new WhatCanIWriteOnThereSet();
 
     append(simulatedPlayer: SimulatedPlayer, pid: number) {
         this.list.add({
@@ -49,7 +49,7 @@ export class SimulatedPlayerList {
         }
     }*/
 }
-export class WhatCanIWriteOnThereSet extends Set<SimulatedPlayerListElement> {
+class WhatCanIWriteOnThereSet extends Set<SimulatedPlayerListElement> {
     getByPID(pid: number): SimulatedPlayerListElement["player"] | undefined {
         for (const item of this) {
             if (item.pid === pid) {
