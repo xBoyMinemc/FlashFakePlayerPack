@@ -1,8 +1,7 @@
 import type { SimulatedPlayer } from '@minecraft/server-gametest'
-import {Dimension, Player, Vector3} from '@minecraft/server'
+import {Vector3} from '@minecraft/server'
 
 import {
-    simulatedPlayers,
     testWorldLocation
 } from '../main'
 import { Command, commandManager } from '../../lib/yumeCommand/CommandRegistry';
@@ -19,13 +18,14 @@ breakBlockCommand.register(({ args }) => args.length === 0, ({ entity, isEntity 
 
     const SimPlayer: SimulatedPlayer = getSimPlayer.fromView(entity)
     if (!SimPlayer) {
-        entity.sendMessage('§e§l-面前不存在模拟玩家');
+        entity.sendMessage('§e§l-面前不存在假人');
         return;
     } 
 
-    for(const i in simulatedPlayers)
-        if(simulatedPlayers[i]===SimPlayer)
-            SimPlayer.addTag(SIGN.AUTO_BREAKBLOCK_SIGN)
+    // for(const i in simulatedPlayers)
+    //     if(simulatedPlayers[i]===SimPlayer)
+    // 迷惑行为，为啥要遍历？
+    SimPlayer.addTag(SIGN.AUTO_BREAKBLOCK_SIGN)
 
     // console.error('[假人]内置插件'+'假人挖掘'+'执行成功')
 

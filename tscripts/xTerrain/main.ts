@@ -36,89 +36,12 @@ import './plugins/clearSimulatedPlayers'
 import {playerMove} from "../lib/xboyEvents/move";
 import { cannotHandledExceptionWarningText, CommandError, commandManager, getLocationFromEntityLike } from '../lib/yumeCommand/CommandRegistry';
 import '../lib/yumeCommand/scriptEventHandler'
+import { SimulatedPlayerList } from "../lib/xboyPackage/SimPlayerList";
 
 const overworld = world.getDimension('overworld')
 const tickWaitTimes = 20*60*60*24*365
 // all of SimulatedPlayer List
 // const simulatedPlayers: {[number]: SimulatedPlayer, [string]: SimulatedPlayer} = {};
-
-type SimulatedPlayerListElement = {
-    player: SimulatedPlayer,
-    pid: number,
-    uuid: string
-};
-class SimulatedPlayerList {
-    private list = new WhatCanIWriteOnThereSet();
-
-    append(simulatedPlayer: SimulatedPlayer, pid: number) {
-        this.list.add({
-            player: simulatedPlayer,
-            pid,
-            uuid: simulatedPlayer.id
-        });
-        this.onChange();
-    }
-
-    removeByPID(pid: number) {
-        for (const item of this.list) {
-            if (item.pid === pid) {
-                this.list.delete(item);
-                return;
-            }
-        }
-        this.onChange();
-    }
-
-    removeByUUID(uuid: string) {
-        for (const item of this.list) {
-            if (item.uuid === uuid) {
-                this.list.delete(item);
-                return;
-            }
-        }
-        this.onChange();
-    }
-
-    onChange() {
-        //                                             ↓ 防止注入攻击(真的有人会注入这玩意吗？)
-        simulatedPlayers = new WhatCanIWriteOnThereSet(Array.from(this.list));
-    }
-}
-class WhatCanIWriteOnThereSet extends Set<SimulatedPlayerListElement> {
-    getByPID(pid: number): SimulatedPlayerListElement["player"] | undefined {
-        for (const item of this) {
-            if (item.pid === pid) {
-                return item.player;
-            }
-        }
-        return undefined;
-    }
-
-    getByUUID(uuid: string): SimulatedPlayerListElement["player"] | undefined {
-        for (const item of this) {
-            if (item.uuid === uuid) {
-                return item.player;
-            }
-        }
-        return undefined;
-    }
-
-    getPIDList(): number[] {
-        const pidList: number[] = [];
-        for (const item of this) {
-            pidList.push(item.pid);
-        }
-        return pidList;
-    }
-
-    getUUIDList(): string[] {
-        const uuidList: string[] = [];
-        for (const item of this) {
-            uuidList.push(item.uuid);
-        }
-        return uuidList;
-    }
-}
 
 /**
  * @example
@@ -129,14 +52,10 @@ class WhatCanIWriteOnThereSet extends Set<SimulatedPlayerListElement> {
  * console.log(simulatedPlayers.size)
  *
  * // 从PID获取假人
- * const simulatedPlayer = simulatedPlayers.getByPID(123);
- *
- * // 从实体ID获取假人
- * const simulatedPlayer = simulatedPlayers.getByUUID('123-456-789');
+ * const simulatedPlayers = simulatedPlayers.getByPID(123);
  * ```
  */
-export let simulatedPlayers: Readonly<WhatCanIWriteOnThereSet> = new WhatCanIWriteOnThereSet();
-const simulatedPlayersInstance = new SimulatedPlayerList();
+export const simulatedPlayers = new SimulatedPlayerList();
 
 // simulatedPlayers[PID] = simulatedPlayer;
 // simulatedPlayers[simulatedPlayer.id] = PID;
@@ -194,7 +113,7 @@ register('我是云梦', '假人', (test:Test) => {
         simulatedPlayer.addTag(SIGN.YUME_SIM_SIGN)
         simulatedPlayer.addTag(SIGN.AUTO_RESPAWN_SIGN)
 
-        simulatedPlayersInstance.append(simulatedPlayer, PID);
+        simulatedPlayers.append(simulatedPlayer, PID);
         try {
             //@ts-ignore
             simulatedPlayer.setSpawnPoint({...location, dimension})
@@ -267,14 +186,14 @@ playerMove.subscribe(()=>{
     // )
 
 type abaaba = Parameters<World["beforeEvents"]["chatSend"]["subscribe"]>[0];
-const listeningChatMessagesCallbacks = new Set<abaaba>();
+// const listeningChatMessagesCallbacks = new Set<abaaba>();
 export function listenChatMessage(callback: abaaba): void {
     world.beforeEvents.chatSend.subscribe(arg => callback(arg));
-    listeningChatMessagesCallbacks.add(callback);
+    // listeningChatMessagesCallbacks.add(callback);
 }
 export function unlistenChatMessage(callback: abaaba): void {
     world.beforeEvents.chatSend.unsubscribe(callback);
-    listeningChatMessagesCallbacks.delete(callback);
+    // listeningChatMessagesCallbacks.delete(callback);
 }
 
 listenChatMessage(({message, sender}) => {

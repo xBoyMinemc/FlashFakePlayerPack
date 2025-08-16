@@ -1,8 +1,15 @@
 import {Command, commandManager} from "../../lib/yumeCommand/CommandRegistry";
-import {listenChatMessage, simulatedPlayers, unlistenChatMessage} from "../main";
-import {system} from "@minecraft/server";
+import {/*listenChatMessage, */simulatedPlayers/*, unlistenChatMessage*/} from "../main";
+// import {system} from "@minecraft/server";
 
 const cmd = new Command();
+cmd.register(() => {
+    simulatedPlayers.list.forEach(val => {
+        val.player.disconnect();
+    });
+    simulatedPlayers.list.clear();
+});
+/* 需要确认版
 cmd.register(inf => {
     let reply = false;
     let replied = false;
@@ -29,12 +36,13 @@ cmd.register(inf => {
     }
 
     prom.then(() => {
-        simulatedPlayers.forEach(val => {
+        simulatedPlayers.list.forEach(val => {
             val.player.disconnect();
         });
+        simulatedPlayers.list.clear();
     }).catch().finally(() => {
         unlistenChatMessage(listener);
     });
-});
+});*/
 
 commandManager.registerCommand(['ras', '删除所有假人'], cmd);

@@ -1,17 +1,16 @@
-import {simulatedPlayers} from '../main'
+import { simulatedPlayers } from '../main'
 import {fishingHookDespawned} from "../../lib/xboyEvents/fishingHookSpawned";
 
 // const debug = false
 fishingHookDespawned.subscribe(event=>{
     // if(debug)console.error('fishingHook Despawned')
     // if(debug)world.sendMessage("me ##鱼钩销毁\u000a鱼钩id=>"+event.HookId+"\u000a发起者id=>"+event.Fisher.id)
-    simulatedPlayers.forEach(val => {
-        const simulatedPlayer = simulatedPlayers.getByPID(val.pid);
-        if (!simulatedPlayer) return;
-        if (simulatedPlayer.id === event.Fisher.id) {
+    simulatedPlayers.list.forEach(({ player }) => {
+        // if (!player) return;
+        if (player.id === event.Fisher.id) {
             event.fishingHookDespawned_TickArray.push(() => {
-                if (simulatedPlayer.useItemInSlot(0)) {
-                    simulatedPlayer.stopUsingItem();
+                if (player.useItemInSlot(0)) {
+                    player.stopUsingItem();
                 }
                 return 0;
             });
