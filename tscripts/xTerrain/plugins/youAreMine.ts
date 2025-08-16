@@ -186,7 +186,7 @@ disconnectCommand.register(({entity,isEntity,args:[simIndex],sim}) => {
     else {
         const index = Number(simIndex)
 
-        if(typeof index !== 'number')return  entity?.sendMessage('[模拟玩家] 命令错误，期待数字却得到 '+typeof Number(simIndex))
+        if(typeof index !== 'number')return  entity?.sendMessage?.('[模拟玩家] 命令错误，期待数字却得到 '+typeof Number(simIndex))
 
         const SimPlayer:SimulatedPlayer = simulatedPlayers[index]
 
@@ -222,7 +222,7 @@ respawnCommand.register(({entity,isEntity,args:[simIndex]}) => {
         ;
         const index = Number(simIndex)
 
-        if(typeof index !== 'number')return entity?.sendMessage('[模拟玩家] 命令错误，期待数字却得到 '+typeof Number(simIndex))
+        if(typeof index !== 'number')return entity?.sendMessage?.('[模拟玩家] 命令错误，期待数字却得到 '+typeof Number(simIndex))
 
         const SimPlayer:SimulatedPlayer = simulatedPlayers[index]
 

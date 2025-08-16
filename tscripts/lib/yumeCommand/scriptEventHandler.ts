@@ -76,8 +76,8 @@ system.afterEvents.scriptEventReceive.subscribe(e => {
     } catch (e) {
         console.error(e);
         if (e instanceof CommandNotFoundError)
-            commandInfoNoArgs?.entity?.sendMessage(`[模拟玩家] 命令错误，找不到命令: ${e.commandName}`);
+            commandInfoNoArgs?.entity?.sendMessage?.(`[模拟玩家] 命令错误，找不到命令: ${e.commandName}`);
         else
-            commandInfoNoArgs?.entity?.sendMessage(cannotHandledExceptionWarningText);
+            commandInfoNoArgs?.entity?.sendMessage?.(cannotHandledExceptionWarningText);
     }
 }, { namespaces });

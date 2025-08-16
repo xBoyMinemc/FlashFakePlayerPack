@@ -14,7 +14,7 @@ const overworld = world.getDimension("overworld");
 
 const spawnAndRegisterSimulatedPlayer = (entity: Player | undefined, location: Vector3, dimension: Dimension, nameTag?: string): void => {
     if (!initSucceed) {
-        entity?.sendMessage('[假人] 插件未初始化完成，请重试');
+        entity?.sendMessage?.('[假人] 插件未初始化完成，请重试');
         return;
     }
 
@@ -37,7 +37,7 @@ chatSpawnCommand.register(({ args }) => args.length === 0, ({ entity, location }
 
 // 假人生成 批量 count
 chatSpawnCommand.register(({ args }) => args[0] === '批量', ({ args: [, countString], entity, location }) => {
-    if (!countString) return entity?.sendMessage('[模拟玩家] 命令错误，请提供数字');
+    if (!countString) return entity?.sendMessage?.('[模拟玩家] 命令错误，请提供数字');
     if (!Number.isSafeInteger(Number(countString))) return entity?.sendMessage('[模拟玩家] 命令错误，期待数字却得到 ' + countString);
 
     let count = Number(countString);
@@ -75,7 +75,7 @@ chatSpawnCommand.register(
             // 改xx这代码😡
             // 还是我自己写个addon霸👆🤓
         }catch (e) {
-            return entity?.sendMessage(`[模拟玩家] 命令错误，期待三个却得到错误的信息 ${targetX} ${targetY} ${targetZ}`);
+            return entity?.sendMessage?.(`[模拟玩家] 命令错误，期待三个却得到错误的信息 ${targetX} ${targetY} ${targetZ}`);
         }
 
         // name
@@ -88,7 +88,7 @@ chatSpawnCommand.register(
             try {
                 dimension = world.getDimension(['overworld', 'nether', 'the end'][Number(targetDimension)]);
             } catch (e) {
-                return entity?.sendMessage('[模拟玩家] 命令错误，期待序号作为维度 (0-主世界 1-下界 2-末地) 却得到 ' + targetDimension);
+                return entity?.sendMessage?.('[模拟玩家] 命令错误，期待序号作为维度 (0-主世界 1-下界 2-末地) 却得到 ' + targetDimension);
             }
         }
         dimension ??= senderLocation.dimension ?? overworld;
@@ -99,7 +99,7 @@ chatSpawnCommand.register(
 
 // 捕获命令参数数量错误并提示
 chatSpawnCommand.register(({ args, entity }) => {
-    entity?.sendMessage(`[模拟玩家] 命令错误，期待3个坐标数字(x y z)或1个名称字符串("名称")，得到个数为${args.length}。带空格名称需用引号包裹`);
+    entity?.sendMessage?.(`[模拟玩家] 命令错误，期待3个坐标数字(x y z)或1个名称字符串("名称")，得到个数为${args.length}。带空格名称需用引号包裹`);
 });
 
 commandManager.registerCommand(['假人生成', '假人创建', 'ffpp'], chatSpawnCommand);
