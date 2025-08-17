@@ -1,5 +1,5 @@
-import { simulatedPlayers } from '../main'
 import {fishingHookDespawned} from "../../lib/xboyEvents/fishingHookSpawned";
+import { simulatedPlayers } from "../../lib/xboyPackage/SimPlayerList";
 
 // const debug = false
 fishingHookDespawned.subscribe(event=>{

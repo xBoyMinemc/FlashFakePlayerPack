@@ -8,7 +8,7 @@ import {
     TicksPerSecond,
     world
 } from '@minecraft/server'
-import { simulatedPlayers } from '../main';
+import { simulatedPlayers } from "../../lib/xboyPackage/SimPlayerList";
 
 const dimensionMap: Record<string, string> = {
     'minecraft:overworld': '主世界',

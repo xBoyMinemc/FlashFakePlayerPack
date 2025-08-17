@@ -1,23 +1,14 @@
 import type { SimulatedPlayer, Test } from '@minecraft/server-gametest'
-import type {
-    initializedEvent,
-    initializedEventSignal,
-    spawnedEvent,
-    spawnedEventSignal,
-} from '../@types/globalThis'
-import {Dimension, LocationOutOfWorldBoundariesError, system, Vector3, World} from '@minecraft/server'
-
 import { register } from '@minecraft/server-gametest'
+import type { initializedEvent, initializedEventSignal, spawnedEvent, spawnedEventSignal, } from '../@types/globalThis'
+import { Dimension, LocationOutOfWorldBoundariesError, system, Vector3, World, world } from '@minecraft/server'
 
 import verify from '../lib/xboyPackage/scoreBase/verifyDataBase'
 import EventSignal from '../lib/xboyEvents/EventSignal'
 
 import { SIGN } from '../lib/xboyPackage/YumeSignEnum'
-import { world } from '@minecraft/server'
 
 // import './plugins/noFlashDoor' // pig
-
-
 import './plugins/Backpack2Barrel'
 import './plugins/test'
 import './plugins/help'
@@ -33,29 +24,20 @@ import './plugins/killedBySimPlayer'
 import './plugins/setting'
 import './plugins/showCommandsList'
 import './plugins/clearSimulatedPlayers'
-import {playerMove} from "../lib/xboyEvents/move";
-import { cannotHandledExceptionWarningText, CommandError, commandManager, getLocationFromEntityLike } from '../lib/yumeCommand/CommandRegistry';
+import { playerMove } from "../lib/xboyEvents/move";
+import {
+    cannotHandledExceptionWarningText,
+    CommandError,
+    commandManager,
+    getLocationFromEntityLike
+} from '../lib/yumeCommand/CommandRegistry';
 import '../lib/yumeCommand/scriptEventHandler'
-import { SimulatedPlayerList } from "../lib/xboyPackage/SimPlayerList";
+import { simulatedPlayers } from "../lib/xboyPackage/SimPlayerList";
 
 const overworld = world.getDimension('overworld')
 const tickWaitTimes = 20*60*60*24*365
 // all of SimulatedPlayer List
 // const simulatedPlayers: {[number]: SimulatedPlayer, [string]: SimulatedPlayer} = {};
-
-/**
- * @example
- * ```ts
- * import { simulatedPlayers } from 'main'
- *
- * // 获取假人数量
- * console.log(simulatedPlayers.size)
- *
- * // 从PID获取假人
- * const simulatedPlayers = simulatedPlayers.getByPID(123);
- * ```
- */
-export const simulatedPlayers = new SimulatedPlayerList();
 
 // simulatedPlayers[PID] = simulatedPlayer;
 // simulatedPlayers[simulatedPlayer.id] = PID;

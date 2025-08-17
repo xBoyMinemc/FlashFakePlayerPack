@@ -8,7 +8,8 @@ import {
     Vector3,
     world
 } from "@minecraft/server";
-import { simulatedPlayers, testWorldDimension, testWorldLocation } from "../main";
+import { testWorldDimension, testWorldLocation } from "../main";
+import { simulatedPlayers } from "../../lib/xboyPackage/SimPlayerList";
 // 将假人背包与经验值保存到世界结构中
 
 // 寻址工具 十进制序号转三维地址，以16x16x16区块为单位。优先使用最小的区块的坐标。总容量 32x32x32。每个区块16x16x16。

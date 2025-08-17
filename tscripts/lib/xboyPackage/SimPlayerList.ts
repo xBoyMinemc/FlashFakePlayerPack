@@ -7,7 +7,7 @@ export interface SimulatedPlayerListElement {
 /**
  * {@link simulatedPlayers}
  */
-export class SimulatedPlayerList {
+class SimulatedPlayerList {
     public readonly list = new WhatCanIWriteOnThereSet();
 
     append(simulatedPlayer: SimulatedPlayer, pid: number) {
@@ -84,3 +84,17 @@ class WhatCanIWriteOnThereSet extends Set<SimulatedPlayerListElement> {
         return uuidList;
     }*/
 }
+
+/**
+ * @example
+ * ```ts
+ * import { simulatedPlayers } from 'main'
+ *
+ * // 获取假人数量
+ * console.log(simulatedPlayers.size)
+ *
+ * // 从PID获取假人
+ * const simulatedPlayers = simulatedPlayers.getByPID(123);
+ * ```
+ */
+export const simulatedPlayers = new SimulatedPlayerList();

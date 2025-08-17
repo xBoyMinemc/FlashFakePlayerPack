@@ -1,5 +1,6 @@
 import {Command, commandManager} from "../../lib/yumeCommand/CommandRegistry";
-import {/*listenChatMessage, */simulatedPlayers/*, unlistenChatMessage*/} from "../main";
+
+import { simulatedPlayers } from "../../lib/xboyPackage/SimPlayerList";
 // import {system} from "@minecraft/server";
 
 const cmd = new Command();

@@ -1,10 +1,11 @@
 //@ts-nocheck
 import type { SimulatedPlayer } from '@minecraft/server-gametest'
-import {simulatedPlayers, testWorldLocation} from '../main'
+import {testWorldLocation} from '../main'
 import SIGN from '../../lib/xboyPackage/YumeSignEnum'
 import type { EntityHealthComponent, Vector3 } from '@minecraft/server'
 import { system, world } from '@minecraft/server'
 import { getEntitiesNear, getPlayerNear } from '../../lib/xboyPackage/Util'
+import { simulatedPlayers } from "../../lib/xboyPackage/SimPlayerList";
 
 // @ts-ignore
 const simulatedPlayerStates : ({ "str-SimPlayer.id": { o: Vector3 }}) = {}
@@ -79,7 +80,7 @@ function AUTO_BEHAVIOR(){
 
             }
         }
-    }
+    })
 
     // /gamerule playerssleepingpercentage 50%
     // SimulatedPlayerCount && world.getDimension('minecraft:overworld').runCommand('gamerule playerssleepingpercentage '+Math.floor(100*SimulatedPlayerCount/AllPlayerCount))
