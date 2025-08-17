@@ -1,4 +1,4 @@
-export const logPrefix1 = '[FFPPBuilder '
+export const logPrefix1 = '[FFPPBuilder'
 export const endsOfLogPrefix = '] ';
 export const logPrefix2 = logPrefix1 + endsOfLogPrefix;
 export enum ANSI_ESCAPES {
@@ -14,12 +14,12 @@ class Logger {
 
     public warn(...args: any[]) {
         args.push(ANSI_ESCAPES.reset);
-        console.warn(ANSI_ESCAPES.yellow + ' ' + logPrefix1 + 'WARN' + endsOfLogPrefix, ...args);
+        console.warn(ANSI_ESCAPES.yellow + ' ' + logPrefix1 + ' WARN' + endsOfLogPrefix, ...args);
     }
 
     public error(...args: any[]) {
         args.push(ANSI_ESCAPES.reset);
-        console.error(ANSI_ESCAPES.red + ' ' + logPrefix1 + 'ERROR' + endsOfLogPrefix, ...args);
+        console.error(ANSI_ESCAPES.red + ' ' + logPrefix1 + ' ERROR' + endsOfLogPrefix, ...args);
     }
 
     public errorAndExit(...args: any[]): never {

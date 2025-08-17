@@ -33,16 +33,15 @@ jobs:
           
           output=$(node packer.js --workflow)
           # 获取输出的第一行和第二行
-          lines=("$(echo $output | awk '{print $1}')" "$(
+          line="$(
             # 获取js输出，是否release
             if [[ $(echo $output | awk '{print $2}') == "true" ]]; then
               echo "true"
             else
               echo "false"
             fi
-          )")
-          echo "filepath=${lines[0]}" >> $GITHUB_ENV
-          echo "isrelease=${lines[1]}" >> $GITHUB_ENV
+          )"
+          echo "isrelease=$line" >> $GITHUB_ENV
         timeout-minutes: 1
 
       - name: Upload to artifact

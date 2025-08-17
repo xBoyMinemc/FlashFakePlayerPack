@@ -1,9 +1,8 @@
 import * as fs from 'node:fs';
-import * as promFs from 'node:fs/promises';
 import * as child_process from 'node:child_process';
 import archiver from 'archiver';
 import { log } from "./log.js";
-import { confirm, input, number, select } from "@inquirer/prompts";
+import { confirm, input, number } from "@inquirer/prompts";
 import {
     _IS_RELEASE,
     // BUILDER_PATH,
@@ -81,17 +80,10 @@ function getProcessedVersionCode() {
     tmp[2] = tmp[2] * 10 + cache.fixVersion;
     return tmp;
 }
-const outPath =
-    './build/'
-    + `§t${getProcessedVersionCode()} v${cache.fixVersion} §e§lFlash§fFakePlayerPack`
-        .trim()
-        .replace(/§./g, '')
-        .replace(/(\.+|\s+)/g, '-')
-    + '.mcpack';
 
 let skipSelect = false;
 // 是否选择过了的通信(?)变量
-let selected: [boolean, [boolean, Promise<string | void> | null]] = [false, [false, null]];
+let selected: [boolean/*, [boolean, Promise<string | void> | null]*/] = [false/*, [false, null]*/];
 let resolvePromises = false;
 if (isWorkflow && isRelease) {
     log.error('你是来整活的对吧👆🤓');
@@ -103,12 +95,17 @@ if (isWorkflow && isRelease) {
 } else if (isWorkflow) {
     // console.log(outPath);
     // 读取.isrelease文件，告知workflow是否release
-    console.log(((fs.readFileSync(ISRELEASE_FILE_PATH)[0] === _IS_RELEASE) ||
-    // 哥们不是说用workflow吗，我当场复刻
-    (child_process.execSync('git tag')
-        .toString().replace(/(\r\n)|(\r)/g, '\n')
-        .split('\n')[0].startsWith('v')))
-        ? 'true' : 'false');
+    console.log((fs.readFileSync(ISRELEASE_FILE_PATH)[1] === _IS_RELEASE) ||
+        // 哥们不是说用workflow吗，我当场复刻
+        (() => {
+            const tags = child_process.execSync(`git tag --points-at HEAD`).toString().trim();
+
+            if (tags) {
+                return tags.startsWith('v');
+            } else {
+                return false;
+            }
+        })())
     // process.exit(0);
 } if (!isWorkflow) {
     confirm({
@@ -183,16 +180,18 @@ if (isWorkflow && isRelease) {
                 .then(() =>
                     input({
                         message: '请输入支持最高游戏版本 (如"1.21.100")',
-                        default: cache.minEngineVersion.join('.'),
+                        default: cache.maxEngineVersion.join('.'),
                         validate: validatingVersionLikeString
                     })
                 )
                 .then(ans => {
                     // @ts-expect-error
                     cache.maxEngineVersion = parseVersionLikeString(ans);
+                    // !isWorkflow && log.info('初始化中...');
                     selected[0] = true;
                 });
         } else {
+            // !isWorkflow && log.info('初始化中...');
             resolvePromises = true;
             skipSelect = true;
         }
@@ -203,15 +202,15 @@ const selectedPromise = new Promise<void>((resolve) => {
         (selected[0] || resolvePromises) && resolve();
     });
 });
-let selectedPromise2: Promise<Promise<void>> = new Promise((resolve) => {
-    setInterval(() => {
-        if (resolvePromises) {
-            resolve(Promise.resolve());
-        }
-        const tmp = <Promise<void>>selected[1][1];
-        tmp && resolve(tmp);
-    });
-});
+// let selectedPromise2: Promise<Promise<void>> = new Promise((resolve) => {
+//     setInterval(() => {
+//         if (resolvePromises) {
+//             resolve(Promise.resolve());
+//         }
+//         const tmp = <Promise<void>>selected[1][1];
+//         tmp && resolve(tmp);
+//     });
+// });
 
 let manifest_json = (() => {
     const _versionCode = getProcessedVersionCode();
@@ -249,69 +248,90 @@ let manifest_json = (() => {
         ]
     };
 })();
+fs.writeFileSync('./manifest.json', JSON.stringify(manifest_json, null, 4));
 
 // const user_selects = {};
 // user_selects.
 
-if (!isWorkflow) {
-    fs.readFile('./manifest.json', (err, data) => {
-        if (err) {
-            log.warn('尝试验证manifest.json失败');
-            log.warn(err);
-        } else {
-            const manifest_source = JSON.parse(data.toString());
-            const handleAnswer = (ans: "source_file" | "input") => {
-                if (ans === "source_file") {
-                    manifest_json = JSON.parse(manifest_source);
-                    cache.settings.keepInputOrManifestFile = 3;
-                } else if (ans === "input") {
-                    cache.settings.keepInputOrManifestFile = 2;
-                    return promFs.writeFile('./manifest.json', JSON.stringify(manifest_json, null, 4));
-                }
-            }
-
-            if (manifest_source !== manifest_json) {
-                if (cache.settings.keepInputOrManifestFile === 1) {
-
-                    const tmp = selectedPromise.then(() => {
-                        const x = skipSelect ? '上次' : '刚刚';
-                        return select({
-                            message: `manifest.json与${x}输入的参数不一致，你要保留哪一项？(可直接无视)`,
-                            choices: [
-                                { name: `${x}输入的参数`, value: "input", description: `你${x}输入的参数` },
-                                {
-                                    name: "manifest.json文件",
-                                    value: "source_file",
-                                    description: "文件系统中的manifest.json",
-                                    short: "manifest.json"
-                                }
-                            ],
-                            loop: true
-                        })
-                    });
-                    selected[1][1] = tmp;
-                    tmp.then(handleAnswer).catch(onError);
-                } else if (cache.settings.keepInputOrManifestFile === 2) {
-                    log.info('manifest.json与输入参数不一致，已覆盖manifest.json');
-                    handleAnswer("input").catch(onError);
-                } else if (cache.settings.keepInputOrManifestFile === 3) {
-                    log.info('manifest.json与输入参数不一致，已保留manifest.json文件');
-                    handleAnswer("source_file").catch(onError);
-                }
-            }
-        }
-    });
-}
+// if (!isWorkflow) {
+//     fs.readFile('./manifest.json', (err, data) => {
+//         if (err) {
+//             log.warn('尝试验证manifest.json失败');
+//             log.warn(err);
+//         } else {
+//             const manifest_source = JSON.parse(data.toString());
+//             const handleAnswer = (ans: "source_file" | "input") => {
+//                 if (ans === "source_file") {
+//                     manifest_json = JSON.parse(manifest_source);
+//                     cache.settings.keepInputOrManifestFile = 3;
+//                 } else if (ans === "input") {
+//                     cache.settings.keepInputOrManifestFile = 2;
+//                     return promFs.writeFile('./manifest.json', JSON.stringify(manifest_json, null, 4));
+//                 }
+//             }
+//
+//             if (manifest_source !== manifest_json) {
+//                 if (cache.settings.keepInputOrManifestFile === 1) {
+//
+//                     const tmp = selectedPromise.then(() => {
+//                         const x = skipSelect ? '上次' : '刚刚';
+//                         return select({
+//                             message: `manifest.json与${x}输入的参数不一致，你要保留哪一项？(可直接无视)`,
+//                             choices: [
+//                                 { name: `${x}输入的参数`, value: "input", description: `你${x}输入的参数` },
+//                                 {
+//                                     name: "manifest.json文件",
+//                                     value: "source_file",
+//                                     description: "文件系统中的manifest.json",
+//                                     short: "manifest.json"
+//                                 }
+//                             ],
+//                             loop: true
+//                         })
+//                     });
+//                     selected[1][1] = tmp;
+//                     tmp.then(handleAnswer).catch(onError);
+//                 } else if (cache.settings.keepInputOrManifestFile === 2) {
+//                     log.info('manifest.json与输入参数不一致，已覆盖manifest.json');
+//                     handleAnswer("input").catch(onError);
+//                 } else if (cache.settings.keepInputOrManifestFile === 3) {
+//                     log.info('manifest.json与输入参数不一致，已保留manifest.json文件');
+//                     handleAnswer("source_file").catch(onError);
+//                 }
+//             }
+//         }
+//     });
+// }
 
 function packaging() {
+    if (!isWorkflow) {
+        log.info('初始化完成');
+        log.info('编译中...');
+    }
     try {
-        child_process.execSync('npx tsc');
-        child_process.execSync('npx webpack');
+        const buffer1 = child_process.execSync('npx tsc');
+        // 如果不是workflow而且输出非空就输出出来
+        !isWorkflow && buffer1.toString().match(/\s/) && console.log(buffer1.toString());
+        const buffer2 = child_process.execSync('npx webpack');
+        !isWorkflow && console.log(buffer2.toString());
     } catch (err) {
         log.error('打包失败');
         err?.message ? log.error(err.message) : 0;
         process.exit(1);
     }
+    if (!isWorkflow) {
+
+        log.info('编译完成');
+        log.info('打包中...');
+    }
+    const outPath =
+        './build/'
+        + `§t${getProcessedVersionCode()} v${cache.fixVersion} §e§lFlash§fFakePlayerPack`
+            .trim()
+            .replace(/,/g, '-')
+            .replace(/§./g, '')
+            .replace(/(\.+|\s+)/g, '-')
+        + '.mcpack';
 
     // 创建一个Archiver实例，将输出流传递给它
     const archive = archiver('zip', {
@@ -339,18 +359,19 @@ function packaging() {
     const output = fs.createWriteStream(outPath);
 
     // 监听archive的'drain'事件，以确保数据被写入输出流
-    if (!isWorkflow)
-        output.on('close', () => {
-            console.log(`${outPath} 文件已成功创建，共包含 ${archive.pointer()} 字节`)
-            process.exit(0)
-        });
+    output.on('close', () => {
+        if (!isWorkflow) {
+            log.info(`${outPath} 文件已成功创建，共包含 ${archive.pointer()} 字节`)
+            log.info('打包完成')
+        }
+        process.exit(0)
+    });
 
     // 将ZIP文件写入到输出流
     archive.pipe(output)
 }
-selectedPromise2.then(p => p).then(() => {
-
-});
+if (isWorkflow) packaging();
+else selectedPromise.then(packaging);
 // archive.pipe(output2);
 
 // 如果存在e:/temp路径就往那里放一份

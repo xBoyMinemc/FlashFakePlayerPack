@@ -6,6 +6,6 @@
     "forceConsistentCasingInFileNames": true,
     "skipLibCheck": true,
     "rootDir": ".",
-    "outDir": "../.builder"
+    "outDir": "../.build"
   }
 }

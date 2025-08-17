@@ -1,0 +1,22 @@
+{
+  "versionTitle": "保存123",
+  "versionCode": [
+    1,
+    21,
+    71
+  ],
+  "fixVersion": 30,
+  "minEngineVersion": [
+    1,
+    21,
+    70
+  ],
+  "maxEngineVersion": [
+    1,
+    21,
+    100
+  ],
+  "settings": {
+    "keepInputOrManifestFile": 1
+  }
+}
