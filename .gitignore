@@ -9,6 +9,4 @@ workspace.xml
 /scripts/
 package-lock.json
 # 不要添加
-
-#.isrelease.bin
 #.build

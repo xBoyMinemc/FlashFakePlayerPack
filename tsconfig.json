@@ -7,7 +7,7 @@
 
     /* Modules */
     "module": "es2020", /* Specify what module code is generated. */
-    "lib": ["es2020"],
+    "lib": ["es2021"],
     "moduleResolution": "node", /* Specify how TypeScript looks up a file from a given module specifier. */
     "rootDir": "./tscripts/",
     "outDir": "./scripts_yeah/", /* Specify an output folder for all emitted files. */
@@ -15,5 +15,6 @@
     "emitBOM": true, /* Emit a UTF-8 Byte Order Mark (BOM) in the beginning of output files. */
     "newLine": "crlf", /* Set the newline character for emitting files. */
     "skipLibCheck": true /* Skip type checking all .d.ts files. */
-  }
+  },
+  "exclude": ["./builder_src"]
 }
