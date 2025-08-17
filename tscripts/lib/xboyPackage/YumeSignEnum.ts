@@ -11,6 +11,7 @@ export  enum  SIGN {
     AUTO_CHASE_SIGN = 'AUTO_CHASE_SIGN',
     AUTO_JUMP_SIGN = 'AUTO_JUMP_SIGN',
     AUTO_TRIDENT_SIGN = 'AUTO_TRIDENT_SIGN',
+    AUTO_CONSUME_SIGN = 'AUTO_CONSUME_SIGN',
     AUTO_RESPAWN_SIGN = 'AUTO_RESPAWN_SIGN',
     YUME_SIM_SIGN = 'YUME_SIM_SIGN',    //'#yumeSimSign#',
 }
@@ -24,6 +25,7 @@ export enum  SIGN_ZH {
     AUTO_CHASE_SIGN = '自动追及标签',
     AUTO_JUMP_SIGN = '自动跳跃标签',
     AUTO_TRIDENT_SIGN = '自动丢三叉戟标签',
+    AUTO_CONSUME_SIGN = '自动食用标签',
     AUTO_RESPAWN_SIGN = '自动重生标签',
     YUME_SIM_SIGN = '云梦假人标签',
 }

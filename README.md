@@ -103,3 +103,23 @@
 - **实验性功能**: 本插件依赖于Minecraft的测试版API，可能存在不稳定的情况。强烈建议您定期备份存档。
 - **版本兼容**: 请留意插件的版本说明，确保其与您的游戏版本兼容。
 - **数据安全**: 背包持久化功能依赖于世界文件中的`structure`。请不要手动删除名为 `flashfakeplayerpack:backpack2barrel` 的结构，否则可能导致假人背包数据丢失。
+- **修复**: 已修复插件影响游戏刷怪、时间流动和随机刻的问题。
+- **已知问题**: 好像钓鱼一直有问题，没办法蹲下或被活板门压扁，疑似存在远离玩家召唤时不加载区块的情况
+
+---
+
+## 开发者信息 (Developer Info)
+
+### TODO List
+- [ ] 编写测试用例
+- [ ] 开发一个基础的 UI 界面
+- [ ] 重构构建系统https://github.com/xBoyMinemc/FlashFakePlayerPack/pull/110
+
+### 打包与发布流程
+1. 创建一个新 tag，tag 名称以 `v` 开头（如 `v1.0.0`），这会通过 GitHub Actions 自动触发发布流程。
+2. 流程会执行以下步骤：
+   - 从 `tscripts` 目录编译 TypeScript 到 `scripts_yeah`。
+   - 使用 Webpack 处理 `scripts_yeah` 的文件到 `scripts`。
+   - 运行 `packer.js` 将 `scripts` 和其他资源打包成 `.mcpack` 文件到 `build` 目录。
+   - Release 的说明内容会自动取自最新的 `CHANGELOG.md` 文件。
+   - 最后创建并发布 Release。
