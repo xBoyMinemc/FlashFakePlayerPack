@@ -320,7 +320,6 @@ function packaging() {
         process.exit(1);
     }
     if (!isWorkflow) {
-
         log.info('编译完成');
         log.info('打包中...');
     }
