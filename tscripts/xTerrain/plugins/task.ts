@@ -14,19 +14,18 @@ const Vector_subtract = ({x,y,z}:Vector3, {x:u,y:v,z:w}:Vector3)=>({x:x-u,y:y-v,
 // behavior
 function AUTO_BEHAVIOR(){
 
-    let simulatedPlayerCount = 0
     const AllPlayerCount = world.getAllPlayers().length
-    for (const index in simulatedPlayers) {
+    let index = 0
+    simulatedPlayers.list.forEach(player => {
+        index++
         if((Number(index)>0?Number(index):-Number(index))>1000)continue
 
-        const SimPlayer:SimulatedPlayer = <SimulatedPlayer>simulatedPlayers[index]
+        const SimPlayer:SimulatedPlayer = player
         //判假人是否存在
         if(!SimPlayer || !SimPlayer?.isValid){
-            delete simulatedPlayers[simulatedPlayers[index]]
-            delete simulatedPlayers[index]
+            simulatedPlayers.removeByPID(player.pid)
             continue
         }
-        ++simulatedPlayerCount
         // world.sendMessage(SimPlayer.nameTag)
         //判假人是否存活
         //瞎糊乱改接口名--2023-07-21-02：02
@@ -57,7 +56,7 @@ function AUTO_BEHAVIOR(){
             //         'o':SimPlayer.location
             //     }
             // })
-            const r = (x:number,_x:number,v:number)=>x-_x>v||x-_x<-v
+            // const r = (x:number,_x:number,v:number)=>x-_x>v||x-_x<-v
             const r3 = (o:Vector3,_o:Vector3,v:number)=>o.x-_o.x>v||o.x-_o.x<-v || o.y-_o.y>v||o.y-_o.y<-v || o.z-_o.z>v||o.z-_o.z<-v
             // const fix = (o:Vector3)=>({x:o.x-30000000+1,y:o.y,z:o.z-3})
             const fix = (location:Vector3)=>Vector_subtract(location, testWorldLocation)
@@ -83,7 +82,8 @@ function AUTO_BEHAVIOR(){
     })
 
     // /gamerule playerssleepingpercentage 50%
-    // SimulatedPlayerCount && world.getDimension('minecraft:overworld').runCommand('gamerule playerssleepingpercentage '+Math.floor(100*SimulatedPlayerCount/AllPlayerCount))
+    /*simulatedPlayers.list.size() && */
+    world.getDimension('minecraft:overworld').runCommand('gamerule playerssleepingpercentage '+Math.floor(100*simulatedPlayers.list.size()/AllPlayerCount))
 }
 
 system.runInterval(AUTO_BEHAVIOR,20)
