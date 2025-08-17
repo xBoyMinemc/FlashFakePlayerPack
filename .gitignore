@@ -8,5 +8,5 @@ workspace.xml
 /scripts_yeah/
 /scripts/
 package-lock.json
-# 不要添加
-#.build
+
+.build/*.js
