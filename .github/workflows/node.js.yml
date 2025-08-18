@@ -32,7 +32,6 @@ jobs:
           webpack
           
           output=$(node packer.js --workflow)
-          # 获取输出的第一行和第二行
           line="$(
             # 获取js输出，是否release
             if [[ $(echo $output | awk '{print $2}') == "true" ]]; then
