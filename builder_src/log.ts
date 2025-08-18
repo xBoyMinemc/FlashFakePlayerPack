@@ -1,5 +1,5 @@
 export const logPrefix1 = '[FFPPBuilder'
-export const endsOfLogPrefix = '] ';
+export const endsOfLogPrefix = ']';
 export const logPrefix2 = logPrefix1 + endsOfLogPrefix;
 export enum ANSI_ESCAPES {
     'red' = '\x1B[31m',

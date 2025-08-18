@@ -9,4 +9,4 @@ workspace.xml
 /scripts/
 package-lock.json
 
-.build/*.js
+/.build/*.js

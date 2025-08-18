@@ -3,7 +3,7 @@
   "scripts": {
     "dev": "cd . && tsc -w -outDir ./scripts/",
     "webpackTest": "cd . && tsc && webpack",
-    "build": "cd . && tsc && webpack && node build/packer.js"
+    "build": "node packer.js"
   },
   "dependencies": {
     "@inquirer/prompts": "^7.8.2"
