@@ -15,14 +15,14 @@ export interface CacheJson {
     /**
      * 所有代表用户选择的数字应该是`1`，因为致敬传奇mojang版本号第一位永远是`1`🤓
      */
-    settings: {
-        /**
-         * - `1` 用户自己选择
-         * - `2` 保留输入的值
-         * - `3` 保留`manifest.json`
-         */
-        keepInputOrManifestFile: 1 | 2 | 3;
-    }
+    // settings: {
+    //     /**
+    //      * - `1` 用户自己选择
+    //      * - `2` 保留输入的值
+    //      * - `3` 保留`manifest.json`
+    //      */
+    //     keepInputOrManifestFile: 1 | 2 | 3;
+    // }
 }
 /**
  * 检测对象是否符合{@link CacheJson}格式
@@ -48,13 +48,13 @@ export function isCacheJson(obj: any): obj is CacheJson {
         obj.maxEngineVersion.length === 3 &&
         obj.maxEngineVersion[0] === 1 &&
         typeof obj.maxEngineVersion[1] === 'number' &&
-        typeof obj.maxEngineVersion[2] === 'number' &&
-        typeof obj.settings === 'object' &&
-        obj.settings !== null &&
-        typeof obj.settings.keepInputOrManifestFile === 'number' &&
-        (obj.settings.keepInputOrManifestFile === 1 ||
-         obj.settings.keepInputOrManifestFile === 2 ||
-         obj.settings.keepInputOrManifestFile === 3);
+        typeof obj.maxEngineVersion[2] === 'number';
+        // typeof obj.settings === 'object' &&
+        // obj.settings !== null &&
+        // typeof obj.settings.keepInputOrManifestFile === 'number' &&
+        // (obj.settings.keepInputOrManifestFile === 1 ||
+        //  obj.settings.keepInputOrManifestFile === 2 ||
+        //  obj.settings.keepInputOrManifestFile === 3);
 }
 export function writeCacheJsonSync(cache: CacheJson) {
     fs.writeFileSync(cacheJsonPath, JSON.stringify(cache, null, 2));
@@ -124,7 +124,6 @@ export function validatingVersionLikeString(input: string) {
 export function parseVersionLikeString(input: string) {
     return input.split('.').map(part => Number(part));
 }
-
 
 export const _IS_RELEASE = 0x10;
 export const _NOT_RELEASE = 0x00;

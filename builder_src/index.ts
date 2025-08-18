@@ -36,9 +36,9 @@ export let cache: CacheJson = {
     fixVersion: 30,
     minEngineVersion: [1, 21, 70],
     maxEngineVersion: [1, 21, 100],
-    settings: {
-        keepInputOrManifestFile: 1
-    }
+    // settings: {
+    //     keepInputOrManifestFile: 1
+    // }
 };
 for (const k in cache) {
     if (Array.isArray(cache[k])) {
@@ -74,16 +74,9 @@ try {
     onError(err);
 }
 
-// 我也不知道为啥这样写，你去问@xBoyMinemc
-function getProcessedVersionCode() {
-    const tmp = cache.versionCode;
-    tmp[2] = tmp[2] * 10 + cache.fixVersion;
-    return tmp;
-}
-
-let skipSelect = false;
+// let skipSelect = false;
 // 是否选择过了的通信(?)变量
-let selected: [boolean/*, [boolean, Promise<string | void> | null]*/] = [false/*, [false, null]*/];
+let selected = false;
 let resolvePromises = false;
 if (isWorkflow && isRelease) {
     log.error('你是来整活的对吧👆🤓');
@@ -98,10 +91,10 @@ if (isWorkflow && isRelease) {
     console.log((fs.readFileSync(ISRELEASE_FILE_PATH)[1] === _IS_RELEASE) ||
         // 哥们不是说用workflow吗，我当场复刻
         (() => {
-            const tags = child_process.execSync(`git tag --points-at HEAD`).toString().trim();
+            const tag = child_process.execSync('git tag --points-at HEAD').toString().trim();
 
-            if (tags) {
-                return tags.startsWith('v');
+            if (tag) {
+                return tag.startsWith('v');
             } else {
                 return false;
             }
@@ -114,9 +107,9 @@ if (isWorkflow && isRelease) {
     }).then(ans => {
         if (!ans) {
             // 如果用户选择不跳过设置，则将所有设置项重置为默认值
-            for (const k in cache.settings) {
-                cache.settings[k] = 1;
-            }
+            // for (const k in cache.settings) {
+            //     cache.settings[k] = 1;
+            // }
             // 致敬传奇promise超长then链
             confirm({
                 message: '是否release？',
@@ -188,18 +181,18 @@ if (isWorkflow && isRelease) {
                     // @ts-expect-error
                     cache.maxEngineVersion = parseVersionLikeString(ans);
                     // !isWorkflow && log.info('初始化中...');
-                    selected[0] = true;
+                    selected = true;
                 });
         } else {
             // !isWorkflow && log.info('初始化中...');
             resolvePromises = true;
-            skipSelect = true;
+            // skipSelect = true;
         }
     })
 }
 const selectedPromise = new Promise<void>((resolve) => {
     setInterval(() => {
-        (selected[0] || resolvePromises) && resolve();
+        (selected || resolvePromises) && resolve();
     });
 });
 // let selectedPromise2: Promise<Promise<void>> = new Promise((resolve) => {
