@@ -12,7 +12,7 @@ import {
     onIsRelease,
     onNotRelease,
     parseVersionLikeString,
-    readCacheJsonSync,
+    readCacheJsonSync, replaceLastCharacter,
     validatingVersionLikeString
 } from "./defines.js";
 
@@ -30,6 +30,9 @@ if (cwd.includes('node_modules') || cwd.includes('build')) {
 
 const isWorkflow = process.argv.includes('--workflow');
 const isRelease = process.argv.includes('--release');
+/**
+ * 每次重新赋值时都应调用{@link rewriteTostring}函数
+ */
 export let cache: CacheJson = {
     versionTitle: "",
     versionCode: [1, 999, 999],
@@ -40,13 +43,25 @@ export let cache: CacheJson = {
     //     keepInputOrManifestFile: 1
     // }
 };
-for (const k in cache) {
-    if (Array.isArray(cache[k])) {
-        cache[k].toString = function() {
-            return cache[k].join('.');
+/**
+ * @see rewriteTostring
+ */
+function replacedTostring(v: any[]) {
+    return function () {
+        return v.join('.');
+    }
+}
+/**
+ * 每次重新赋值{@link cache}时都应调用此函数
+ */
+function rewriteTostring(obj: object) {
+    for (const k in obj) {
+        if (Array.isArray(obj[k])) {
+            obj[k].toString = replacedTostring(obj[k]);
         }
     }
 }
+rewriteTostring(cache);
 
 // 如果没构建过，就新建缓存文件
 // 如果构建过，就读取缓存
@@ -67,6 +82,7 @@ try {
     } else {
         const tmp = readCacheJsonSync();
         if (tmp) {
+            rewriteTostring(tmp);
             cache = tmp;
         }
     }
@@ -205,13 +221,20 @@ const selectedPromise = new Promise<void>((resolve) => {
 //     });
 // });
 
+// 我也不知道为啥这样写，你去问@xBoyMinemc
+function getProcessedVersionCode() {
+    const tmp = [...cache.versionCode];
+    tmp.toString = replacedTostring(tmp);
+    tmp[2] = tmp[2] * 10 + cache.fixVersion;
+    return tmp;
+}
 let manifest_json = (() => {
     const _versionCode = getProcessedVersionCode();
     return {
         "format_version": 2,
         "header": {
-            "name": `§t${_versionCode} v${cache.fixVersion} §e§lFlash§fFakePlayerPack`,
-            "description": `【${cache.versionTitle}】${_versionCode} \u000a开启实验性游戏内容（测试版 API）-游戏内输入“假人帮助”或“假人创建” 对着假人右键（蹲或不蹲是两个不同的菜单） \u000a感谢PuppyOne和kzyqq00-Player做出的长达数月的代码更新`,
+            "name": `§t${cache.versionCode} v${cache.fixVersion} §e§lFlash§fFakePlayerPack`,
+            "description": `【${cache.versionTitle}-构建于${cache.maxEngineVersion}-支持${replaceLastCharacter(cache.minEngineVersion, 'x')}-${replaceLastCharacter(cache.maxEngineVersion, 'x')}】${cache.versionCode} \u000a开启实验性游戏内容（测试版 API）-游戏内输入“假人帮助”或“假人创建” 对着假人右键（蹲或不蹲是两个不同的菜单） \u000a感谢PuppyOne和kzyqq00-Player做出的长达数月的代码更新`,
             "uuid": "aa101e99-abb4-448d-b58f-71e9da43064e",
             "version": _versionCode,
             "min_engine_version": cache.minEngineVersion

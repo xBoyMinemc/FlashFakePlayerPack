@@ -136,6 +136,15 @@ export function onError(err: { message: any }) {
         log.errorAndExit(err.message);
     }
 }
+
+export function replaceLastCharacter(str: { toString(): string }, replacement: string): string {
+    const str2 = str.toString();
+    if (str2.length === 0) {
+        return str2;
+    }
+    return str2.slice(0, -1) + replacement;
+}
+
 // @ts-expect-error
 // 需不需要release呢？好难猜啊，加个文件给workflow吧
 export const isReleaseFile: {
