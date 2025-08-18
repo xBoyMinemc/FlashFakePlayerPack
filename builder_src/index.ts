@@ -29,7 +29,7 @@ if (cwd.includes('node_modules') || cwd.includes('build')) {
 }
 
 const isWorkflow = process.argv.includes('--workflow');
-const isRelease = process.argv.includes('--release');
+// const isRelease = process.argv.includes('--release');
 /**
  * 每次重新赋值时都应调用{@link rewriteTostring}函数
  */
@@ -94,14 +94,15 @@ try {
 // 是否选择过了的通信(?)变量
 let selected = false;
 let resolvePromises = false;
-if (isWorkflow && isRelease) {
+/*if (isWorkflow && isRelease) {
     log.error('你是来整活的对吧👆🤓');
     process.exit(1145);
 } else if (isRelease) {
     onIsRelease();
 } else if (!isRelease && !isWorkflow) {
     onNotRelease();
-} else if (isWorkflow) {
+} else */
+if (isWorkflow) {
     // console.log(outPath);
     // 读取.isrelease文件，告知workflow是否release
     console.log((fs.readFileSync(ISRELEASE_FILE_PATH)[1] === _IS_RELEASE) ||
@@ -116,7 +117,7 @@ if (isWorkflow && isRelease) {
             }
         })())
     // process.exit(0);
-} if (!isWorkflow) {
+} else {
     confirm({
         message: '是否跳过所有设置，直接使用上次的设置？',
         default: true
