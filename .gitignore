@@ -8,3 +8,5 @@ workspace.xml
 /scripts_yeah/
 /scripts/
 package-lock.json
+
+/.build/*.js

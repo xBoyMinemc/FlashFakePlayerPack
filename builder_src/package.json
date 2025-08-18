@@ -1,0 +1,13 @@
+{
+  "name": "ffpp_builder",
+  "version": "1.0.0",
+  "description": "ffpp的构建器",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {},
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/kzyqq00-Player/FlashFakePlayerPack.git"
+  },
+  "private": true
+}
