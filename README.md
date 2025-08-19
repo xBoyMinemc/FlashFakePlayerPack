@@ -116,7 +116,7 @@
 - [ ] 重构构建系统https://github.com/xBoyMinemc/FlashFakePlayerPack/pull/110
 
 ### 打包与发布流程
-1. 创建一个新 tag，tag 名称以 `v` 开头（如 `v1.0.0`），这会通过 GitHub Actions 自动触发发布流程。
+1. 创建并推送一个新 tag，tag 名称以 `v` 开头（如 `v1.0.0`），这会通过 GitHub Actions 自动触发发布流程。
 2. 流程会执行以下步骤：
    - 从 `tscripts` 目录编译 TypeScript 到 `scripts_yeah`。
    - 使用 Webpack 处理 `scripts_yeah` 的文件到 `scripts`。
