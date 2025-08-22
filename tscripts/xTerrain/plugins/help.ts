@@ -68,21 +68,37 @@ const qrcodeTextRoll =
 
 const helpCommand = new Command();
 helpCommand.register(({ args, isEntity }) => args.length === 0 && isEntity, ({ entity }) => {
-        [
-            "输入  假人帮助+空格+功能名   获取更详细的帮助", "例如   -假人帮助 重生-",
-            "###部分功能需要光标对准假人", "创建", "销毁", "列表", "扭头", "停止", "移动","§e§l自动追击§r",
-            "使用 # 开始使用 # 停止使用 => 使用鱼竿，鱼钩销毁后会自动抛竿（自动钓鱼）", "攻击", "自动攻击", "交换背包",
-            "一般操作示例 '假人创建' '假人销毁' '假人交换背包'  ’假人github‘  ’假人help‘", "销毁 + 空格 +列表标号",
-            "销毁示例", "销毁", "销毁 0", "销毁 1",
-            "用于命令方块时, 可使用 /scriptevent",
-            "使用 scriptevent 时, 只需在对应命令前加上 /scriptevent ffp:",
-            "如 /scriptevent ffp:ffpp",
-            "#赠品：输入'tps开' 或 'tps关'",
-            "§r这里是一些技术解释",
-            "假人销毁，或游戏重启后，信息完全丢失",
-            "假人可以捡起掉落物品",
-            "输入‘假人github’了解更多"
-        ].forEach((text) => entity.sendMessage(`§e§l-${text}`));
+    const helpText = [
+        "§e§l--- FlashFakePlayerPack 帮助 ---§r",
+        "",
+        "§6▶ 主要交互方式§r",
+        "  将准星对准假人，然后：",
+        "  - §f直接右键: §a打开功能菜单",
+        "  - §f潜行+右键: §a打开标签(状态)菜单",
+        "",
+        "§6▶ 基本指令§r",
+        "  §f假人创建§7 - 在你所在位置创建一个假人。",
+        "  §f假人销毁§7 - 销毁眼前的假人。",
+        "  §f假人列表§7 - 查看所有假人序号。",
+        "  §f假人帮助 <指令>§7 - 查看特定指令的详细帮助。",
+        "",
+        "§6▶ 常用指令示例§r",
+        "  §f假人创建 \"小白\"§7 - 创建名为\"小白\"的假人。",
+        "  §f假人创建 100 64 0§7 - 在指定坐标创建假人。",
+        "  §f假人销毁 1§7 - 销毁序号为1的假人。",
+        "  §f假人背包交换§7 - 与眼前的假人交换背包。",
+        "",
+        "§6▶ 附加功能§r",
+        "  §ftps开§7 - 开启服务器 TPS 显示。",
+        "  §ftps关§7 - 关闭服务器 TPS 显示。",
+        "",
+        "§6▶ 技术说明§r",
+        "  - §e背包会自动保存§r§7，重启游戏不会导致物品丢失。",
+        "  - §7假人可以捡拾地上的物品。",
+        "  - §7使用 §f/scriptevent ffp:<指令>§7 可在命令方块中执行。",
+        "  - §7输入 §f假人github§7 可获取项目地址。",
+    ].join('\n');
+    entity.sendMessage(helpText);
 });
 helpCommand.register(({ args, isEntity }) => args.length > 0 && isEntity, ({ args: [item], entity }) => {
     const helpMessage =
