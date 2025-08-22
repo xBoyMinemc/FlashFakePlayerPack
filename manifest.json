@@ -1,13 +1,13 @@
 {
     "format_version": 2,
     "header": {
-        "name": "§t1.21.71 v30.1 §e§lFlash§fFakePlayerPack",
+        "name": "§t1.21.71 v31 §e§lFlash§fFakePlayerPack",
         "description": "【保存背包状态-构建于1.21.100-支持1.21.7x-1.21.10x】1.21.71 \n请开启实验性游戏内容（测试版 API）\n感谢PuppyOne和kzyqq00-Player做出的长达数月的代码更新",
         "uuid": "aa101e99-abb4-448d-b58f-71e9da43064e",
         "version": [
             1,
             21,
-            740
+            741
         ],
         "min_engine_version": [
             1,
@@ -20,7 +20,7 @@
             "version": [
                 1,
                 21,
-                740
+                741
             ],
             "type": "script",
             "uuid": "10101e99-abc1-5488-ba76-71e9da441300",
