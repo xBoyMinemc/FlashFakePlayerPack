@@ -24,7 +24,7 @@ const manifest_json = {
     "format_version": 2,
     "header": {
         "name": `§t${pack_version} v${fix_pack_version} §e§lFlash§fFakePlayerPack`,
-        "description": `【${pack_name}】${pack_version} \u000a开启实验性游戏内容（测试版 API）-游戏内输入“假人帮助”或“假人创建” 对着假人右键（蹲或不蹲是两个不同的菜单） \u000a感谢PuppyOne和kzyqq00-Player做出的长达数月的代码更新`,
+        "description": `【${pack_name}】${pack_version} \u000a请开启实验性游戏内容（测试版 API）\u000a感谢PuppyOne和kzyqq00-Player做出的长达数月的代码更新`,
         "uuid": "aa101e99-abb4-448d-b58f-71e9da43064e",
         "version": full_pack_version,
         "min_engine_version": min_engine_version
