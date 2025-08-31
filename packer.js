@@ -2,9 +2,9 @@ const fs = require('fs');
 const archiver = require('archiver');
 
 
-const pack_name = '保存背包状态-构建于1.21.100-支持1.21.7x-1.21.10x'
+const pack_name = '保存背包状态-每人限额5人-构建于1.21.100-支持1.21.7x-1.21.10x'
 const pack_version = [1,21,71];
-const fix_pack_version = 31
+const fix_pack_version = 35
 const min_engine_version = [1,21,70]
 
 const printFilePathOnly = process.argv.includes('--print-filepath-only')
