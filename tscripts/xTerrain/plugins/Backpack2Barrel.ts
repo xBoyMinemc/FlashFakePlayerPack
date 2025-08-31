@@ -117,7 +117,7 @@ async function saveAllFakePlayerBackpack() {
         if (!_SimulatedPlayer.isValid) return
         const index = Number(PID) * 3
         if (index < 0) return
-        let void_count = 0
+        let void_count = 0 // 空缺的存储木桶数量
 
         const location0 = addVector3(structure_location, indexToVector3(index + 0))
         const block_backpack = testWorldDimension.getBlock(location0)
@@ -163,7 +163,7 @@ async function saveAllFakePlayerBackpack() {
             })
 
             _SimulatedPlayer.removeTag("Backpack2Barrel_init")
-            world.sendMessage(`${_SimulatedPlayer.name} 背包还原成功`)
+            world.sendMessage(`${_SimulatedPlayer.name} 背包还原->正常`)
             return
         }
 
@@ -204,6 +204,18 @@ async function saveAllFakePlayerBackpack() {
 
 }
 
+export function getFakePlayerNameTag(PID: number):string | null {
+    const index = Number(PID) * 3 + 1
+    if (index < 0) return
+    const location = addVector3(structure_location, indexToVector3(index))
+    const block = testWorldDimension.getBlock(location)
+    if (block.type.id !== VoidBarrel.id) {
+        return null
+    }
+    const inv = block.getComponent("minecraft:inventory")
+    const con = inv.container
+    return con.getItem(15).nameTag
+}
 
 
 system.runInterval(async () => {

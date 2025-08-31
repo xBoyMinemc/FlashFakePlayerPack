@@ -1,15 +1,16 @@
 import type {SimulatedPlayer} from '@minecraft/server-gametest'
 
 import {
-    GetPID, initSucceed,
+    GetCurrentPID4Player,
+    GetGlobalPID, GetPlayerPID2GlobalPID, initSucceed,
     simulatedPlayers,
     spawned as spawnedEvent,
-    spawnSimulatedPlayer,
     spawnSimulatedPlayerByNameTag
 } from '../main'
 import { type CommandInfo, commandManager, Command } from '../../lib/yumeCommand/CommandRegistry'
 import { Dimension, Vector3, world, type Player } from '@minecraft/server'
 import {xyz_dododo} from "../../lib/xboyPackage/xyz_dododo";
+import { getFakePlayerNameTag } from './Backpack2Barrel';
 
 const overworld = world.getDimension("overworld");
 
@@ -19,18 +20,22 @@ const spawnAndRegisterSimulatedPlayer = (entity: Player | undefined, location: V
         return;
     }
 
-    const PID = GetPID();
+    const PlayerPID = GetCurrentPID4Player(entity.id);
+    if (!PlayerPID) {
+        entity?.sendMessage('[模拟玩家] 假人数量已达上限，请删除假人后再试');
+        return;
+    }
+    const GlobalPID = GetPlayerPID2GlobalPID(entity.id, PlayerPID);
+    const name = getFakePlayerNameTag(GlobalPID) ?? nameTag ?? ((entity?.name ?? 'flash') + PlayerPID)
     const __FlashPlayer__ = world.scoreboard.getObjective('##FlashPlayer##');
-    const simulatedPlayer: SimulatedPlayer = nameTag
-        ? spawnSimulatedPlayerByNameTag(location, dimension, nameTag)
-        : spawnSimulatedPlayer(location, dimension, PID);
+    const simulatedPlayer: SimulatedPlayer = spawnSimulatedPlayerByNameTag(location, dimension, name)
 
 
-    simulatedPlayers[PID] = simulatedPlayer;
-    simulatedPlayers[simulatedPlayer.id] = PID;
+    simulatedPlayers[GlobalPID] = simulatedPlayer;
+    simulatedPlayers[simulatedPlayer.id] = GlobalPID;
 
-    spawnedEvent.trigger({ spawnedSimulatedPlayer: simulatedPlayer, PID });
-    __FlashPlayer__.setScore(simulatedPlayer.id, PID);
+    spawnedEvent.trigger({ spawnedSimulatedPlayer: simulatedPlayer, PID:GlobalPID });
+    __FlashPlayer__.setScore(simulatedPlayer.id, GlobalPID);
 };
 
 const chatSpawnCommand = new Command();
