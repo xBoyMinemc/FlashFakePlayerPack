@@ -110,11 +110,6 @@
 
 ## 开发者信息 (Developer Info)
 
-### TODO List
-- [ ] 编写测试用例
-- [ ] 开发一个基础的 UI 界面
-- [ ] 重构构建系统https://github.com/xBoyMinemc/FlashFakePlayerPack/pull/110
-
 ### 打包与发布流程
 1. 创建并推送一个新 tag，tag 名称以 `v` 开头（如 `v1.0.0`），这会通过 GitHub Actions 自动触发发布流程。
 2. 流程会执行以下步骤：
