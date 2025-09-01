@@ -61,7 +61,7 @@ export function isOutOfLimit(player?: { name: string }): boolean {
     const playerLimit = parsedConfig[player?.name];
     const globalLimit = parsedConfig[LIMIT_CONFIG_GLOBAL_CONFIG_KEY];
     const isOutOfGlobalLimit = globalLimit
-        ? globalLimit >= currentPID
+        ? currentPID >= globalLimit
         : false;
     const isOutOfPlayerLimit = playerLimit
         ? playerSpawnedSimulatedPlayerNumbers[player.name] >= playerLimit
