@@ -192,4 +192,4 @@ cmd.register(/* 验证是否是玩家触发的 */(cmdInfo) => cmdInfo?.isEntity 
     };
     showParentForm();
 });
-commandManager.registerCommand('限额配置', cmd);
+commandManager.registerCommand(['xepg', '配额配置', '配置配额', '限额配置', '配置限额'], cmd);
