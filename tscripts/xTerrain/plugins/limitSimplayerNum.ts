@@ -9,7 +9,7 @@ export const LIMIT_CONFIG_GLOBAL_CONFIG_KEY = '__global__';
 const invalidConfigWarnText = '[模拟玩家] 配置疑似被篡改，已修复。请检查最近有没有安装可疑行为包？如果是第一次使用此功能则可忽略';
 const invalidParameterWarnText = '§4[模拟玩家]§r 输入非法参数，设置失败';
 export const invalidPlayerNameWarnText = `§4[模拟玩家]§r 有非法玩家名： §6${LIMIT_CONFIG_GLOBAL_CONFIG_KEY}§r 无法`;
-export const outOfLimitWarnText = '§6[模拟玩家]§r 您或全局的假人数量已超过限额，请击杀一些后重试';
+export const outOfLimitWarnText = '§6[模拟玩家]§r 您或全局的假人数量已超过限额';
 
 export const playerSpawnedSimulatedPlayerNumbers: Record<string, number> = {};
 
