@@ -2,11 +2,11 @@ import { ActionFormData, FormCancelationReason, ModalFormData } from "@minecraft
 import { Command, commandManager } from "../../lib/yumeCommand/CommandRegistry";
 import { Player, world } from "@minecraft/server";
 
-export const SIMULATED_PLAYER_LIMIT_CONFIG_DYNAMIC_PROPERTY_KEY = 'ffpp:simulated_player_limit_config';
-export const SIMULATED_PLAYER_LIMIT_CONFIG_GLOBAL_CONFIG_KEY = '__global__';
+export const LIMIT_CONFIG_DYNAMIC_PROPERTY_KEY = 'ffpp:simulated_player_limit_config';
+export const LIMIT_CONFIG_GLOBAL_CONFIG_KEY = '__global__';
 
-const warnText = '[模拟玩家] 配置疑似被篡改，已修复。请检查最近有没有安装可疑行为包🤔';
-const invalidKeyWarnText = '§4[模拟玩家]§r 输入非法参数，设置失败';
+const invalidConfigWarnText = '[模拟玩家] 配置疑似被篡改，已修复。请检查最近有没有安装可疑行为包？如果是第一次使用此功能则可忽略';
+const invalidParameterWarnText = '§4[模拟玩家]§r 输入非法参数，设置失败';
 
 const cmd = new Command();
 cmd.register(/* 验证是否是玩家触发的 */(cmdInfo) => cmdInfo?.isEntity && cmdInfo?.entity instanceof Player, (cmdInfo) => {
@@ -26,8 +26,13 @@ cmd.register(/* 验证是否是玩家触发的 */(cmdInfo) => cmdInfo?.isEntity 
     parentForm.button('§9配置总限额');
     parentForm.button('§6配置已离线玩家');
     allPlayers.forEach((player, index) => {
-        playerSelectionIndexes[index] = player.name;
-        parentForm.button('§f' + player.name);
+        const playerName = player.name;
+        if (playerName !== LIMIT_CONFIG_GLOBAL_CONFIG_KEY) {
+            playerSelectionIndexes[index] = playerName;
+            parentForm.button('§f' + playerName);
+        } else {
+            console.warn(`§4[模拟玩家]§r 有非法玩家名： §6${LIMIT_CONFIG_GLOBAL_CONFIG_KEY}§r 设置失败`);
+        }
     });
 
     function showParentForm() {
@@ -35,12 +40,12 @@ cmd.register(/* 验证是否是玩家触发的 */(cmdInfo) => cmdInfo?.isEntity 
         parentForm.show(cmdInfo.entity).then((result) => {
             if (!result.canceled) {
                 // 读取之前的配置
-                const limitConfig = world.getDynamicProperty(SIMULATED_PLAYER_LIMIT_CONFIG_DYNAMIC_PROPERTY_KEY);
+                const limitConfig = world.getDynamicProperty(LIMIT_CONFIG_DYNAMIC_PROPERTY_KEY);
 
                 const warn = function () {
                     // Oop! It's fake!
-                    world.sendMessage(warnText);
-                    console.warn(warnText);
+                    world.sendMessage(invalidConfigWarnText);
+                    console.warn(invalidConfigWarnText);
                 };
 
                 // 如果读取到的配置不是字符串或无法解析，就警告用户
@@ -64,7 +69,7 @@ cmd.register(/* 验证是否是玩家触发的 */(cmdInfo) => cmdInfo?.isEntity 
                 // 判断是否选择了“配置总限额”
                 if (result.selection === 0) {
                     const form = new ModalFormData()
-                        .title('§6总§4限§6额§r配置')
+                        .title('§4总§6限§4额§r配置')
                         .textField('限额上限', '无限制', {
                             tooltip: '指定总限制可创建的假人数量，留空表示无限制'
                         });
@@ -72,12 +77,13 @@ cmd.register(/* 验证是否是玩家触发的 */(cmdInfo) => cmdInfo?.isEntity 
                     form.show(cmdInfo.entity).then((result) => {
                         if (!result.canceled) {
                             const limit = result.formValues[0];
-                            if (typeof limit !== 'number' && limit !== '') {
-                                cmdInfo.entity.sendMessage(invalidKeyWarnText);
+                            const number = Number(limit);
+                            if (isNaN(number) && limit !== '') {
+                                cmdInfo.entity.sendMessage(invalidParameterWarnText);
                                 return;
                             }
 
-                            parsedLimitConfig[SIMULATED_PLAYER_LIMIT_CONFIG_GLOBAL_CONFIG_KEY] = limit;
+                            parsedLimitConfig[LIMIT_CONFIG_GLOBAL_CONFIG_KEY] = limit;
                         } else if (result.cancelationReason === FormCancelationReason.UserClosed) {
                             showParentForm();
                         }
@@ -97,10 +103,11 @@ cmd.register(/* 验证是否是玩家触发的 */(cmdInfo) => cmdInfo?.isEntity 
                         if (!result.canceled) {
                             const playerName = result.formValues[0];
                             const limit = result.formValues[1];
+                            const number = Number(limit);
                             if (typeof playerName !== 'string'
-                                || playerName === SIMULATED_PLAYER_LIMIT_CONFIG_GLOBAL_CONFIG_KEY
-                                || (typeof limit !== 'number' && limit !== '')) {
-                                cmdInfo.entity.sendMessage(invalidKeyWarnText);
+                                || playerName === LIMIT_CONFIG_GLOBAL_CONFIG_KEY
+                                || (isNaN(number) && limit !== '')) {
+                                cmdInfo.entity.sendMessage(invalidParameterWarnText);
                                 return;
                             }
 
@@ -123,8 +130,9 @@ cmd.register(/* 验证是否是玩家触发的 */(cmdInfo) => cmdInfo?.isEntity 
                     form.show(cmdInfo.entity).then((result) => {
                         if (!result.canceled) {
                             const limit = result.formValues[0];
-                            if (typeof limit !== 'number' && limit !== '') {
-                                cmdInfo.entity.sendMessage(invalidKeyWarnText);
+                            const number = Number(limit);
+                            if (isNaN(number) && limit !== '') {
+                                cmdInfo.entity.sendMessage(invalidParameterWarnText);
                                 return;
                             }
                             console.log(playerName, playerSelectionIndexes[0], playerSelectionIndexes[1], playerSelectionIndexes[2]);
@@ -137,7 +145,7 @@ cmd.register(/* 验证是否是玩家触发的 */(cmdInfo) => cmdInfo?.isEntity 
                 }
 
                 // 写上配置
-                world.setDynamicProperty(SIMULATED_PLAYER_LIMIT_CONFIG_DYNAMIC_PROPERTY_KEY, JSON.stringify(parsedLimitConfig));
+                world.setDynamicProperty(LIMIT_CONFIG_DYNAMIC_PROPERTY_KEY, JSON.stringify(parsedLimitConfig));
             }
         });
     }
