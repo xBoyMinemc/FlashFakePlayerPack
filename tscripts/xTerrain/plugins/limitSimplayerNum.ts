@@ -120,7 +120,7 @@ cmd.register(/* 验证是否是玩家触发的 */(cmdInfo) => cmdInfo?.isEntity 
 
                 // 如果选择的是特定玩家
                 else {
-                    const playerName = playerSelectionIndexes[/* 鬼知道为啥要这样写 */result.selection];
+                    const playerName = playerSelectionIndexes[/* 鬼知道为啥要这样写 */result.selection - 2];
                     const form = new ModalFormData()
                         .title(`玩家 §6${playerName}§r 的限额配置`)
                         .textField('限额上限', '无限制', {
