@@ -74,7 +74,7 @@ const cmd = new Command();
 cmd.register(/* 验证是否是玩家触发的 */(cmdInfo) => cmdInfo?.isEntity && cmdInfo?.entity instanceof Player, (cmdInfo) => {
     // 如果是普通用户，则无法修改
     if (cmdInfo.entity.commandPermissionLevel < 1) {
-        cmdInfo.entity.sendMessage('[模拟玩家]§6 你的权限不足，无法修改模拟玩家限额限制');
+        cmdInfo.entity.sendMessage('§6[模拟玩家]§r 你的权限不足，无法修改模拟玩家限额');
         return;
     }
 
