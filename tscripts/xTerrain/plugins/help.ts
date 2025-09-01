@@ -95,7 +95,7 @@ helpCommand.register(({ args, isEntity }) => args.length === 0 && isEntity, ({ e
         "§6▶ 技术说明§r",
         "  - §e背包会自动保存§r§7，重启游戏不会导致物品丢失。",
         "  - §7假人可以捡拾地上的物品。",
-        "  - §7使用 §f/scriptevent ffp:<指令>§7 可在命令方块中执行。",
+        "  - §7使用 §f/scriptevent ffpp:<指令>§7 可在命令方块中执行。",
         "  - §7输入 §f假人github§7 可获取项目地址。",
     ].join('\n');
     entity.sendMessage(helpText);
@@ -106,7 +106,7 @@ helpCommand.register(({ args, isEntity }) => args.length > 0 && isEntity, ({ arg
             "创建": ["创建示例", "假人创建", "假人创建 + 空格 + x y z", "假人创建 100 50 0", "假人创建 + 空格 + name", "假人创建 \"fake player\""],
             "销毁": ["销毁示例", "假人销毁 + 空格 + 序号", "假人销毁 1", "假人销毁 2"],
             "重生": ["重生示例", "假人重生 + 空格 + 序号", "假人重生 1", "假人重生 2"],
-            "scriptevent": ["scriptevent 示例", "/scriptevent ffp:ffpp", "/scriptevent ffp:假人生成 100 50 0", "/scriptevent ffp:假人销毁 2"]
+            "scriptevent": ["scriptevent 示例", "/scriptevent ffpp:ffpp", "/scriptevent ffpp:假人生成 100 50 0", "/scriptevent ffpp:假人销毁 2"]
         })
             [item]
 
