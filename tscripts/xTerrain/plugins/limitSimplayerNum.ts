@@ -31,7 +31,7 @@ cmd.register(/* 验证是否是玩家触发的 */(cmdInfo) => cmdInfo?.isEntity 
             playerSelectionIndexes[index] = playerName;
             parentForm.button(playerName);
         } else {
-            console.warn(`§4[模拟玩家]§r 有非法玩家名： §6${LIMIT_CONFIG_GLOBAL_CONFIG_KEY}§r 设置失败`);
+            console.warn(`§4[模拟玩家]§r 有非法玩家名： §6${LIMIT_CONFIG_GLOBAL_CONFIG_KEY}§r 无法设置`);
         }
     });
 
@@ -105,7 +105,8 @@ cmd.register(/* 验证是否是玩家触发的 */(cmdInfo) => cmdInfo?.isEntity 
                             const limit = result.formValues[1];
                             const number = Number(limit);
                             if (typeof playerName !== 'string'
-                                || playerName === LIMIT_CONFIG_GLOBAL_CONFIG_KEY
+                                || playerName.trim() === LIMIT_CONFIG_GLOBAL_CONFIG_KEY
+                                || playerName.trim() === ''
                                 || (isNaN(number) && limit !== '')) {
                                 cmdInfo.entity.sendMessage(invalidParameterWarnText);
                                 return;
@@ -135,7 +136,6 @@ cmd.register(/* 验证是否是玩家触发的 */(cmdInfo) => cmdInfo?.isEntity 
                                 cmdInfo.entity.sendMessage(invalidParameterWarnText);
                                 return;
                             }
-                            console.log(playerName, playerSelectionIndexes[0], playerSelectionIndexes[1], playerSelectionIndexes[2]);
 
                             parsedLimitConfig[playerName] = limit;
                         } else if (result.cancelationReason === FormCancelationReason.UserClosed) {
