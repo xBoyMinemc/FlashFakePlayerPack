@@ -35,7 +35,7 @@ cmd.register(/* 验证是否是玩家触发的 */(cmdInfo) => cmdInfo?.isEntity 
         }
     });
 
-    function showParentForm() {
+    const showParentForm = function() {
         // @ts-expect-error
         parentForm.show(cmdInfo.entity).then((result) => {
             if (!result.canceled) {
@@ -148,7 +148,7 @@ cmd.register(/* 验证是否是玩家触发的 */(cmdInfo) => cmdInfo?.isEntity 
                 world.setDynamicProperty(LIMIT_CONFIG_DYNAMIC_PROPERTY_KEY, JSON.stringify(parsedLimitConfig));
             }
         });
-    }
+    };
     showParentForm();
 });
 commandManager.registerCommand('限额配置', cmd);
