@@ -5,7 +5,7 @@ import type {
     spawnedEvent,
     spawnedEventSignal,
 } from '../@types/globalThis'
-import { Dimension, LocationOutOfWorldBoundariesError, Player, system, Vector3 } from '@minecraft/server'
+import { Dimension, LocationOutOfWorldBoundariesError, system, Vector3 } from '@minecraft/server'
 
 import { register } from '@minecraft/server-gametest'
 
@@ -30,6 +30,7 @@ import './plugins/task'
 import './plugins/gui'
 import './plugins/autoFishing'
 import './plugins/killedBySimPlayer'
+import './plugins/limitSimplayerNum'
 // import './plugins/setting'
 import './plugins/showCommandsList'
 import { playerMove } from "../lib/xboyEvents/move";
