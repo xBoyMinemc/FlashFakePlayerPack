@@ -29,7 +29,7 @@ cmd.register(/* 验证是否是玩家触发的 */(cmdInfo) => cmdInfo?.isEntity 
         const playerName = player.name;
         if (playerName !== LIMIT_CONFIG_GLOBAL_CONFIG_KEY) {
             playerSelectionIndexes[index] = playerName;
-            parentForm.button('§f' + playerName);
+            parentForm.button(playerName);
         } else {
             console.warn(`§4[模拟玩家]§r 有非法玩家名： §6${LIMIT_CONFIG_GLOBAL_CONFIG_KEY}§r 设置失败`);
         }
