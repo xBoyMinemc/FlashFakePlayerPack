@@ -9,6 +9,7 @@ import {
     world
 } from '@minecraft/server'
 import { simulatedPlayers } from '../main';
+import { playerSpawnedSimulatedPlayerNumbers } from "./limitSimplayerNum";
 
 const dimensionMap: Record<string, string> = {
     'minecraft:overworld': '主世界',
@@ -169,18 +170,17 @@ commandManager.registerCommand(['假人资源回收','假人背包清空','假�
 // disconnect
 const disconnectCommand = new Command();
 disconnectCommand.register(({entity,isEntity,args:[simIndex],sim}) => {
-    if(sim)return sim.disconnect()
-
     if(!isEntity) {
         console.error('error not isEntity')
         return
     }
+    if(sim) {playerSpawnedSimulatedPlayerNumbers[entity.name]=playerSpawnedSimulatedPlayerNumbers[entity.name]-1;return sim.disconnect()}
     if (simIndex === undefined) {
         const SimPlayer:SimulatedPlayer = getSimPlayer.fromView(entity)
         if(!SimPlayer)return entity.sendMessage("§e§l-面前不存在模拟玩家")
 
         commandManager.executeCommand('假人背包清空', [], { entity, isEntity, sim: SimPlayer ,location:getLocationFromEntityLike(entity)})
-        entity.sendMessage("§e§l-拜拜了您内")
+        entity.sendMessage("§e§l-拜拜了您内");playerSpawnedSimulatedPlayerNumbers[entity.name]=playerSpawnedSimulatedPlayerNumbers[entity.name]-1;
         SimPlayer.disconnect()
     }
     else {
@@ -193,7 +193,7 @@ disconnectCommand.register(({entity,isEntity,args:[simIndex],sim}) => {
         if(!SimPlayer)return entity.sendMessage("§e§l-不存在模拟玩家"+index)
 
         commandManager.executeCommand('假人背包清空', [], { entity, isEntity, sim: SimPlayer ,location:getLocationFromEntityLike(entity)})
-        entity.sendMessage("§e§l-拜拜了您内")
+        entity.sendMessage("§e§l-拜拜了您内");playerSpawnedSimulatedPlayerNumbers[entity.name]=playerSpawnedSimulatedPlayerNumbers[entity.name]-1;
         SimPlayer.disconnect()
     }
 
