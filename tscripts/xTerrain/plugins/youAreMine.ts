@@ -174,7 +174,7 @@ disconnectCommand.register(({entity,isEntity,args:[simIndex],sim}) => {
         console.error('error not isEntity')
         return
     }
-    if(sim) {playerSpawnedSimulatedPlayerNumbers[entity.name]=playerSpawnedSimulatedPlayerNumbers[entity.name]-1;return sim.disconnect()}
+    if(sim) {if(entity?.name)playerSpawnedSimulatedPlayerNumbers[entity.name]=playerSpawnedSimulatedPlayerNumbers[entity.name]-1;return sim.disconnect()}
     if (simIndex === undefined) {
         const SimPlayer:SimulatedPlayer = getSimPlayer.fromView(entity)
         if(!SimPlayer)return entity.sendMessage("§e§l-面前不存在模拟玩家")

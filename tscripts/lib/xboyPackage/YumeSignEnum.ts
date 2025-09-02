@@ -91,7 +91,7 @@ export const BEHAVIOR_FUNCTION = {
         // commandManager.executeCommand('假人改名', [name], { entity: player, sim });
     },
     recycle : (sim:SimulatedPlayer,player:Player)=>commandManager.execute('假人资源回收',{entity:player,sim}), // item and exp
-    disconnect : (sim:SimulatedPlayer)=>commandManager.execute('假人销毁',{sim}),
+    disconnect : (sim:SimulatedPlayer,player:Player)=>commandManager.execute('假人销毁',{sim,entity:player}),
 }
 export const exeBehavior = (behavior: string) => BEHAVIOR[behavior] && BEHAVIOR_FUNCTION[behavior]
 
