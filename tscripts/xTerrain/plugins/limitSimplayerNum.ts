@@ -1,6 +1,6 @@
 import { ActionFormData, FormCancelationReason, ModalFormData } from "@minecraft/server-ui";
 import { Command, commandManager } from "../../lib/yumeCommand/CommandRegistry";
-import { Player, type World, world } from "@minecraft/server";
+import { CommandPermissionLevel, Player, type World, world } from "@minecraft/server";
 import { currentPID } from "../main";
 
 export const LIMIT_CONFIG_DYNAMIC_PROPERTY_KEY = 'ffpp:simulated_player_limit_config';
@@ -73,7 +73,7 @@ export function isOutOfLimit(player?: { name: string }): boolean {
 const cmd = new Command();
 cmd.register(/* 验证是否是玩家触发的 */(cmdInfo) => cmdInfo?.isEntity && cmdInfo?.entity instanceof Player, (cmdInfo) => {
     // 如果是普通用户，则无法修改
-    if (cmdInfo.entity.commandPermissionLevel < 1) {
+    if (cmdInfo.entity.commandPermissionLevel === CommandPermissionLevel.Any) {
         cmdInfo.entity.sendMessage('§6[模拟玩家]§r 你的权限不足，无法修改模拟玩家限额');
         return;
     }
