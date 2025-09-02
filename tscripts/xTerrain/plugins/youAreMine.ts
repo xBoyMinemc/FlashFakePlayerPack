@@ -170,11 +170,11 @@ commandManager.registerCommand(['假人资源回收','假人背包清空','假�
 // disconnect
 const disconnectCommand = new Command();
 disconnectCommand.register(({entity,isEntity,args:[simIndex],sim}) => {
+    if(sim) {if(entity?.name)playerSpawnedSimulatedPlayerNumbers[entity.name]=playerSpawnedSimulatedPlayerNumbers[entity.name]-1;return sim.disconnect()}
     if(!isEntity) {
         console.error('error not isEntity')
         return
     }
-    if(sim) {if(entity?.name)playerSpawnedSimulatedPlayerNumbers[entity.name]=playerSpawnedSimulatedPlayerNumbers[entity.name]-1;return sim.disconnect()}
     if (simIndex === undefined) {
         const SimPlayer:SimulatedPlayer = getSimPlayer.fromView(entity)
         if(!SimPlayer)return entity.sendMessage("§e§l-面前不存在模拟玩家")
