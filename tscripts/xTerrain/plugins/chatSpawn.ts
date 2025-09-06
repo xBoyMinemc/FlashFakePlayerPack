@@ -1,41 +1,55 @@
 import type {SimulatedPlayer} from '@minecraft/server-gametest'
 
 import {
-    GetCurrentPID4Player,
-    GetGlobalPID, GetPlayerPID2GlobalPID, initSucceed,
+    GetPID,
+    initSucceed,
     simulatedPlayers,
-    spawned as spawnedEvent,
+    spawned as spawnedEvent, spawnSimulatedPlayer,
     spawnSimulatedPlayerByNameTag
 } from '../main'
 import { type CommandInfo, commandManager, Command } from '../../lib/yumeCommand/CommandRegistry'
 import { Dimension, Vector3, world, type Player } from '@minecraft/server'
 import {xyz_dododo} from "../../lib/xboyPackage/xyz_dododo";
-import { getFakePlayerNameTag } from './Backpack2Barrel';
+import {
+    invalidPlayerNameWarnText, isOutOfLimit,
+    LIMIT_CONFIG_GLOBAL_CONFIG_KEY, outOfLimitWarnText,
+    playerSpawnedSimulatedPlayerNumbers
+} from "./limitSimplayerNum";
 
 const overworld = world.getDimension("overworld");
 
 const spawnAndRegisterSimulatedPlayer = (entity: Player | undefined, location: Vector3, dimension: Dimension, nameTag?: string): void => {
     if (!initSucceed) {
-        entity?.sendMessage('[假人] 插件未初始化完成，请重试');
+        entity?.sendMessage?.('[假人] 插件未初始化完成，请重试');
+        return;
+    }
+    if (entity?.name === LIMIT_CONFIG_GLOBAL_CONFIG_KEY) {
+        entity.sendMessage(invalidPlayerNameWarnText + '生成');
+        return;
+    }
+    if (isOutOfLimit(entity)) {
+        entity?.sendMessage?.(outOfLimitWarnText);
         return;
     }
 
-    const PlayerPID = GetCurrentPID4Player(entity.id);
-    if (!PlayerPID) {
-        entity?.sendMessage('[模拟玩家] 假人数量已达上限，请删除假人后再试');
-        return;
+    const num = playerSpawnedSimulatedPlayerNumbers[entity.name];
+    if (!num) {
+        playerSpawnedSimulatedPlayerNumbers[entity.name] = 1;
+    } else {
+        playerSpawnedSimulatedPlayerNumbers[entity.name] = num + 1;
     }
-    const GlobalPID = GetPlayerPID2GlobalPID(entity.id, PlayerPID);
-    const name = getFakePlayerNameTag(GlobalPID) ?? nameTag ?? ((entity?.name ?? 'flash') + PlayerPID)
+
+    const PID = GetPID();
     const __FlashPlayer__ = world.scoreboard.getObjective('##FlashPlayer##');
-    const simulatedPlayer: SimulatedPlayer = spawnSimulatedPlayerByNameTag(location, dimension, name)
+    const simulatedPlayer: SimulatedPlayer = nameTag
+        ? spawnSimulatedPlayerByNameTag(location, dimension, nameTag)
+        : spawnSimulatedPlayer(location, dimension, PID);
 
+    simulatedPlayers[PID] = simulatedPlayer;
+    simulatedPlayers[simulatedPlayer.id] = PID;
 
-    simulatedPlayers[GlobalPID] = simulatedPlayer;
-    simulatedPlayers[simulatedPlayer.id] = GlobalPID;
-
-    spawnedEvent.trigger({ spawnedSimulatedPlayer: simulatedPlayer, PID:GlobalPID });
-    __FlashPlayer__.setScore(simulatedPlayer.id, GlobalPID);
+    spawnedEvent.trigger({ spawnedSimulatedPlayer: simulatedPlayer, PID });
+    __FlashPlayer__.setScore(simulatedPlayer.id, PID);
 };
 
 const chatSpawnCommand = new Command();

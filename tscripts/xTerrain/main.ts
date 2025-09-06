@@ -5,7 +5,7 @@ import type {
     spawnedEvent,
     spawnedEventSignal,
 } from '../@types/globalThis'
-import { Dimension, LocationOutOfWorldBoundariesError, Player, system, Vector3 } from '@minecraft/server'
+import { Dimension, LocationOutOfWorldBoundariesError, system, Vector3 } from '@minecraft/server'
 
 import { register } from '@minecraft/server-gametest'
 
@@ -16,7 +16,7 @@ import { SIGN } from '../lib/xboyPackage/YumeSignEnum'
 import { world } from '@minecraft/server'
 
 // import './plugins/noFlashDoor' // pig
-
+// THIS IS A SHIT!!! MEI YOU ZHI YI!!!
 
 import './plugins/Backpack2Barrel'
 import './plugins/test'
@@ -30,6 +30,7 @@ import './plugins/task'
 import './plugins/gui'
 import './plugins/autoFishing'
 import './plugins/killedBySimPlayer'
+import './plugins/limitSimplayerNum'
 // import './plugins/setting'
 import './plugins/showCommandsList'
 import { playerMove } from "../lib/xboyEvents/move";
@@ -38,7 +39,7 @@ import '../lib/yumeCommand/scriptEventHandler'
 
 const overworld = world.getDimension('overworld')
 const tickWaitTimes = 20 * 60 * 60 * 24 * 365
-const max_simulatedPlayerCount = 5
+// const max_simulatedPlayerCount = 5
 // all of SimulatedPlayer List
 export const simulatedPlayers = {}
 
@@ -62,87 +63,15 @@ let doMobSpawning = true
 //  ?
 
 let spawnSimulatedPlayerByNameTag: (location: Vector3, dimension: Dimension, nameTag: string) => SimulatedPlayer
+let spawnSimulatedPlayer : (location:Vector3, dimension:Dimension, pid: number  )=>SimulatedPlayer
 let testWorldLocation: Vector3
 let testWorldDimension: Dimension
 
+let currentPID = 0
+const GetPID = ()=> ++currentPID
 
 if (!world.structureManager.get('xboyMinemcSIM:void'))
     world.structureManager.createEmpty('xboyMinemcSIM:void', { x: 1, y: 1, z: 1 }).saveToWorld()
-
-const GetGlobalPID = () => world.scoreboard.getObjective('##FlashPlayer##').addScore('##currentPID', 1)
-
-// 新增每个玩家的个人假人控制ID
-// 使用一个动态属性来管理每个玩家的个人假人控制ID
-// 为了一致所以暂不全部迁移到动态属性
-const currentPID4EveryPlayer = new Map<string, number>()
-const GetCurrentPID4Player = (playerId: string): number | null => {
-    const _max_simulatedPlayerCount = GetPlayerSimulatedPlayerCount(playerId)
-    if (_max_simulatedPlayerCount <= 0) return null
-    const value = currentPID4EveryPlayer.get(playerId) ?? 0
-
-    // 获取此玩家当前可用假人数量
-    const valid_CurrentPID_List = []
-    for (let i = 1; i <= _max_simulatedPlayerCount; i++) {
-        const PID = GetPlayerPID2GlobalPID(playerId, i)
-        if (!PID) { valid_CurrentPID_List.push(i); continue }
-        if (!simulatedPlayers[PID]?.isValid) { valid_CurrentPID_List.push(i); continue }
-    }
-
-
-    if (valid_CurrentPID_List.length <= 0) return null
-    return currentPID4EveryPlayer.set(playerId, value + 1).get(playerId)
-}
-// 将这个这个每次重启游戏重置为1的玩家假人PID和全局递增PID挂钩并且存储在动态属性以供持久化假人信息
-// 每次玩家请求一个假人都会分配一个玩家个人假人PID
-// 如果查询到这个玩家的个人假人PID和全局挂钩则将此个人假人PID指向此全局PID以关联持久化信息
-// 否则获取一个新的全局PID关联到此假人并且存储到动态属性
-// simulatedPlayers中依旧使用全局PID
-function SetPlayerPID2GlobalPID(playerId: string, CurrentPID4Player: number, GlobalPID: number) {
-    // const ex = {
-    //     "-56789": {
-    //         "GlobalPID": 1234567890
-    //     }
-    // }
-    // 苦一苦存储，骂名我来担
-    let data = <string>world.getDynamicProperty("info4EveryPlayer_" + playerId) ?? "{}"
-    const dataObject = JSON.parse(data)
-    if (!dataObject[CurrentPID4Player])
-        dataObject[CurrentPID4Player] = {}
-    dataObject[CurrentPID4Player]["GlobalPID"] = GlobalPID
-    data = JSON.stringify(dataObject)
-    world.setDynamicProperty("info4EveryPlayer_" + playerId, data)
-}
-const GetPlayerPID2GlobalPID = (playerId: string, CurrentPID4Player: number): number => {
-    const data = <string>world.getDynamicProperty("info4EveryPlayer_" + playerId) ?? "{}"
-    const dataObject = JSON.parse(data)
-    let GlobalPID = dataObject?.[CurrentPID4Player]?.GlobalPID
-    if (!GlobalPID)
-        SetPlayerPID2GlobalPID(playerId, CurrentPID4Player, GlobalPID = GetGlobalPID())
-    return GlobalPID as number
-}
-
-// 每个玩家享受单独的假人限额
-const GetPlayerSimulatedPlayerCount = (playerId: string): number => {
-    const data = <string>world.getDynamicProperty("info4EveryPlayer_" + playerId) ?? "{}"
-    const dataObject = JSON.parse(data)
-    let _max_simulatedPlayerCount = dataObject?._max_simulatedPlayerCount
-    if (!_max_simulatedPlayerCount) {
-        _max_simulatedPlayerCount = max_simulatedPlayerCount
-        SetPlayerSimulatedPlayerCount(playerId, _max_simulatedPlayerCount)
-        world.sendMessage('[模拟玩家] 每个玩家享受单独的假人限额: ' + _max_simulatedPlayerCount)
-    }
-    return _max_simulatedPlayerCount as number
-}
-
-const SetPlayerSimulatedPlayerCount = (playerId: string, count: number) => {
-    let data = <string>world.getDynamicProperty("info4EveryPlayer_" + playerId) ?? "{}"
-    const dataObject = JSON.parse(data)
-    dataObject._max_simulatedPlayerCount = count
-    data = JSON.stringify(dataObject)
-    world.setDynamicProperty("info4EveryPlayer_" + playerId, data)
-}
-
-
 
 export const initialized: initializedEventSignal = new EventSignal<initializedEvent>()
 export const spawned: spawnedEventSignal = new EventSignal<spawnedEvent>()
@@ -156,8 +85,10 @@ register('我是云梦', '假人', (test: Test) => {
     world.gameRules.doDayLightCycle = doDayLightCycle
     world.gameRules.doMobSpawning = doMobSpawning
 
+    spawnSimulatedPlayer = (location:Vector3, dimension:Dimension, pid: number ):SimulatedPlayer=>{
+        return spawnSimulatedPlayerByNameTag(location, dimension, `工具人-${pid}`)
+    }
     spawnSimulatedPlayerByNameTag = (location: Vector3, dimension: Dimension, nameTag: string): SimulatedPlayer => {
-
         // 是的，这个nameTag在这里实际先被作为name
         const simulatedPlayer = test.spawnSimulatedPlayer({ x: 0, y: 8, z: 0 }, nameTag)
         simulatedPlayer.addTag('Backpack2Barrel_init')
@@ -234,5 +165,5 @@ world.beforeEvents.chatSend.subscribe(({ message, sender }) => {
     });
 });
 
-export { spawnSimulatedPlayerByNameTag, testWorldLocation, testWorldDimension, GetGlobalPID, GetCurrentPID4Player, GetPlayerPID2GlobalPID }
+export { spawnSimulatedPlayerByNameTag, spawnSimulatedPlayer, testWorldLocation, testWorldDimension, currentPID, GetPID }
 

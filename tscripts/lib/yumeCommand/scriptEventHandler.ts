@@ -12,9 +12,9 @@ import {
     cannotHandledExceptionWarningText
 } from "./CommandRegistry";
 
-const namespaces = ['ffpp'];
+const namespaces = ['ffp', 'ffpp'];
 
-type ScriptEventID = `ffpp:${string}`;
+type ScriptEventID = `ffp:${string}` | `ffpp:${string}`;
 
 class CannotGetLocationError extends Error {
     constructor(message: string) {
