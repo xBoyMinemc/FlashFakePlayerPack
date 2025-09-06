@@ -25,7 +25,8 @@ export function parseConfig(config: ReturnType<World["getDynamicProperty"]>): ob
     try {
         if (typeof config === 'string') {
             result = JSON.parse(config);
-            if (typeof result !== 'object') {
+            if (typeof result !== 'object' || result === null) {
+                warn();
                 return false;
             } else {
                 return result;
