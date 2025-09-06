@@ -8,6 +8,7 @@ export const LIMIT_CONFIG_GLOBAL_CONFIG_KEY = '__global__';
 
 const invalidConfigWarnText = '[模拟玩家] 配置疑似被篡改，已修复。请检查最近有没有安装可疑行为包？如果是第一次使用此功能则可忽略';
 const invalidParameterWarnText = '§4[模拟玩家]§r 输入非法参数，设置失败';
+const numberIsNegativeWarnText = '§4[模拟玩家]§r 数字不能为负数。您可使用0来禁止生成，但不能使用负数' + (Math.random() < 0.1234 ? '。你问为啥？问就是石山代码' : '');
 export const invalidPlayerNameWarnText = `§4[模拟玩家]§r 有非法玩家名： §6${LIMIT_CONFIG_GLOBAL_CONFIG_KEY}§r 无法`;
 export const outOfLimitWarnText = '§6[模拟玩家]§r 您或全局的假人数量已超过限额';
 
@@ -117,7 +118,12 @@ cmd.register(/* 验证是否是玩家触发的 */(cmdInfo) => cmdInfo?.isEntity 
                     form.show(cmdInfo.entity).then((result) => {
                         if (!result.canceled) {
                             const limit = result.formValues[0];
-                            if (!Number.isSafeInteger(Number(limit)) && limit !== '') {
+                            const number = Number(limit);
+                            if (number < 0) {
+                                cmdInfo.entity.sendMessage(numberIsNegativeWarnText);
+                                return;
+                            }
+                            if (!Number.isSafeInteger(number) && limit !== '') {
                                 cmdInfo.entity.sendMessage(invalidParameterWarnText);
                                 return;
                             }
@@ -145,10 +151,15 @@ cmd.register(/* 验证是否是玩家触发的 */(cmdInfo) => cmdInfo?.isEntity 
                         if (!result.canceled) {
                             const playerName = result.formValues[0];
                             const limit = result.formValues[1];
+                            const number = Number(limit);
+                            if (number < 0) {
+                                cmdInfo.entity.sendMessage(numberIsNegativeWarnText);
+                                return;
+                            }
                             if (typeof playerName !== 'string'
                                 || playerName.trim() === LIMIT_CONFIG_GLOBAL_CONFIG_KEY
                                 || playerName.trim() === ''
-                                || (!Number.isSafeInteger(Number(limit)) && limit !== '')) {
+                                || (!Number.isSafeInteger(number) && limit !== '')) {
                                 cmdInfo.entity.sendMessage(invalidParameterWarnText);
                                 return;
                             }
@@ -173,7 +184,12 @@ cmd.register(/* 验证是否是玩家触发的 */(cmdInfo) => cmdInfo?.isEntity 
                     form.show(cmdInfo.entity).then((result) => {
                         if (!result.canceled) {
                             const limit = result.formValues[0];
-                            if (!Number.isSafeInteger(Number(limit)) && limit !== '') {
+                            const number = Number(limit);
+                            if (number < 0) {
+                                cmdInfo.entity.sendMessage(numberIsNegativeWarnText);
+                                return;
+                            }
+                            if (!Number.isSafeInteger(number) && limit !== '') {
                                 cmdInfo.entity.sendMessage(invalidParameterWarnText);
                                 return;
                             }
