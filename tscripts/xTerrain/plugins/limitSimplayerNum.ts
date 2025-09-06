@@ -117,8 +117,7 @@ cmd.register(/* 验证是否是玩家触发的 */(cmdInfo) => cmdInfo?.isEntity 
                     form.show(cmdInfo.entity).then((result) => {
                         if (!result.canceled) {
                             const limit = result.formValues[0];
-                            const number = Number(limit);
-                            if (isNaN(number) && limit !== '') {
+                            if (!Number.isSafeInteger(Number(limit)) && limit !== '') {
                                 cmdInfo.entity.sendMessage(invalidParameterWarnText);
                                 return;
                             }
@@ -146,11 +145,10 @@ cmd.register(/* 验证是否是玩家触发的 */(cmdInfo) => cmdInfo?.isEntity 
                         if (!result.canceled) {
                             const playerName = result.formValues[0];
                             const limit = result.formValues[1];
-                            const number = Number(limit);
                             if (typeof playerName !== 'string'
                                 || playerName.trim() === LIMIT_CONFIG_GLOBAL_CONFIG_KEY
                                 || playerName.trim() === ''
-                                || (isNaN(number) && limit !== '')) {
+                                || (!Number.isSafeInteger(Number(limit)) && limit !== '')) {
                                 cmdInfo.entity.sendMessage(invalidParameterWarnText);
                                 return;
                             }
@@ -175,8 +173,7 @@ cmd.register(/* 验证是否是玩家触发的 */(cmdInfo) => cmdInfo?.isEntity 
                     form.show(cmdInfo.entity).then((result) => {
                         if (!result.canceled) {
                             const limit = result.formValues[0];
-                            const number = Number(limit);
-                            if (isNaN(number) && limit !== '') {
+                            if (!Number.isSafeInteger(Number(limit)) && limit !== '') {
                                 cmdInfo.entity.sendMessage(invalidParameterWarnText);
                                 return;
                             }
