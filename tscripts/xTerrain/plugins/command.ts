@@ -23,7 +23,7 @@ world.afterEvents.chatSend.subscribe( event => {
 
             const 眼前的工具人 = <Entity><unknown>getSimPlayer.fromView(发起者, 16);
             //懒改--2023-07-21--评
-            const TagsManager = (xboy: string) => (minemc: Entity) => (need: string) => (add:string[]=[]) => (remove: string[]=[]) => xboy === need ? (add.length ? add.forEach(t => minemc.addTag(t)) : 0, remove.length ? remove.forEach(t => minemc.removeTag(t)) : 0) : 0;
+            const TagsManager = (xboy: string) => (minemc: Entity) => (need: string) => (add:string[]=[]) => (remove: string[]=[]) => xboy === need && (add.length && add.forEach(t => minemc.addTag(t)), remove.length && remove.forEach(t => minemc.removeTag(t)) );
             const xboy = TagsManager(消息)(眼前的工具人)
             xboy("攻击")([SIGN.ATTACK_SIGN])([SIGN.AUTO_ATTACK_SIGN])
             xboy("自动攻击")([SIGN.AUTO_ATTACK_SIGN])([SIGN.ATTACK_SIGN])
